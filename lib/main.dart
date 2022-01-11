@@ -8,17 +8,18 @@ import 'package:hrms/res/Screens.dart';
 import 'package:provider/provider.dart';
 
 import 'home/drawer/BaseProvider.dart';
+import 'home/drawer/rev_drawer.dart';
 
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 
 
 class MyApp extends StatefulWidget {
-  final bool isLoggedIn;
+
 
 
 
@@ -47,7 +48,7 @@ class _ScreenState extends State<MyApp> {
           switch(settings.name)
           {
             case Screens.kHomeScreen:
-              return RouteTransition(widget:HomePage());
+              return RouteTransition(widget:HomeScreen());
               break;
             case Screens.kBaseScreen:
               return RouteTransition(
@@ -61,9 +62,10 @@ class _ScreenState extends State<MyApp> {
 
           }
         },
-        home:   ChangeNotifierProvider<BaseProvider>(
+        home:     ChangeNotifierProvider<BaseProvider>(
         create: (context) => BaseProvider(),
     child: RevDrawer(),
+   // child: RevDrawer(),
     )
 
     );

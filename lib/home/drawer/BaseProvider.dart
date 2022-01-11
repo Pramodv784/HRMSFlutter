@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hrms/res/Screens.dart';
 class BaseProvider extends ChangeNotifier {
-  late String _currentScreen;
+   String _currentScreen;
   String userName = "";
 
   double xoffSet = 0;
@@ -15,7 +15,7 @@ class BaseProvider extends ChangeNotifier {
   bool isOpen = false;
   bool isPlaying = false;
 
-  String get currentScreen => _currentScreen ?? Screens.kHomeScreen;
+  String get currentScreen =>   _currentScreen ?? Screens.kHomeScreen;
 
   set currentScreen(String value) {
     _currentScreen = value;

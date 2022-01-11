@@ -26,8 +26,8 @@ class _MidLayerState extends State<MidLayer> {
   String picture = "";
   String lastName = "";
 
-  late BaseProvider _provider;
-  late Animation<double> scaleAnimation;
+   BaseProvider _provider;
+   Animation<double> scaleAnimation;
 
   @override
   void initState() {
@@ -136,7 +136,7 @@ class _MidLayerState extends State<MidLayer> {
     );
   }
 
-  Widget drawerRowBuilder(String iconRes, String screen, {required BuildContext context}) {
+  Widget drawerRowBuilder(String iconRes, String screen, { BuildContext context}) {
     return InkWell(
       child: Container(
         child: Row(

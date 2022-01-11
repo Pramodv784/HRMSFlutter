@@ -5,7 +5,7 @@ import 'package:animations/animations.dart';
 class RouteTransition extends PageRouteBuilder {
   final Widget widget;
 
-  RouteTransition({ required this.widget})
+  RouteTransition({  this.widget})
       : super(
           pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
             return widget;
