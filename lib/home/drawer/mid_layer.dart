@@ -1,0 +1,190 @@
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:hrms/api_provider/endpoints.dart';
+import 'package:hrms/res/AppColors.dart';
+import 'package:hrms/res/Fonts.dart';
+import 'package:hrms/res/Images.dart';
+import 'package:hrms/utility/Utility.dart';
+
+import 'package:provider/provider.dart';
+
+import 'BaseProvider.dart';
+
+
+
+// ignore: must_be_immutable
+class MidLayer extends StatefulWidget {
+  @override
+  _MidLayerState createState() => _MidLayerState();
+}
+
+class _MidLayerState extends State<MidLayer> {
+  // String currentSelectedScreen = Screens.kResetPasswordScreen;
+  String firstName = "";
+  String email = "";
+  String picture = "";
+  String lastName = "";
+
+  late BaseProvider _provider;
+  late Animation<double> scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    init();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    init();
+  }
+
+  void init() async {
+    /* Future.delayed(const Duration(seconds: 1), () async {
+      var data = (await AuthUser.getInstance().getCurrentUser())?.profileResponse?.data?.jsonData;
+      firstName = data?.firstName;
+      email = data?.username;
+      picture = data?.picture ?? "";
+      lastName = data?.lastName ?? "";
+      // Here you can write your code
+      setState((){});
+    });*/
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _provider = Provider.of<BaseProvider>(context);
+    return Container(
+      color: AppColors.colorPrimary,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          verticalSpace(30.0),
+          Container(
+            margin: EdgeInsets.only(left: 30.0),
+            child: Row(
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: picture == ""
+                        ? Image.asset(
+                      Images.UserIcon,
+                      height: 70,
+                      width: 70,
+                    )
+                        : FadeInImage(
+                        placeholder: AssetImage(Images.UserIcon),
+                        imageErrorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            Images.UserIcon,
+                            height: 70,
+                            width: 70,
+                          );
+                        },
+                        image:(picture ?? '').contains("https")
+                            ? NetworkImage(picture ?? '')
+                            : NetworkImage(EndPoints.baseUrl + '/' + picture ?? ''),
+                        //NetworkImage(EndPoints.BASE_URL + picture),
+                        height: 70,
+                        width: 70)),
+                //Image.asset(Images.kPlaceHolderProfile, height: 90),
+                horizontalSpace(6.0),
+                SizedBox(
+                  width: 120, // hard coding child width
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("$firstName $lastName", style: textStyleWhite14px500w),
+                      // Text("$email", style: textStyleWhite14px400w2l),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          verticalSpace(40.0),
+         /* Expanded(
+
+            child: Container(
+              margin: EdgeInsets.only(left: 30.0),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  drawerRowBuilder(Images.kHomeIcon,'Dashboard', context: context),
+                  // verticalSpace(30.0),
+                  // drawerRowBuilder(Images.kIconTestHistory, Screens.kScreenTestHistory, context: context),
+                  verticalSpace(30.0),
+                  drawerRowBuilder(Images.LeadIcon,'Leads', context: context),
+                  // verticalSpace(30.0),
+                  // drawerRowBuilder(Images.kIconRateUs, Screens.kScreenRateUs, context: context),
+                  verticalSpace(30.0),
+                  drawerRowBuilder(Images.ContactIcon,'Contact Us', context: context),
+                  // verticalSpace(30.0),
+                  // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
+                  verticalSpace(30.0),
+
+                  drawerRowBuilder(Images.LogoIcon,'Logout', context: context),
+                  verticalSpace(30.0),
+                ],
+              ),
+            ),
+          ),*/
+        ],
+      ),
+    );
+  }
+
+  Widget drawerRowBuilder(String iconRes, String screen, {required BuildContext context}) {
+    return InkWell(
+      child: Container(
+        child: Row(
+          children: [
+            Image.asset(iconRes, width: 24, height: 24,color: AppColors.white,),
+            horizontalSpace(12.0),
+            Text(screen, style: textStyleWhite16px500w),
+          ],
+        ),
+      ),
+      onTap: () async {
+        if (_provider.isOpen)
+          _provider.close();
+        await Future.delayed(Duration(milliseconds: 300));
+         //_provider.currentScreen = screen;
+        switch (screen) {
+/*          case Screens.kScreenTestHistory:
+            _provider.currentScreen = screen;
+            break;
+          case Screens.kEditProfileScreen:
+            var isUpdated = await Navigator.pushNamed(context, Screens.kEditProfileScreen) ;
+            print("isUpdated ${isUpdated}");
+            init();
+            break;
+          case Screens.kScreenTnc:
+            Navigator.pushNamed(context, Screens.kScreenTnc);
+            break;*/
+          case "Contact Us":
+          //  Navigator.pushNamed(context, Screens.kContactScreen);
+            break;
+          case "Leads":
+            //Navigator.pop(context);
+            _provider.close();
+            //Navigator.pushNamed(context, Screens.kTotalLeadScreen);
+            break;
+          case "Logout":
+
+           /* Dialogs.showCustomDialog(context, onAccept: () async {
+              AuthUser.getInstance().logout();
+              //RouteTransition(widget: LoginScreen());
+              Navigator.pop(context);
+              Navigator.pushNamed(context, Screens.kLoginScreen);
+            }, onReject: () {
+              Navigator.of(context).pop();
+            }, title: 'Logout', message: 'Are you sure you want to log out ?');*/
+            break;
+        }
+      },
+    );
+  }
+}
