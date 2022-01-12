@@ -78,7 +78,7 @@ class Utility {
     return dtm;
   }
   static void showErrorToast(BuildContext context, String text) async {
-    FToast fToast = FToast(context);
+    FToast fToast = FToast();
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: AppColors.red),
@@ -101,7 +101,7 @@ class Utility {
   }
 
   static void showSuccessToastB(BuildContext context, String text) async {
-    FToast fToast = FToast(context);
+    FToast fToast = FToast();
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
       decoration: BoxDecoration(

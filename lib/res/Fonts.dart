@@ -258,7 +258,13 @@ const textStyle12px400w = TextStyle(
 
 
 const textStyleWhite12px400w = TextStyle(
-    color: AppColors.colorPrimary,
+    color: AppColors.black,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.bold,
+    fontSize: fontH4);
+
+const textStyleWhite16px400w = TextStyle(
+    color: AppColors.black,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.bold,
     fontSize: fontH6);
@@ -668,7 +674,7 @@ const textStyleWhite16px500w = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 16);
 
-const textStyleWhite16px400w = TextStyle(
+const textStyleWhite16px400wB = TextStyle(
     color: AppColors.white,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w400,
