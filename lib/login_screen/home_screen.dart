@@ -57,7 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
               text: "",
               borderColor: AppColors.white,
             ),*/
-            Image.asset(Images.UserIcon, height: 52.0),
+            Align(
+              alignment: Alignment.centerLeft,
+                child: Image.asset(Images.UserIcon, height: 52.0)),
 
           ],
         ),
