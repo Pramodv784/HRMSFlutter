@@ -31,11 +31,16 @@ abstract class AppColors {
   static const inputFieldBackgroundColor = Color(0xFFEFF6F5);
 
   static const white = Color(0xFFFFFFFF);
+  static const g1 = Color(0xFFDE1F26);
+  static const g2 = Color(0xFF790004);
+
+
   static const black = Color(0xFF231F20);
+  static const background = Color(0xFFF5F5F5);
   static const grey = Color(0xFFEAE9E9);
   static const KitBlack = Color(0xFF30303C);
   static const KitTransGrey = Colors.grey;
-  static const background = Color(0xFFECF0F3);
+
   static const shadow = Color(0xFF722936);
 
   static const moonWhiteColor = Color(0xFFEAF4FC);

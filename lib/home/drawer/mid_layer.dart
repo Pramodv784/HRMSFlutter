@@ -57,7 +57,7 @@ class _MidLayerState extends State<MidLayer> {
   Widget build(BuildContext context) {
     _provider = Provider.of<BaseProvider>(context);
     return Container(
-      color: AppColors.colorPrimary,
+      color: AppColors.textColorLightBlack,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -105,32 +105,32 @@ class _MidLayerState extends State<MidLayer> {
             ),
           ),
           verticalSpace(40.0),
-         /* Expanded(
+          Expanded(
 
             child: Container(
               margin: EdgeInsets.only(left: 30.0),
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  drawerRowBuilder(Images.kHomeIcon,'Dashboard', context: context),
+                  drawerRowBuilder(Images.StarICon,'Dashboard', context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconTestHistory, Screens.kScreenTestHistory, context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.LeadIcon,'Leads', context: context),
+                  drawerRowBuilder(Images.StarICon,'Employee feedback', context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconRateUs, Screens.kScreenRateUs, context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.ContactIcon,'Contact Us', context: context),
+                  drawerRowBuilder(Images.StarICon,'Leave Request', context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
                   verticalSpace(30.0),
 
-                  drawerRowBuilder(Images.LogoIcon,'Logout', context: context),
+                  drawerRowBuilder(Images.StarICon,'Logout', context: context),
                   verticalSpace(30.0),
                 ],
               ),
             ),
-          ),*/
+          ),
         ],
       ),
     );
