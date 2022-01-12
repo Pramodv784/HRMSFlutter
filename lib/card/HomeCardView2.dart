@@ -23,7 +23,8 @@ class HomeCard2 extends StatelessWidget {
             ),
         SizedBox(height: 15.0,),
         Container(
-          height: 70.0,
+          height: 60.0,
+          alignment: Alignment.center,
           decoration: BoxDecoration(gradient:
            LinearGradient(
                begin: Alignment.topLeft,
