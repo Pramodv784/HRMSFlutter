@@ -1,6 +1,6 @@
-
-import 'package:hrms/home/drawer/rev_bottom_navigation.dart';
-import 'package:hrms/login_screen/home_screen.dart';
+import 'package:hrms/drawer/rev_bottom_navigation.dart';
+import 'package:hrms/home_screen/home_screen.dart';
+import 'package:hrms/login_screen/login_screen.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:flutter/material.dart';
 import 'package:hrms/res/Screens.dart';
@@ -10,8 +10,6 @@ import 'package:matrix4_transform/matrix4_transform.dart';
 import 'package:provider/provider.dart';
 
 import 'BaseProvider.dart';
-
-
 
 
 // ignore: must_be_immutable
@@ -27,8 +25,8 @@ class Base extends StatelessWidget {
   void initState() async {
     allDestinations = {
       Screens.kHomeScreen: HomeScreen(),
-      Screens.kHomeScreen: HomeScreen(),
-      Screens.kHomeScreen: HomeScreen(),
+      // Screens.kHomeScreen: HomeScreen(),
+      // Screens.kHomeScreen: HomeScreen(),
     };
   }
 

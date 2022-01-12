@@ -6,7 +6,8 @@ class Screens {
 
   static const kHomeScreen = "Dashboard";
 
+  static const kLoginScreen = "Login";
 
- // static const kTotalCarWash = "Service";
+  // static const kTotalCarWash = "Service";
 
 }
