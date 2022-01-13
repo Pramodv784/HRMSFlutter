@@ -9,5 +9,6 @@ class Images {
   static const LogoIcon = base + 'ic_logo.png';
   static const AchievIcon = base + 'ic_achiev.png';
   static const StarICon = base + 'ic_star.png';
+  static const TooltipIcon = base + 'ic_tooltip.png';
 
 }

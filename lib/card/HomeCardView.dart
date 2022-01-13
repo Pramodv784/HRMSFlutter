@@ -10,7 +10,7 @@ class HomeCard extends StatelessWidget {
       margin: EdgeInsets.all(10.0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             Row(

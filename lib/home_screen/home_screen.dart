@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hrms/card/HomeCardView.dart';
 import 'package:hrms/card/HomeCardView2.dart';
@@ -18,20 +19,60 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+   TooltipBehavior _tooltipBehavior;
   final List<ScoreData> chartData = [
     ScoreData('Jan', 1,AppColors.red),
     ScoreData('Feb', 2, AppColors.red),
     ScoreData('Mar', 8, AppColors.red),
     ScoreData('Apr', 8, AppColors.red),
     ScoreData('May', 0, AppColors.red),
-    ScoreData('Jun', 5, AppColors.red),
-    ScoreData('jul', 5, AppColors.red),
+    ScoreData('Jun', 3, AppColors.red),
+    ScoreData('jul', 7, AppColors.red),
     ScoreData('Aug', 5, AppColors.red),
     ScoreData('Sep', 6, AppColors.red),
     ScoreData('Oct', 9, AppColors.red),
     ScoreData('Nov', 2, AppColors.red),
     ScoreData('Dec', 7, AppColors.red),
   ];
+  @override
+  void initState() {
+    _tooltipBehavior=TooltipBehavior(
+      enable: true  ,
+
+        color: Colors.red,
+        borderColor: AppColors.g2,
+        builder: (dynamic data, dynamic point, dynamic series,
+            int pointIndex, int seriesIndex) {
+          return Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Container(
+               width: 60.0,
+              decoration: BoxDecoration(gradient:
+              LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomLeft,
+                  colors: [AppColors.g1, AppColors.g2]
+              ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey[500],
+                      offset: Offset(0.0, 1.5),
+                      blurRadius: 1.5,
+                    ),
+                  ],),
+              child: Row(
+                children: [
+                  Image.asset(Images.TooltipIcon,),
+                  SizedBox(width: 3,),
+                  Text('${chartData[pointIndex].y}',style: TextStyle(color: AppColors.white,fontSize: 15.0),)
+                ],
+              ),
+            ),
+          );
+        }
+    );
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +100,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       child: SfCartesianChart(
                         enableAxisAnimation: true,
-                          primaryYAxis: NumericAxis(minimum: 0,maximum: 10),
+                          tooltipBehavior: _tooltipBehavior,
+                          primaryYAxis: NumericAxis(minimum: 0,maximum: 10,
+                              interval: 1),
                           primaryXAxis: CategoryAxis(
-                            arrangeByIndex: true,
-                            axisLine: AxisLine(
-                              color: Colors.deepOrange,
-                              width: 2,
-                              dashArray: <double>[5, 5],
-                            )),
+                            interval: 1,
+
+                          ),
                         palette: <Color>[AppColors.red],
                         series: <CartesianSeries>[
                           ColumnSeries<ScoreData, String>(
