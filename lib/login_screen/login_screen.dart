@@ -8,6 +8,7 @@ import 'package:hrms/drawer/rev_drawer.dart';
 import 'package:hrms/login_screen/bloc/login_bloc.dart';
 import 'package:hrms/login_screen/bloc/login_event.dart';
 import 'package:hrms/login_screen/bloc/login_state.dart';
+import 'package:hrms/user/CurrentUser.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -29,7 +30,12 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is LoginSuccessState) {
             log("Login Response +++++++++++ " + state.response.message);
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=> RevDrawer()));
+            //print(response);
+           /* var currentUser = CurrentUser()..userCredentials = state.response;
+            currentUser.isLoggedIn = true;
+            //currentUser.userId=state.response.;
+
+           // AuthUser.getInstance().login(currentUser);*/
             
           }
         },

@@ -63,7 +63,8 @@ class _ScreenState extends State<MyApp> {
       },
       home: ChangeNotifierProvider<BaseProvider>(
         create: (context) => BaseProvider(),
-        child: RevDrawer(),
+       // child: RevDrawer(),
+        child: LoginScreen(),
         // child: RevDrawer(),
       ),
     );
