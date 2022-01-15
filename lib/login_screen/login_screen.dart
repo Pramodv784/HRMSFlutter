@@ -8,6 +8,8 @@ import 'package:hrms/drawer/rev_drawer.dart';
 import 'package:hrms/login_screen/bloc/login_bloc.dart';
 import 'package:hrms/login_screen/bloc/login_event.dart';
 import 'package:hrms/login_screen/bloc/login_state.dart';
+import 'package:hrms/res/Screens.dart';
+import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/user/CurrentUser.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,11 +33,11 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccessState) {
             log("Login Response +++++++++++ " + state.response.message);
             //print(response);
-           /* var currentUser = CurrentUser()..userCredentials = state.response;
+            var currentUser = CurrentUser()..userCredentials = state.response;
             currentUser.isLoggedIn = true;
-            //currentUser.userId=state.response.;
-
-           // AuthUser.getInstance().login(currentUser);*/
+            currentUser.userId=state.response.userDataList[0].employeeId;
+            AuthUser.getInstance().login(currentUser);
+            Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
             
           }
         },

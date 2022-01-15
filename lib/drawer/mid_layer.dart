@@ -57,51 +57,53 @@ class _MidLayerState extends State<MidLayer> {
   Widget build(BuildContext context) {
     _provider = Provider.of<BaseProvider>(context);
     return Container(
-      color: AppColors.textColorLightBlack,
+      color: AppColors.colorPrimary,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpace(30.0),
-          Container(
-            margin: EdgeInsets.only(left: 30.0),
-            child: Row(
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: picture == ""
-                        ? Image.asset(
-                      Images.UserIcon,
-                      height: 70,
-                      width: 70,
-                    )
-                        : FadeInImage(
-                        placeholder: AssetImage(Images.UserIcon),
-                        imageErrorBuilder: (context, error, stackTrace) {
-                          return Image.asset(
-                            Images.UserIcon,
-                            height: 70,
-                            width: 70,
-                          );
-                        },
-                        image:(picture ?? '').contains("https")
-                            ? NetworkImage(picture ?? '')
-                            : NetworkImage(EndPoints.baseUrl + '/' + picture ?? ''),
-                        //NetworkImage(EndPoints.BASE_URL + picture),
+          Center(
+            child: Container(
+              margin: EdgeInsets.only(left: 30.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: picture == ""
+                          ? Image.asset(
+                        Images.LogoIcon,
                         height: 70,
-                        width: 70)),
-                //Image.asset(Images.kPlaceHolderProfile, height: 90),
-                horizontalSpace(6.0),
-                SizedBox(
-                  width: 120, // hard coding child width
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("$firstName $lastName", style: textStyleWhite14px500w),
-                      // Text("$email", style: textStyleWhite14px400w2l),
-                    ],
+                        width: 70,
+                      )
+                          : FadeInImage(
+                          placeholder: AssetImage(Images.UserIcon),
+                          imageErrorBuilder: (context, error, stackTrace) {
+                            return Image.asset(
+                              Images.LogoIcon,
+                              height: 70,
+                              width: 70,
+                            );
+                          },
+                          image:(picture ?? '').contains("https")
+                              ? NetworkImage(picture ?? '')
+                              : NetworkImage(EndPoints.baseUrl + '/' + picture ?? ''),
+                          //NetworkImage(EndPoints.BASE_URL + picture),
+                          height: 70,
+                          width: 70)),
+                  //Image.asset(Images.kPlaceHolderProfile, height: 90),
+                  horizontalSpace(6.0),
+                  SizedBox(
+                    width: 120, // hard coding child width
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("$firstName $lastName", style: textStyleWhite14px500w),
+                        // Text("$email", style: textStyleWhite14px400w2l),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           verticalSpace(40.0),
@@ -112,20 +114,20 @@ class _MidLayerState extends State<MidLayer> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  drawerRowBuilder(Images.StarICon,'Dashboard', context: context),
+                  drawerRowBuilder(Images.DashIcon,'Dashboard', context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconTestHistory, Screens.kScreenTestHistory, context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.StarICon,'Employee feedback', context: context),
+                  drawerRowBuilder(Images.EmpIcon,'Employee feedback', context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconRateUs, Screens.kScreenRateUs, context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.StarICon,'Leave Request', context: context),
+                  drawerRowBuilder(Images.LogoutIcon,'Leave Request', context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
                   verticalSpace(30.0),
 
-                  drawerRowBuilder(Images.StarICon,'Logout', context: context),
+                  drawerRowBuilder(Images.LogoutIcon,'Logout', context: context),
                   verticalSpace(30.0),
                 ],
               ),
@@ -140,10 +142,14 @@ class _MidLayerState extends State<MidLayer> {
     return InkWell(
       child: Container(
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.start, //change here don't //worked
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(iconRes, width: 24, height: 24,color: AppColors.white,),
             horizontalSpace(12.0),
             Text(screen, style: textStyleWhite16px500w),
+
+            //Image.asset(Images.ArrowIcon),
           ],
         ),
       ),

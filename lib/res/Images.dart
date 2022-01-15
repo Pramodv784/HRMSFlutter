@@ -10,5 +10,12 @@ class Images {
   static const AchievIcon = base + 'ic_achiev.png';
   static const StarICon = base + 'ic_star.png';
   static const TooltipIcon = base + 'ic_tooltip.png';
+  static const DashIcon = base + 'ic_dash.png';
+  static const EmpIcon = base + 'ic_emp.png';
+  static const LogoutIcon = base + 'ic_logout.png';
+  static const ArrowIcon = base + 'ic_arrow_right.png';
+  static const BackIcon = base + 'ic_back.png';
+  static const DropIcon = base + 'ic_dropdown.png';
+  static const CloseIcon = base + 'ic_close.png';
 
 }

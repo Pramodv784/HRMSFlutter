@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// Created by Pratik Kataria on 20-02-2021.
 
 abstract class AppColors {
-  static const colorPrimary = Color(0xFFFED32F);
+  static const colorPrimary = Color(0xFF1E1F22);
   static const colorPrimaryDark = Color(0xFF009671);
   static const colorPrimaryLight = Color(0xFFEFF6F5);
   static const colorInput = Color(0xFFFBFBFB);
@@ -38,6 +38,7 @@ abstract class AppColors {
   static const black = Color(0xFF231F20);
   static const background = Color(0xFFF5F5F5);
   static const grey = Color(0xFFEAE9E9);
+  static const dropbg = Color(0xFFF8FBFF);
   static const KitBlack = Color(0xFF30303C);
   static const KitTransGrey = Colors.grey;
 

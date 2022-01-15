@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hrms/home_screen/model/home_avg_score_response.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 class HomeCard extends StatelessWidget {
-  const HomeCard({Key key}) : super(key: key);
+  HomeAvgScoreResponse _data;
+   HomeCard(this._data,{Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

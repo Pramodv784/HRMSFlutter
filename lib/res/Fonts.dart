@@ -524,7 +524,7 @@ const textStyleRegular16px500px = TextStyle(
     fontSize: fontH4);
 
 const textStyleRegular16px600px = TextStyle(
-    color: AppColors.textColorBlack,
+    color: AppColors.white,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w600,
     fontSize: fontH4);

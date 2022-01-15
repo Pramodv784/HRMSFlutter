@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hrms/home_screen/model/home_avg_score_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 class HomeCard2 extends StatelessWidget {
-  const HomeCard2({Key key}) : super(key: key);
+  HomeAvgScoreResponse _data;
+   HomeCard2(this._data,{Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class HomeCard2 extends StatelessWidget {
                       Text('Your Avg Score',style: textStyleWhite16px400wB,),
                       Row(
                         children: [
-                          Text('09',style: textStyleWhite16px400wB,),
+                          Text('${_data?.myAvgScore ?? 0}',style: textStyleWhite16px400wB,),
                           SizedBox(width: 5,),
                           Image.asset(Images.StarICon,height: 30,width: 30,)
                         ],

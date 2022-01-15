@@ -26,7 +26,7 @@ class BaseProvider extends ChangeNotifier {
     xoffSet = 250;
     yoffSet = 80;
     angle = -0.2;
-    scaleFactor = .9;
+    scaleFactor = 1;
     isOpen = true;
 
     sxoffSet = 122;
