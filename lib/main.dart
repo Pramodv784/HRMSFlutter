@@ -5,6 +5,7 @@ import 'package:hrms/add_feedback/AddFeedBack.dart';
 import 'package:hrms/api_provider/api_repository.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
+import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
@@ -12,6 +13,8 @@ import 'package:hrms/user/AuthUser.dart';
 import 'package:provider/provider.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
+import 'empfeedback/emp_feed_back.dart';
+import 'goal/GoalPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +63,13 @@ class _ScreenState extends State<MyApp> {
           case Screens.AddFeedBack:
             return RouteTransition(widget: const AddFeedBack());
             break;
+          case Screens.Profile:
+            return RouteTransition(widget: const ProfilePage());
+            break;
+            case Screens.GoalScreen:
+            return RouteTransition(widget: const GoalPage());
+            break;
+
 
           case Screens.kBaseScreen:
             return RouteTransition(
@@ -74,7 +84,10 @@ class _ScreenState extends State<MyApp> {
             break;
         }
       },
-      home: checkAuthUser(widget?.isLoggedIn)
+      home:
+        //checkAuthUser(widget?.isLoggedIn)
+     // RevDrawer()
+      EmpFeedBack()
     );
   }
   checkAuthUser(isLoggedIn) {

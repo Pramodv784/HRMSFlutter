@@ -5,6 +5,7 @@ import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/res/Screens.dart';
 import 'package:hrms/utility/Utility.dart';
 
 import 'package:provider/provider.dart';
@@ -122,11 +123,14 @@ class _MidLayerState extends State<MidLayer> {
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconRateUs, Screens.kScreenRateUs, context: context),
                   verticalSpace(30.0),
+
+                  drawerRowBuilder(Images.LogoutIcon,'My Goals', context: context),
+                  verticalSpace(30.0),
                   drawerRowBuilder(Images.LogoutIcon,'Leave Request', context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
-                  verticalSpace(30.0),
 
+                  verticalSpace(30.0),
                   drawerRowBuilder(Images.LogoutIcon,'Logout', context: context),
                   verticalSpace(30.0),
                 ],
@@ -177,6 +181,11 @@ class _MidLayerState extends State<MidLayer> {
             //Navigator.pop(context);
             _provider.close();
             //Navigator.pushNamed(context, Screens.kTotalLeadScreen);
+            break;
+          case "My Goals":
+          //Navigator.pop(context);
+            _provider.close();
+            Navigator.pushNamed(context, Screens.GoalScreen);
             break;
           case "Logout":
 

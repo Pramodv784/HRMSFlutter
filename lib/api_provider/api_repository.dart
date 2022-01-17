@@ -21,7 +21,9 @@ class ApiRepository {
 
   Future<LoginResponse> login(Map input) async {
     Response response = await dio.post(EndPoints.Login, data: input);
+    Utility.log('Api call', '${EndPoints.Login}');
     LoginResponse res = LoginResponse.fromJson(response.toString());
+    Utility.log('Api Respnse', '$res');
     return res;
   }
 

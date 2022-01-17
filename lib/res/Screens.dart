@@ -10,6 +10,8 @@ class Screens {
 
   static const kLoginScreen = "Login";
   static const AddFeedBack = "addfeedback";
+  static const Profile = "profile";
+  static const GoalScreen = "goalScreen";
 
   // static const kTotalCarWash = "Service";
 

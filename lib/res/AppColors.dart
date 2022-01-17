@@ -41,6 +41,7 @@ abstract class AppColors {
   static const dropbg = Color(0xFFF8FBFF);
   static const KitBlack = Color(0xFF30303C);
   static const KitTransGrey = Colors.grey;
+  static const SubText = Color(0xFF616576);
 
   static const shadow = Color(0xFF722936);
 
@@ -54,4 +55,6 @@ abstract class AppColors {
   static const conatainerBackground = Color(0xFFFBFBFB);
 
   static const red = Colors.red;
+  static const blue = Color(0xFF00A3C8);
+  static const green = Color(0xFF14CD93);
 }

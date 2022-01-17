@@ -139,10 +139,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text('Your Achievements',style: textStyleWhite12px400w,),
-                                    InkWell(child: Text('view all',style: textStyleWhite12px400w,)
+                                    GestureDetector(child: Text('view all',style: textStyleWhite12px400w,)
                                     ,onTap: (){
-                                      opendDialog();
+                                        opendDialog();
                                       },),
+
                                   ],
                                 ),
                                 Row(
@@ -205,7 +206,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                         ),
-                        bottomButton()
+                        bottomButton(),
+
                       ],
                     ),
                   ),
@@ -319,7 +321,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),*/
               ],
             ),
-            Image.asset(Images.UserIcon, height: 52.0),
+            InkWell(child: Image.asset(Images.UserIcon, height: 52.0)
+              ,onTap: (){
+                Navigator.pushNamed(context, Screens.Profile );
+              },),
           ],
         ),
       ),
@@ -331,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
        backgroundColor: AppColors.background.withOpacity(0.1),
        body: Center(
          child: Container(
-           margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+           margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
            height: Utility.screenHeight(context) * .63,
            decoration: BoxDecoration(
              borderRadius: BorderRadius.circular(12.0),
@@ -347,7 +352,10 @@ class _HomeScreenState extends State<HomeScreen> {
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
                        Text('Your Achievements',style: textStyleWhite12px400w,),
-                       Image.asset(Images.CloseIcon)
+                       InkWell(child: Image.asset(Images.CloseIcon),
+                       onTap: (){
+                         Navigator.pop(context);
+                       },)
                      ],
                    ),
                  ),
@@ -355,16 +363,19 @@ class _HomeScreenState extends State<HomeScreen> {
                  Expanded(
                    child: GridView.count(
                      crossAxisCount: 3,
-                     crossAxisSpacing: 4.0,
-                     mainAxisSpacing: 8.0,
+                     crossAxisSpacing: 3.0,
+                     mainAxisSpacing: 6.0,
                      scrollDirection: Axis.vertical,
                      children: List.generate(list.length, (index) {
                        return Center(
-                         child: Column(
-                           children: [
-                             Image.asset(Images.AchievIcon),
-                             Text(list[index],),
-                           ],
+                         child: Padding(
+                           padding: const EdgeInsets.all(8.0),
+                           child: Column(
+                             children: [
+                               Image.asset(Images.AchievIcon,width: 70,height: 70,),
+                               Text(list[index],),
+                             ],
+                           ),
                          ),
                        );
                      }
