@@ -6,6 +6,7 @@ import 'package:hrms/api_provider/api_repository.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
 import 'package:hrms/profile/profile_page.dart';
+import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
@@ -14,19 +15,22 @@ import 'package:provider/provider.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
 import 'empfeedback/emp_feed_back.dart';
+import 'feedback_history/feedback_history_page.dart';
 import 'goal/GoalPage.dart';
+import 'leave_request/leave_request_dashboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool authResult = await (AuthUser.getInstance()).isLoggedIn();
   Future.delayed(Duration(seconds: 2)).whenComplete(() => {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle( // navigation bar color
-        statusBarColor: AppColors.colorPrimary, )),
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]).then((value) => runApp(MyApp(isLoggedIn: authResult)))
-  });
-
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          // navigation bar color
+          statusBarColor: AppColors.colorPrimary,
+        )),
+        SystemChrome.setPreferredOrientations([
+          DeviceOrientation.portraitUp,
+        ]).then((value) => runApp(MyApp(isLoggedIn: authResult)))
+      });
 }
 
 Dio dio = Dio();
@@ -36,6 +40,7 @@ class MyApp extends StatefulWidget {
   final bool isLoggedIn;
 
   MyApp({this.isLoggedIn});
+
   @override
   _ScreenState createState() => _ScreenState();
 }
@@ -50,46 +55,52 @@ class _ScreenState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          scaffoldBackgroundColor: AppColors.white,
-          primarySwatch: Colors.amber),
-      // ignore: missing_return
-      onGenerateRoute: (RouteSettings settings) {
-        switch (settings.name) {
-          case Screens.kHomeScreen:
-            return RouteTransition(widget: const HomeScreen());
-            break;
-          case Screens.AddFeedBack:
-            return RouteTransition(widget: const AddFeedBack());
-            break;
-          case Screens.Profile:
-            return RouteTransition(widget: const ProfilePage());
-            break;
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            scaffoldBackgroundColor: AppColors.white,
+            primarySwatch: Colors.amber),
+        // ignore: missing_return
+        onGenerateRoute: (RouteSettings settings) {
+          switch (settings.name) {
+            case Screens.kHomeScreen:
+              return RouteTransition(widget: const HomeScreen());
+              break;
+            case Screens.AddFeedBack:
+              return RouteTransition(widget: const AddFeedBack());
+              break;
+            case Screens.Profile:
+              return RouteTransition(widget: const ProfilePage());
+              break;
             case Screens.GoalScreen:
-            return RouteTransition(widget: const GoalPage());
-            break;
+              return RouteTransition(widget: const GoalPage());
+              break;
+            case Screens.FeedbcakHistory:
+              return RouteTransition(widget: const FeedbackHistory());
+              break;
+            case Screens.LeaveRequestDashboard:
+              return RouteTransition(widget: const LeaveRequestDashboard());
+              break;
 
-
-          case Screens.kBaseScreen:
-            return RouteTransition(
-              widget: ChangeNotifierProvider<BaseProvider>(
-                create: (context) => BaseProvider(),
-                child: RevDrawer(),
-              ),
-            );
-            break;
-          case Screens.kLoginScreen:
-            return RouteTransition(widget:LoginScreen());
-            break;
-        }
-      },
-      home:
-        //checkAuthUser(widget?.isLoggedIn)
-     // RevDrawer()
-      EmpFeedBack()
-    );
+            case Screens.kBaseScreen:
+              return RouteTransition(
+                widget: ChangeNotifierProvider<BaseProvider>(
+                  create: (context) => BaseProvider(),
+                  child: RevDrawer(),
+                ),
+              );
+              break;
+            case Screens.kLoginScreen:
+              return RouteTransition(widget: LoginScreen());
+              break;
+          }
+        },
+        home:
+        checkAuthUser(widget?.isLoggedIn)
+        //LeaveRequestDashboard()
+        //FeedbackHistory()
+        );
   }
+
   checkAuthUser(isLoggedIn) {
     if (isLoggedIn) {
       return ChangeNotifierProvider<BaseProvider>(

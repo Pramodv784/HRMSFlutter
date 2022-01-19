@@ -1,46 +1,106 @@
+import 'package:custom_check_box/custom_check_box.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
-class CardFeed extends StatelessWidget {
+import 'package:hrms/utility/Utility.dart';
+import 'package:intl/intl.dart';
+
+class CardFeed extends StatefulWidget {
   const CardFeed({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
+  _CardFeedState createState() => _CardFeedState();
+}
 
-        child: Column(
-          children: [
-            Container(
-              height: 30.0,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(gradient:
-              LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomLeft,
-                  colors: [AppColors.g1, AppColors.g2]
-              ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[500],
-                      offset: Offset(0.0, 1.5),
-                      blurRadius: 1.5,
-                    ),
-                  ],borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0))),
-              child: Text('Development',style: textStyleWhite16px400wB,),
-            ),
-            Container(
+class _CardFeedState extends State<CardFeed> {
+  bool check=false;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+
+      child: Column(
+        children: [
+
+          Container(
               padding: EdgeInsets.all(8.0),
               color: AppColors.white,
-                child: Column(
-                  children: [
-                    Text(' Q1. How much points you will give him for code quality?',style: textStyleWhite12px400w),
-                  ],
-                ))
-          ],
-        ),
+              child: Column(
+                children: [
+                  RichText(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text: 'Q1. ',
+                      style: textStyleDark16px600w,
+                      children: [
+                        TextSpan(
+                          text: 'How much points you will give him for code quality?'
+                          ,style: textStylePrimary16px600w,
+                         ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 30.0,vertical: 10.0),
+                    child: Container(
+                      width: Utility.screenWidth(context),
+                      margin: EdgeInsets.symmetric(horizontal: 10.0),
+                      child: RatingBar.builder(
+                        initialRating: 3,
+                        minRating: 0,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 10,
+                        itemSize: 40,
+                        maxRating: 10,
+                        glow: true,
+
+                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: AppColors.ratingColor,
+                        ),
+                        onRatingUpdate: (rating) {
+                          print(rating);
+                        },
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomCheckBox(
+                        value: check,
+                        shouldShowBorder: true,
+                        borderColor: AppColors.borderColor,
+                        checkedFillColor: AppColors.borderColor,
+                        borderRadius: 8,
+                        borderWidth: 1,
+                        checkBoxSize: 22,
+                        onChanged: (val) {
+                           setState(() {
+                          check = val;
+                           });
+                        },
+                      ),
+                     Text('Did not witness this Human Skill',style: textStyleSubText14px400w,),
+                    ],
+                  ),
+
+                Container(
+                  height: 1,
+                  color: AppColors.grey,
+                  margin: EdgeInsets.symmetric(vertical: 10.0,horizontal: 5.0),
+                )
+                ],
+              ))
+        ],
       ),
     );
   }
 }
+

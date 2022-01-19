@@ -679,6 +679,11 @@ const textStyleWhite16px400wB = TextStyle(
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w400,
     fontSize: 16);
+const textStyleWhite20px400wB = TextStyle(
+    color: AppColors.white,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: 20);
 
 const textStyleLightRegular16px500w = TextStyle(
     color: AppColors.white,

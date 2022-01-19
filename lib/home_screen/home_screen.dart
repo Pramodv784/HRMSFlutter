@@ -61,37 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
     getuserId();
     _tooltipBehavior=TooltipBehavior(
       enable: true  ,
+        borderWidth: 0.1,
+        elevation: 4.0,
 
-        color: Colors.red,
-        borderColor: AppColors.g2,
+
+        color: Colors.white,
+        borderColor: AppColors.white,
         builder: (dynamic data, dynamic point, dynamic series,
             int pointIndex, int seriesIndex) {
-          return Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Container(
-               width: 60.0,
-              decoration: BoxDecoration(gradient:
-              LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomLeft,
-                  colors: [AppColors.g1, AppColors.g2]
-              ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[500],
-                      offset: Offset(0.0, 1.5),
-                      blurRadius: 1.5,
-                    ),
-                  ],),
-              child: Row(
-                children: [
-                  Image.asset(Images.TooltipIcon,),
-                  SizedBox(width: 3,),
-                  Text('${chartData[pointIndex].y}',style: TextStyle(color: AppColors.white,fontSize: 15.0),)
-                ],
-              ),
-            ),
-          );
+          return padding(context,pointIndex);
         }
     );
     super.initState();
@@ -331,7 +309,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
    opendDialog() {
-
      Scaffold body = Scaffold(
        backgroundColor: AppColors.background.withOpacity(0.1),
        body: Center(
@@ -360,22 +337,19 @@ class _HomeScreenState extends State<HomeScreen> {
                    ),
                  ),
 
-                 Expanded(
+                 Flexible(
                    child: GridView.count(
                      crossAxisCount: 3,
-                     crossAxisSpacing: 3.0,
-                     mainAxisSpacing: 6.0,
+                     crossAxisSpacing: 2.0,
+                     mainAxisSpacing: 2.0,
                      scrollDirection: Axis.vertical,
                      children: List.generate(list.length, (index) {
                        return Center(
-                         child: Padding(
-                           padding: const EdgeInsets.all(8.0),
-                           child: Column(
-                             children: [
-                               Image.asset(Images.AchievIcon,width: 70,height: 70,),
-                               Text(list[index],),
-                             ],
-                           ),
+                         child: Column(
+                           children: [
+                             Image.asset(Images.AchievIcon,width: 100,height: 100,),
+                             Text(list[index],),
+                           ],
                          ),
                        );
                      }
@@ -394,5 +368,37 @@ class _HomeScreenState extends State<HomeScreen> {
          builder: (context) {
            return body;
          });
+   }
+   Widget padding(BuildContext context,int index){
+     return Padding(
+       padding: const EdgeInsets.all(4.0),
+       child: Container(
+         width: 60.0,
+         decoration: BoxDecoration(gradient:
+         LinearGradient(
+             begin: Alignment.topLeft,
+             end: Alignment.bottomLeft,
+             colors: [AppColors.g1, AppColors.g2]
+         ),
+           boxShadow: [
+             BoxShadow(
+               color: Colors.grey[500],
+               offset: Offset(0.0, 1.5),
+               blurRadius: 1.5,
+             ),
+           ]
+           ,),
+         child: Padding(
+           padding: const EdgeInsets.all(3.0),
+           child: Row(
+             children: [
+               Image.asset(Images.TooltipIcon,),
+               SizedBox(width: 3,),
+               Text('${chartData[index].y}',style: TextStyle(color: AppColors.white,fontSize: 15.0),)
+             ],
+           ),
+         ),
+       ),
+     );
    }
 }

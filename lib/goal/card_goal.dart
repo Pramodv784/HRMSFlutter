@@ -19,19 +19,23 @@ class CardGoal extends StatelessWidget {
                 Text('Employee name'),
                 Text('Emp name'),
                 Text('Emp name'),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(5.0),
-                      child: Image.asset(Images.UploadIcon),color: AppColors.blue,),
-                      SizedBox(width: 10.0,),
-                    Container(
-                      padding: EdgeInsets.all(5.0),
-                      child: Image.asset(Images.RightIcon,),color: AppColors.green,),
-                  ],
 
+                Center(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(5.0),
+                        child: Image.asset(Images.UploadIcon),color: AppColors.blue,),
+                        SizedBox(width: 10.0,),
+                      Container(
+                        padding: EdgeInsets.all(5.0),
+                        child: Image.asset(Images.RightIcon,),color: AppColors.green,),
+                    ],
+
+                  ),
                 )
 
               ],

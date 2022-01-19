@@ -22,5 +22,14 @@ class Images {
   static const UploadIcon = base + 'ic_upload.png';
   static const SearchIcon = base + 'ic_search.png';
   static const FilterIcon = base + 'ic_filter.png';
+  static const CameraIcon = base + 'ic_camera.png';
+  static const GalleryIcon = base + 'ic_gallery.png';
+  static const LeaveIcon = base + 'ic_leave.svg';
+  static const LeaveBalanceIcon = base + 'ic_leave_balance.svg';
+  static const AttendenceIcon = base + 'ic_attendence.svg';
+  static const WfhIcon = base + 'ic_wfh.svg';
+  static const RaiseTicktIcon = base + 'ic_rase_ticket.svg';
+  static const MyTicketIcon = base + '_ic_my_ticket.svg';
+  static const FlloIcon = base + 'ic_foll.svg';
 
 }

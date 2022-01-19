@@ -177,16 +177,22 @@ class _MidLayerState extends State<MidLayer> {
           case "Contact Us":
           //  Navigator.pushNamed(context, Screens.kContactScreen);
             break;
-          case "Leads":
+          case "Employee feedback":
             //Navigator.pop(context);
             _provider.close();
-            //Navigator.pushNamed(context, Screens.kTotalLeadScreen);
+            Navigator.pushNamed(context, Screens.FeedbcakHistory);
             break;
           case "My Goals":
           //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.GoalScreen);
             break;
+            case "Leave Request":
+          //Navigator.pop(context);
+            _provider.close();
+            Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
+            break;
+
           case "Logout":
 
            /* Dialogs.showCustomDialog(context, onAccept: () async {

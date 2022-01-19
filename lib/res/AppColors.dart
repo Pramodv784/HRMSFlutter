@@ -38,7 +38,7 @@ abstract class AppColors {
   static const black = Color(0xFF231F20);
   static const background = Color(0xFFF5F5F5);
   static const grey = Color(0xFFEAE9E9);
-  static const dropbg = Color(0xFFF8FBFF);
+  static const dropbg = Color(0xF8D8DD7);
   static const KitBlack = Color(0xFF30303C);
   static const KitTransGrey = Colors.grey;
   static const SubText = Color(0xFF616576);
@@ -57,4 +57,6 @@ abstract class AppColors {
   static const red = Colors.red;
   static const blue = Color(0xFF00A3C8);
   static const green = Color(0xFF14CD93);
+  static const borderColor = Color(0xFF616576);
+  static const ratingColor = Color(0xFFFFC107);
 }
