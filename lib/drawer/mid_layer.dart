@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hrms/api_provider/endpoints.dart';
@@ -6,13 +5,13 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/res/Screens.dart';
+import 'package:hrms/user/AuthUser.dart';
+import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/Utility.dart';
 
 import 'package:provider/provider.dart';
 
 import 'BaseProvider.dart';
-
-
 
 // ignore: must_be_immutable
 class MidLayer extends StatefulWidget {
@@ -27,8 +26,8 @@ class _MidLayerState extends State<MidLayer> {
   String picture = "";
   String lastName = "";
 
-   BaseProvider _provider;
-   Animation<double> scaleAnimation;
+  BaseProvider _provider;
+  Animation<double> scaleAnimation;
 
   @override
   void initState() {
@@ -72,25 +71,26 @@ class _MidLayerState extends State<MidLayer> {
                       borderRadius: BorderRadius.circular(15.0),
                       child: picture == ""
                           ? Image.asset(
-                        Images.LogoIcon,
-                        height: 70,
-                        width: 70,
-                      )
-                          : FadeInImage(
-                          placeholder: AssetImage(Images.UserIcon),
-                          imageErrorBuilder: (context, error, stackTrace) {
-                            return Image.asset(
                               Images.LogoIcon,
                               height: 70,
                               width: 70,
-                            );
-                          },
-                          image:(picture ?? '').contains("https")
-                              ? NetworkImage(picture ?? '')
-                              : NetworkImage(EndPoints.baseUrl + '/' + picture ?? ''),
-                          //NetworkImage(EndPoints.BASE_URL + picture),
-                          height: 70,
-                          width: 70)),
+                            )
+                          : FadeInImage(
+                              placeholder: AssetImage(Images.UserIcon),
+                              imageErrorBuilder: (context, error, stackTrace) {
+                                return Image.asset(
+                                  Images.LogoIcon,
+                                  height: 70,
+                                  width: 70,
+                                );
+                              },
+                              image: (picture ?? '').contains("https")
+                                  ? NetworkImage(picture ?? '')
+                                  : NetworkImage(
+                                      EndPoints.baseUrl + '/' + picture ?? ''),
+                              //NetworkImage(EndPoints.BASE_URL + picture),
+                              height: 70,
+                              width: 70)),
                   //Image.asset(Images.kPlaceHolderProfile, height: 90),
                   horizontalSpace(6.0),
                   SizedBox(
@@ -98,7 +98,8 @@ class _MidLayerState extends State<MidLayer> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("$firstName $lastName", style: textStyleWhite14px500w),
+                        Text("$firstName $lastName",
+                            style: textStyleWhite14px500w),
                         // Text("$email", style: textStyleWhite14px400w2l),
                       ],
                     ),
@@ -109,29 +110,33 @@ class _MidLayerState extends State<MidLayer> {
           ),
           verticalSpace(40.0),
           Expanded(
-
             child: Container(
               margin: EdgeInsets.only(left: 30.0),
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  drawerRowBuilder(Images.DashIcon,'Dashboard', context: context),
+                  drawerRowBuilder(Images.DashIcon, 'Dashboard',
+                      context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconTestHistory, Screens.kScreenTestHistory, context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.EmpIcon,'Employee feedback', context: context),
+                  drawerRowBuilder(Images.EmpIcon, 'Employee feedback',
+                      context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconRateUs, Screens.kScreenRateUs, context: context),
                   verticalSpace(30.0),
 
-                  drawerRowBuilder(Images.LogoutIcon,'My Goals', context: context),
+                  drawerRowBuilder(Images.LogoutIcon, 'My Goals',
+                      context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.LogoutIcon,'Leave Request', context: context),
+                  drawerRowBuilder(Images.LogoutIcon, 'Leave Request',
+                      context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
 
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.LogoutIcon,'Logout', context: context),
+                  drawerRowBuilder(Images.LogoutIcon, 'Logout',
+                      context: context),
                   verticalSpace(30.0),
                 ],
               ),
@@ -142,14 +147,21 @@ class _MidLayerState extends State<MidLayer> {
     );
   }
 
-  Widget drawerRowBuilder(String iconRes, String screen, { BuildContext context}) {
+  Widget drawerRowBuilder(String iconRes, String screen,
+      {BuildContext context}) {
     return InkWell(
       child: Container(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start, //change here don't //worked
+          mainAxisAlignment: MainAxisAlignment.start,
+          //change here don't //worked
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(iconRes, width: 24, height: 24,color: AppColors.white,),
+            Image.asset(
+              iconRes,
+              width: 24,
+              height: 24,
+              color: AppColors.white,
+            ),
             horizontalSpace(12.0),
             Text(screen, style: textStyleWhite16px500w),
 
@@ -158,12 +170,11 @@ class _MidLayerState extends State<MidLayer> {
         ),
       ),
       onTap: () async {
-        if (_provider.isOpen)
-          _provider.close();
+        if (_provider.isOpen) _provider.close();
         await Future.delayed(Duration(milliseconds: 300));
-         //_provider.currentScreen = screen;
+        //_provider.currentScreen = screen;
         switch (screen) {
-/*          case Screens.kScreenTestHistory:
+        /*  case Screens.kScreenTestHistory:
             _provider.currentScreen = screen;
             break;
           case Screens.kEditProfileScreen:
@@ -173,39 +184,39 @@ class _MidLayerState extends State<MidLayer> {
             break;
           case Screens.kScreenTnc:
             Navigator.pushNamed(context, Screens.kScreenTnc);
-            break;*/
-          case "Contact Us":
-          //  Navigator.pushNamed(context, Screens.kContactScreen);
             break;
+          case "Contact Us":
+            //  Navigator.pushNamed(context, Screens.kContactScreen);
+            break;*/
           case "Employee feedback":
             //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.FeedbcakHistory);
             break;
           case "My Goals":
-          //Navigator.pop(context);
+            //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.GoalScreen);
             break;
-            case "Leave Request":
-          //Navigator.pop(context);
+          case "Leave Request":
+            //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
             break;
 
           case "Logout":
-
-           /* Dialogs.showCustomDialog(context, onAccept: () async {
+            Dialogs.showCustomDialog(context, onAccept: () async {
               AuthUser.getInstance().logout();
               //RouteTransition(widget: LoginScreen());
               Navigator.pop(context);
               Navigator.pushNamed(context, Screens.kLoginScreen);
             }, onReject: () {
               Navigator.of(context).pop();
-            }, title: 'Logout', message: 'Are you sure you want to log out ?');*/
+            }, title: 'Logout', message: 'Are you sure you want to log out ?');
             break;
         }
       },
     );
   }
+
 }

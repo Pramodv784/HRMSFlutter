@@ -16,6 +16,7 @@ class CurrentUser {
   bool get isLoggedIn => _isLoggedIn ?? false;
   int get userId => _userId ?? 0;
 
+
   LoginResponse get userCredentials => _userCredentials;
   factory CurrentUser.fromMap(Map<String, dynamic> map) {
     return CurrentUser(

@@ -14,7 +14,7 @@ class Dialogs {
 
   static void hideLoader(BuildContext context) {
     Navigator.pop(context);
-    /*   if (_dialog != null)
+      /* if (_dialog != null)
       _dialog.hide().then((value) {
         print("Hide Loader $value");
         print("Hide Loader ${_dialog.isShowing()}");

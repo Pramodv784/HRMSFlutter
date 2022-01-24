@@ -54,7 +54,7 @@ abstract class AppColors {
   static const textColorDakBlack = Color(0xFF1A1A1A);
   static const conatainerBackground = Color(0xFFFBFBFB);
 
-  static const red = Colors.red;
+  static const red = Color(0xFFDE1F26);
   static const blue = Color(0xFF00A3C8);
   static const green = Color(0xFF14CD93);
   static const borderColor = Color(0xFF616576);

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hrms/add_feedback/AddFeedBack.dart';
+
 import 'package:hrms/api_provider/api_repository.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
@@ -10,13 +10,20 @@ import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
+
 import 'package:hrms/user/AuthUser.dart';
 import 'package:provider/provider.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
-import 'empfeedback/emp_feed_back.dart';
+
+import 'feedback/add_feedback.dart';
+import 'feedback/empfeedback/emp_feed_back.dart';
+import 'feedback/feedback_remark.dart';
+import 'feedback/select_emp/select_emp.dart';
 import 'feedback_history/feedback_history_page.dart';
 import 'goal/GoalPage.dart';
+import 'home_screen/home_screen2.dart';
+import 'leave_request/leave_balance/leave_balance_page.dart';
 import 'leave_request/leave_request_dashboard.dart';
 
 void main() async {
@@ -63,22 +70,26 @@ class _ScreenState extends State<MyApp> {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case Screens.kHomeScreen:
-              return RouteTransition(widget: const HomeScreen());
+              return RouteTransition(widget:  HomeScreen());
               break;
             case Screens.AddFeedBack:
-              return RouteTransition(widget: const AddFeedBack());
+              return RouteTransition(widget:  SelectEmp());
               break;
             case Screens.Profile:
-              return RouteTransition(widget: const ProfilePage());
+              return RouteTransition(widget:  ProfilePage());
               break;
             case Screens.GoalScreen:
-              return RouteTransition(widget: const GoalPage());
+              return RouteTransition(widget:  GoalPage());
               break;
             case Screens.FeedbcakHistory:
-              return RouteTransition(widget: const FeedbackHistory());
+              return RouteTransition(widget:  FeedbackHistory());
               break;
             case Screens.LeaveRequestDashboard:
-              return RouteTransition(widget: const LeaveRequestDashboard());
+              return RouteTransition(widget:  LeaveRequestDashboard());
+              break;
+            case Screens.AddEmpFeedBack:
+              List<dynamic> args = settings.arguments;
+              return RouteTransition(widget:  AddFeedback(args[0],args[1]));
               break;
 
             case Screens.kBaseScreen:
@@ -95,9 +106,9 @@ class _ScreenState extends State<MyApp> {
           }
         },
         home:
-        checkAuthUser(widget?.isLoggedIn)
-        //LeaveRequestDashboard()
-        //FeedbackHistory()
+       checkAuthUser(widget?.isLoggedIn)
+        //RevDrawer()
+        //AddFeedback()
         );
   }
 

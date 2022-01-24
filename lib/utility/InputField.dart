@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -75,11 +76,11 @@ class InputFieldState extends State<InputField> {
             onFocusChange: (focus) => setState(() => hasFocused = focus),
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.colorInput,
-                borderRadius: BorderRadius.circular(widget.radius ?? 20.0),
+                color: AppColors.dropbg,
+                borderRadius: BorderRadius.circular(widget.radius ?? 3.0),
                 border: Border.all(
                   width: 1.0,
-                  color: getBorderColor(),
+                  color:AppColors.grey
                 ),
               ),
               child: Container(
@@ -92,7 +93,7 @@ class InputFieldState extends State<InputField> {
                 child: Row(
                   children: [
                     if (widget.leftIcon != null)
-                      Image.asset(
+                      SvgPicture.asset(
                         widget.leftIcon,
                         width: 15,
                         height: 15,
@@ -107,7 +108,7 @@ class InputFieldState extends State<InputField> {
                       controller: _controller,
                       maxLines: 1, textInputAction: TextInputAction.next,
                       textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
-                      inputFormatters: getInputFormatter(),
+
                       style: hasError ? textStyleRed16px400w : textStyleDarkRegular16px400w,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -160,7 +161,7 @@ class InputFieldState extends State<InputField> {
     return hasError
         ? Colors.red
         : hasFocused
-            ? AppColors.colorPrimary
+            ? AppColors.grey
             : Colors.transparent;
   }
 
@@ -185,7 +186,8 @@ class InputFieldState extends State<InputField> {
   void checkPasswordObscure() {
       if (widget.placeHolderText.toLowerCase().contains('password')) {
       setState(() {
-
+        widget.isPassword = !widget.isPassword;
+        widget.rightIcon = widget.isPassword ? Images.PasswordEyeClose : Images.PasswordEyeOpen;
       });
     }
   }

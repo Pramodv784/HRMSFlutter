@@ -4,8 +4,8 @@
 
 class Images {
   static const base = 'assets/image/';
-  static const UserIcon = base + 'ic_user.png';
-  static const DrawerIcon = base + 'ic_drawer.png';
+  static const UserIcon = base + 'ic_user.svg';
+  static const DrawerIcon = base + 'ic_drawer.svg';
   static const LogoIcon = base + 'ic_logo.png';
   static const AchievIcon = base + 'ic_achiev.png';
   static const StarICon = base + 'ic_star.png';
@@ -14,7 +14,7 @@ class Images {
   static const EmpIcon = base + 'ic_emp.png';
   static const LogoutIcon = base + 'ic_logout.png';
   static const ArrowIcon = base + 'ic_arrow_right.png';
-  static const BackIcon = base + 'ic_back.png';
+  static const BackIcon = base + 'ic_back.svg';
   static const DropIcon = base + 'ic_dropdown.png';
   static const CloseIcon = base + 'ic_close.png';
   static const ProfileUserIcon = base + 'ic_profile_u.png';
@@ -31,5 +31,8 @@ class Images {
   static const RaiseTicktIcon = base + 'ic_rase_ticket.svg';
   static const MyTicketIcon = base + '_ic_my_ticket.svg';
   static const FlloIcon = base + 'ic_foll.svg';
-
+  static const HomeIcon = base + 'ic_home_icon.svg';
+  static const PasswordEyeClose = base + 'ic_password_eye_closed.png';
+  static const PasswordEyeOpen = base + 'ic_password_eye_open.png';
+  static const NotificationIcon = base + 'ic_notificationIcon.svg';
 }

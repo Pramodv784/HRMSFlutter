@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -47,11 +48,14 @@ class Header extends StatelessWidget {
                       radius: 8.0,
                       borderColor: AppColors.colorPrimary,
 
-                      child: Center(
-                        child: Image.asset(
-                          Images.BackIcon,
-                          width: 24,
-                          height: 24,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            Images.BackIcon,
+                            width: 24,
+                            height: 24,
+                          ),
                         ),
                       ),
                       onTap: onBackPressed ??

@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hrms/add_feedback/model/team_role_response.dart';
 import 'package:hrms/api_provider/ApiController.dart';
 import 'package:hrms/api_provider/endpoints.dart';
+import 'package:hrms/feedback/select_emp/model/team_role_response.dart';
 import 'package:hrms/home_screen/model/home_avg_score_response.dart';
 import 'package:hrms/login_screen/model/login_response.dart';
 import 'package:hrms/main.dart';
+import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/Utility.dart';
 
 class ApiRepository {
@@ -21,9 +22,13 @@ class ApiRepository {
   ApiRepository.internal();
 
   Future<LoginResponse> login(Map input) async {
+    //Dialogs.showLoader(context, 'Loading', '');
+
     Response response = await dio.post(EndPoints.Login, data: input);
     Utility.log('Api call', '${EndPoints.Login}');
+
     LoginResponse res = LoginResponse.fromJson(response.toString());
+    //Dialogs.hideLoader(context);
     Utility.log('Api Respnse', '$res');
     return res;
   }

@@ -14,6 +14,7 @@ class Screens {
   static const GoalScreen = "goalScreen";
   static const FeedbcakHistory = "feedbackhistory";
   static const LeaveRequestDashboard = "leaveRequestdashboard";
+  static const AddEmpFeedBack = "addempfeedback";
 
   // static const kTotalCarWash = "Service";
 
