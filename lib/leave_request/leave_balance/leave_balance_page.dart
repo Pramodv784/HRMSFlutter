@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hrms/leave_request/model/data_model.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/utility/Header.dart';
+import 'package:hrms/utility/Utility.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 
@@ -15,6 +16,8 @@ class LeaveBalancePage extends StatefulWidget {
 
 class _LeaveBalancePage extends State<LeaveBalancePage>
    {
+  bool _selected=false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,63 +25,79 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
       backgroundColor: AppColors.background,
       body: SafeArea(
 
-      child: Column(
+      child: ListView(
       children: [
       Header(headerText: 'Leave  Dashboard',),
-    Expanded(child:
     Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
        child: Padding(
-         padding: const EdgeInsets.all(8.0),
+         padding: const EdgeInsets.all(15.0),
          child: Row(
+           crossAxisAlignment: CrossAxisAlignment.start,
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
            children: [
-             Column(
-               children: [
-                 Text('Paid Leave',style: TextStyle(
-                   fontSize: 20.0,fontWeight: FontWeight.bold
-                 ),),
-                 Container(
-                   color: AppColors.dropbg,
-                   height: 50,
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                     children: [
-                       Text('Consumed',style: TextStyle(
-                           fontSize: 20.0
-                       ),),
-                       Text('40',style: TextStyle(
-                           fontSize: 20.0,fontWeight: FontWeight.bold
-                       ),),
-                     ],
+             Flexible(
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Text('Paid Leave',style: TextStyle(
+                     fontSize: 20.0,fontWeight: FontWeight.bold
+                   ),),
+                   SizedBox(height: 20.0,),
+                   Container(
+                     color: AppColors.dropbg,
+                     height: 50,
+                     width: Utility.screenWidth(context),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         Text('Consumed',style: TextStyle(
+                             fontSize: 20.0
+                         ),),
+                         Text('40',style: TextStyle(
+                             fontSize: 20.0,fontWeight: FontWeight.bold
+                         ),),
+                       ],
+                     ),
                    ),
-                 ),
-                 SizedBox(height: 10.0,),
-                 Container(
-                   color: AppColors.dropbg,
-                   height: 50,
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                     children: [
-                       Text('Annual Quota',style: TextStyle(
-                           fontSize: 20.0
-                       ),),
-                       Text('100',style: TextStyle(
-                           fontSize: 20.0,fontWeight: FontWeight.bold
-                       ),),
-                     ],
-                   ),
-                 )
-               ],
+                   SizedBox(height: 10.0,),
+                   Container(
+                     color: AppColors.dropbg,
+                     height: 50,
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         Text('Annual Quota',style: TextStyle(
+                             fontSize: 20.0
+                         ),),
+                         Text('100',style: TextStyle(
+                             fontSize: 20.0,fontWeight: FontWeight.bold
+                         ),),
+                       ],
+                     ),
+                   )
+                 ],
+               ),
              ),
-             CircularPercentIndicator(
-               radius: 100.0,
-               lineWidth: 10.0,
-               percent: 0.5,
 
-               center: new Text("100%"),
-               progressColor: Colors.green,
+             SizedBox(width: 20.0,),
+             Flexible(
+               child: Container(
+                 margin: EdgeInsets.only(top: 20.0),
+                 child: CircularPercentIndicator(
+                   radius: 70.0,
+                   lineWidth: 40.0,
+                   percent: 0.4,
+                   center: new Text("40%",style: TextStyle(fontSize: 20.0),),
+                   progressColor: Colors.blue,
+                   backgroundColor: AppColors.grey,
+                   animateFromLastPercent: true,
+                   circularStrokeCap: CircularStrokeCap.butt,
+
+                 ),
+               ),
              )
            ],
 
@@ -86,7 +105,23 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
        ),
       ),
     ),
-    )
+
+        InputChip(
+          selected: _selected,
+          label: Text('Flutter'),
+          tooltip: 'This is Flutter',
+          onPressed: () {
+            print('Fluter is pressed');
+
+            setState(() {
+              _selected = !_selected;
+            });
+          },
+          onDeleted: () {
+            print('Flutter is deleted');
+
+          },
+        )
     ]),
     ));
 

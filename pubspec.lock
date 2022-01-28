@@ -187,7 +187,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   flutter_swiper:
     dependency: "direct main"
     description:
@@ -485,6 +485,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.4"
+  simple_tooltip:
+    dependency: "direct main"
+    description:
+      name: simple_tooltip
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -531,14 +538,14 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.4.42"
+    version: "19.4.47"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.4.42"
+    version: "19.4.47"
   term_glyph:
     dependency: transitive
     description:
@@ -580,7 +587,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.5"
+    version: "2.3.6"
   xdg_directories:
     dependency: transitive
     description:

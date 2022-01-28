@@ -38,7 +38,7 @@ class HomePresenter {
 
   getHomeData(BuildContext context) async {
     if (await NetworkCheck.check()) {
-      Dialogs.showLoader(context, 'Loading ...', '');
+    //  Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.get2('${EndPoints.GetHomeData}')
         ..then((Response res) async {
@@ -46,7 +46,7 @@ class HomePresenter {
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
-          Dialogs.hideLoader(context);
+      //    Dialogs.hideLoader(context);
 
           HomeData data = HomeData.fromJson(res.data);
           //print('pramod${data.data.message}');
@@ -57,7 +57,7 @@ class HomePresenter {
         }
         ).catchError((e) async {
           Utility.log(tag, e);
-          Dialogs.hideLoader(context);
+        //  Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });

@@ -18,10 +18,10 @@ class CardFeedHistoy extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('${_data.categoryName}',style: textStylePrimary16px500w,),
+            Text('${_data.categoryName}',style: textStyleWhite14px500w,),
             Row(
               children: [
-                Text('${_data.categoryId}',style: textStylePrimary16px500w,),
+                Text('${_data.categoryId}',style: textStyleWhite14px500w,),
                 SizedBox(width: 5.0,),
                 Image.asset(Images.StarICon),
               ],

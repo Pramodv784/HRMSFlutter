@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -11,10 +13,9 @@ import 'Utility.dart';
 class Dialogs {
 
 
-
   static void hideLoader(BuildContext context) {
     Navigator.pop(context);
-      /* if (_dialog != null)
+    /* if (_dialog != null)
       _dialog.hide().then((value) {
         print("Hide Loader $value");
         print("Hide Loader ${_dialog.isShowing()}");
@@ -23,9 +24,11 @@ class Dialogs {
         }
       });*/
   }
+
   static ProgressDialog _dialog;
 
-  static void showLoader(BuildContext context, String description, String title) {
+  static void showLoader(BuildContext context, String description,
+      String title) {
     _dialog = ProgressDialog(context,
         type: ProgressDialogType.Normal,
         isDismissible: false,
@@ -38,11 +41,13 @@ class Dialogs {
                   width: 24.0,
                   height: 24.0,
                   child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.colorPrimary))),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                          AppColors.colorPrimary))),
               horizontalSpace(20.0),
               Expanded(
                   child:
-                  Text('$description', style: textStylePrimary14px500w, overflow: TextOverflow.ellipsis)),
+                  Text('$description', style: textStylePrimary14px500w,
+                      overflow: TextOverflow.ellipsis)),
             ],
           ),
         ));
@@ -64,7 +69,6 @@ class Dialogs {
       ),
     );
   }
-
 
 
   static showCustomDialog(BuildContext context,
@@ -146,8 +150,69 @@ class Dialogs {
       },
     );
   }
-}
 
+
+  static showMsgCustomDialog(BuildContext context,
+      { Function onok, String title, String message}) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text(
+        "OK",
+        style: textStyleLite16px700w,
+      ),
+      onPressed: onok ?? () => Navigator.pop(context),
+    );
+
+
+
+    // set up the AlertDialog
+    Scaffold body = Scaffold(
+      backgroundColor: AppColors.background.withOpacity(0.1),
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 40.0),
+          height: Utility.screenHeight(context) * .23,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+            color: AppColors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('$title', style: textStyleRegular16px700w,textAlign: TextAlign.center,),
+                Text('$message', style: textStyle12px500w),
+                Container(
+                  height: 50.0,
+                  margin: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 0.0),
+                  decoration: BoxDecoration(
+                    color: AppColors.colorPrimary,
+                    borderRadius: BorderRadius.circular(12.0),
+                    border: Border.all(
+                      width: 1,
+                      color: AppColors.colorPrimary,
+                    ),
+                  ),
+                  child: cancelButton,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return body;
+      },
+    );
+  }
+
+}
 abstract class ClickInterface {
   void onClick();
 }

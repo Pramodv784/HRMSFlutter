@@ -12,7 +12,8 @@ class CardFeedQuestion extends StatefulWidget {
   Quenstions _data;
   ItemClick _itemClick;
   int pos;
-   CardFeedQuestion(this._data,this.pos,this._itemClick,{Key key}) : super(key: key);
+  int listpos;
+   CardFeedQuestion(this._data,this.pos,this.listpos,this._itemClick,{Key key}) : super(key: key);
 
   @override
   _CardFeedState createState() => _CardFeedState();
@@ -69,7 +70,7 @@ class _CardFeedState extends State<CardFeedQuestion> {
                         ),
                         onRatingUpdate: (rating) {
                           print(rating);
-                          widget?._itemClick?.click(rating.toString(), widget?.pos);
+                          widget?._itemClick?.click(rating.toInt(), widget?.pos,widget.listpos);
                         },
                       ),
                     ),
@@ -111,6 +112,6 @@ class _CardFeedState extends State<CardFeedQuestion> {
 
 }
 abstract class ItemClick{
-  void click(String rating,int pos);
+  void click(int rating,int pos,int listpos);
 }
 

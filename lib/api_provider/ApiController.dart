@@ -138,6 +138,7 @@ class ApiController {
     Utility.log(tag, response.toString());
     return response;
   }
+
   Future<Response> get(String url, { headers}) async {
    // Map<String, String> headerMap = headers ?? {};
     //headerMap["NoEncryption"] = 'true';

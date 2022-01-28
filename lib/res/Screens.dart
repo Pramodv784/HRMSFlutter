@@ -15,6 +15,8 @@ class Screens {
   static const FeedbcakHistory = "feedbackhistory";
   static const LeaveRequestDashboard = "leaveRequestdashboard";
   static const AddEmpFeedBack = "addempfeedback";
+  static const AddEmpFeedRemark = "addempfeedremark";
+  static const HomeScreen2 = "homescreen2";
 
   // static const kTotalCarWash = "Service";
 

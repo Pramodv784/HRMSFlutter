@@ -8,10 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:hrms/api_provider/ApiController.dart';
 import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/profile/profile_view.dart';
-import 'package:hrms/profile/upload_image_response.dart';
+import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/NetworkCheck.dart';
 import 'package:hrms/utility/Utility.dart';
+
+import 'model/profile_response.dart';
 
 class ProfilePresenter {
   var tag = 'ProfilePresenter ';
@@ -62,7 +64,34 @@ class ProfilePresenter {
     }
   }
 
+  getProfile(BuildContext context,int id) async {
+    if (await NetworkCheck.check()) {
+      Dialogs.showLoader(context, 'Loading ...', '');
+      // Dialogs.showLoader(context, 'Please wait getting chapters', '');
+      _repository.get2('${EndPoints.GetProfile}?EmployeeId=$id')
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+          // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
+          //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
+          Dialogs.hideLoader(context);
 
+         // List<ProfileResponse> data = jsonDecode(res.data.toString());
+          //print('profileData***${data[0].firstName}');
+           ProfileResponse response=ProfileResponse.fromJson(res.data.toString());
+
+
+          _view.onProfileFetch(response);
+
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+          Dialogs.hideLoader(context);
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }
+  }
 
 
 }

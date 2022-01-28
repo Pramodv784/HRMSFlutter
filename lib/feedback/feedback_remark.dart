@@ -1,20 +1,39 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:hrms/feedback/empfeedback/model/feed_question_model.dart';
+import 'package:hrms/feedback/feed_question_presenter.dart';
+import 'package:hrms/feedback/feed_question_view.dart';
+import 'package:hrms/feedback/model/add_feedback_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Screens.dart';
+import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
+
+import 'feedback_request.dart';
 class FeedbackRemark extends StatefulWidget {
-  const FeedbackRemark({Key key}) : super(key: key);
+  FeedbackRequest _feedbackRequest;
+
+   FeedbackRemark(this._feedbackRequest,{Key key}) : super(key: key);
 
   @override
   _FeedbackRemarkState createState() => _FeedbackRemarkState();
 }
 
-class _FeedbackRemarkState extends State<FeedbackRemark> {
+class _FeedbackRemarkState extends State<FeedbackRemark> implements FeedQuestionView {
   var text=0;
+  FeedQuestionPresenter _presenter;
+  String feedtext='';
 
+  @override
+  void initState() {
+    _presenter=FeedQuestionPresenter(this);
+    print('${widget._feedbackRequest.fBScore[0].questionScore}');
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return   Scaffold(
@@ -70,6 +89,7 @@ class _FeedbackRemarkState extends State<FeedbackRemark> {
                       keyboardType: TextInputType.multiline,
                       onChanged: (vale){
                         text=vale.length;
+                        feedtext=vale;
                         setState(() {
                         });
                       },
@@ -139,6 +159,8 @@ class _FeedbackRemarkState extends State<FeedbackRemark> {
               borderColor: AppColors.colorPrimary,
               textStyle: textStyleWhite14px600w,
               onTap: () {
+                widget._feedbackRequest.yourFeedback=feedtext;
+                _presenter.submitQuestion(context, widget._feedbackRequest);
                 //Navigator.pushNamed(context, Screens.EmpFeedBack);
               },
             ),
@@ -146,5 +168,26 @@ class _FeedbackRemarkState extends State<FeedbackRemark> {
         ],
       ),
     );
+  }
+
+  @override
+  void onAddFeedResponseFecthed(AddFeedbackResponse response) {
+    print('resonse*****${response.message}');
+    Dialogs.showMsgCustomDialog(context,onok:  (){
+      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
+    },message: '',title: response.message);
+  }
+  @override
+  void onError(String error) {
+    Dialogs.showMsgCustomDialog(context,onok:  (){
+      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
+    },message: '',title: error);
+  }
+
+  @override
+  void onFeedQuestionFecthed(FeedQuestionModel response) {
+
   }
 }

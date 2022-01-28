@@ -109,28 +109,6 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                 width: MediaQuery.of(context).size.width * .80,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  /*child: TextFormField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                        hintText: "Email",
-                        prefixIcon:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset("assets/image/ic_email.svg"),
-                            ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 0.5),
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 0.5),
-                        ),
-                        fillColor: const Color(0x00f8fbff),
-                        filled: true),
-                  ),*/
                   child: InputField(
                     leftIcon: 'assets/image/ic_email.svg',
                     placeHolderText: 'Enter Email',
@@ -163,37 +141,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
               SizedBox(
                 width: MediaQuery.of(context).size.width * .80,
 
-               /* child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: TextFormField(
-                    controller: passwordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    textInputAction: TextInputAction.next,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      suffixIcon: Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          Image.asset("assets/image/login_show.png"),
-                          Image.asset("assets/image/login_circle.png"),
-                        ],
-                      ),
-                      hintText: "Password",
-                      prefixIcon:
-                          Image.asset("assets/image/login_mail.png"),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.black, width: 0.5),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Colors.black, width: 0.5),
-                      ),
-                      fillColor: const Color(0x00f8fbff),
-                      filled: true,
-                    ),
-                  ),
-                ),*/
+
                 child: InputField(
                   leftIcon: 'assets/image/ic_password.svg',
                   placeHolderText: 'Enter Password',
@@ -276,10 +224,8 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
   @override
   void onLoginFetch(LoginResponse response) {
     log("Login Response +++++++++++ " + response.message);
-    //print(response);
     var currentUser = CurrentUser()..userCredentials = response;
     currentUser.isLoggedIn = true;
-
     currentUser.userId=response.userDataList[0].employeeId;
     AuthUser.getInstance().login(currentUser);
     Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));

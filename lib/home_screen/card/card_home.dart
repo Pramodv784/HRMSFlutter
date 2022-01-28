@@ -6,6 +6,7 @@ import 'package:hrms/home_screen/model/home_data_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/res/Screens.dart';
 import 'package:hrms/utility/Utility.dart';
 class CardHome extends StatelessWidget {
   MenuList _data;
@@ -23,7 +24,7 @@ class CardHome extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.network('http://3485-103-15-67-125.ngrok.io/${imageurl}',),
+            SvgPicture.network('${EndPoints.baseUrl}/${imageurl}',),
             SizedBox(height: 10.0,),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -34,10 +35,17 @@ class CardHome extends StatelessWidget {
           ],
         ),
         onTap: (){
-          //if(_data.tittle=='Feedback'){
-          print('clicked');
-            new Tooltip(message: 'Give feedback ',child: Text('hello'),);
-          //}
+          switch(_data.menuId)
+          {
+            case 1:
+              Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
+              break;
+               case 18:
+              Navigator.pushNamed(context, Screens.HomeScreen2);
+              break;
+
+          }
+
 
         },
      ),

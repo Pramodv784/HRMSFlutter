@@ -65,15 +65,21 @@ class _ScreenState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             scaffoldBackgroundColor: AppColors.white,
-            primarySwatch: Colors.amber),
+            primarySwatch: Colors.grey),
         // ignore: missing_return
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case Screens.kHomeScreen:
               return RouteTransition(widget:  HomeScreen());
               break;
+            case Screens.HomeScreen2:
+              return RouteTransition(widget:  HomeScreen2());
+              break;
             case Screens.AddFeedBack:
               return RouteTransition(widget:  SelectEmp());
+              break;
+               case Screens.AddEmpFeedRemark:
+              return RouteTransition(widget:  FeedbackRemark(settings.arguments));
               break;
             case Screens.Profile:
               return RouteTransition(widget:  ProfilePage());
@@ -106,8 +112,8 @@ class _ScreenState extends State<MyApp> {
           }
         },
         home:
-       checkAuthUser(widget?.isLoggedIn)
-        //RevDrawer()
+       //checkAuthUser(widget?.isLoggedIn)
+        LeaveBalancePage()
         //AddFeedback()
         );
   }
