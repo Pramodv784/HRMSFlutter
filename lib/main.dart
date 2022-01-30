@@ -13,6 +13,8 @@ import 'package:hrms/res/Screens.dart';
 
 import 'package:hrms/user/AuthUser.dart';
 import 'package:provider/provider.dart';
+import 'add_leave_request/add_leave_request_page.dart';
+import 'add_leave_request/add_leave_request_page2.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
 
@@ -113,7 +115,7 @@ class _ScreenState extends State<MyApp> {
         },
         home:
        //checkAuthUser(widget?.isLoggedIn)
-        LeaveBalancePage()
+        AddLeaveRequest2()
         //AddFeedback()
         );
   }

@@ -35,4 +35,5 @@ class Images {
   static const PasswordEyeClose = base + 'ic_password_eye_closed.png';
   static const PasswordEyeOpen = base + 'ic_password_eye_open.png';
   static const NotificationIcon = base + 'ic_notificationIcon.svg';
+  static const DateIcon = base + 'ic_date.png';
 }

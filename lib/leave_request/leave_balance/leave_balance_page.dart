@@ -95,7 +95,6 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                    backgroundColor: AppColors.grey,
                    animateFromLastPercent: true,
                    circularStrokeCap: CircularStrokeCap.butt,
-
                  ),
                ),
              )
