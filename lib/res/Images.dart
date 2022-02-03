@@ -36,4 +36,6 @@ class Images {
   static const PasswordEyeOpen = base + 'ic_password_eye_open.png';
   static const NotificationIcon = base + 'ic_notificationIcon.svg';
   static const DateIcon = base + 'ic_date.png';
+  static const ExpenseIcon = base + 'ic_expense.svg';
+  static const AddDocumentIcon = base + 'ic_document.svg';
 }

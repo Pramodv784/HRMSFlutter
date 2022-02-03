@@ -17,10 +17,11 @@ class _LeaveRequestDashboardState extends State<LeaveRequestDashboard>
   TabController _tabController;
   List<Widget> widgettimeList=[];
   List<Widget> widgethelpList=[];
+  List<Widget> widgetexpenseList=[];
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     for(TimeModel t in timeList)
       {
         widgettimeList.add(CardLeave(t));
@@ -29,6 +30,12 @@ class _LeaveRequestDashboardState extends State<LeaveRequestDashboard>
     {
       widgethelpList.add(CardLeave(t));
     }
+    for(TimeModel t in expenseList)
+    {
+      widgetexpenseList.add(CardLeave(t));
+    }
+
+
     setState(() {
 
     });
@@ -91,6 +98,9 @@ class _LeaveRequestDashboardState extends State<LeaveRequestDashboard>
                    Tab(
                      child: Text('Helpdesk',style: TextStyle(fontWeight:FontWeight.bold),),
                    ),
+                   Tab(
+                     child: Text('Expenses',style: TextStyle(fontWeight:FontWeight.bold),),
+                   ),
                  ],
                ),
              ),
@@ -112,6 +122,12 @@ class _LeaveRequestDashboardState extends State<LeaveRequestDashboard>
                      children: [
                        SizedBox(height: 30,),
                        ...widgethelpList
+                     ],
+                   ),
+                   ListView(
+                     children: [
+                       SizedBox(height: 30,),
+                       ...widgetexpenseList
                      ],
                    ),
                  ],

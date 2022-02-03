@@ -218,7 +218,7 @@ packages:
       name: fluttertoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.0.8"
+    version: "7.0.1"
   graphs:
     dependency: transitive
     description:
@@ -296,6 +296,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.11"
+  material_color_utilities:
+    dependency: transitive
+    description:
+      name: material_color_utilities
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.3"
   matrix4_transform:
     dependency: "direct main"
     description:
@@ -552,14 +559,14 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.4.47"
+    version: "19.4.48"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.4.47"
+    version: "19.4.48"
   table_calendar:
     dependency: "direct main"
     description:
@@ -580,7 +587,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.8"
   transformer_page_view:
     dependency: transitive
     description:

@@ -188,7 +188,7 @@ class _AddFeedbackState extends State<AddFeedback>
                     }
                   else
                     {
-                      Utility.showErrorToast(context, 'please provide rating');
+                      Utility.showToast(context, 'please provide rating');
                     }
 
               },

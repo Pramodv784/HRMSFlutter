@@ -1,29 +1,74 @@
+
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_chips_input/flutter_chips_input.dart';
+import 'package:hrms/add_leave_request/leave_view.dart';
+import 'package:hrms/add_leave_request/model/add_leave_request.dart';
+import 'package:hrms/add_leave_request/model/emp_key_response.dart';
+import 'package:hrms/add_leave_request/model/leave_type_response.dart';
+import 'package:hrms/add_leave_request/presenter/leave_presenter.dart';
 import 'package:hrms/leave_request/model/ProfileModel.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/res/Screens.dart';
+import 'package:hrms/user/AuthUser.dart';
+import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/InputField.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+
+import 'model/add_leave_response.dart';
 
 
 class AddLeaveRequest extends StatefulWidget {
    AddLeaveRequest({Key key}) : super(key: key);
-
+   LeaveRequest _request=LeaveRequest();
   @override
   _AddLeaveRequest createState() => _AddLeaveRequest();
 }
 
-class _AddLeaveRequest extends State<AddLeaveRequest>
+class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView
    {
+
   DateTime _end_date,_start_date;
   var text=0;
+  LeavePresenter _presenter;
+  List<Leaves> leaveTypeList=[];
+  List<EmployeeDataList> emplist=[];
+
+
+  String title="";
+  String userId='';
+  String notify="";
+
+  String description='';
+
+  @override
+  void initState() {
+    _presenter=LeavePresenter(this);
+    _presenter.getLeaveType(context);
+    getuserId();
+    super.initState();
+
+  }
+  void getuserId() async{
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
+    userId=userData.userId.toString();
+    print('Id ***** ${userData.userId}');
+
+
+    //print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -185,13 +230,16 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
                        placeHolderText: 'Enter leave title',
                        errorMessage: 'Please Enter leave  title',
                        inputType: InputType.ONLY_WORDS,
+                       onTextChange: (value){
+                         value=title;
+                       },
                      ),
                    ),
                   SizedBox(height: 10.0,),
                    RichText(
                        text: TextSpan(children: [
                          TextSpan(
-                           text: 'Select Team ',
+                           text: 'Select Available Leave Type',
                            style: textStyleWhite12px400w,
                          ),
                          TextSpan(
@@ -203,7 +251,8 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
                    SizedBox(
                      height: 5.0,
                    ),
-                   DropdownButtonFormField<String>(
+                   if(leaveTypeList.length>0)
+                   DropdownButtonFormField<Leaves>(
                      decoration: InputDecoration(
                        contentPadding: EdgeInsets.symmetric(
                            horizontal: 20, vertical: 20.0),
@@ -221,20 +270,25 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
                        fillColor: AppColors.dropbg,
                      ),
                      dropdownColor: Colors.white,
-                     onChanged: (String value) {
+                     onChanged: (Leaves value) {
                        setState(() {
                          //_selected = value;
+                         widget._request.leaveTypeId=value.leaveTypeId.toString();
+                         widget._request.leaveType=value.leavetype;
 
                        });
                      },
                      hint: Text('Available leave type'),
                      icon: new Image.asset(Images.DropIcon),
-                     items:  ['leave type'].map((String items) {
-                       return DropdownMenuItem(
-                         value: items,
-                         child: Text(items),
-                       );
-                     }).toList(),
+                     items: leaveTypeList !=null? leaveTypeList
+                         .map((Leaves label) => DropdownMenuItem(
+                       child: Text(label.leavetype),
+                       value: label
+                     ))
+                         .toList():['select leave type'].map((e) => DropdownMenuItem(
+                         child: Text(
+                           e.toString(),
+                         ),))
     ),
                    SizedBox(height: 10.0,),
                    Text(
@@ -254,7 +308,7 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
                          color:AppColors.grey
                      ),
                    ),
-                   child: ChipsInput<ProfileModel>(
+                   child: ChipsInput<EmployeeDataList>(
                      decoration:InputDecoration(
                        border: InputBorder.none,
                        hintText: ''
@@ -262,19 +316,19 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
                       findSuggestions: getList,
                      onChanged: _onChanged,
                      chipBuilder: (BuildContext context,
-                         ChipsInputState<ProfileModel> state, ProfileModel profile){
-                       return InputChip(label: Text(profile.name),
+                         ChipsInputState<EmployeeDataList> state, EmployeeDataList profile){
+                       return InputChip(label: Text(profile.fullName),
                          onDeleted: () => state.deleteChip(profile),
                          onSelected: (_) => _onChipTapped(profile),
                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                        );
                      },
                      suggestionBuilder:  (BuildContext context,
-                         ChipsInputState<ProfileModel> state, ProfileModel profile) {
+                         ChipsInputState<EmployeeDataList> state, EmployeeDataList profile) {
                        return ListTile(
                          key: ObjectKey(profile),
 
-                         title: Text(profile.name),
+                         title: Text(profile.fullName),
 
                          onTap: () => state.selectSuggestion(profile),
                        );
@@ -314,6 +368,7 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
                        keyboardType: TextInputType.multiline,
                        onChanged: (vale){
                          text=vale.length;
+                         description=vale;
                          setState(() {
                          });
                        },
@@ -377,13 +432,28 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
           borderColor: AppColors.colorPrimary,
           textStyle: textStyleWhite14px600w,
           onTap: () {
+            widget._request.employeeId=userId;
+            widget._request.startdate=Utility.formatDate(_start_date.toString());
+            widget._request.endDate=Utility.formatDate(_end_date.toString());
+            widget._request.companyId='2';
+            widget._request.orgId='2';
+            widget._request.appliedBy='Lovely';
+            widget._request.numberOfDays=daysBetween(_start_date,_end_date).toString();
+            widget._request.notifyTo=notify;
 
-            //Navigator.pushNamed(context, Screens.EmpFeedBack);
+
+
+            _presenter.AddLeave(context, widget._request);
+
+
+           // Navigator.pushNamed(context, Screens.AddLeaveRequest2);
           },
         ),
       ),
     );
   }
+
+
   void _showDatePicker(ctx,int i) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
     var now = DateTime.now();
@@ -432,23 +502,72 @@ class _AddLeaveRequest extends State<AddLeaveRequest>
     to = DateTime(to.year, to.month, to.day);
     return (to.difference(from).inHours / 24).round();
   }
-  Future<List<ProfileModel>> getList(String query) async{
+  Future<List<EmployeeDataList>> getList(String query) async{
     if(query.length!=0)
       {
-        return profileList.where((element) {
-          return element.name.contains(query);
-        }).toList(growable:false);
+        _presenter.getEmpKey(context, query);
+     /*   return leaveTypeList.where((element) {
+          return element.f.contains(query);
+        }).toList(growable:false);*/
+        return emplist.where((element)  {
+          return element.fullName.contains(query);
+
+
+        }).toList(growable: false);
       }
     else
       {
-        return const <ProfileModel>[];
+        return const <EmployeeDataList>[];
       }
 
   }
-  void _onChanged(List<ProfileModel> data) {
+  void _onChanged(List<EmployeeDataList> data) {
     print('onChanged $data');
+    notify="";
+    for(int i=0;i<data.length;i++)
+      {
+        if(notify.length==0){
+          notify=data[i].fullName;
+        }
+        else
+          {
+            notify=notify+","+data[i].fullName;
+          }
+      }
+    print('Notify Data ${notify}');
   }
-  void _onChipTapped(ProfileModel profile) {
+  void _onChipTapped(EmployeeDataList profile) {
     print('$profile');
+    widget._request?.notifyTo=profile.fullName;
+  }
+
+  @override
+  void onLeaveFecthed(LeaveTypeResponse response) {
+    leaveTypeList.clear();
+    leaveTypeList.addAll(response.leaves);
+    setState(() {
+
+    });
+  }
+
+  @override
+  void onAddLeaveFecthed(AddLeaveResponse response) {
+    print('leave add response ****  ${response.message}');
+    Dialogs.showMsgCustomDialog(context,onok:  (){
+      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
+    },message: '',title: response.message);
+  }
+
+  @override
+  void onEmpkeyFecthed(EmpKeyResponse response) {
+
+    print('Empkey response **********${response.employeeDataList.length}');
+    emplist.clear();
+    emplist.addAll(response.employeeDataList);
+     setState(() {
+
+     });
+    // TODO: implement onEmpkeyFecthed
   }
 }

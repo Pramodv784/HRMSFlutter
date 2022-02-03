@@ -52,11 +52,13 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
    _presenter=HomePresenter(this);
    _presenter.getHomeData(context);
 
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Utility.showErrorToast(context, 'sucess');
     return Consumer<BaseProvider>(builder: (_, baseprovider, __) {
       return Container(
         child: Column(
@@ -222,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
   }
    Future<void> _pullRefresh() async {
     _presenter.getHomeData(context);
-    Utility.showSuccessToastB(context, 'done');
+    Utility.showToast(context, 'done');
      setState(() {
      });
 

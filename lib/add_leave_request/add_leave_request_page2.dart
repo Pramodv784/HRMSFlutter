@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/utility/Header.dart';
+import 'package:hrms/utility/Utility.dart';
 import 'package:table_calendar/table_calendar.dart';
 class AddLeaveRequest2 extends StatefulWidget {
   const AddLeaveRequest2({Key key}) : super(key: key);
@@ -11,6 +12,8 @@ class AddLeaveRequest2 extends StatefulWidget {
 
 class _AddLeaveRequest2State extends State<AddLeaveRequest2> {
   CalendarController _controller;
+
+  int _value;
 
   @override
   void initState() {
@@ -89,7 +92,86 @@ class _AddLeaveRequest2State extends State<AddLeaveRequest2> {
                 ),
 
                 calendarController: _controller,
-              )
+              ),
+             SizedBox(height: 20.0,),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                  Flexible(
+                    child: Container(
+                      height: 50.0,
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      alignment: Alignment.center,
+                      color: Color(0xFFFDC76F),
+                      child: Text('Holiday'),),
+                  ),
+                  SizedBox(width: 10.0,),
+                  Flexible(
+                    child: Container(
+                      height: 50.0,
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      alignment: Alignment.center,
+                      color: Color(0xFF89AEC7),
+                      child: Text('Week off'),),
+                  ),
+                    SizedBox(width: 10.0,),
+                  Flexible(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 5.0),
+                      alignment: Alignment.center,
+                      height: 50.0,
+                      color: Color(0xFFE86D72),
+                      child: Text('Leave'),),
+                  ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      child: Flexible(
+                        child: Container(
+                          height: 50.0,
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          alignment: Alignment.center,
+                          color: _value==1?AppColors.dropbg:AppColors.colorPrimary,
+                          child: Text('First Half'),),
+                      ),
+                      onTap: (){
+                        _value=1;
+                        setState(() {
+
+                        });
+                      },
+                    ),
+
+                    InkWell(
+                      child: Flexible(
+                        child: Container(
+                          height: 50.0,
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          alignment: Alignment.center,
+                          color: _value==0?AppColors.colorPrimary:AppColors.dropbg,
+                          child: Text('Second Half'),),
+                      ),
+                      onTap: (){
+                        _value=0;
+                        setState(() {
+
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

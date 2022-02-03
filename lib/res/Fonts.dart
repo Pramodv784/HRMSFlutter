@@ -735,7 +735,11 @@ const textStyleBlue24px300w = TextStyle(
     fontWeight: FontWeight.w300,
     fontSize: 24);
 
-
+const textStyleWhite12px400wRed = TextStyle(
+    color: AppColors.red,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.bold,
+    fontSize: fontH4);
 
 class Responsive {
     static textStyleBlue24px600wRes(BuildContext context) => TextStyle(
@@ -767,4 +771,5 @@ class Responsive {
         fontFamily: kFontFamily,
         fontWeight: FontWeight.w400,
         fontSize: (Utility.screenWidth(context) * .04));
+
 }

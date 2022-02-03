@@ -2,10 +2,10 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'dart:convert';
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:intl/intl.dart';
@@ -77,11 +77,37 @@ class Utility {
     String dtm = DateFormat("MMM dd, yyyy").format(dt);
     return dtm;
   }
+
+ /* static void CustomToast(BuildContext context,String) async{
+    Widget widget = Center(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30.0),
+        child: Container(
+          width: 40.0,
+          height: 40.0,
+          color: Colors.grey.withOpacity(0.3),
+          child: Icon(
+            Icons.add,
+            size: 30.0,
+            color: Colors.green,
+          ),
+        ),
+      ),
+    );
+
+    ToastFuture toastFuture = showToastWidget(
+      widget,
+      duration: Duration(seconds: 3),
+      onDismiss: () {
+        print("the toast dismiss"); // the method will be called on toast dismiss.
+      },
+    );
+  }*/
   static void showErrorToast(BuildContext context, String text) async {
-    FToast fToast = FToast();
+    FToast fToast = FToast(context);
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(4.0), color: AppColors.red),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: AppColors.red),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -101,22 +127,15 @@ class Utility {
   }
 
   static void showSuccessToastB(BuildContext context, String text) async {
-    FToast fToast = FToast();
+    FToast fToast = FToast(context);
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0), color: Colors.green[900]),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.check_circle, color: AppColors.white),
-          SizedBox(width: 6.0),
-          Expanded(child: Text(
-              "$text", style: textStyleWhite12px600w,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis)),
-        ],
-      ),
+          borderRadius: BorderRadius.circular(10.0), color: Colors.green[900]),
+      child: Expanded(child: Text(
+          "$text", style: textStyleWhite12px600w,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis)),
     );
 
     fToast.showToast(

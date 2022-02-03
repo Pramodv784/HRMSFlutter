@@ -59,4 +59,5 @@ abstract class AppColors {
   static const green = Color(0xFF14CD93);
   static const borderColor = Color(0xFF616576);
   static const ratingColor = Color(0xFFFFC107);
+  static const greyNew = Color(0xFF616576);
 }

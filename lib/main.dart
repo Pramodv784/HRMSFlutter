@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:hrms/api_provider/api_repository.dart';
+import 'package:hrms/expense/employe_expense.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
 import 'package:hrms/profile/profile_page.dart';
@@ -18,6 +19,7 @@ import 'add_leave_request/add_leave_request_page2.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
 
+import 'expense/employee_advances.dart';
 import 'feedback/add_feedback.dart';
 import 'feedback/empfeedback/emp_feed_back.dart';
 import 'feedback/feedback_remark.dart';
@@ -95,10 +97,26 @@ class _ScreenState extends State<MyApp> {
             case Screens.LeaveRequestDashboard:
               return RouteTransition(widget:  LeaveRequestDashboard());
               break;
+            case Screens.LeaveBalancePage:
+              return RouteTransition(widget:  LeaveBalancePage());
+              break;
+
+            case Screens.AddLeaveRequest:
+              return RouteTransition(widget:  AddLeaveRequest());
+              break;
+            case Screens.AddLeaveRequest2:
+              return RouteTransition(widget:  AddLeaveRequest2());
+              break;
+            case Screens.AddExpense:
+              return RouteTransition(widget:  EmployeeAdvances());
+              break;
+
             case Screens.AddEmpFeedBack:
               List<dynamic> args = settings.arguments;
               return RouteTransition(widget:  AddFeedback(args[0],args[1]));
               break;
+
+
 
             case Screens.kBaseScreen:
               return RouteTransition(
@@ -114,8 +132,8 @@ class _ScreenState extends State<MyApp> {
           }
         },
         home:
-       //checkAuthUser(widget?.isLoggedIn)
-        AddLeaveRequest2()
+       checkAuthUser(widget?.isLoggedIn)
+        //RevDrawer()
         //AddFeedback()
         );
   }
