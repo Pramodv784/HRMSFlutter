@@ -101,6 +101,10 @@ class _ScreenState extends State<MyApp> {
             case Screens.LeaveBalancePage:
               return RouteTransition(widget:  LeaveBalancePage());
               break;
+               case Screens.AttendencePage:
+              return RouteTransition(widget:  AttendanceDasboard());
+              break;
+
 
             case Screens.AddLeaveRequest:
               return RouteTransition(widget:  AddLeaveRequest());

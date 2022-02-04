@@ -46,6 +46,9 @@ class CardLeave extends StatelessWidget {
           case 'Add Expenses':
             Navigator.pushNamed(context, Screens.AddExpense);
             break;
+          case 'Attendance History':
+            Navigator.pushNamed(context, Screens.AttendencePage);
+            break;
 
 
         }
