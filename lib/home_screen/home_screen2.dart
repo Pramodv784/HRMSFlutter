@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/card/HomeCardView2.dart';
-import 'package:hrms/home_screen/model/home_data_model.dart';
+import 'package:hrms/card/HomeCardView3.dart';
 import 'package:hrms/login_screen/model/ScoreModel.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
@@ -14,22 +11,21 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import 'card/card_home.dart';
 import 'model/home_avg_score_response.dart';
-class HomeScreen2 extends StatefulWidget {
-   HomeScreen2({Key key}) : super(key: key);
 
+class HomeScreen2 extends StatefulWidget {
+  HomeScreen2({Key key}) : super(key: key);
 
   @override
   _HomeScreen2 createState() => _HomeScreen2();
 }
 
 class _HomeScreen2 extends State<HomeScreen2> {
-  var text=0;
+  var text = 0;
   HomeAvgScoreResponse _response;
   TooltipBehavior _tooltipBehavior;
   final List<ScoreData> chartData = [
-    ScoreData('Jan', 1,AppColors.red),
+    ScoreData('Jan', 1, AppColors.red),
     ScoreData('Feb', 2, AppColors.red),
     ScoreData('Mar', 8, AppColors.red),
     ScoreData('Apr', 8, AppColors.red),
@@ -42,153 +38,250 @@ class _HomeScreen2 extends State<HomeScreen2> {
     ScoreData('Nov', 2, AppColors.red),
     ScoreData('Dec', 7, AppColors.red),
   ];
+
+  static const List<Choice> choices = <Choice>[
+    Choice(title: 'Home'),
+    Choice(title: 'Contact'),
+    Choice(title: 'Map'),
+    Choice(title: 'Phone'),
+    Choice(title: 'Camera'),
+    Choice(title: 'Setting'),
+    Choice(
+      title: 'Album',
+    ),
+    Choice(
+      title: 'WiFi',
+    ),
+  ];
+
   @override
   void initState() {
-    _tooltipBehavior=TooltipBehavior(
-        enable: true  ,
+    _tooltipBehavior = TooltipBehavior(
+        enable: true,
         borderWidth: 0.1,
         elevation: 4.0,
-
         color: AppColors.g1,
         borderColor: AppColors.g1,
-        builder: (dynamic data, dynamic point, dynamic series,
-            int pointIndex, int seriesIndex) {
-          return padding(context,pointIndex);
-        }
-    );
+        builder: (dynamic data, dynamic point, dynamic series, int pointIndex,
+            int seriesIndex) {
+          return padding(context, pointIndex);
+        });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Header(headerText: 'Feedback',),
-            Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  decoration: const BoxDecoration(
-                    color: AppColors.background,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10.0),
-                      topLeft: Radius.circular(10.0),
-                    ),
-                  ),
+    return Scaffold(
+        backgroundColor: AppColors.background,
+        body: SafeArea(
+          child: Column(
+            children: [
+              Header(
+                headerText: 'Feedback',
+              ),
+              Expanded(
                   child: Container(
-                    height: Utility.screenHeight(context),
-                    child: ListView(
-                      children: [
-                        Card(
-                          margin: EdgeInsets.all(10.0),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('Your Achievements',style: textStyleWhite12px400w,),
-                                    GestureDetector(child: Text('view all',style: textStyleWhite12px400w,)
-                                      ,onTap: (){
-                                        opendDialog();
-                                      },),
-
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Image.asset(Images.AchievIcon,),
-                                        Text('10X',style: textStyleWhite12px400w,),
-                                      ],
+                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                decoration: const BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(10.0),
+                    topLeft: Radius.circular(10.0),
+                  ),
+                ),
+                child: Container(
+                  height: Utility.screenHeight(context),
+                  child: ListView(
+                    children: [
+                      Card(
+                        margin: EdgeInsets.all(10.0),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Your Achievements',
+                                    style: textStyleWhite12px400w,
+                                  ),
+                                  GestureDetector(
+                                    child: Text(
+                                      'view all',
+                                      style: textStyleWhite12px400w,
                                     ),
-                                    Column(
-                                      children: [
-                                        Image.asset(Images.AchievIcon,),
-                                        Text('10X',style: textStyleWhite12px400w,),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Image.asset(Images.AchievIcon,),
-                                        Text('10X',style: textStyleWhite12px400w,),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-
-                        ),
-                        HomeCard2(_response),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text('Year’s avg score',style: textStyleWhite12px400w,),
-                                ),
-                                Container(
-                                  child: SfCartesianChart(
-                                    enableAxisAnimation: true,
-                                    tooltipBehavior: _tooltipBehavior,
-                                    primaryYAxis: NumericAxis(minimum: 0,maximum: 10,
-                                        interval: 1),
-                                    primaryXAxis: CategoryAxis(
-                                      interval: 1,
-
-                                    ),
-                                    palette: <Color>[AppColors.red],
-                                    series: <CartesianSeries>[
-                                      ColumnSeries<ScoreData, String>(
-                                          dataSource: chartData,
-                                          borderRadius: BorderRadius.only(
-                                            // The top left and bottom right corners radii are changed to make them
-                                            // as rounded corners.
-                                              topLeft: Radius.circular(5),
-                                              topRight: Radius.circular(5)),
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomLeft,
-                                              colors: [AppColors.g1, AppColors.g2]),
-                                          xValueMapper: (ScoreData data, _) => data.x,
-                                          yValueMapper: (ScoreData data, _) => data.y,
-                                          // Map color for each data points from the data source
-                                          pointColorMapper: (ScoreData data, _) =>
-                                          data.color)
+                                    onTap: () {
+                                      openScoreDialog();
+                                    },
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        Images.AchievIcon,
+                                      ),
+                                      Text(
+                                        '10X',
+                                        style: textStyleWhite12px400w,
+                                      ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        Images.AchievIcon,
+                                      ),
+                                      Text(
+                                        '10X',
+                                        style: textStyleWhite12px400w,
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Image.asset(
+                                        Images.AchievIcon,
+                                      ),
+                                      Text(
+                                        '10X',
+                                        style: textStyleWhite12px400w,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
+                      ),
+                      HomeCard2(_response),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Year’s avg score',
+                                  style: textStyleWhite12px400w,
+                                ),
+                              ),
+                              Container(
+                                child: SfCartesianChart(
+                                  enableAxisAnimation: true,
+                                  tooltipBehavior: _tooltipBehavior,
+                                  primaryYAxis: NumericAxis(
+                                      minimum: 0, maximum: 10, interval: 1),
+                                  primaryXAxis: CategoryAxis(
+                                    interval: 1,
+                                  ),
+                                  palette: <Color>[AppColors.red],
+                                  series: <CartesianSeries>[
+                                    ColumnSeries<ScoreData, String>(
+                                        dataSource: chartData,
+                                        borderRadius: BorderRadius.only(
+                                            // The top left and bottom right corners radii are changed to make them
+                                            // as rounded corners.
+                                            topLeft: Radius.circular(5),
+                                            topRight: Radius.circular(5)),
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomLeft,
+                                            colors: [
+                                              AppColors.g1,
+                                              AppColors.g2
+                                            ]),
+                                        xValueMapper: (ScoreData data, _) =>
+                                            data.x,
+                                        yValueMapper: (ScoreData data, _) =>
+                                            data.y,
+                                        // Map color for each data points from the data source
+                                        pointColorMapper: (ScoreData data, _) =>
+                                            data.color)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Area of Improvements',
+                                  style: textStyleWhite12px400w,
+                                ),
+                              ),
+                              GridView.count(
+                                crossAxisCount: 3,
+                                shrinkWrap: true,
+                                children: List.generate(
+                                  5,
+                                  (index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: AppColors.backGroundColor,
+                                        ),
+                                        child: Center(
+                                          child: RichText(
+                                              textAlign: TextAlign.center,
+                                              text: TextSpan(children: [
+                                                TextSpan(
+                                                  text: 'Category $index',
+                                                  style:
+                                                      textStyleSubText14px400w,
+                                                ),
 
-                        bottomButton(),
-
-                      ],
-                    ),
+                                                /* TextSpan(
+                                          text: '*',
+                                          style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                                      ),*/
+                                              ])),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      bottomButton(),
+                    ],
                   ),
-                )
-            ),
-          ],
-        ),
-      )
-
-    );
+                ),
+              )),
+            ],
+          ),
+        ));
   }
+
   opendDialog() {
     Scaffold body = Scaffold(
       backgroundColor: AppColors.background.withOpacity(0.1),
@@ -211,17 +304,21 @@ class _HomeScreen2 extends State<HomeScreen2> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Your Achievements',style: textStyleWhite12px400w,),
-                        InkWell(child: Image.asset(Images.CloseIcon),
-                          onTap: (){
+                        Text(
+                          'Your Achievements',
+                          style: textStyleWhite12px400w,
+                        ),
+                        InkWell(
+                          child: Image.asset(Images.CloseIcon),
+                          onTap: () {
                             Navigator.pop(context);
-                          },)
+                          },
+                        )
                       ],
                     ),
                   ),
-
                   Flexible(
-                    child:GridView.count(
+                    child: GridView.count(
                         physics: NeverScrollableScrollPhysics(),
                         crossAxisCount: 3,
                         childAspectRatio: 1.0,
@@ -238,11 +335,15 @@ class _HomeScreen2 extends State<HomeScreen2> {
                         ].map((String value) {
                           return GridTile(
                               child: Column(
-                                children: [
-                                  Image.asset(Images.AchievIcon,width: 70,height: 70,),
-                                  Text(value)
-                                ],
-                              ));
+                            children: [
+                              Image.asset(
+                                Images.AchievIcon,
+                                width: 70,
+                                height: 70,
+                              ),
+                              Text(value)
+                            ],
+                          ));
                         }).toList()),
                   ),
                 ],
@@ -259,6 +360,7 @@ class _HomeScreen2 extends State<HomeScreen2> {
           return body;
         });
   }
+
   Container bottomButton() {
     return Container(
       height: 80.0,
@@ -298,9 +400,8 @@ class _HomeScreen2 extends State<HomeScreen2> {
               radius: 50.0,
               borderColor: AppColors.colorPrimary,
               textStyle: textStyleWhite14px600w,
-
               onTap: () {
-                Navigator.pushNamed(context, Screens.AddFeedBack );
+                Navigator.pushNamed(context, Screens.AddFeedBack);
               },
             ),
           ),
@@ -308,36 +409,107 @@ class _HomeScreen2 extends State<HomeScreen2> {
       ),
     );
   }
-  Widget padding(BuildContext context,int index){
+
+  Widget padding(BuildContext context, int index) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Container(
         width: 60.0,
-        decoration: BoxDecoration(gradient:
-        LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomLeft,
-            colors: [AppColors.g1, AppColors.g2]
-        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomLeft,
+              colors: [AppColors.g1, AppColors.g2]),
           boxShadow: [
             BoxShadow(
               color: Colors.grey[500],
               offset: Offset(0.0, 1.5),
               blurRadius: 1.5,
             ),
-          ]
-          ,),
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.all(3.0),
           child: Row(
             children: [
-              Image.asset(Images.TooltipIcon,),
-              SizedBox(width: 3,),
-              Text('${chartData[index].y}',style: TextStyle(color: AppColors.white,fontSize: 15.0),)
+              Image.asset(
+                Images.TooltipIcon,
+              ),
+              SizedBox(
+                width: 3,
+              ),
+              Text(
+                '${chartData[index].y}',
+                style: TextStyle(color: AppColors.white, fontSize: 15.0),
+              )
             ],
           ),
         ),
       ),
     );
   }
+
+
+
+  openScoreDialog(){
+    Scaffold body = Scaffold(
+      backgroundColor: AppColors.background.withOpacity(0.1),
+      body: Center(
+        child: SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+            height: Utility.screenHeight(context) * .63,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: AppColors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                children: [
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Month’s avg score',
+                              style: textStyleWhite12px400w,
+                            ),
+                            InkWell(
+                              child: Image.asset(Images.CloseIcon),
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                      HomeCard3(_response),
+                    ],
+                  ),
+                ],
+
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    showDialog<String>(
+        context: context,
+        builder: (context) {
+          return body;
+        });
+  }
+}
+
+class Choice {
+  const Choice({this.title});
+
+  final String title;
 }

@@ -20,6 +20,7 @@ abstract class AppColors {
   static const colorSecondaryLight = Color(0xFFD3D9E9);
 
   static const textColor = Color(0xFF231F20);
+  static const textColorContent= Color(0xFF6E7781);
   static const textColorBlue = Color(0xFF231F20);
   static const textColorBlack = Color(0xFF30303C);
   static const textColorHeather = Color(0xFFACBEC9);
@@ -38,6 +39,9 @@ abstract class AppColors {
   static const black = Color(0xFF231F20);
   static const background = Color(0xFFF5F5F5);
   static const grey = Color(0xFFEAE9E9);
+  static const greyNew = Color(0xFF616576);
+
+
   static const dropbg = Color(0xF8D8DD7);
   static const KitBlack = Color(0xFF30303C);
   static const KitTransGrey = Colors.grey;
@@ -59,5 +63,8 @@ abstract class AppColors {
   static const green = Color(0xFF14CD93);
   static const borderColor = Color(0xFF616576);
   static const ratingColor = Color(0xFFFFC107);
-  static const greyNew = Color(0xFF616576);
+
+  static const backGroundColor = Color(0xFFF8FBFF);
+  static const cardBackGroundColor = Color(0xFFE7E7E7);
+
 }

@@ -1,5 +1,5 @@
 class EndPoints{
-  static const String baseUrl = "http://a93d-2409-4043-2e8d-e75b-404d-60f-88af-a121.ngrok.io";
+  static const String baseUrl = "http://5133-103-15-67-125.ngrok.io";
   static const String Login = baseUrl+"/api/userlogin/UserLogin";
   static const String GetAvgScore = baseUrl+"/api/project/MyTotalAvgScore";
   static const String GetFeedType = baseUrl+"/api/project/GetCategoryType";

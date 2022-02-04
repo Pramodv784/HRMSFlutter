@@ -38,4 +38,5 @@ class Images {
   static const DateIcon = base + 'ic_date.png';
   static const ExpenseIcon = base + 'ic_expense.svg';
   static const AddDocumentIcon = base + 'ic_document.svg';
+  static const UserDemo = base + 'ic_user_demo.svg';
 }
