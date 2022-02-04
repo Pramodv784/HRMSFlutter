@@ -1,8 +1,12 @@
-import 'dart:convert';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/feedback_dashboard/card/HomeCardView2.dart';
+import 'package:hrms/feedback_dashboard/feed_total_view.dart';
+import 'package:hrms/feedback_dashboard/model/avg_month_response.dart';
+import 'package:hrms/feedback_dashboard/model/feed_total_avg_response.dart';
+import 'package:hrms/feedback_history/model/feed_history_response.dart';
 import 'package:hrms/home_screen/model/home_data_model.dart';
 import 'package:hrms/login_screen/model/ScoreModel.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -14,8 +18,11 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../feedback_history/feedhistory_view.dart';
 import '../home_screen/card/card_home.dart';
 import '../home_screen/model/home_avg_score_response.dart';
+import '../user/AuthUser.dart';
+import 'feed_dash_presenter.dart';
 class FeedBackDashboardPage extends StatefulWidget {
    FeedBackDashboardPage({Key key}) : super(key: key);
 
@@ -24,12 +31,14 @@ class FeedBackDashboardPage extends StatefulWidget {
   _HomeScreen2 createState() => _HomeScreen2();
 }
 
-class _HomeScreen2 extends State<FeedBackDashboardPage> {
+class _HomeScreen2 extends State<FeedBackDashboardPage> implements
+    FeedTotalView {
   var text=0;
-  HomeAvgScoreResponse _response;
+  FeedTotalAvgResponse _response;
+  List<Widget> myscoreList=[];
   TooltipBehavior _tooltipBehavior;
-  final List<ScoreData> chartData = [
-    ScoreData('Jan', 1,AppColors.red),
+   List<ScoreData> chartData = [
+  /*  ScoreData('Jan', 1,AppColors.red),
     ScoreData('Feb', 2, AppColors.red),
     ScoreData('Mar', 8, AppColors.red),
     ScoreData('Apr', 8, AppColors.red),
@@ -40,10 +49,14 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> {
     ScoreData('Sep', 6, AppColors.red),
     ScoreData('Oct', 9, AppColors.red),
     ScoreData('Nov', 2, AppColors.red),
-    ScoreData('Dec', 7, AppColors.red),
+    ScoreData('Dec', 7, AppColors.red),*/
   ];
+  FeedDashPresenter _presenter;
+
   @override
   void initState() {
+    _presenter=FeedDashPresenter(this);
+
     _tooltipBehavior=TooltipBehavior(
         enable: true  ,
         borderWidth: 0.1,
@@ -56,7 +69,32 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> {
           return padding(context,pointIndex);
         }
     );
+    getuserId();
     super.initState();
+  }
+  void getuserId() async{
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
+    _presenter.getFeedDash(context, userData.userId);
+     getMoth(userData.userId);
+    print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+
+  }
+  void getMoth(int id) async{
+    final AvgMonthResponse= await _presenter.getMonthData(id);
+    print('Month Data********${AvgMonthResponse.length}');
+
+    for(int i=0;i<AvgMonthResponse.length;i++)
+      {
+        String date=Utility.formatDate(AvgMonthResponse[i].key);
+        String month=date.substring(0,date.indexOf(' '));
+        print('date** ${month}');
+        chartData.add(ScoreData(month,
+            AvgMonthResponse[i].value, AppColors.red));
+      }
+    setState(() {
+
+    });
+
   }
   @override
   Widget build(BuildContext context) {
@@ -126,7 +164,63 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> {
                           ),
 
                         ),
-                        HomeCard2(_response),
+                    Card(
+                      margin: EdgeInsets.all(10.0),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Month’s avg score',style: textStyleWhite12px400w,),
+                                Text('view all',style: textStyleWhite12px400w,),
+                              ],
+                            ),
+                            SizedBox(height: 15.0,),
+                            Container(
+                                height: 60.0,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(gradient:
+                                LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomLeft,
+                                    colors: [AppColors.g1, AppColors.g2]
+                                ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey[500],
+                                        offset: Offset(0.0, 1.5),
+                                        blurRadius: 1.5,
+                                      ),
+                                    ],borderRadius: BorderRadius.circular(20.0)),
+                                child:Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Column(
+                                    children: [
+                                      Center(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text('Your Avg Score',style: textStyleWhite16px400wB,),
+                                            Text('${_response?.myAvgScore?? 0}',style: textStyleWhite16px400wB,),
+
+                                          ],
+                                        ),
+                                      ),
+
+
+                                    ],
+                                  ),
+                                )
+                            ),
+                            SizedBox(height: 20.0,),
+                          ...myscoreList
+                          ]))),
+                       // HomeCard2(_response),
+
                         Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -340,4 +434,24 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> {
       ),
     );
   }
+
+
+
+  @override
+  void onFeedTotalFecthed(FeedTotalAvgResponse response) {
+    print('avgToatl score list**** ${response.message}');
+    _response=response;
+    for(MyCategoryScore s in response.myCategoryScore)
+      {
+        myscoreList.add(HomeCard2(s));
+      }
+    setState(() {
+
+    });
+  }
+
+ /* @override
+  void onAvgMothFecthed(AvgMothResponse response) {
+    print('Avg moth Response **** ${response.monthData.length}');
+  }*/
 }

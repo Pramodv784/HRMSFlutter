@@ -132,7 +132,9 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: 0.3,
+                                          animation: true,
+
                                           center: new Text(
                                             "${_response?.leaveBalanceList[0]?.paidLeave ?? ""}",
                                             style: TextStyle(fontSize: 20.0),
