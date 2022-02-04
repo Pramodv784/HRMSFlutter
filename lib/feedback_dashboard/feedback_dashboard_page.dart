@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hrms/card/HomeCardView2.dart';
+import 'package:hrms/feedback_dashboard/card/HomeCardView2.dart';
 import 'package:hrms/home_screen/model/home_data_model.dart';
 import 'package:hrms/login_screen/model/ScoreModel.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -14,17 +14,17 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import 'card/card_home.dart';
-import 'model/home_avg_score_response.dart';
-class HomeScreen2 extends StatefulWidget {
-   HomeScreen2({Key key}) : super(key: key);
+import '../home_screen/card/card_home.dart';
+import '../home_screen/model/home_avg_score_response.dart';
+class FeedBackDashboardPage extends StatefulWidget {
+   FeedBackDashboardPage({Key key}) : super(key: key);
 
 
   @override
   _HomeScreen2 createState() => _HomeScreen2();
 }
 
-class _HomeScreen2 extends State<HomeScreen2> {
+class _HomeScreen2 extends State<FeedBackDashboardPage> {
   var text=0;
   HomeAvgScoreResponse _response;
   TooltipBehavior _tooltipBehavior;

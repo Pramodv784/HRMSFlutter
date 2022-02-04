@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hrms/card/HomeCardView.dart';
-import 'package:hrms/card/HomeCardView2.dart';
 import 'package:hrms/drawer/BaseProvider.dart';
 import 'package:hrms/home_screen/home_presenter.dart';
 import 'package:hrms/home_screen/home_state.dart';
@@ -58,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
 
   @override
   Widget build(BuildContext context) {
-    Utility.showErrorToast(context, 'sucess');
+
     return Consumer<BaseProvider>(builder: (_, baseprovider, __) {
       return Container(
         child: Column(
@@ -96,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
 
                               children: List.generate(
                                   homlist.length, (index) {
-                                return index==17?SimpleTooltip(
+                                return/* index==17?SimpleTooltip(
                                     tooltipTap: () {
                                       print("Feedback");
 
@@ -113,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
                                     ),
                                     borderColor: AppColors.red,
                                     child: CardHome(homlist[index])):
-                                CardHome(homlist[index]);
+*/                                CardHome(homlist[index]);
                               }
                               )
                           ),
@@ -224,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
   }
    Future<void> _pullRefresh() async {
     _presenter.getHomeData(context);
-    Utility.showToast(context, 'done');
+
      setState(() {
      });
 

@@ -26,7 +26,7 @@ import 'feedback/feedback_remark.dart';
 import 'feedback/select_emp/select_emp.dart';
 import 'feedback_history/feedback_history_page.dart';
 import 'goal/GoalPage.dart';
-import 'home_screen/home_screen2.dart';
+import 'feedback_dashboard/feedback_dashboard_page.dart';
 import 'leave_request/leave_balance/leave_balance_page.dart';
 import 'leave_request/leave_request_dashboard.dart';
 
@@ -77,7 +77,7 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget:  HomeScreen());
               break;
             case Screens.HomeScreen2:
-              return RouteTransition(widget:  HomeScreen2());
+              return RouteTransition(widget:  FeedBackDashboardPage());
               break;
             case Screens.AddFeedBack:
               return RouteTransition(widget:  SelectEmp());

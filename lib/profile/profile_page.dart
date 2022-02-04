@@ -2,11 +2,9 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hrms/api_provider/endpoints.dart';
-import 'package:hrms/profile/model/profile_response.dart';
+
 import 'package:hrms/profile/profile_presenter.dart';
-import 'package:hrms/profile/profile_view.dart';
-import 'package:hrms/profile/model/upload_image_response.dart';
+
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -15,6 +13,9 @@ import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:image_picker/image_picker.dart';
+import 'model/profile_response.dart';
+import 'model/upload_image_response.dart';
+import 'profile_view.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);

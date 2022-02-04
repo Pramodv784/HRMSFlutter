@@ -19,36 +19,43 @@ class CardHome extends StatelessWidget {
       width: Utility.screenWidth(context),
       color: AppColors.white,
       alignment: Alignment.center,
-      child: InkWell(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.network('${EndPoints.baseUrl}/${imageurl}',),
-            SizedBox(height: 10.0,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.center,
-                  child: Text('${_data.tittle}',style: textStylePrimary12px500w,textAlign: TextAlign.center,)),
-            )
-          ],
-        ),
-        onTap: (){
-          switch(_data.menuId)
-          {
-            case 1:
-              Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
-              break;
-               case 18:
-              Navigator.pushNamed(context, Screens.HomeScreen2);
-              break;
+      child: Material(
+        color: AppColors.white,
+        child: InkWell(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.network('${EndPoints.baseUrl}/${imageurl}',),
+              SizedBox(height: 10.0,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.center,
+                    child: Text('${_data.tittle}',style: textStylePrimary12px500w,textAlign: TextAlign.center,)),
+              )
+            ],
+          ),
+         splashColor: AppColors.red,
+          onTap: (){
+            Future.delayed(const Duration(milliseconds: 300), () {
+              switch(_data.menuId)
+              {
+                case 1:
+                  Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
+                  break;
+                case 18:
+                  Navigator.pushNamed(context, Screens.HomeScreen2);
+                  break;
 
-          }
+              }
+
+            });
 
 
-        },
+          },
      ),
+      ),
     );
   }
 }

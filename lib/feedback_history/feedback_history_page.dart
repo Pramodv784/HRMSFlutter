@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hrms/feedback_history/card_feed_history.dart';
+import 'package:hrms/feedback_history/feedhistory_presenter.dart';
+import 'package:hrms/feedback_history/feedhistory_view.dart';
+import 'package:hrms/feedback_history/model/feed_history_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import '../user/AuthUser.dart';
 import 'model/feedback_history_model.dart';
+
 class FeedbackHistory extends StatefulWidget {
   const FeedbackHistory({Key key}) : super(key: key);
 
@@ -15,141 +20,183 @@ class FeedbackHistory extends StatefulWidget {
   _FeedbackHistoryState createState() => _FeedbackHistoryState();
 }
 
-class _FeedbackHistoryState extends State<FeedbackHistory> {
-  bool checkList=false;
+class _FeedbackHistoryState extends State<FeedbackHistory>
+    implements FeedHistoryView {
+  bool checkList = false;
+  FeedHistoryPresenter _presenter;
+  List<DataCategories> historyTitleList = [];
+  List<QuestionScores> questionList = [];
+  FeedHistoryResponse _response;
+
+  @override
+  void initState() {
+    _presenter = FeedHistoryPresenter(this);
+    getuserId();
+    super.initState();
+  }
+
+  void getuserId() async {
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
+    _presenter.getFeedHistory(context, userData?.userId ?? 0);
+
+    print(
+        'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-
-      child: Column(
-      children: [
-      Header(headerText: ' Feedback History',),
-
-    Expanded(child:
-    Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: SingleChildScrollView(
-      physics: ScrollPhysics(),
-      child: Container(
-        decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(20.0)
-        ),
-        child: Column(
-          children: [
-            Container(
-              height: 50.0,
-              padding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 10.0),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(gradient:
-              LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomLeft,
-                  colors: [AppColors.black, AppColors.black]
-              ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey[500],
-                      offset: Offset(0.0, 1.5),
-                      blurRadius: 1.5,
-                    ),
-                  ],borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0))),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Avg Score',style: textStyleWhite20px400wB,),
-                  Row(
-                    children: [
-                      Text('41',style: textStyleWhite20px400wB,),
-                      SizedBox(width: 5.0,),
-                      Image.asset(Images.StarICon,width: 32.0,height: 30.0,),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: feedHistory.length,
-                itemBuilder: (context, i) {
-                  return  Column(
-                    children: [
-                      Divider(
-                        height: 17.0,
-                        color: Colors.white,
-                      ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15.0),
-
-                        child: ExpansionTile(
-                         onExpansionChanged: (data){
-                           setState(() {
-                           });
-                         },
-                         // title:CardFeedHistoy(feedHistory[i]),
-                          title: Text('Title',style: TextStyle(color: AppColors.white),),
-                          children: <Widget>[
-
-                             Column(
-                              children: _buildExpandableContent(feedHistory[i]),
+    return Scaffold(
+        backgroundColor: AppColors.background,
+        body: SafeArea(
+            child: Column(children: [
+          Header(
+            headerText: ' Feedback History',
+          ),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 50.0,
+                      padding: EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomLeft,
+                              colors: [AppColors.black, AppColors.black]),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey[500],
+                              offset: Offset(0.0, 1.5),
+                              blurRadius: 1.5,
                             ),
                           ],
-                         backgroundColor: AppColors.red,
-                          collapsedBackgroundColor: AppColors.red,
-                          iconColor: AppColors.white,
-                          collapsedIconColor: AppColors.white,
-                        ),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Avg Score',
+                            style: textStyleWhite20px400wB,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '${_response.feedbackDatas[0].averageScore}',
+                                style: textStyleWhite20px400wB,
+                              ),
+                              SizedBox(
+                                width: 5.0,
+                              ),
+                              Image.asset(
+                                Images.StarICon,
+                                width: 32.0,
+                                height: 30.0,
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                    ],
-                  );
-                },
+                    ),
+                    historyTitleList!=null?
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: historyTitleList.length,
+                        itemBuilder: (context, i) {
+                          return Column(
+                            children: [
+                              Divider(
+                                height: 17.0,
+                                color: Colors.white,
+                              ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: ExpansionTile(
+                                  onExpansionChanged: (data) {
+                                    setState(() {});
+                                  },
+                                  // title:CardFeedHistoy(feedHistory[i]),
+                                  title: Text(
+                                    '${historyTitleList[i].categoryName}',
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
+                                  children: <Widget>[
+                                    Column(
+                                      children: _buildExpandableContent(
+                                          historyTitleList[i]),
+                                    ),
+                                  ],
+                                  backgroundColor: AppColors.red,
+                                  collapsedBackgroundColor: AppColors.red,
+                                  iconColor: AppColors.white,
+                                  collapsedIconColor: AppColors.white,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ):
+                   Text("")
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
-      ),
-    ),
-
-    )
-    )
-    ])
-    )
-    );
-
+          ))
+        ])));
   }
-  _buildExpandableContent(FeedbackHistoryModel vehicle) {
+
+  _buildExpandableContent(DataCategories dataCategories) {
     List<Widget> columnContent = [];
-    int ques=1;
-    for (SubItem content in vehicle.contents)
+    int ques = 1;
+    for (QuestionScores content in dataCategories.questionScores)
       columnContent.add(
         Container(
           color: AppColors.white,
           child: new ListTile(
-            title:  Column(
+            title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                    Text('Q ${ques++} . ${content.feed}', style: new TextStyle(fontSize: 15.0),),
-
-
-                SizedBox(height: 5.0,),
+                Text(
+                  'Q ${ques++} . ${content?.questionName?? ""}',
+                  style: new TextStyle(fontSize: 15.0),
+                ),
+                SizedBox(
+                  height: 5.0,
+                ),
                 Row(
                   children: [
-                    SizedBox(width: 30.0,),
-                    Text(content.score.toString(), style: new TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),),
-                    SizedBox(width: 5.0,),
+                    SizedBox(
+                      width: 30.0,
+                    ),
+                    Text(
+                      content?.score?.toString(),
+                      style: new TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
                     Image.asset(Images.StarICon)
                   ],
                 ),
-
               ],
             ),
-          //  leading: new Icon(vehicle.icon),
+            //  leading: new Icon(vehicle.icon),
           ),
         ),
       );
@@ -157,4 +204,12 @@ class _FeedbackHistoryState extends State<FeedbackHistory> {
     return columnContent;
   }
 
+  @override
+  void onFeedHistoryFecthed(FeedHistoryResponse response) {
+    print('response list **** ${response.feedbackDatas[0].dataCategories}');
+    historyTitleList.clear();
+    historyTitleList.addAll(response.feedbackDatas[0].dataCategories);
+    _response=response;
+    setState(() {});
+  }
 }

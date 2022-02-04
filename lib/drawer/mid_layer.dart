@@ -172,10 +172,10 @@ class _MidLayerState extends State<MidLayer> {
       onTap: () async {
         if (_provider.isOpen) _provider.close();
         await Future.delayed(Duration(milliseconds: 300));
-        //_provider.currentScreen = screen;
+        //_provider.currentScreen = ui;
         switch (screen) {
         /*  case Screens.kScreenTestHistory:
-            _provider.currentScreen = screen;
+            _provider.currentScreen = ui;
             break;
           case Screens.kEditProfileScreen:
             var isUpdated = await Navigator.pushNamed(context, Screens.kEditProfileScreen) ;
