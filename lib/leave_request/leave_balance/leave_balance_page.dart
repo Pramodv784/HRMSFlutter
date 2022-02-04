@@ -41,7 +41,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
           child: Column(
             children: [
               Expanded(
-                child: _response.leaveBalanceList == null
+                child: _response.leaveBalanceList != null
                     ? ListView(children: [
                         Header(
                           headerText: 'Leave  Balance',
@@ -111,7 +111,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -134,7 +134,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                           lineWidth: 40.0,
                                           percent: 0.4,
                                           center: new Text(
-                                            "40%",
+                                            "${_response?.leaveBalanceList[0]?.paidLeave ?? ""}",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFF30C6F6),
@@ -214,7 +214,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -317,7 +317,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -420,7 +420,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -523,7 +523,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -626,7 +626,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -729,7 +729,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -832,7 +832,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -935,7 +935,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                       TextStyle(fontSize: 20.0),
                                                 ),
                                                 Text(
-                                                  '100',
+                                                  '10',
                                                   style: TextStyle(
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -1017,6 +1017,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
 
   @override
   void onLeaveBalanceFetched(LeaveBalanceModel response) {
+    print('leave balance *** ${response.message}');
     _response = response;
     setState(() {});
   }
