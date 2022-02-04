@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hrms/attendence/attendance_summary_list.dart';
+import 'package:hrms/attendence/attendance_logs.dart';
+import 'package:hrms/attendence/singleItem/attendance_logs_list.dart';
+import 'package:hrms/attendence/attendance_request.dart';
+import 'package:hrms/attendence/singleItem/attendance_summary_list.dart';
 import 'package:hrms/expense/total_expenses_list.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/utility/Header.dart';
@@ -22,8 +25,8 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     widgetSummaryList.add(const SummaryList());
-    widgetLogsSettlement.add(const TotalExpensesList());
-    widgetRequestSettlement.add(const TotalExpensesList());
+    widgetLogsSettlement.add(const AttendanceLogs());
+    widgetRequestSettlement.add(const AttendanceRequest());
 
     setState(() {});
     super.initState();
@@ -119,7 +122,7 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                             ListView(
                               children: [
                                 const SizedBox(height: 30,),
-                                ...widgetSummaryList
+                                ...widgetRequestSettlement
 
                               ],
                             ),

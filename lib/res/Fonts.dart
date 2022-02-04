@@ -324,7 +324,11 @@ const textStyleGreen12px500w = TextStyle(
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w500,
     fontSize: fontH6);
-
+const textStyleGreenRegular12px500w = TextStyle(
+    color: AppColors.textColorGreen,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: fontH6);
 const textStyleGreen16px500w = TextStyle(
     color: AppColors.textColorGreen,
     fontFamily: kFontFamily,
@@ -367,6 +371,12 @@ const textStyleSubText10px400w = TextStyle(
 
 const textStyleRegular12px = TextStyle(
     color: AppColors.textColor,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: fontH6);
+
+const textStyleRegular12pxGrey = TextStyle(
+    color: AppColors.greyNew,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w400,
     fontSize: fontH6);
