@@ -18,6 +18,7 @@ const kFontBold = 'Poppins_SemiBold';
 
 const fontH7 = 10.0;
 const fontH6 = 12.0;
+const fontH5 = 14.0;
 const fontH4 = 16.0;
 const fontH3 = 18.0;
 const fontH2 = 21.0;
@@ -136,6 +137,13 @@ const textStyleDarkRegular18pxW700 = TextStyle(
 
 const textStyleLightRegular12px = TextStyle(
     color: AppColors.textColor,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w500,
+    fontSize: fontH6);
+
+
+const textStyleLightRegular12pxNew = TextStyle(
+    color: AppColors.textColorContent,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w500,
     fontSize: fontH6);
@@ -316,7 +324,11 @@ const textStyleGreen12px500w = TextStyle(
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w500,
     fontSize: fontH6);
-
+const textStyleGreenRegular12px500w = TextStyle(
+    color: AppColors.textColorGreen,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: fontH6);
 const textStyleGreen16px500w = TextStyle(
     color: AppColors.textColorGreen,
     fontFamily: kFontFamily,
@@ -359,6 +371,12 @@ const textStyleSubText10px400w = TextStyle(
 
 const textStyleRegular12px = TextStyle(
     color: AppColors.textColor,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w400,
+    fontSize: fontH6);
+
+const textStyleRegular12pxGrey = TextStyle(
+    color: AppColors.greyNew,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w400,
     fontSize: fontH6);
@@ -457,9 +475,8 @@ const textStyleSecondaryDark14px500w = TextStyle(
 const textStyleDark14px500wH08 = TextStyle(
     color: AppColors.textColorBlack,
     fontFamily: kFontFamily,
-    fontWeight: FontWeight.w500,
-    height: 1.3,
-    fontSize: 14);
+    fontWeight: FontWeight.w700,
+    fontSize: fontH4);
 
 const textStyleSecondaryLight14px500w = TextStyle(
     color: AppColors.colorSecondaryLight,
