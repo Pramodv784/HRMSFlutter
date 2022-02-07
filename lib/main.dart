@@ -14,6 +14,7 @@ import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
 
 import 'package:hrms/user/AuthUser.dart';
+import 'package:hrms/workFromHome/work_from_home_request.dart';
 import 'package:provider/provider.dart';
 import 'add_leave_request/add_leave_request_page.dart';
 import 'add_leave_request/add_leave_request_page2.dart';
@@ -93,7 +94,7 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget:  GoalPage());
               break;
             case Screens.FeedbcakHistory:
-              return RouteTransition(widget:  AttendanceDasboard());
+              return RouteTransition(widget:  WorkFromHomeRequest());
               break;
             case Screens.LeaveRequestDashboard:
               return RouteTransition(widget:  LeaveRequestDashboard());
