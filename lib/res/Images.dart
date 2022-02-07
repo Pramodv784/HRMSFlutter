@@ -40,4 +40,5 @@ class Images {
   static const AddDocumentIcon = base + 'ic_document.svg';
   static const UserDemo = base + 'ic_user_demo.svg';
   static const Forward = base + 'ic_forward.svg';
+  static const IconEye = base + 'ic_eye.svg';
 }

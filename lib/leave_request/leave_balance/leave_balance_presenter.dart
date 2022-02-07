@@ -42,8 +42,12 @@ class LeaveBalancePresenter {
 
           LeaveBalanceModel data = LeaveBalanceModel.fromJson(res.data);
           print('pramod${data.message}');
-         // if (data?.status=='OK')
+          if (data?.status=='OK')
             _view.onLeaveBalanceFetched(data);
+          else
+            {
+              _view.onError(data.message);
+            }
 
         }
         ).catchError((e) async {

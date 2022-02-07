@@ -34,7 +34,7 @@ class LoginPresenter {
       _repository.post(EndPoints.Login, body: input)
         ..then((Response res) async {
           Utility.log(tag, res);
-          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+          Utility.log('${tag}>>>', jsonDecode(res.toString()));
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
 
@@ -42,8 +42,11 @@ class LoginPresenter {
           LoginResponse data = LoginResponse.fromJson(res.data);
           //print('pramod${data.data.message}');
 
-          if (data?.statusReason?? false)
-              _view.onLoginFetch(data);
+          if (data?.statusReason ?? false)
+            _view.onLoginFetch(data);
+          else {
+            _view.onError(data.message);
+          }
         }
         ).catchError((e) async {
           Utility.log(tag, e);

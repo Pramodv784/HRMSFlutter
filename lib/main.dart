@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:hrms/api_provider/api_repository.dart';
 import 'package:hrms/attendence/attendance_dashboard.dart';
 import 'package:hrms/expense/employe_expense.dart';
+import 'package:hrms/feedback_history/feedback_history_user_page.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
 import 'package:hrms/profile/profile_page.dart';
@@ -93,8 +94,15 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget:  GoalPage());
               break;
             case Screens.FeedbcakHistory:
-              return RouteTransition(widget:  AttendanceDasboard());
+              List<dynamic> args = settings.arguments;
+              return RouteTransition(widget:  FeedbackHistory(args[0]));
               break;
+
+              case Screens.FeedbUserHistory:
+              return RouteTransition(widget:  FeedbackUserHistory());
+              break;
+
+
             case Screens.LeaveRequestDashboard:
               return RouteTransition(widget:  LeaveRequestDashboard());
               break;

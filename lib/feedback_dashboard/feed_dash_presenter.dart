@@ -57,20 +57,22 @@ class FeedDashPresenter {
           // DioErrorParser.parseError(e, _signupView);
         });
     }}
-  /*getAvgMoth(BuildContext context,int id) async {
+  getAvgMoth(BuildContext context,int id) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.AvgMoth}?empId=$id')
-        ..then((Response res) async {
-          Utility.log(tag, res);
-          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+      _repository.getList('${EndPoints.AvgMoth}?empId=$id')
+        ..then((List<Response> res) async {
+         /* Utility.log(tag, res);
+          Utility.log('${tag}>>>',jsonDecode(res.toString()) );*/
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
-          AvgMothResponse data = AvgMothResponse.fromJson(res.data);
-         // if (data?.status??false)
-            _view.onAvgMothFecthed(data);
+          /*List<AvgMonthResponse> data = res.map((e) =>AvgMonthResponse.fromJson(e))
+              .toList();*/
+
+           print('pramod Data **${res.length}');
+           //_view.onAvgMothFecthed(data);
 
         }
         ).catchError((e) async {
@@ -79,7 +81,7 @@ class FeedDashPresenter {
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
-    }}*/
+    }}
 
   Future<List<AvgMonthResponse>> getMonthData(int id) async {
     try {

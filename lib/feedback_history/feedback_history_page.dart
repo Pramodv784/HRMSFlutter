@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hrms/feedback_history/card_feed_history.dart';
+import 'package:hrms/feedback/card/card_feed_history.dart';
 import 'package:hrms/feedback_history/feedhistory_presenter.dart';
 import 'package:hrms/feedback_history/feedhistory_view.dart';
 import 'package:hrms/feedback_history/model/feed_history_response.dart';
@@ -14,7 +14,8 @@ import '../user/AuthUser.dart';
 import 'model/feedback_history_model.dart';
 
 class FeedbackHistory extends StatefulWidget {
-  const FeedbackHistory({Key key}) : super(key: key);
+  int userId=0;
+   FeedbackHistory(this.userId,{Key key}) : super(key: key);
 
   @override
   _FeedbackHistoryState createState() => _FeedbackHistoryState();
@@ -27,6 +28,7 @@ class _FeedbackHistoryState extends State<FeedbackHistory>
   List<DataCategories> historyTitleList = [];
   List<QuestionScores> questionList = [];
   FeedHistoryResponse _response;
+  int avgScore=0;
 
   @override
   void initState() {
@@ -92,10 +94,10 @@ class _FeedbackHistoryState extends State<FeedbackHistory>
                           ),
                           Row(
                             children: [
-                              Text(
-                                '${_response.feedbackDatas[0].averageScore}',
-                                style: textStyleWhite20px400wB,
-                              ),
+                               Text(
+                                      '${avgScore.toString()}',
+                                      style: textStyleWhite20px400wB,
+                                    ),
                               SizedBox(
                                 width: 5.0,
                               ),
@@ -109,49 +111,50 @@ class _FeedbackHistoryState extends State<FeedbackHistory>
                         ],
                       ),
                     ),
-                    historyTitleList!=null?
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: historyTitleList.length,
-                        itemBuilder: (context, i) {
-                          return Column(
-                            children: [
-                              Divider(
-                                height: 17.0,
-                                color: Colors.white,
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: ExpansionTile(
-                                  onExpansionChanged: (data) {
-                                    setState(() {});
-                                  },
-                                  // title:CardFeedHistoy(feedHistory[i]),
-                                  title: Text(
-                                    '${historyTitleList[i].categoryName}',
-                                    style: TextStyle(color: AppColors.white),
-                                  ),
-                                  children: <Widget>[
-                                    Column(
-                                      children: _buildExpandableContent(
-                                          historyTitleList[i]),
+                    historyTitleList != null
+                        ? Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: historyTitleList.length,
+                              itemBuilder: (context, i) {
+                                return Column(
+                                  children: [
+                                    Divider(
+                                      height: 17.0,
+                                      color: Colors.white,
+                                    ),
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      child: ExpansionTile(
+                                        onExpansionChanged: (data) {
+                                          setState(() {});
+                                        },
+                                        // title:CardFeedHistoy(feedHistory[i]),
+                                        title: Text(
+                                          '${historyTitleList[i].categoryName}',
+                                          style:
+                                              TextStyle(color: AppColors.white),
+                                        ),
+                                        children: <Widget>[
+                                          Column(
+                                            children: _buildExpandableContent(
+                                                historyTitleList[i]),
+                                          ),
+                                        ],
+                                        backgroundColor: AppColors.red,
+                                        collapsedBackgroundColor: AppColors.red,
+                                        iconColor: AppColors.white,
+                                        collapsedIconColor: AppColors.white,
+                                      ),
                                     ),
                                   ],
-                                  backgroundColor: AppColors.red,
-                                  collapsedBackgroundColor: AppColors.red,
-                                  iconColor: AppColors.white,
-                                  collapsedIconColor: AppColors.white,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ):
-                   Text("")
+                                );
+                              },
+                            ),
+                          )
+                        : Text("")
                   ],
                 ),
               ),
@@ -172,7 +175,7 @@ class _FeedbackHistoryState extends State<FeedbackHistory>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Q ${ques++} . ${content?.questionName?? ""}',
+                  'Q ${ques++} . ${content?.questionName ?? ""}',
                   style: new TextStyle(fontSize: 15.0),
                 ),
                 SizedBox(
@@ -206,10 +209,29 @@ class _FeedbackHistoryState extends State<FeedbackHistory>
 
   @override
   void onFeedHistoryFecthed(FeedHistoryResponse response) {
-    print('response list **** ${response.feedbackDatas[0].dataCategories}');
+    // print('response list **** ${response.feedbackDatas[0].dataCategories}');
     historyTitleList.clear();
-    historyTitleList.addAll(response.feedbackDatas[0].dataCategories);
-    _response=response;
+    if (response.feedbackDatas != null) {
+      for(int i=0;i<response.feedbackDatas.length;i++)
+        {
+          if(response.feedbackDatas[i].feedbackId==widget.userId)
+            {
+              historyTitleList.addAll(response.feedbackDatas[i].dataCategories);
+              avgScore=response.feedbackDatas[i].averageScore;
+            }
+
+        }
+
+      _response = response;
+    }
+
     setState(() {});
+  }
+
+  @override
+  onError(String message) {
+    Utility.showErrorToast(context, message);
+    // TODO: implement onError
+    throw UnimplementedError();
   }
 }

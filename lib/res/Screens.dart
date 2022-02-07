@@ -15,6 +15,7 @@ class Screens {
   static const Profile = "profile";
   static const GoalScreen = "goalScreen";
   static const FeedbcakHistory = "feedbackhistory";
+  static const FeedbUserHistory = "feedbackuserhistory";
   static const LeaveRequestDashboard = "leaveRequestdashboard";
   static const AddEmpFeedBack = "addempfeedback";
   static const AddEmpFeedRemark = "addempfeedremark";

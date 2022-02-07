@@ -41,7 +41,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
           child: Column(
             children: [
               Expanded(
-                child: _response.leaveBalanceList != null
+                child: _response?.leaveBalanceList != null
                     ? ListView(children: [
                         Header(
                           headerText: 'Leave  Balance',
@@ -126,13 +126,14 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                     SizedBox(
                                       width: 20.0,
                                     ),
+
                                     Flexible(
                                       child: Container(
                                         margin: EdgeInsets.only(top: 20.0),
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.3,
+                                          percent: _response?.leaveBalanceList[0]?.paidLeave/10,
                                           animation: true,
 
                                           center: new Text(
@@ -1022,5 +1023,10 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
     print('leave balance *** ${response.message}');
     _response = response;
     setState(() {});
+  }
+
+  @override
+  onError(String message) {
+  Utility.showErrorToast(context, message);
   }
 }

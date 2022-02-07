@@ -5,7 +5,7 @@ import 'package:hrms/feedback/feed_question_presenter.dart';
 import 'package:hrms/feedback/feed_question_view.dart';
 import 'package:hrms/feedback/model/add_feedback_response.dart';
 import 'package:hrms/feedback/select_emp/feed_presenter.dart';
-import 'package:hrms/feedback_history/card_feed_history.dart';
+import 'package:hrms/feedback/card/card_feed_history.dart';
 import 'package:hrms/feedback_history/model/feedback_history_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
@@ -225,6 +225,10 @@ class _AddFeedbackState extends State<AddFeedback>
   @override
   void onFeedQuestionFecthed(FeedQuestionModel response) {
     print('question response***${response.dataCategory[0]}');
+    if(response.dataCategory==null && response.dataCategory.isNotEmpty)
+      {
+        Utility.showErrorToast(context, 'Question not found');
+      }
     questionList.clear();
     questionList.addAll(response.dataCategory);
     setState(() {});
@@ -272,6 +276,7 @@ class _AddFeedbackState extends State<AddFeedback>
   }
   @override
   void onError(String error) {
-    // TODO: implement onError
+    Utility.showErrorToast(context, error);
+    Navigator.pop(context);
   }
 }

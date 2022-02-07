@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import '../feedback_dashboard/model/avg_month_response.dart';
 import '../main.dart';
 
 
@@ -138,6 +139,29 @@ class ApiController {
     Utility.log(tag, response.toString());
     return response;
   }
+  Future<List<Response>> getList(String url,
+      {Map headers, body, encoding, payload}) async {
+    Map<String, String> headerMap = headers ?? {};
+    headerMap["NoEncryption"] = 'true';
+    Utility.log(tag, "Api Call :\n $url \n Inputs :\n ${body
+        .toString()} \n Payload :\n ${payload}  \n Header :\n $headers");
+
+    Response response = await dio.get(url,
+        queryParameters: payload,
+        options: Options(
+          contentType: ContentType.json.toString(),
+          receiveTimeout: 300000,
+          sendTimeout: 300000,
+          method: "GET",
+          headers: headerMap,
+        ));
+
+    Utility.log(tag, response.toString());
+    return (response.data as List);
+  }
+
+
+
 
   Future<Response> get(String url, { headers}) async {
    // Map<String, String> headerMap = headers ?? {};

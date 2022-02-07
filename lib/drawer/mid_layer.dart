@@ -191,7 +191,7 @@ class _MidLayerState extends State<MidLayer> {
           case "Employee feedback":
             //Navigator.pop(context);
             _provider.close();
-            Navigator.pushNamed(context, Screens.FeedbcakHistory);
+            Navigator.pushNamed(context, Screens.FeedbUserHistory);
             break;
           case "My Goals":
             //Navigator.pop(context);

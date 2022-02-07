@@ -45,8 +45,12 @@ class FeedHistoryPresenter {
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
           FeedHistoryResponse data = FeedHistoryResponse.fromJson(res.data);
-         // if (data?.status??false)
+          if (data?.statusReason??false)
             _view.onFeedHistoryFecthed(data);
+          else
+            {
+              _view.onError(data.message);
+            }
 
         }
         ).catchError((e) async {
