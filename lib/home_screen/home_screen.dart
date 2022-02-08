@@ -193,7 +193,8 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
                       alignment: Alignment.center,
                       child: SvgPicture.asset(Images.NotificationIcon,))
                     ,onTap: (){
-                      Navigator.pushNamed(context, Screens.Profile );
+                      Navigator.pushNamed(context, Screens.CommonPage,
+                          arguments: 'Notification' );
                     },),
                   SizedBox(
                     width: 5.0,

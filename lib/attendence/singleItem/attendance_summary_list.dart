@@ -1,13 +1,35 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/utility/Utility.dart';
+import 'package:intl/intl.dart';
 
-class SummaryList extends StatelessWidget {
+class SummaryList extends StatefulWidget {
   const SummaryList({Key key}) : super(key: key);
 
   @override
+  _SummaryListState createState() => _SummaryListState();
+}
+
+class _SummaryListState extends State<SummaryList> {
+  String day = DateFormat('E').format(DateTime.now());
+  String week = DateFormat('MMMMEEEEd').format(DateTime.now());
+  String date = DateFormat('d').format(DateTime.now());
+  String month = DateFormat('MMM').format(DateTime.now());
+  String year = DateFormat('y').format(DateTime.now());
+  List<Widget> widgetList=[];
+ @override
+  void initState() {
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print('date **${day} date $date  month $month year $year');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,8 +47,8 @@ class SummaryList extends StatelessWidget {
                 const SizedBox(
                   height: 6.0,
                 ),
-                const Text(
-                  '13 Jan, 2022',
+                Text(
+                  '${date}  ${month}, ${year}',
                   style: textStyleDarkHeavy24px,
                 ),
                 const SizedBox(
@@ -48,11 +70,11 @@ class SummaryList extends StatelessWidget {
           height: 20.0,
         ),
         Row(
-
           children: [
             Flexible(
               child: Container(
-                decoration: const BoxDecoration(color: AppColors.backGroundColor),
+                decoration:
+                    const BoxDecoration(color: AppColors.backGroundColor),
                 width: Utility.screenWidth(context),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -78,14 +100,13 @@ class SummaryList extends StatelessWidget {
                 ),
               ),
             ),
-
             SizedBox(
               width: 15.0,
             ),
-
             Flexible(
               child: Container(
-                decoration: const BoxDecoration(color: AppColors.backGroundColor),
+                decoration:
+                    const BoxDecoration(color: AppColors.backGroundColor),
                 width: Utility.screenWidth(context),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -128,57 +149,80 @@ class SummaryList extends StatelessWidget {
             border: Border.all(color: AppColors.cardBackGroundColor),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Wrap(
-              spacing:8.0,
-              runSpacing: 8.0,
-              alignment: WrapAlignment.start,
-              children: [
-                Container(
-                    color: AppColors.backGroundColor,
-                    width: 50,
-                    height: 50,
-                    child:Center(child: Text("W1"))
-                ),
-                Container(
-                    color: AppColors.backGroundColor,
-                    width: 50,
-                    height: 50,
-                    child:Center(child: Text("W1"))
-                ),
-                Container(
-                    color: AppColors.backGroundColor,
-                    width: 50,
-                    height: 50,
-                    child:Center(child: Text("W1"))
-                ),
-                Container(
-                    color: AppColors.backGroundColor,
-                    width: 50,
-                    height: 50,
-                    child:Center(child: Text("W1"))
-                ),
-                Container(
-                    color: AppColors.backGroundColor,
-                    width: 50,
-                    height: 50,
-                    child:Center(child: Text("W1"))
-                ),
-                Container(
-                    color: AppColors.backGroundColor,
-                    width: 50,
-                    height: 50,
-                    child:Center(child: Text("W1"))
-                ),
-                Container(
-                    color: AppColors.backGroundColor,
-                    width: 50,
-                    height: 50,
-                    child:Center(child: Text("W1"))
-                ),
-              ],
-            ),
-          ),
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                   Flexible(
+                    child: Container(
+                        color: day=='Sun'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child:Center(child: Text("SU"))
+                    ),
+                  ),
+                  SizedBox(width: 5.0,),
+                  Flexible(
+                    child: Container(
+                        color: day=='Mon'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child:Center(child: Text("MO"))
+                    ),
+                  ),
+                  SizedBox(width: 5.0,),
+                  Flexible(
+                    child: Container(
+                        color:  day=='Tue'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child:Center(child: Text("TU"))
+                    ),
+                  ),
+                  SizedBox(width: 5.0,),
+                  Flexible(
+                    child: Container(
+                        color:  day=='Wed'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child:Center(child: Text("WE"))
+                    ),
+                  ),
+                  SizedBox(width: 5.0,),
+                  Flexible(
+                    child: Container(
+                        color:  day=='Thu'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child:Center(child: Text("TH"))
+                    ),
+                  ),
+                  SizedBox(width: 5.0,),
+                  Flexible(
+                    child: Container(
+                        color: day=='Fri'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child:Center(child: Text("FR"))
+                    ),
+                  ),
+                  SizedBox(width: 5.0,),
+                  Flexible(
+                    child: Container(
+                        color:  day=='Sat'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child:Center(child: Text("SA"))
+                    ),
+                  ),
+
+                ],
+              )),
+         /* child:  ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              ...daysList
+            ],
+          ),*/
         ),
         const SizedBox(
           height: 10.0,

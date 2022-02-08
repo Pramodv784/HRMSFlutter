@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'package:hrms/api_provider/api_repository.dart';
 import 'package:hrms/attendence/attendance_dashboard.dart';
+import 'package:hrms/common_page.dart';
 import 'package:hrms/expense/employe_expense.dart';
 import 'package:hrms/feedback_history/feedback_history_user_page.dart';
 import 'package:hrms/home_screen/home_screen.dart';
@@ -76,60 +77,61 @@ class _ScreenState extends State<MyApp> {
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case Screens.kHomeScreen:
-              return RouteTransition(widget:  HomeScreen());
+              return RouteTransition(widget: HomeScreen());
               break;
             case Screens.HomeScreen2:
-              return RouteTransition(widget:  FeedBackDashboardPage());
+              return RouteTransition(widget: FeedBackDashboardPage());
               break;
             case Screens.AddFeedBack:
-              return RouteTransition(widget:  SelectEmp());
+              return RouteTransition(widget: SelectEmp());
               break;
-               case Screens.AddEmpFeedRemark:
-              return RouteTransition(widget:  FeedbackRemark(settings.arguments));
+            case Screens.AddEmpFeedRemark:
+              return RouteTransition(
+                  widget: FeedbackRemark(settings.arguments));
               break;
             case Screens.Profile:
-              return RouteTransition(widget:  ProfilePage());
+              return RouteTransition(widget: ProfilePage());
               break;
             case Screens.GoalScreen:
-              return RouteTransition(widget:  GoalPage());
+              return RouteTransition(widget: GoalPage());
               break;
             case Screens.FeedbcakHistory:
               List<dynamic> args = settings.arguments;
-              return RouteTransition(widget:  FeedbackHistory(args[0]));
+              return RouteTransition(widget: FeedbackHistory(args[0]));
               break;
 
-              case Screens.FeedbUserHistory:
-              return RouteTransition(widget:  FeedbackUserHistory());
+            case Screens.FeedbUserHistory:
+              return RouteTransition(widget: FeedbackUserHistory());
               break;
-
 
             case Screens.LeaveRequestDashboard:
-              return RouteTransition(widget:  LeaveRequestDashboard());
+              return RouteTransition(widget: LeaveRequestDashboard());
               break;
             case Screens.LeaveBalancePage:
-              return RouteTransition(widget:  LeaveBalancePage());
+              return RouteTransition(widget: LeaveBalancePage());
               break;
-               case Screens.AttendencePage:
-              return RouteTransition(widget:  AttendanceDasboard());
+            case Screens.AttendencePage:
+              return RouteTransition(widget: AttendanceDasboard());
               break;
-
 
             case Screens.AddLeaveRequest:
-              return RouteTransition(widget:  AddLeaveRequest());
+              return RouteTransition(widget: AddLeaveRequest());
               break;
             case Screens.AddLeaveRequest2:
-              return RouteTransition(widget:  AddLeaveRequest2());
+              return RouteTransition(widget: AddLeaveRequest2());
               break;
             case Screens.AddExpense:
-              return RouteTransition(widget:  EmployeeAdvances());
+              return RouteTransition(widget: EmployeeAdvances());
+              break;
+            case Screens.CommonPage:
+              String title=settings.arguments;
+              return RouteTransition(widget: CommonPage(title));
               break;
 
             case Screens.AddEmpFeedBack:
               List<dynamic> args = settings.arguments;
-              return RouteTransition(widget:  AddFeedback(args[0],args[1]));
+              return RouteTransition(widget: AddFeedback(args[0], args[1]));
               break;
-
-
 
             case Screens.kBaseScreen:
               return RouteTransition(
@@ -144,8 +146,7 @@ class _ScreenState extends State<MyApp> {
               break;
           }
         },
-        home:
-       checkAuthUser(widget?.isLoggedIn)
+        home: checkAuthUser(widget?.isLoggedIn)
         //RevDrawer()
         //AddFeedback()
         );

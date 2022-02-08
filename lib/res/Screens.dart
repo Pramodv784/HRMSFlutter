@@ -25,7 +25,7 @@ class Screens {
   static const AddLeaveRequest2 = "addleaverequest2";
   static const AddExpense = "EmployeeExpense";
   static const AttendencePage = "attendencepage";
+  static const CommonPage = "commonpage";
 
-  // static const kTotalCarWash = "Service";
 
 }
