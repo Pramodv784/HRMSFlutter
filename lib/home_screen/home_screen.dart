@@ -34,6 +34,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>  implements HomeView {
    HomePresenter _presenter;
    List<MenuList> homlist=[];
+   DateTime pre_backpress = DateTime.now();
+
 
 
 
@@ -49,8 +51,6 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
   void initState() {
    _presenter=HomePresenter(this);
    _presenter.getHomeData(context);
-
-
     super.initState();
   }
 
@@ -223,7 +223,6 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
   }
    Future<void> _pullRefresh() async {
     _presenter.getHomeData(context);
-
      setState(() {
      });
 

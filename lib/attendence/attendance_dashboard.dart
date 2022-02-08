@@ -48,11 +48,12 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
             Header(
               headerText: 'Attendance',
             ),
-            Expanded(child:
-            Padding(
+            Expanded(
+                child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -72,29 +73,35 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                             borderRadius: BorderRadius.circular(
                               25.0,
                             ),
-
-                            gradient:const LinearGradient(
+                            gradient: const LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomLeft,
-                                colors: [AppColors.g1, AppColors.g2]
-                            ),
+                                colors: [AppColors.g1, AppColors.g2]),
                           ),
                           labelColor: Colors.white,
                           unselectedLabelColor: Colors.black,
                           tabs: const [
                             // first tab [you can add an icon using the icon property]
                             Tab(
-                              child: Text('Summary',style: TextStyle(fontWeight:FontWeight.bold),),
+                              child: Text(
+                                'Summary',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
 
                             // second tab [you can add an icon using the icon property]
                             Tab(
-                              child: Text('Logs',style: TextStyle(fontWeight:FontWeight.bold),),
+                              child: Text(
+                                'Logs',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                             Tab(
-                              child: Text('Requests',style: TextStyle(fontWeight:FontWeight.bold),),
+                              child: Text(
+                                'Requests',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
-
                           ],
                         ),
                       ),
@@ -105,28 +112,31 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                             // first tab bar view widget
                             ListView(
                               children: [
-                                const SizedBox(height: 30,),
+                                const SizedBox(
+                                  height: 30,
+                                ),
                                 ...widgetSummaryList
-
                               ],
                             ),
 
                             // second tab bar view widget
                             ListView(
                               children: [
-                                const SizedBox(height: 30,),
+                                const SizedBox(
+                                  height: 30,
+                                ),
                                 ...widgetLogsSettlement
                               ],
                             ),
 
                             ListView(
                               children: [
-                                const SizedBox(height: 30,),
+                                const SizedBox(
+                                  height: 30,
+                                ),
                                 ...widgetRequestSettlement
-
                               ],
                             ),
-
                           ],
                         ),
                       ),
@@ -134,8 +144,7 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                   ),
                 ),
               ),
-            )
-            )
+            ))
           ],
         ),
       ),

@@ -118,11 +118,8 @@ class _AttendanceLeaveRequestDetailState
                                 const SizedBox(
                                   height: 20.0,
                                 ),
-                                
                                 Row(
-                                  
                                   children: [
-                                    
                                     Flexible(
                                       child: Container(
                                         decoration: const BoxDecoration(

@@ -20,10 +20,10 @@ class _SummaryListState extends State<SummaryList> {
   String date = DateFormat('d').format(DateTime.now());
   String month = DateFormat('MMM').format(DateTime.now());
   String year = DateFormat('y').format(DateTime.now());
-  List<Widget> widgetList=[];
- @override
-  void initState() {
+  List<Widget> widgetList = [];
 
+  @override
+  void initState() {
     super.initState();
   }
 
@@ -152,72 +152,90 @@ class _SummaryListState extends State<SummaryList> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                   Flexible(
-                    child: Container(
-                        color: day=='Sun'?Color(0xFFFDC76F):AppColors.backGroundColor,
-                        width: Utility.screenWidth(context),
-                        height: 50,
-                        child:Center(child: Text("SU"))
-                    ),
-                  ),
-                  SizedBox(width: 5.0,),
                   Flexible(
                     child: Container(
-                        color: day=='Mon'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        color: day == 'Sun'
+                            ? Color(0xFFFDC76F)
+                            : AppColors.backGroundColor,
                         width: Utility.screenWidth(context),
                         height: 50,
-                        child:Center(child: Text("MO"))
-                    ),
+                        child: Center(child: Text("SU"))),
                   ),
-                  SizedBox(width: 5.0,),
+                  SizedBox(
+                    width: 5.0,
+                  ),
                   Flexible(
                     child: Container(
-                        color:  day=='Tue'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        color: day == 'Mon'
+                            ? Color(0xFFFDC76F)
+                            : AppColors.backGroundColor,
                         width: Utility.screenWidth(context),
                         height: 50,
-                        child:Center(child: Text("TU"))
-                    ),
+                        child: Center(child: Text("MO"))),
                   ),
-                  SizedBox(width: 5.0,),
+                  SizedBox(
+                    width: 5.0,
+                  ),
                   Flexible(
                     child: Container(
-                        color:  day=='Wed'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        color: day == 'Tue'
+                            ? Color(0xFFFDC76F)
+                            : AppColors.backGroundColor,
                         width: Utility.screenWidth(context),
                         height: 50,
-                        child:Center(child: Text("WE"))
-                    ),
+                        child: Center(child: Text("TU"))),
                   ),
-                  SizedBox(width: 5.0,),
+                  SizedBox(
+                    width: 5.0,
+                  ),
                   Flexible(
                     child: Container(
-                        color:  day=='Thu'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        color: day == 'Wed'
+                            ? Color(0xFFFDC76F)
+                            : AppColors.backGroundColor,
                         width: Utility.screenWidth(context),
                         height: 50,
-                        child:Center(child: Text("TH"))
-                    ),
+                        child: Center(child: Text("WE"))),
                   ),
-                  SizedBox(width: 5.0,),
+                  SizedBox(
+                    width: 5.0,
+                  ),
                   Flexible(
                     child: Container(
-                        color: day=='Fri'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        color: day == 'Thu'
+                            ? Color(0xFFFDC76F)
+                            : AppColors.backGroundColor,
                         width: Utility.screenWidth(context),
                         height: 50,
-                        child:Center(child: Text("FR"))
-                    ),
+                        child: Center(child: Text("TH"))),
                   ),
-                  SizedBox(width: 5.0,),
+                  SizedBox(
+                    width: 5.0,
+                  ),
                   Flexible(
                     child: Container(
-                        color:  day=='Sat'?Color(0xFFFDC76F):AppColors.backGroundColor,
+                        color: day == 'Fri'
+                            ? Color(0xFFFDC76F)
+                            : AppColors.backGroundColor,
                         width: Utility.screenWidth(context),
                         height: 50,
-                        child:Center(child: Text("SA"))
-                    ),
+                        child: Center(child: Text("FR"))),
                   ),
-
+                  SizedBox(
+                    width: 5.0,
+                  ),
+                  Flexible(
+                    child: Container(
+                        color: day == 'Sat'
+                            ? Color(0xFFFDC76F)
+                            : AppColors.backGroundColor,
+                        width: Utility.screenWidth(context),
+                        height: 50,
+                        child: Center(child: Text("SA"))),
+                  ),
                 ],
               )),
-         /* child:  ListView(
+          /* child:  ListView(
             scrollDirection: Axis.horizontal,
             children: [
               ...daysList

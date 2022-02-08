@@ -26,10 +26,9 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
     implements FeedHistoryView {
   bool checkList = false;
   FeedHistoryPresenter _presenter;
-  List<Widget> userWidgetList=[];
+  List<Widget> userWidgetList = [];
   List<FeedbackDatas> userList = [];
   FeedHistoryResponse _response;
-
 
   @override
   void initState() {
@@ -48,52 +47,62 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-
-        child: Column(
-            children: [
-              Header(headerText: 'Feedback History',),
-              Expanded(child:
-              ListView(children: [
-                SizedBox(height: 10.0,),
+        child: Column(children: [
+          Header(
+            headerText: 'Feedback History',
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                SizedBox(
+                  height: 10.0,
+                ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 10.0,horizontal: 10.0),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   child: InputField(
                       placeHolderText: 'Search',
                       errorMessage: 'Please enter first name',
                       inputType: InputType.ONLY_WORDS,
                       rightIcon: Images.SearchIcon,
-
-                      onTextChange: (String val) =>  {}
-                  ),
+                      onTextChange: (String val) => {}),
                 ),
                 Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                  margin: EdgeInsets.symmetric(vertical: 20.0,horizontal: 10.0),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  margin:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Container(
                             margin: EdgeInsets.all(10.0),
                             padding: EdgeInsets.all(5.0),
-                            child:Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Total Feedback    ${_response?.feedbackDatas?.length.toString()}',style: TextStyle(fontSize: 18.0,color: Colors.red,fontWeight: FontWeight.bold),),
-                                InkWell(child: Image.asset(Images.FilterIcon),
-                                  onTap: (){
+                                Text(
+                                  'Total Feedback    ${_response?.feedbackDatas?.length.toString()}',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                InkWell(
+                                  child: Image.asset(Images.FilterIcon),
+                                  onTap: () {
                                     opendFilterDialog();
-                                  },)
+                                  },
+                                )
                               ],
-                            )
-                        ),
+                            )),
                         Container(
-                          height:30,
+                          height: 30,
                           alignment: Alignment.center,
                           color: AppColors.grey,
                           child: Row(
@@ -113,32 +122,27 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                     ),
                   ),
                 ),
-
-              ],)
-                ,)
-              ,]),
+              ],
+            ),
+          ),
+        ]),
       ),
     );
   }
-
-
 
   @override
   void onFeedHistoryFecthed(FeedHistoryResponse response) {
     // print('response list **** ${response.feedbackDatas[0].dataCategories}');
 
-      if(response.feedbackDatas!=null)
-        {
-          for(int i=0;i<response.feedbackDatas.length;i++)
-            {
-              userWidgetList.add(CardHistory(response.feedbackDatas[i]));
-            }
-          _response=response;
-          setState(() {});
-        }
-
-
+    if (response.feedbackDatas != null) {
+      for (int i = 0; i < response.feedbackDatas.length; i++) {
+        userWidgetList.add(CardHistory(response.feedbackDatas[i]));
+      }
+      _response = response;
+      setState(() {});
+    }
   }
+
   opendFilterDialog() {
     Scaffold body = Scaffold(
       backgroundColor: AppColors.background.withOpacity(0.1),
@@ -159,33 +163,37 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Filter',style: textStyleWhite12px400w,),
-                      InkWell(child: Image.asset(Images.CloseIcon),
-                        onTap: (){
+                      Text(
+                        'Filter',
+                        style: textStyleWhite12px400w,
+                      ),
+                      InkWell(
+                        child: Image.asset(Images.CloseIcon),
+                        onTap: () {
                           Navigator.pop(context);
-                        },)
+                        },
+                      )
                     ],
                   ),
                 ),
-
                 RichText(
                     text: TextSpan(children: [
-                      TextSpan(
-                        text: 'Filter by Team Lead ',
-                        style: textStyleWhite12px400w,
-                      ),
-                      TextSpan(
-                        text: '*',
-                        style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                      ),
-                    ])),
+                  TextSpan(
+                    text: 'Filter by Team Lead ',
+                    style: textStyleWhite12px400w,
+                  ),
+                  TextSpan(
+                    text: '*',
+                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                  ),
+                ])),
                 SizedBox(
                   height: 5.0,
                 ),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white, width: 2),
                       borderRadius: BorderRadius.circular(10),
@@ -206,13 +214,11 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                   },
                   hint: Text('Filter type'),
                   icon: new Image.asset(Images.DropIcon),
-                  items:
-                  ["filter   type"]
-
-                      .map(( label) => DropdownMenuItem(
-                    child: Text(label),
-                    value: label.toString(),
-                  ))
+                  items: ["filter   type"]
+                      .map((label) => DropdownMenuItem(
+                            child: Text(label),
+                            value: label.toString(),
+                          ))
                       .toList(),
                 ),
                 SizedBox(
@@ -220,22 +226,22 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                 ),
                 RichText(
                     text: TextSpan(children: [
-                      TextSpan(
-                        text: 'Filter by Team lead ',
-                        style: textStyleWhite12px400w,
-                      ),
-                      TextSpan(
-                        text: '*',
-                        style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                      ),
-                    ])),
+                  TextSpan(
+                    text: 'Filter by Team lead ',
+                    style: textStyleWhite12px400w,
+                  ),
+                  TextSpan(
+                    text: '*',
+                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                  ),
+                ])),
                 SizedBox(
                   height: 5.0,
                 ),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white, width: 2),
                       borderRadius: BorderRadius.circular(10),
@@ -250,19 +256,16 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                   dropdownColor: Colors.white,
                   onChanged: (String value) {
                     setState(() {
-
                       print('Team Id ****$value');
                     });
                   },
                   hint: Text('Team'),
                   icon: new Image.asset(Images.DropIcon),
-                  items:
-                  ["filter   type"]
-
-                      .map(( label) => DropdownMenuItem(
-                    child: Text(label),
-                    value: label.toString(),
-                  ))
+                  items: ["filter   type"]
+                      .map((label) => DropdownMenuItem(
+                            child: Text(label),
+                            value: label.toString(),
+                          ))
                       .toList(),
                 ),
                 SizedBox(
@@ -270,22 +273,22 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                 ),
                 RichText(
                     text: TextSpan(children: [
-                      TextSpan(
-                        text: 'Filter by Date',
-                        style: textStyleWhite12px400w,
-                      ),
-                      TextSpan(
-                        text: '*',
-                        style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                      ),
-                    ])),
+                  TextSpan(
+                    text: 'Filter by Date',
+                    style: textStyleWhite12px400w,
+                  ),
+                  TextSpan(
+                    text: '*',
+                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                  ),
+                ])),
                 SizedBox(
                   height: 5.0,
                 ),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20.0),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 20.0),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white, width: 2),
                       borderRadius: BorderRadius.circular(10),
@@ -307,9 +310,9 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                   icon: new Image.asset(Images.DropIcon),
                   items: ["feed back type"]
                       .map((label) => DropdownMenuItem(
-                    child: Text(label.toString()),
-                    value: label,
-                  ))
+                            child: Text(label.toString()),
+                            value: label,
+                          ))
                       .toList(),
                 ),
                 SizedBox(
@@ -322,7 +325,10 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                       height: 40,
                       alignment: Alignment.center,
                       child: FlatButton(
-                        child: Text('Apply', style: TextStyle(fontSize: 20.0),),
+                        child: Text(
+                          'Apply',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
                         color: AppColors.colorPrimary,
                         textColor: Colors.white,
                         shape: RoundedRectangleBorder(
@@ -330,16 +336,20 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                         onPressed: () {},
                       ),
                     ),
-                    SizedBox(width: 10.0,),
+                    SizedBox(
+                      width: 10.0,
+                    ),
                     Container(
                       height: 40,
                       alignment: Alignment.center,
                       child: OutlineButton(
-                        child: Text("Cancel", style: TextStyle(fontSize: 20.0),),
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
                         highlightedBorderColor: AppColors.colorPrimary,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -347,7 +357,6 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                     ),
                   ],
                 ),
-
               ],
             ),
           ),
@@ -361,6 +370,7 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
           return body;
         });
   }
+
   @override
   onError(String message) {
     Utility.showErrorToast(context, message);

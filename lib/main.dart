@@ -14,6 +14,7 @@ import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
+import 'package:hrms/ticket/chat_page.dart';
 
 import 'package:hrms/user/AuthUser.dart';
 import 'package:provider/provider.dart';
@@ -146,8 +147,9 @@ class _ScreenState extends State<MyApp> {
               break;
           }
         },
-        home: checkAuthUser(widget?.isLoggedIn)
-        //RevDrawer()
+        home:
+        //checkAuthUser(widget?.isLoggedIn)
+       ChatePage()
         //AddFeedback()
         );
   }
