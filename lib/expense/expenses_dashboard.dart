@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hrms/expense/total_expenses_list.dart';
+import 'package:hrms/leave_request/model/data_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/utility/Header.dart';
 
@@ -20,9 +21,13 @@ class _ExpensesDashboardState extends State<ExpensesDashboard> with SingleTicker
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    widgetExpensesList.add(const TotalExpensesList());
-    widgetAdvancesSettlement.add(const TotalExpensesList());
 
+    for (TimeModel t in timeList) {
+      widgetExpensesList.add(TotalExpensesList(t));;
+    }
+    for (TimeModel t in helpList) {
+      widgetAdvancesSettlement.add(TotalExpensesList(t));
+    }
 
     setState(() {
 

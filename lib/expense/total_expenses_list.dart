@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hrms/leave_request/model/data_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 
 class TotalExpensesList extends StatelessWidget {
-  const TotalExpensesList({Key key}) : super(key: key);
+
+  TimeModel _data;
+  TotalExpensesList(this._data,{Key key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
