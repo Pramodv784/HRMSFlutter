@@ -15,6 +15,8 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
 import 'package:hrms/ticket/chat_page.dart';
+import 'package:hrms/ticket/my_tickets_dashboard.dart';
+import 'package:hrms/ticket/raise_ticket.dart';
 
 import 'package:hrms/user/AuthUser.dart';
 import 'package:provider/provider.dart';
@@ -124,8 +126,15 @@ class _ScreenState extends State<MyApp> {
             case Screens.AddExpense:
               return RouteTransition(widget: EmployeeAdvances());
               break;
+            case Screens.RaiseTicket:
+              return RouteTransition(widget: RaiseTicket());
+              break;
+            case Screens.TicketDashBoard:
+              return RouteTransition(widget: MyTicketDashBoard());
+              break;
+
             case Screens.CommonPage:
-              String title=settings.arguments;
+              String title = settings.arguments;
               return RouteTransition(widget: CommonPage(title));
               break;
 
@@ -147,9 +156,8 @@ class _ScreenState extends State<MyApp> {
               break;
           }
         },
-        home:
-        //checkAuthUser(widget?.isLoggedIn)
-       ChatePage()
+        home: checkAuthUser(widget?.isLoggedIn)
+        //ChatePage()
         //AddFeedback()
         );
   }

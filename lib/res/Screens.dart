@@ -26,6 +26,8 @@ class Screens {
   static const AddExpense = "EmployeeExpense";
   static const AttendencePage = "attendencepage";
   static const CommonPage = "commonpage";
+  static const RaiseTicket = "raiseticket";
+  static const TicketDashBoard = "ticketdashboard";
 
 
 }

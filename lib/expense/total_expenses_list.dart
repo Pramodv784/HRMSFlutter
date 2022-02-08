@@ -6,9 +6,11 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 
+import '../ticket/model/my_ticket_response.dart';
+
 class TotalExpensesList extends StatelessWidget {
 
-  TimeModel _data;
+  MyTicketResponse _data;
   TotalExpensesList(this._data,{Key key}) : super(key: key);
 
 
@@ -22,7 +24,7 @@ class TotalExpensesList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Title of the Ticket, sit amet, consectetur adipiscing elit ut aliquam',
+              '${_data.comment}',
               style: textStyleWhite12px400w,
             ),
             SizedBox(

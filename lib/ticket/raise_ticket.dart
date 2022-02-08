@@ -1,12 +1,22 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/ticket/model/add_ticket_response.dart';
+import 'package:hrms/ticket/model/ticket_type_response.dart';
+import 'package:hrms/ticket/ticket_presenter.dart';
+import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/InputField.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
+
+import '../res/Screens.dart';
+import '../user/AuthUser.dart';
+import '../utility/Dialogs.dart';
+import 'model/add_ticket_request.dart';
 
 class RaiseTicket extends StatefulWidget {
   const RaiseTicket({Key key}) : super(key: key);
@@ -15,9 +25,28 @@ class RaiseTicket extends StatefulWidget {
   _RaiseTicketState createState() => _RaiseTicketState();
 }
 
-class _RaiseTicketState extends State<RaiseTicket> {
+class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
   String description='';
   var text=0;
+  TicketPresenter _presenter;
+  List<CaseTypesData> ticketTypeList=[];
+  AddTicketRequest _request=AddTicketRequest();
+  int userId=0,orgId,cmpId=0;
+
+  @override
+  void initState() {
+    _presenter=TicketPresenter(this);
+    _presenter.getTicketType(context);
+    getuserId();
+    super.initState();
+  }
+  void getuserId() async{
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
+    userId=userData.userId;
+    orgId=userData.userCredentials.orgId;
+    cmpId=userData.userCredentials.companyId;
+    print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +85,7 @@ class _RaiseTicketState extends State<RaiseTicket> {
                             SizedBox(
                               height: 5.0,
                             ),
-                            DropdownButtonFormField<String>(
+                            DropdownButtonFormField<CaseTypesData>(
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 20.0),
@@ -72,9 +101,9 @@ class _RaiseTicketState extends State<RaiseTicket> {
                                 fillColor: AppColors.dropbg,
                               ),
                               dropdownColor: Colors.white,
-                              onChanged: (String value) {
+                              onChanged: (CaseTypesData value) {
                                 setState(() {
-                                  //_selected=value;
+                                  _request.caseTypeId=value.caseTypeId.toString();
                                   print('Valuse....${value}');
                                   if (value == 'EMPLOYEE') {
                                     // empstatus = true;
@@ -85,14 +114,69 @@ class _RaiseTicketState extends State<RaiseTicket> {
                               },
                               hint: Text('Select Category'),
                               icon: new Image.asset(Images.DropIcon),
-                              /*items:
+                              items:
                               //["feed back type"]
-                              feedTypeList
-                                  .map((DataCategory label) => DropdownMenuItem(
-                                child: Text(label.categoryType),
-                                value: label.categoryType,
+                              ticketTypeList
+                                  .map((CaseTypesData label) => DropdownMenuItem(
+                                child: Text(label.caseType),
+                                value: label,
                               ))
-                                  .toList(),*/
+                                  .toList(),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: 'AssignTo ',
+                                    style: textStyleWhite12px400w,
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                                  ),
+                                ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            DropdownButtonFormField<CaseTypesData>(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20.0),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white, width: 2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white, width: 2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                filled: true,
+                                fillColor: AppColors.dropbg,
+                              ),
+                              dropdownColor: Colors.white,
+                              onChanged: (CaseTypesData value) {
+                                setState(() {
+                                  _request.caseTypeId=value.caseTypeId.toString();
+                                  print('Valuse....${value}');
+                                  if (value == 'EMPLOYEE') {
+                                    // empstatus = true;
+                                  } else {
+                                    //   empstatus = false;
+                                  }
+                                });
+                              },
+                              hint: Text('Select Category'),
+                              icon: new Image.asset(Images.DropIcon),
+                              items:
+                              //["feed back type"]
+                              ticketTypeList
+                                  .map((CaseTypesData label) => DropdownMenuItem(
+                                child: Text(label.caseType),
+                                value: label,
+                              ))
+                                  .toList(),
                             ),
                             SizedBox(
                               height: 20.0,
@@ -119,9 +203,8 @@ class _RaiseTicketState extends State<RaiseTicket> {
                                 errorMessage: 'Please Enter Title**',
                                 inputType: InputType.EMAIL,
                                 onTextChange: (value) {
-                                  // value=title;
-                                //  print('amount $value');
-                                 // _request.expenseAmount = double.parse(value);
+
+                                  _request.caseTitle = value;
                                 },
                               ),
                             ),
@@ -263,7 +346,7 @@ class _RaiseTicketState extends State<RaiseTicket> {
               radius: 50.0,
               borderColor: AppColors.grey,
               onTap: () async {
-                // opendDialog();
+                Navigator.pop(context);
               },
             ),
           ),
@@ -271,19 +354,54 @@ class _RaiseTicketState extends State<RaiseTicket> {
           Expanded(
             child: RevButton(
               width: 55.0,
-              text: 'Select',
+              text: 'Save',
               radius: 50.0,
               borderColor: AppColors.colorPrimary,
               textStyle: textStyleWhite14px600w,
               onTap: () {
-
-                /* Navigator.pushNamed(context, Screens.AddEmpFeedBack,
-                    arguments:[roleId,selectedId]);*/
+                addTicket();
               },
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  onError(String message) {
+    Utility.showErrorToast(context, message);
+  }
+
+  @override
+  void onTicketTypeFecthed(TicketTypeResponse response) {
+   ticketTypeList.clear();
+   ticketTypeList.addAll(response.caseTypesData);
+   setState(() {
+
+   });
+  }
+
+  void addTicket() {
+     _request.comment=description;
+     _request.caseCreatedById=userId.toString();
+     _request.orgId=orgId.toString();
+     _request.companyId=cmpId.toString();
+     _request.assignedToId='210';
+     print('Request *** ${_request.toString()}');
+     _presenter.AddTicket(context,_request);
+
+
+
+  }
+
+  @override
+  void onTicketAddedFecthed(AddTicketResponse response) {
+    print('ticket add response ****  ${response.message}');
+    Dialogs.showMsgCustomDialog(context, onok: () {
+      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          Screens.kBaseScreen, ModalRoute.withName('/'));
+    }, message: '', title: response.message);
   }
 }

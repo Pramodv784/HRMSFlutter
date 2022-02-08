@@ -22,12 +22,12 @@ class _ExpensesDashboardState extends State<ExpensesDashboard> with SingleTicker
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
 
-    for (TimeModel t in timeList) {
+   /* for (TimeModel t in timeList) {
       widgetExpensesList.add(TotalExpensesList(t));;
     }
     for (TimeModel t in helpList) {
       widgetAdvancesSettlement.add(TotalExpensesList(t));
-    }
+    }*/
 
     setState(() {
 
