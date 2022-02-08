@@ -17,6 +17,8 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../res/Screens.dart';
+import '../utility/Dialogs.dart';
 import 'expense_presenter.dart';
 import 'model/expense_category_response.dart';
 
@@ -38,6 +40,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
   ExpensePresenter _presenter;
   List<ExpenseCategoryList> expcateList = [];
   int userId = 0;
+  String userName="";
 
   @override
   void initState() {
@@ -52,6 +55,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
     print(
         'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
     userId = userData.userId;
+    userName=userData.userName;
   }
 
   @override
@@ -262,7 +266,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
                             child: InputField(
                               placeHolderText: 'Amount*',
                               errorMessage: 'Please Enter Amount**',
-                              inputType: InputType.MOBILE,
+                              inputType: InputType.NUMBER,
                               onTextChange: (value) {
                                 // value=title;
                                 print('amount $value');
@@ -651,23 +655,41 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
   void onExpenseCateFecthed(ExpenseCategoryResponse response) {
     expcateList.clear();
     expcateList.addAll(response.expenseCategoryList);
+    setState(() {
+
+    });
   }
 
   @override
   void onImageFecthed(UploadImageResponse response) {
     print('image upload **** ${response.data.filepath}');
     _request.imageUrl = response.data.fileurl;
+    Utility.showSuccessToastB(context, response.message);
+    setState(() {
+
+    });
   }
 
   @override
   void onAddExpenseFecthed(AddExpenseResponse response) {
     print('Add Expense Response **** ${response.message}');
-    // TODO: implement onAddExpenseFecthed
+    Dialogs.showMsgCustomDialog(context,onok:  (){
+      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
+    },message: '',title: response.message);
   }
 
   void addExpense() {
-    _request.expenseDate = Utility.formatDate(_expense_date.toString());
+    try{
+      _request.expenseDate = Utility.formatDate(_expense_date?.toString()?? "");
+    }
+    catch(Exception)
+    {
+      print("");
+    }
+
     _request.employeeId = userId;
+    _request.appliedBy=userName;
     if (_request.categoryId == null) {
       Utility.showErrorToast(context, 'please select expense category');
     } else if (_request.expenseTitle == null) {

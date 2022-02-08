@@ -14,7 +14,6 @@ class CardFeedHistoy extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -41,8 +41,8 @@ class LeaveBalancePresenter {
           Dialogs.hideLoader(context);
 
           LeaveBalanceModel data = LeaveBalanceModel.fromJson(res.data);
-          //print('pramod${data.data.message}');
-         // if (data?.status??false)
+          print('pramod${data.message}');
+         // if (data?.status=='OK')
             _view.onLeaveBalanceFetched(data);
 
         }

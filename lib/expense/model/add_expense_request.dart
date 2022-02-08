@@ -35,7 +35,8 @@ class AddExpenseRequest {
       String merchantName, 
       String billNumber, 
       String comment, 
-      String imageUrl, 
+      String imageUrl,
+    String appliedBy,
       int createdBy, 
       int updatedBy, 
       String createdOn, 
@@ -70,6 +71,7 @@ class AddExpenseRequest {
     _message = message;
     _companyId = companyId;
     _orgId = orgId;
+    _appliedBy = appliedBy;
 }
 
   AddExpenseRequest.fromJson(dynamic json) {
@@ -96,6 +98,7 @@ class AddExpenseRequest {
     _message = json['message'];
     _companyId = json['companyId'];
     _orgId = json['orgId'];
+    _appliedBy = json['AppliedBy'];
   }
   int _expenseId;
   int _categoryId;
@@ -120,6 +123,14 @@ class AddExpenseRequest {
   dynamic _message;
   int _companyId;
   int _orgId;
+  String _appliedBy;
+
+
+  String get appliedBy => _appliedBy;
+
+  set appliedBy(String value) {
+    _appliedBy = value;
+  }
 
   int get expenseId => _expenseId;
   int get categoryId => _categoryId;
@@ -175,6 +186,7 @@ class AddExpenseRequest {
     map['message'] = _message;
     map['companyId'] = _companyId;
     map['orgId'] = _orgId;
+    map['AppliedBy'] = _appliedBy;
     return map;
   }
 
