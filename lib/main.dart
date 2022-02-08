@@ -12,6 +12,7 @@ import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
+import 'package:hrms/ticket/raise_ticket.dart';
 
 import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/workFromHome/work_from_home_request.dart';
@@ -94,7 +95,7 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget:  GoalPage());
               break;
             case Screens.FeedbcakHistory:
-              return RouteTransition(widget:  WorkFromHomeRequest());
+              return RouteTransition(widget:  RaiseTicket());
               break;
             case Screens.LeaveRequestDashboard:
               return RouteTransition(widget:  LeaveRequestDashboard());
