@@ -7,12 +7,11 @@ import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 
 import '../ticket/model/my_ticket_response.dart';
-import 'model/expense_history_response.dart';
 
-class TotalExpensesList extends StatelessWidget {
+class TicketListItem extends StatelessWidget {
 
-  ExpenseList _data;
-  TotalExpensesList(this._data,{Key key}) : super(key: key);
+  MyTicketResponse _data;
+  TicketListItem(this._data,{Key key}) : super(key: key);
 
 
   @override

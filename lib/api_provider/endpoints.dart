@@ -24,4 +24,5 @@ class EndPoints{
   static const String TicketType = baseUrl+"/api/Case/GetCaseTypes";
   static const String AddTicket = baseUrl+"/api/Case/CreateCase";
   static const String MyTicketList = baseUrl+"/api/Case/GetAllTicket";
+  static const String ExpenseHistory = baseUrl+"/api/expense/GetAllExpenseRequestsByStatus";
 }

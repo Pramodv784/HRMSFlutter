@@ -135,6 +135,9 @@ class _MidLayerState extends State<MidLayer> {
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
 
                   verticalSpace(30.0),
+                  drawerRowBuilder(Images.LogoutIcon, 'Add Feedback',
+                      context: context),
+                  verticalSpace(30.0),
                   drawerRowBuilder(Images.LogoutIcon, 'Logout',
                       context: context),
                   verticalSpace(30.0),
@@ -203,6 +206,14 @@ class _MidLayerState extends State<MidLayer> {
             _provider.close();
             Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
             break;
+
+             case "Add Feedback":
+            //Navigator.pop(context);
+            _provider.close();
+            Navigator.pushNamed(context, Screens.AddFeedBack);
+            break;
+
+
 
           case "Logout":
             Dialogs.showCustomDialog(context, onAccept: () async {

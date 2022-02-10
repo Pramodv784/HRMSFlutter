@@ -339,4 +339,9 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
     setState(() {});
     // TODO: implement onEmplyoeedataFecthed
   }
+
+  @override
+  onError(String message) {
+    Utility.showErrorToast(context, message);
+  }
 }

@@ -6,6 +6,7 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/my_ticket_response.dart';
 import 'package:hrms/ticket/model/ticket_type_response.dart';
+import 'package:hrms/ticket/ticket_list_item.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
@@ -51,11 +52,11 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
     for (MyTicketResponse t in ticketList) {
        if(t.caseStatus=='Open')
          {
-           widgetOpenList.add(TotalExpensesList(t));
+           widgetOpenList.add(TicketListItem(t));
          }
        else
          {
-           widgetClosedSettlement.add(TotalExpensesList(t));
+           widgetClosedSettlement.add(TicketListItem(t));
          }
     }
     setState(() {

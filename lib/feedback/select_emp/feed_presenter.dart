@@ -50,7 +50,7 @@ class FeedPresenter {
           TeamRoleResponse data = TeamRoleResponse.fromJson(res.data);
           //print('pramod${data.data.message}');
 
-         // if (data?.dataCategory?.isNotEmpty)
+         //if (data?.dataCategory?.isNotEmpty)
             _view.onFeedTypeFecthed(data);
 
         }

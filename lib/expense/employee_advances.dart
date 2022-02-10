@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hrms/expense/expense_view.dart';
 import 'package:hrms/expense/model/add_expense_request.dart';
 import 'package:hrms/expense/model/add_expense_response.dart';
+import 'package:hrms/expense/model/expense_history_response.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
@@ -707,5 +708,14 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
     } else {
       _presenter.AddExpense(context, _request);
     }
+  }
+
+  @override
+  void onExpenseHistoryFecthed(ExpenseHistoryResponse response) {
+  }
+
+  @override
+  onError(String message) {
+   Utility.showErrorToast(context, message);
   }
 }

@@ -6,6 +6,7 @@ import 'package:hrms/api_provider/api_repository.dart';
 import 'package:hrms/attendence/attendance_dashboard.dart';
 import 'package:hrms/common_page.dart';
 import 'package:hrms/expense/employe_expense.dart';
+import 'package:hrms/expense/expense_history.dart';
 import 'package:hrms/feedback_history/feedback_history_user_page.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
@@ -88,6 +89,10 @@ class _ScreenState extends State<MyApp> {
             case Screens.AddFeedBack:
               return RouteTransition(widget: SelectEmp());
               break;
+               case Screens.ExpenseHistory:
+              return RouteTransition(widget: ExpenseHistory());
+              break;
+
             case Screens.AddEmpFeedRemark:
               return RouteTransition(
                   widget: FeedbackRemark(settings.arguments));

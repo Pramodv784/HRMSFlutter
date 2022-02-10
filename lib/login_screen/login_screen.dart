@@ -226,8 +226,8 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
     log("Login Response +++++++++++ " + response.message);
     var currentUser = CurrentUser()..userCredentials = response;
     currentUser.isLoggedIn = true;
-    currentUser.userId=response.userDataList[0].employeeId;
-    currentUser.userName=response.userDataList[0].fullName;
+    currentUser.userId=response.userprofile.userId;
+    currentUser.userName=response.userprofile.fullName;
     AuthUser.getInstance().login(currentUser);
     Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
   }
