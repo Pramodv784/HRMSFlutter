@@ -19,4 +19,5 @@ List<TimeModel> helpList=[
 ];
 List<TimeModel> expenseList=[
   TimeModel('Add Expenses', Images.ExpenseIcon, 'Save and Claim your expenses here.'),
+  TimeModel('History', Images.AttendenceIcon, 'view your past expenses and advance here'),
 ];

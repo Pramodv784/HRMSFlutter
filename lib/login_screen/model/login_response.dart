@@ -1,6 +1,6 @@
 /// url : null
 /// message : "Data Found"
-/// accesToken : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1laWQiOiI3OTlmNTQ4Mi01YmViLTQ2MGQtYWU1ZS03NjQ5NjMwYjY1ZTMiLCJ1bmlxdWVfbmFtZSI6ImxzaGFybWFAbW9yZXllYWhzLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYWNjZXNzY29udHJvbHNlcnZpY2UvMjAxMC8wNy9jbGFpbXMvaWRlbnRpdHlwcm92aWRlciI6IkFTUC5ORVQgSWRlbnRpdHkiLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6IjM0YzZkMTIyLWM1MTgtNDcwMi05Zjk4LWRlYjI2MTEwMDljOCIsIkZURSI6IjAiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjU5ODIyIiwiYXVkIjoiNDE0ZTE5MjdhMzg4NGY2OGFiYzc5ZjcyODM4MzdmZDEiLCJleHAiOjE2NDMxMTQ5MzQsIm5iZiI6MTY0MzAyODUzNH0.qlZ6aLq5zXRRa1v9RkAObLeTcBVgCc9DFJN5CSamcic"
+/// accesToken : null
 /// statusReason : true
 /// companyId : 0
 /// orgId : 0
@@ -20,6 +20,7 @@
 /// countData : null
 /// teamDatas : null
 /// dataCategory : null
+/// userprofile : {"employeeId":156,"userId":156,"fullName":"Lovely Sharma","roleType":"HR Head","primaryContact":"8517014372"}
 /// userData : null
 /// billTypeData : null
 /// caseData : null
@@ -50,7 +51,7 @@
 /// eventData : null
 /// documentData : null
 /// resourceData : null
-/// userDataList : [{"employeeId":156,"fullName":"Lovely Sharma","roleType":"HR Head","primaryContact":"8517014372","userId":0,"companyId":0,"orgId":0}]
+/// userDataList : null
 /// employeeTypeData : null
 /// leadData : null
 /// departmentEmployeeData : null
@@ -116,12 +117,20 @@
 /// sumofBillableSalary : 0.0
 /// sumofNonBillableSalary : 0.0
 /// billAndNonBilEmpSalary : 0.0
+/// investmentDeclarationData : null
+/// workFromHomeData : null
+/// holidayBalanceData : null
+/// leaveCarryOverData : null
+/// leaveConsumedData : null
+/// holidayList : null
+/// leaveConsumedList : null
+/// leaveCarryOverList : null
 
 class LoginResponse {
   LoginResponse({
       dynamic url, 
       String message, 
-      String accesToken, 
+      dynamic accesToken, 
       bool statusReason, 
       int companyId, 
       int orgId, 
@@ -141,6 +150,7 @@ class LoginResponse {
       dynamic countData, 
       dynamic teamDatas, 
       dynamic dataCategory, 
+      Userprofile userprofile, 
       dynamic userData, 
       dynamic billTypeData, 
       dynamic caseData, 
@@ -171,7 +181,7 @@ class LoginResponse {
       dynamic eventData, 
       dynamic documentData, 
       dynamic resourceData, 
-      List<UserDataList> userDataList, 
+      dynamic userDataList, 
       dynamic employeeTypeData, 
       dynamic leadData, 
       dynamic departmentEmployeeData, 
@@ -236,7 +246,15 @@ class LoginResponse {
       double convertedLeadPercentage, 
       double sumofBillableSalary, 
       double sumofNonBillableSalary, 
-      double billAndNonBilEmpSalary,}){
+      double billAndNonBilEmpSalary, 
+      dynamic investmentDeclarationData, 
+      dynamic workFromHomeData, 
+      dynamic holidayBalanceData, 
+      dynamic leaveCarryOverData, 
+      dynamic leaveConsumedData, 
+      dynamic holidayList, 
+      dynamic leaveConsumedList, 
+      dynamic leaveCarryOverList,}){
     _url = url;
     _message = message;
     _accesToken = accesToken;
@@ -259,6 +277,7 @@ class LoginResponse {
     _countData = countData;
     _teamDatas = teamDatas;
     _dataCategory = dataCategory;
+    _userprofile = userprofile;
     _userData = userData;
     _billTypeData = billTypeData;
     _caseData = caseData;
@@ -355,6 +374,14 @@ class LoginResponse {
     _sumofBillableSalary = sumofBillableSalary;
     _sumofNonBillableSalary = sumofNonBillableSalary;
     _billAndNonBilEmpSalary = billAndNonBilEmpSalary;
+    _investmentDeclarationData = investmentDeclarationData;
+    _workFromHomeData = workFromHomeData;
+    _holidayBalanceData = holidayBalanceData;
+    _leaveCarryOverData = leaveCarryOverData;
+    _leaveConsumedData = leaveConsumedData;
+    _holidayList = holidayList;
+    _leaveConsumedList = leaveConsumedList;
+    _leaveCarryOverList = leaveCarryOverList;
 }
 
   LoginResponse.fromJson(dynamic json) {
@@ -380,6 +407,7 @@ class LoginResponse {
     _countData = json['countData'];
     _teamDatas = json['teamDatas'];
     _dataCategory = json['dataCategory'];
+    _userprofile = json['userprofile'] != null ? Userprofile.fromJson(json['userprofile']) : null;
     _userData = json['userData'];
     _billTypeData = json['billTypeData'];
     _caseData = json['caseData'];
@@ -410,12 +438,7 @@ class LoginResponse {
     _eventData = json['eventData'];
     _documentData = json['documentData'];
     _resourceData = json['resourceData'];
-    if (json['userDataList'] != null) {
-      _userDataList = [];
-      json['userDataList'].forEach((v) {
-        _userDataList.add(UserDataList.fromJson(v));
-      });
-    }
+    _userDataList = json['userDataList'];
     _employeeTypeData = json['employeeTypeData'];
     _leadData = json['leadData'];
     _departmentEmployeeData = json['departmentEmployeeData'];
@@ -481,10 +504,18 @@ class LoginResponse {
     _sumofBillableSalary = json['sumofBillableSalary'];
     _sumofNonBillableSalary = json['sumofNonBillableSalary'];
     _billAndNonBilEmpSalary = json['billAndNonBilEmpSalary'];
+    _investmentDeclarationData = json['investmentDeclarationData'];
+    _workFromHomeData = json['workFromHomeData'];
+    _holidayBalanceData = json['holidayBalanceData'];
+    _leaveCarryOverData = json['leaveCarryOverData'];
+    _leaveConsumedData = json['leaveConsumedData'];
+    _holidayList = json['holidayList'];
+    _leaveConsumedList = json['leaveConsumedList'];
+    _leaveCarryOverList = json['leaveCarryOverList'];
   }
   dynamic _url;
   String _message;
-  String _accesToken;
+  dynamic _accesToken;
   bool _statusReason;
   int _companyId;
   int _orgId;
@@ -504,6 +535,7 @@ class LoginResponse {
   dynamic _countData;
   dynamic _teamDatas;
   dynamic _dataCategory;
+  Userprofile _userprofile;
   dynamic _userData;
   dynamic _billTypeData;
   dynamic _caseData;
@@ -534,7 +566,7 @@ class LoginResponse {
   dynamic _eventData;
   dynamic _documentData;
   dynamic _resourceData;
-  List<UserDataList> _userDataList;
+  dynamic _userDataList;
   dynamic _employeeTypeData;
   dynamic _leadData;
   dynamic _departmentEmployeeData;
@@ -600,10 +632,18 @@ class LoginResponse {
   double _sumofBillableSalary;
   double _sumofNonBillableSalary;
   double _billAndNonBilEmpSalary;
+  dynamic _investmentDeclarationData;
+  dynamic _workFromHomeData;
+  dynamic _holidayBalanceData;
+  dynamic _leaveCarryOverData;
+  dynamic _leaveConsumedData;
+  dynamic _holidayList;
+  dynamic _leaveConsumedList;
+  dynamic _leaveCarryOverList;
 
   dynamic get url => _url;
   String get message => _message;
-  String get accesToken => _accesToken;
+  dynamic get accesToken => _accesToken;
   bool get statusReason => _statusReason;
   int get companyId => _companyId;
   int get orgId => _orgId;
@@ -623,6 +663,7 @@ class LoginResponse {
   dynamic get countData => _countData;
   dynamic get teamDatas => _teamDatas;
   dynamic get dataCategory => _dataCategory;
+  Userprofile get userprofile => _userprofile;
   dynamic get userData => _userData;
   dynamic get billTypeData => _billTypeData;
   dynamic get caseData => _caseData;
@@ -653,7 +694,7 @@ class LoginResponse {
   dynamic get eventData => _eventData;
   dynamic get documentData => _documentData;
   dynamic get resourceData => _resourceData;
-  List<UserDataList> get userDataList => _userDataList;
+  dynamic get userDataList => _userDataList;
   dynamic get employeeTypeData => _employeeTypeData;
   dynamic get leadData => _leadData;
   dynamic get departmentEmployeeData => _departmentEmployeeData;
@@ -719,6 +760,14 @@ class LoginResponse {
   double get sumofBillableSalary => _sumofBillableSalary;
   double get sumofNonBillableSalary => _sumofNonBillableSalary;
   double get billAndNonBilEmpSalary => _billAndNonBilEmpSalary;
+  dynamic get investmentDeclarationData => _investmentDeclarationData;
+  dynamic get workFromHomeData => _workFromHomeData;
+  dynamic get holidayBalanceData => _holidayBalanceData;
+  dynamic get leaveCarryOverData => _leaveCarryOverData;
+  dynamic get leaveConsumedData => _leaveConsumedData;
+  dynamic get holidayList => _holidayList;
+  dynamic get leaveConsumedList => _leaveConsumedList;
+  dynamic get leaveCarryOverList => _leaveCarryOverList;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -744,6 +793,9 @@ class LoginResponse {
     map['countData'] = _countData;
     map['teamDatas'] = _teamDatas;
     map['dataCategory'] = _dataCategory;
+    if (_userprofile != null) {
+      map['userprofile'] = _userprofile.toJson();
+    }
     map['userData'] = _userData;
     map['billTypeData'] = _billTypeData;
     map['caseData'] = _caseData;
@@ -774,9 +826,7 @@ class LoginResponse {
     map['eventData'] = _eventData;
     map['documentData'] = _documentData;
     map['resourceData'] = _resourceData;
-    if (_userDataList != null) {
-      map['userDataList'] = _userDataList.map((v) => v.toJson()).toList();
-    }
+    map['userDataList'] = _userDataList;
     map['employeeTypeData'] = _employeeTypeData;
     map['leadData'] = _leadData;
     map['departmentEmployeeData'] = _departmentEmployeeData;
@@ -842,100 +892,66 @@ class LoginResponse {
     map['sumofBillableSalary'] = _sumofBillableSalary;
     map['sumofNonBillableSalary'] = _sumofNonBillableSalary;
     map['billAndNonBilEmpSalary'] = _billAndNonBilEmpSalary;
+    map['investmentDeclarationData'] = _investmentDeclarationData;
+    map['workFromHomeData'] = _workFromHomeData;
+    map['holidayBalanceData'] = _holidayBalanceData;
+    map['leaveCarryOverData'] = _leaveCarryOverData;
+    map['leaveConsumedData'] = _leaveConsumedData;
+    map['holidayList'] = _holidayList;
+    map['leaveConsumedList'] = _leaveConsumedList;
+    map['leaveCarryOverList'] = _leaveCarryOverList;
     return map;
   }
 
 }
 
 /// employeeId : 156
+/// userId : 156
 /// fullName : "Lovely Sharma"
 /// roleType : "HR Head"
 /// primaryContact : "8517014372"
-/// userId : 0
-/// companyId : 0
-/// orgId : 0
 
-class UserDataList {
-  UserDataList({
+class Userprofile {
+  Userprofile({
       int employeeId, 
+      int userId, 
       String fullName, 
       String roleType, 
-      String primaryContact, 
-      int userId, 
-      int companyId, 
-      int orgId,}){
+      String primaryContact,}){
     _employeeId = employeeId;
+    _userId = userId;
     _fullName = fullName;
     _roleType = roleType;
     _primaryContact = primaryContact;
-    _userId = userId;
-    _companyId = companyId;
-    _orgId = orgId;
 }
 
-  UserDataList.fromJson(dynamic json) {
+  Userprofile.fromJson(dynamic json) {
     _employeeId = json['employeeId'];
+    _userId = json['userId'];
     _fullName = json['fullName'];
     _roleType = json['roleType'];
     _primaryContact = json['primaryContact'];
-    _userId = json['userId'];
-    _companyId = json['companyId'];
-    _orgId = json['orgId'];
   }
   int _employeeId;
+  int _userId;
   String _fullName;
   String _roleType;
   String _primaryContact;
-  int _userId;
-  int _companyId;
-  int _orgId;
 
   int get employeeId => _employeeId;
+  int get userId => _userId;
   String get fullName => _fullName;
   String get roleType => _roleType;
   String get primaryContact => _primaryContact;
-  int get userId => _userId;
-  int get companyId => _companyId;
-  int get orgId => _orgId;
-
-
-  set employeeId(int value) {
-    _employeeId = value;
-  }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['employeeId'] = _employeeId;
+    map['userId'] = _userId;
     map['fullName'] = _fullName;
     map['roleType'] = _roleType;
     map['primaryContact'] = _primaryContact;
-    map['userId'] = _userId;
-    map['companyId'] = _companyId;
-    map['orgId'] = _orgId;
     return map;
   }
 
-  set fullName(String value) {
-    _fullName = value;
-  }
-
-  set roleType(String value) {
-    _roleType = value;
-  }
-
-  set primaryContact(String value) {
-    _primaryContact = value;
-  }
-
-  set userId(int value) {
-    _userId = value;
-  }
-
-  set companyId(int value) {
-    _companyId = value;
-  }
-
-  set orgId(int value) {
-    _orgId = value;
-  }
 }

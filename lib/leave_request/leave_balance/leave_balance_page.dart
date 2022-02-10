@@ -41,7 +41,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
           child: Column(
             children: [
               Expanded(
-                child: _response.leaveBalanceList != null
+                child: _response?.leaveBalanceList != null
                     ? ListView(children: [
                         Header(
                           headerText: 'Leave  Balance',
@@ -132,11 +132,13 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.3,
+                                          percent: _response
+                                                  ?.leaveBalanceList[0]
+                                                  ?.paidLeave /
+                                              10,
                                           animation: true,
-
                                           center: new Text(
-                                            "${_response?.leaveBalanceList[0]?.paidLeave ?? ""}",
+                                            "${_response?.leaveBalanceList[0]?.paidLeave ?? ""}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFF30C6F6),
@@ -237,9 +239,13 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: _response
+                                                  ?.leaveBalanceList[0]
+                                                  ?.unpaidLeave
+                                                  .toDouble() /
+                                              10,
                                           center: new Text(
-                                            "40%",
+                                            "${_response?.leaveBalanceList[0]?.unpaidLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFFE74A2F),
@@ -340,9 +346,13 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: _response
+                                                  ?.leaveBalanceList[0]
+                                                  ?.sickLeave
+                                                  .toDouble() /
+                                              10,
                                           center: new Text(
-                                            "40%",
+                                            "${_response?.leaveBalanceList[0]?.sickLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFFF6AB30),
@@ -443,9 +453,12 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: _response.leaveBalanceList[0]
+                                                  .floaterLeave
+                                                  .toDouble() /
+                                              10,
                                           center: new Text(
-                                            "40%",
+                                            "${_response.leaveBalanceList[0].floaterLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Colors.blue,
@@ -546,9 +559,13 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: _response
+                                                  ?.leaveBalanceList[0]
+                                                  ?.specialLeave
+                                                  .toDouble() /
+                                              10,
                                           center: new Text(
-                                            "40%",
+                                            "${_response?.leaveBalanceList[0]?.specialLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFFE74A2F),
@@ -649,9 +666,9 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: 0.3,
                                           center: new Text(
-                                            "40%",
+                                            "${_response?.leaveBalanceList[0]?.maternityLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFF686D9F),
@@ -752,9 +769,12 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: _response.leaveBalanceList[0]
+                                                  .paternityLeave
+                                                  .toDouble() /
+                                              10,
                                           center: new Text(
-                                            "40%",
+                                            "${_response.leaveBalanceList[0].paternityLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFF30C6F6),
@@ -855,9 +875,13 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: _response
+                                                  ?.leaveBalanceList[0]
+                                                  ?.bereavementLeave
+                                                  .toDouble() /
+                                              100,
                                           center: new Text(
-                                            "40%",
+                                            "${_response?.leaveBalanceList[0]?.bereavementLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Color(0xFFE74A2F),
@@ -958,9 +982,13 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.4,
+                                          percent: _response
+                                                  ?.leaveBalanceList[0]
+                                                  ?.casualLeave
+                                                  .toDouble() /
+                                              10,
                                           center: new Text(
-                                            "40%",
+                                            "${_response?.leaveBalanceList[0]?.casualLeave}%",
                                             style: TextStyle(fontSize: 20.0),
                                           ),
                                           progressColor: Colors.blue,
@@ -1022,5 +1050,10 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
     print('leave balance *** ${response.message}');
     _response = response;
     setState(() {});
+  }
+
+  @override
+  onError(String message) {
+    Utility.showErrorToast(context, message);
   }
 }

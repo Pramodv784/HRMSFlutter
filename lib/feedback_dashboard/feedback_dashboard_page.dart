@@ -75,6 +75,7 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> implements
   void getuserId() async{
     var userData = await (AuthUser.getInstance()).getCurrentUser();
     _presenter.getFeedDash(context, userData.userId);
+    _presenter.getAvgMoth(context, userData.userId);
      getMoth(userData.userId);
     print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
 
@@ -82,7 +83,8 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> implements
   void getMoth(int id) async{
     final AvgMonthResponse= await _presenter.getMonthData(id);
     print('Month Data********${AvgMonthResponse.length}');
-
+      AvgMonthResponse.where((element) => element!=null).toList()
+    .sort((a, b) => b.key.compareTo(a.key));
     for(int i=0;i<AvgMonthResponse.length;i++)
       {
         String date=Utility.formatDate(AvgMonthResponse[i].key);
@@ -384,7 +386,7 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> implements
               borderColor: AppColors.colorPrimary,
               radius: 50.0,
               onTap: () async {
-                Navigator.pushNamed(context, Screens.FeedbcakHistory);
+                Navigator.pushNamed(context, Screens.FeedbUserHistory);
               },
             ),
           ),
@@ -454,8 +456,10 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> implements
     });
   }
 
- /* @override
-  void onAvgMothFecthed(AvgMothResponse response) {
-    print('Avg moth Response **** ${response.monthData.length}');
-  }*/
+  @override
+  void onAvgMothFecthed(List<AvgMonthResponse> response) {
+    print('pramod list ****${response.length}');
+  }
+
+
 }

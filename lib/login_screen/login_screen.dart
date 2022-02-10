@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var _password ="Moreyeahs@123";
-  var _email ="abhandari@moreyeahs.co";
+  var _email ="lsharma@moreyeahs.com";
   LoginPresenter _presenter;
 
   @override
@@ -226,9 +226,16 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
     log("Login Response +++++++++++ " + response.message);
     var currentUser = CurrentUser()..userCredentials = response;
     currentUser.isLoggedIn = true;
-    currentUser.userId=response.userDataList[0].employeeId;
-    currentUser.userName=response.userDataList[0].fullName;
+    currentUser.userId=response.userprofile.userId;
+    currentUser.userName=response.userprofile.fullName;
     AuthUser.getInstance().login(currentUser);
     Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
+  }
+
+  @override
+  void onError(String error) {
+    print('error ** $error' );
+    Utility.showErrorToast(context, error);
+    // TODO: implement onError
   }
 }

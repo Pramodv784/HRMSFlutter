@@ -15,6 +15,7 @@ class Screens {
   static const Profile = "profile";
   static const GoalScreen = "goalScreen";
   static const FeedbcakHistory = "feedbackhistory";
+  static const FeedbUserHistory = "feedbackuserhistory";
   static const LeaveRequestDashboard = "leaveRequestdashboard";
   static const AddEmpFeedBack = "addempfeedback";
   static const AddEmpFeedRemark = "addempfeedremark";
@@ -24,7 +25,11 @@ class Screens {
   static const AddLeaveRequest2 = "addleaverequest2";
   static const AddExpense = "EmployeeExpense";
   static const AttendencePage = "attendencepage";
+  static const CommonPage = "commonpage";
+  static const RaiseTicket = "raiseticket";
+  static const TicketDashBoard = "ticketdashboard";
+  static const ExpenseHistory = "expensehistory";
+  static const WorkFromHomePage = "workfromhomepage";
 
-  // static const kTotalCarWash = "Service";
 
 }

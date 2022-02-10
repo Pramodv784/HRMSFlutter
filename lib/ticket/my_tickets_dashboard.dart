@@ -3,6 +3,12 @@ import 'package:hrms/expense/total_expenses_list.dart';
 import 'package:hrms/leave_request/card_leave.dart';
 import 'package:hrms/leave_request/model/data_model.dart';
 import 'package:hrms/res/AppColors.dart';
+import 'package:hrms/ticket/model/add_ticket_response.dart';
+import 'package:hrms/ticket/model/my_ticket_response.dart';
+import 'package:hrms/ticket/model/ticket_type_response.dart';
+import 'package:hrms/ticket/ticket_list_item.dart';
+import 'package:hrms/ticket/ticket_presenter.dart';
+import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
 
 class MyTicketDashBoard extends StatefulWidget {
@@ -13,20 +19,21 @@ class MyTicketDashBoard extends StatefulWidget {
 }
 
 class _MyTicketDashBoardState extends State<MyTicketDashBoard>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin implements TicketView {
   TabController _tabController;
   List<Widget> widgetOpenList=[];
   List<Widget> widgetClosedSettlement=[];
+  TicketPresenter _presenter;
+  List<MyTicketResponse> ticketList=[];
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    for (TimeModel t in timeList) {
-      widgetOpenList.add(TotalExpensesList(t));
-    }
-    for (TimeModel t in helpList) {
-      widgetClosedSettlement.add(TotalExpensesList(t));
-    }
+
+
+
+    _presenter=TicketPresenter(this);
+    getTicketList();
 
 
     setState(() {});
@@ -39,7 +46,24 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
     super.dispose();
     _tabController.dispose();
   }
+  void getTicketList() async{
+    ticketList= await _presenter.getMyTicketData( 354);
+    print('ticket listResponse ${ticketList.length}');
+    for (MyTicketResponse t in ticketList) {
+       if(t.caseStatus=='Open')
+         {
+           widgetOpenList.add(TicketListItem(t));
+         }
+       else
+         {
+           widgetClosedSettlement.add(TicketListItem(t));
+         }
+    }
+    setState(() {
 
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,4 +159,22 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
           ]),
         ));
   }
+
+  @override
+  onError(String message) {
+    // TODO: implement onError
+    throw UnimplementedError();
+  }
+
+  @override
+  void onTicketAddedFecthed(AddTicketResponse response) {
+    // TODO: implement onTicketAddedFecthed
+  }
+
+  @override
+  void onTicketTypeFecthed(TicketTypeResponse response) {
+    // TODO: implement onTicketTypeFecthed
+  }
 }
+
+

@@ -52,12 +52,15 @@ class FeedQuestionPresenter {
           FeedQuestionModel data = FeedQuestionModel.fromJson(res.data);
           //print('pramod${data.data.message}');
 
-         // if (data?.dataCategory?.isNotEmpty)
+          if (data?.statusReason??false)
             _view.onFeedQuestionFecthed(data);
+          else{
+             _view.onError(data.message);
+          }
 
         }
         ).catchError((e) async {
-          Utility.log(tag, e);
+          Utility.log('$tag error&&', e);
           Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);

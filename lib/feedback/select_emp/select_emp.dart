@@ -295,9 +295,16 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
               borderColor: AppColors.colorPrimary,
               textStyle: textStyleWhite14px600w,
               onTap: () {
+                     if(roleId==0 && selectedId==0)
+                       {
+                         Utility.showErrorToast(context, 'please select employee');
+                       }
+                     else
+                       {
+                         Navigator.pushNamed(context, Screens.AddEmpFeedBack,
+                             arguments:[roleId,selectedId]);
+                       }
 
-                Navigator.pushNamed(context, Screens.AddEmpFeedBack,
-                    arguments:[roleId,selectedId]);
               },
             ),
           ),
@@ -331,5 +338,10 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
     empList.addAll(response.typeVMs);
     setState(() {});
     // TODO: implement onEmplyoeedataFecthed
+  }
+
+  @override
+  onError(String message) {
+    Utility.showErrorToast(context, message);
   }
 }

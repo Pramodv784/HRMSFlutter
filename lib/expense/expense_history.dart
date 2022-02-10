@@ -3,31 +3,45 @@ import 'package:hrms/attendence/attendance_logs.dart';
 import 'package:hrms/attendence/singleItem/attendance_logs_list.dart';
 import 'package:hrms/attendence/attendance_request.dart';
 import 'package:hrms/attendence/singleItem/attendance_summary_list.dart';
+import 'package:hrms/expense/expense_presenter.dart';
+import 'package:hrms/expense/expense_view.dart';
+import 'package:hrms/expense/model/add_expense_response.dart';
+import 'package:hrms/expense/model/expense_category_response.dart';
+import 'package:hrms/expense/model/expense_history_response.dart';
 import 'package:hrms/expense/total_expenses_list.dart';
+import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/utility/Header.dart';
+import 'package:hrms/utility/Utility.dart';
 
-class AttendanceDasboard extends StatefulWidget {
-  const AttendanceDasboard({Key key}) : super(key: key);
+class ExpenseHistory extends StatefulWidget {
+  const ExpenseHistory({Key key}) : super(key: key);
 
   @override
-  _AttendanceDasboardState createState() => _AttendanceDasboardState();
+  _ExpenseHistory createState() => _ExpenseHistory();
 }
 
-class _AttendanceDasboardState extends State<AttendanceDasboard>
-    with SingleTickerProviderStateMixin {
+class _ExpenseHistory extends State<ExpenseHistory>
+    with SingleTickerProviderStateMixin implements ExpenseView {
   TabController _tabController;
-  List<Widget> widgetSummaryList = [];
-  List<Widget> widgetLogsSettlement = [];
-  List<Widget> widgetRequestSettlement = [];
+  List<Widget> widgetApproveList = [];
+  List<Widget> widgetRejectList = [];
+  ExpensePresenter _presenter;
+
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
-    widgetSummaryList.add(const SummaryList());
-    widgetLogsSettlement.add(const AttendanceLogs());
-    widgetRequestSettlement.add(const AttendanceRequest());
+    _presenter=ExpensePresenter(this);
+          _presenter.getExpenseHistory(context, 'Approve');
+    _tabController = TabController(length: 2, vsync: this);
 
+
+
+   _tabController.addListener(() {
+     print('controller index '+_tabController.index.toString());
+     _tabController.index==0?_presenter.getExpenseHistory(context, 'Approve')
+         :_presenter.getExpenseHistory(context, 'Reject');
+   });
     setState(() {});
     super.initState();
   }
@@ -46,7 +60,7 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
         child: Column(
           children: [
             Header(
-              headerText: 'Attendance',
+              headerText: 'Expense History',
             ),
             Expanded(
                 child: Padding(
@@ -84,7 +98,7 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                             // first tab [you can add an icon using the icon property]
                             Tab(
                               child: Text(
-                                'Summary',
+                                'Approve',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -92,16 +106,11 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                             // second tab [you can add an icon using the icon property]
                             Tab(
                               child: Text(
-                                'Logs',
+                                'Reject',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Tab(
-                              child: Text(
-                                'Requests',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
+
                           ],
                         ),
                       ),
@@ -115,7 +124,7 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                ...widgetSummaryList
+                                ...widgetApproveList
                               ],
                             ),
 
@@ -125,16 +134,7 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                                 const SizedBox(
                                   height: 30,
                                 ),
-                                ...widgetLogsSettlement
-                              ],
-                            ),
-
-                            ListView(
-                              children: [
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                ...widgetRequestSettlement
+                                ...widgetRejectList
                               ],
                             ),
                           ],
@@ -149,5 +149,40 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
         ),
       ),
     );
+  }
+
+  @override
+  void onAddExpenseFecthed(AddExpenseResponse response) {
+    // TODO: implement onAddExpenseFecthed
+  }
+
+  @override
+  void onExpenseCateFecthed(ExpenseCategoryResponse response) {
+    // TODO: implement onExpenseCateFecthed
+  }
+
+  @override
+  void onExpenseHistoryFecthed(ExpenseHistoryResponse response) {
+     for(int i=0;i<= response.expenseList.length;i++){
+        if(response.expenseList[i].expenseStatus=='Reject'){
+          widgetRejectList.add(TotalExpensesList(response.expenseList[i]));
+        }
+        else{
+          widgetApproveList.add(TotalExpensesList(response.expenseList[i]));
+        }
+     }
+     setState(() {
+
+     });
+  }
+
+  @override
+  void onImageFecthed(UploadImageResponse response) {
+    // TODO: implement onImageFecthed
+  }
+
+  @override
+  onError(String message) {
+   Utility.showErrorToast(context, message);
   }
 }
