@@ -31,9 +31,7 @@ class _AttendanceRequestState extends State<AttendanceRequest>
       child: Column(
         children: [
           ...wfhList,
-          SizedBox(
-            height: 20.0,
-          ),
+
         ],
       ),
     );
@@ -53,7 +51,6 @@ class _AttendanceRequestState extends State<AttendanceRequest>
       wfhList.add(AttendanceRequestList(workFromHomeList));
     }
     setState(() {
-
     });
   }
 }
