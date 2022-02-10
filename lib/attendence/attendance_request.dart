@@ -21,7 +21,7 @@ class _AttendanceRequestState extends State<AttendanceRequest>
   @override
   void initState() {
     _presenter = WFHPresenter(this);
-    _presenter.getWFHRequestList(context, 5);
+    _presenter.getWFHRequestList(context,156 );
     super.initState();
   }
 
@@ -52,5 +52,8 @@ class _AttendanceRequestState extends State<AttendanceRequest>
     for (WorkFromHomeList workFromHomeList in response.workFromHomeList) {
       wfhList.add(AttendanceRequestList(workFromHomeList));
     }
+    setState(() {
+
+    });
   }
 }

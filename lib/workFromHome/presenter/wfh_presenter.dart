@@ -55,7 +55,7 @@ class WFHPresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetWorkFromHomeList}?employeeid =$id')
+      _repository.get2('${EndPoints.GetWorkFromHomeList}?employeeid=$id')
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -63,7 +63,7 @@ class WFHPresenter {
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
           GetWorkFromListResponse data = GetWorkFromListResponse.fromJson(res.data);
-           if (data?.status??false)
+           if (data?.status=='OK')
           _view.onGetFHList(data);
           else {
             _view.onError(data.message);
