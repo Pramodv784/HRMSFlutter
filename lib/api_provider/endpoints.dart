@@ -10,7 +10,7 @@ class EndPoints{
   static const String GetEmpData = baseUrl+"/api/project/GetAllEmployeeByTeamTypeId";
   static const String ImageUpload = baseUrl+"/api/fileupload/Upload";
   static const String GetQuestion = baseUrl+"/api/project/GetCategories";
-  static const String GetHomeData = baseUrl+"/api/menu/GetAllMenu";
+  static const String GetHomeData = baseUrl+"/api/menu/GetAllMenu";000000
   static const String SubmitFeedback = baseUrl+"/api/project/AddFeedbacks";
   static const String GetProfile = baseUrl+"/api/employees/GetEmployeeById";
   static const String GetLeave = baseUrl+"/api/LeaveType/GetAllLeaveType";
