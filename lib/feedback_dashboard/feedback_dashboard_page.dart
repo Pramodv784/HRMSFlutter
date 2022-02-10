@@ -205,12 +205,16 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> implements
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Text('Your Avg Score',style: textStyleWhite16px400wB,),
-                                            Text('${_response?.myAvgScore?? 0}',style: textStyleWhite16px400wB,),
-
+                                            Row(
+                                              children: [
+                                                Text('${_response?.myAvgScore ?? 0}',style: textStyleWhite16px400wB,),
+                                                SizedBox(width: 5,),
+                                                Image.asset(Images.StarICon,height: 30,width: 30,)
+                                              ],
+                                            )
                                           ],
                                         ),
                                       ),
-
 
                                     ],
                                   ),
