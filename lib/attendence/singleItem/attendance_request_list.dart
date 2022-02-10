@@ -4,10 +4,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/workFromHome/model/get_work_from_list_response.dart';
 
 class AttendanceRequestList extends StatelessWidget {
-  const AttendanceRequestList({Key key}) : super(key: key);
 
+
+  WorkFromHomeList workFromHomeList;
+
+  AttendanceRequestList(this.workFromHomeList, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,26 +28,25 @@ class AttendanceRequestList extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Wed, 12 Jan - Wed, 21 Jan',
+                     Text(
+                      workFromHomeList.endDate,
                       style: textStyleRegular12px,
                     ),
                     SizedBox(
                       height: 6.0,
                     ),
-                    const Text(
+                     Text(
                       'Work From home',
                       style: textStyleRegular12pxGrey,
                     ),
-
                   ],
                 ),
               ],
             ),
             Row(
               children: [
-                const Text(
-                  'Approved',
+                 Text(
+                 workFromHomeList.wfhStatus,
                   style: textStyleGreenRegular12px500w,
                 ),
                 const SizedBox(
