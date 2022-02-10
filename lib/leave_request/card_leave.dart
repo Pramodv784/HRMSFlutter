@@ -71,6 +71,10 @@ class CardLeave extends StatelessWidget {
           case 'History':
             Navigator.pushNamed(context, Screens.ExpenseHistory);
             break;
+            case 'Work From Home':
+            Navigator.pushNamed(context, Screens.WorkFromHomePage);
+            break;
+
         }
       },
     );

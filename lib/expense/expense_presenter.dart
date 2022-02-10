@@ -33,7 +33,6 @@ class ExpensePresenter {
 
   ExpenseView _view;
   ApiController _repository = ApiController.getInstance();
-
   ExpensePresenter(this._view);
 
 

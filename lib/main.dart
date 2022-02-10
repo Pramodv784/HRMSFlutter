@@ -20,6 +20,7 @@ import 'package:hrms/ticket/my_tickets_dashboard.dart';
 import 'package:hrms/ticket/raise_ticket.dart';
 
 import 'package:hrms/user/AuthUser.dart';
+import 'package:hrms/workFromHome/work_from_home_page.dart';
 import 'package:provider/provider.dart';
 import 'add_leave_request/add_leave_request_page.dart';
 import 'add_leave_request/add_leave_request_page2.dart';
@@ -137,7 +138,9 @@ class _ScreenState extends State<MyApp> {
             case Screens.TicketDashBoard:
               return RouteTransition(widget: MyTicketDashBoard());
               break;
-
+              case Screens.WorkFromHomePage:
+              return RouteTransition(widget: WorkFromHomePage());
+              break;
             case Screens.CommonPage:
               String title = settings.arguments;
               return RouteTransition(widget: CommonPage(title));

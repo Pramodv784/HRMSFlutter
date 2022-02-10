@@ -29,6 +29,7 @@ class Screens {
   static const RaiseTicket = "raiseticket";
   static const TicketDashBoard = "ticketdashboard";
   static const ExpenseHistory = "expensehistory";
+  static const WorkFromHomePage = "workfromhomepage";
 
 
 }

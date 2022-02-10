@@ -17,15 +17,15 @@ import 'package:hrms/workFromHome/model/w_f_h_response.dart';
 import 'package:hrms/workFromHome/presenter/wfh_presenter.dart';
 import 'package:hrms/workFromHome/work_from_home_view.dart';
 
-class WorkFromHomeRequest extends StatefulWidget {
-  WorkFromHomeRequest({Key key}) : super(key: key);
+class WorkFromHomePage extends StatefulWidget {
+  WorkFromHomePage({Key key}) : super(key: key);
   WFHRequest _request = WFHRequest();
 
   @override
-  _WorkFromHomeRequestState createState() => _WorkFromHomeRequestState();
+  _WorkFromHomePageState createState() => _WorkFromHomePageState();
 }
 
-class _WorkFromHomeRequestState extends State<WorkFromHomeRequest>
+class _WorkFromHomePageState extends State<WorkFromHomePage>
     implements WorkFromHomeView {
   DateTime _end_date, _start_date;
   var text = 0;
@@ -372,7 +372,7 @@ class _WorkFromHomeRequestState extends State<WorkFromHomeRequest>
       child: Expanded(
         child: RevButton(
           width: 55.0,
-          text: 'Request Leave',
+          text: 'Request Work From Home',
           radius: 50.0,
           borderColor: AppColors.colorPrimary,
           textStyle: textStyleWhite14px600w,
@@ -469,13 +469,12 @@ class _WorkFromHomeRequestState extends State<WorkFromHomeRequest>
 
   @override
   void onAddWFHRequest(WFHResponse response) {
-    if (response.message.contains('Leave Request added Successfully!')) {
       Dialogs.showMsgCustomDialog(context, onok: () {
         Navigator.pop(context);
         Navigator.of(context).pushNamedAndRemoveUntil(
             Screens.kBaseScreen, ModalRoute.withName('/'));
       }, message: '', title: response.message);
-    }
+
   }
 
   @override
