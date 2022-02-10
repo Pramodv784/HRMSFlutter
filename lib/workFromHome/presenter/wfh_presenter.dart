@@ -63,7 +63,7 @@ class WFHPresenter {
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
           GetWorkFromListResponse data = GetWorkFromListResponse.fromJson(res.data);
-           if (data?.status??false)
+           if (data?.status=='OK')
           _view.onGetFHList(data);
           else {
             _view.onError(data.message);

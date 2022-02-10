@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hrms/attendence/singleItem/attendance_request_list.dart';
-import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:hrms/workFromHome/model/get_work_from_list_response.dart';
 import 'package:hrms/workFromHome/model/w_f_h_response.dart';
@@ -18,23 +17,14 @@ class _AttendanceRequestState extends State<AttendanceRequest>
     implements WorkFromHomeView {
   WFHPresenter _presenter;
   List<Widget> wfhList = [];
-  String userId = '';
+
   @override
   void initState() {
     _presenter = WFHPresenter(this);
-    getuserId();
-    _presenter.getWFHRequestList(context, int.parse(userId));
+    _presenter.getWFHRequestList(context,156 );
     super.initState();
   }
-  void getuserId() async {
 
-    var userData = await (AuthUser.getInstance()).getCurrentUser();
-    userId = userData.userId.toString();
-
-    print('Id ***** ${userData.userId}');
-
-    //print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
-  }
   @override
   Widget build(BuildContext context) {
     return Container(
