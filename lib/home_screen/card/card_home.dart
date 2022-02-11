@@ -14,7 +14,7 @@ class CardHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imageurl=_data.menuIcon.replaceAll('http://localhost:59822/', '');
+    //String imageurl=_data.menuIcon.replaceAll('http://localhost:59822/', '');
     return Container(
       width: Utility.screenWidth(context),
       color: AppColors.white,
@@ -26,7 +26,7 @@ class CardHome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.network('${EndPoints.baseUrl}/${imageurl}',),
+              SvgPicture.network('${EndPoints.baseUrl}/${_data.menuIcon}',),
               SizedBox(height: 10.0,),
               Padding(
                 padding: const EdgeInsets.all(8.0),

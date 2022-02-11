@@ -32,8 +32,8 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  var _password ="Moreyeahs@123";
-  var _email ="lsharma@moreyeahs.com";
+  var _password ="";
+  var _email ="";
   LoginPresenter _presenter;
 
   @override
@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                     leftIcon: 'assets/image/ic_email.svg',
                     placeHolderText: 'Enter Email',
                     errorMessage: 'Please Enter Valid email',
-                    text: 'abhandari@moreyeahs.co',
+                    text: 'lsharma@moreyeahs.com',
                     onTextChange: (String val) => _email = val,
 
                   ),

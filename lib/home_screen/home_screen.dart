@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/drawer/BaseProvider.dart';
 import 'package:hrms/home_screen/home_presenter.dart';
@@ -22,6 +23,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_tooltip/simple_tooltip.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../utility/Dialogs.dart';
 import 'card/card_home.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -31,32 +33,28 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>  implements HomeView {
-   HomePresenter _presenter;
-   List<MenuList> homlist=[];
-   DateTime pre_backpress = DateTime.now();
+class _HomeScreenState extends State<HomeScreen> implements HomeView {
+  HomePresenter _presenter;
+  List<MenuList> homlist = [];
+  DateTime pre_backpress = DateTime.now();
 
+  void getuserId() async {
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
 
+    print(
+        'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+  }
 
-
-   void getuserId() async{
-     var userData = await (AuthUser.getInstance()).getCurrentUser();
-
-     print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
-
-
-
-   }
   @override
   void initState() {
-   _presenter=HomePresenter(this);
-   _presenter.getHomeData(context);
+    _presenter = HomePresenter(this);
+    _presenter.getHomeData(context);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Consumer<BaseProvider>(builder: (_, baseprovider, __) {
       return Container(
         child: Column(
@@ -64,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
             header(baseprovider),
             Expanded(
                 child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               decoration: const BoxDecoration(
                 color: AppColors.background,
                 borderRadius: BorderRadius.only(
@@ -75,26 +72,49 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
               child: Container(
                 height: Utility.screenHeight(context),
                 child: RefreshIndicator(
-                  onRefresh:_pullRefresh,
-                  color: AppColors.colorPrimary,
-                  child:  ListView(
-                    children: [
-                       Container(
-                        margin: EdgeInsets.symmetric(vertical: 20.0,horizontal: 10.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          child: GridView.count(
-                              physics: NeverScrollableScrollPhysics(), // to disable GridView's scrolling
-                              shrinkWrap: true, // You won't see infinite size error
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 1.0,
-                              mainAxisSpacing: 1.0,
-                              childAspectRatio: 1.0,
-                              primary: false,
-
-                              children: List.generate(
-                                  homlist.length, (index) {
-                                return/* index==17?SimpleTooltip(
+                    onRefresh: _pullRefresh,
+                    color: AppColors.colorPrimary,
+                    child: ListView(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: 60.0,
+                          color: AppColors.white,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(Images.IconVirus),
+                              SizedBox(
+                                width: 20.0,
+                              ),
+                              Text(
+                                'I am vaccinated against COVID-19',
+                                style: textStyleRed14px700w,
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            child: GridView.count(
+                                physics: NeverScrollableScrollPhysics(),
+                                // to disable GridView's scrolling
+                                shrinkWrap: true,
+                                // You won't see infinite size error
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 1.0,
+                                mainAxisSpacing: 1.0,
+                                childAspectRatio: 1.0,
+                                primary: false,
+                                children:
+                                    List.generate(homlist.length, (index) {
+                                  return /* index==17?SimpleTooltip(
                                     tooltipTap: () {
                                       print("Feedback");
 
@@ -111,28 +131,22 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
                                     ),
                                     borderColor: AppColors.red,
                                     child: CardHome(homlist[index])):
-*/                                CardHome(homlist[index]);
-                              }
-                              )
+*/
+                                      CardHome(homlist[index]);
+                                })),
                           ),
                         ),
-                      ),
-
-
-                    ],
-                  )
-                ),
+                      ],
+                    )),
               ),
-            )
-            ),
-
+            )),
           ],
         ),
       );
     });
   }
 
-   Container header(BaseProvider baseProvider) {
+  Container header(BaseProvider baseProvider) {
     return Container(
       color: AppColors.colorPrimary,
       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0),bottomRight: Radius.circular(20.0))),
@@ -186,23 +200,33 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
             Center(
               child: Row(
                 children: [
-                  InkWell(child: Container(
-                    width: 20,
-                      height: 52,
-                      margin: EdgeInsets.only(bottom: 5.0),
-                      alignment: Alignment.center,
-                      child: SvgPicture.asset(Images.NotificationIcon,))
-                    ,onTap: (){
+                  InkWell(
+                    child: Container(
+                        width: 20,
+                        height: 52,
+                        margin: EdgeInsets.only(bottom: 5.0),
+                        alignment: Alignment.center,
+                        child: SvgPicture.asset(
+                          Images.NotificationIcon,
+                        )),
+                    onTap: () {
                       Navigator.pushNamed(context, Screens.CommonPage,
-                          arguments: 'Notification' );
-                    },),
+                          arguments: 'Notification');
+                    },
+                  ),
                   SizedBox(
                     width: 5.0,
                   ),
-                  InkWell(child: SvgPicture.asset(Images.UserIcon, height: 52.0,width: 20,)
-                    ,onTap: (){
-                      Navigator.pushNamed(context, Screens.Profile );
-                    },),
+                  InkWell(
+                    child: SvgPicture.asset(
+                      Images.UserIcon,
+                      height: 52.0,
+                      width: 20,
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(context, Screens.Profile);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -212,19 +236,15 @@ class _HomeScreenState extends State<HomeScreen>  implements HomeView {
     );
   }
 
-
-
   @override
   void onHomeFecthed(HomeData response) {
-     homlist.clear();
-     homlist.addAll(response.menuList);
-     setState(() {
-     });
+    homlist.clear();
+    homlist.addAll(response.menuList);
+    setState(() {});
   }
-   Future<void> _pullRefresh() async {
-    _presenter.getHomeData(context);
-     setState(() {
-     });
 
-   }
+  Future<void> _pullRefresh() async {
+    _presenter.getHomeData(context);
+    setState(() {});
+  }
 }

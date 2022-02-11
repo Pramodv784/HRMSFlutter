@@ -405,6 +405,7 @@ const textStyleDarkRegular14px700w = TextStyle(
     fontWeight: FontWeight.w700,
     fontSize: 14);
 
+
 const textStyleDarkRegular14px600w = TextStyle(
     color: AppColors.textColorBlack,
     fontFamily: kFontFamily,
