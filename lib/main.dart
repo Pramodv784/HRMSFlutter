@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:hrms/api_provider/api_repository.dart';
+import 'package:hrms/attendence/add_attendance.dart';
 import 'package:hrms/attendence/attendance_dashboard.dart';
 import 'package:hrms/common_page.dart';
 import 'package:hrms/expense/employe_expense.dart';
@@ -110,7 +111,7 @@ class _ScreenState extends State<MyApp> {
               break;
 
             case Screens.FeedbUserHistory:
-              return RouteTransition(widget: FeedbackUserHistory());
+              return RouteTransition(widget: AddAttendance());
               break;
 
             case Screens.LeaveRequestDashboard:
