@@ -95,6 +95,69 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                             ],
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 10.0),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Shift Today- 9:30 - 7:00 PM',
+                                        style: textStyleBlackRegular12pxW700,
+                                      ),
+                                      SizedBox(height: 20.0),
+                                      Container(
+                                        height: 40,
+                                        alignment: Alignment.center,
+                                        child: FlatButton(
+                                          child: Text(
+                                            'Clock In ',
+                                            style: textStyleWhiteRegular12pxW700,
+                                          ),
+                                          color: AppColors.colorPrimary,
+                                          textColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0)),
+                                          onPressed: () {},
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  Flexible(
+                                    child: Container(
+                                      width: Utility.screenWidth(context),
+                                      padding: EdgeInsets.all(15.0),
+                                      decoration: BoxDecoration(
+                                          color: AppColors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Column(
+                                          children: [
+                                            Text('Fri 11, feb 2022',style: textStyleWhiteRegular12pxW700,
+                                            maxLines: 2,overflow: TextOverflow.ellipsis,),
+                                            SizedBox(height: 10.0),
+                                            Text('10:00:00 AM',style: textStyleWhiteRegular12pxW700,),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                         Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),

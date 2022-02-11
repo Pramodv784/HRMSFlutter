@@ -30,6 +30,7 @@ class Screens {
   static const TicketDashBoard = "ticketdashboard";
   static const ExpenseHistory = "expensehistory";
   static const WorkFromHomePage = "workfromhomepage";
+  static const AddAttendence = "addAttendence";
 
 
 }

@@ -111,6 +111,9 @@ class _ScreenState extends State<MyApp> {
               break;
 
             case Screens.FeedbUserHistory:
+              return RouteTransition(widget: FeedbackUserHistory());
+              break;
+            case Screens.AddAttendence:
               return RouteTransition(widget: AddAttendance());
               break;
 
