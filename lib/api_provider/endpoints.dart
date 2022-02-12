@@ -29,4 +29,5 @@ class EndPoints{
   static const String MyTicketList = baseUrl+"/api/Case/GetAllTicket";
   static const String ExpenseHistory = baseUrl+"/api/expense/GetAllExpenseRequestsByStatus";
   static const String CheckInOut = baseUrl+"/api/Attendance/AddAttendance";
+  static const String GetAsset = baseUrl+"/api/assets/GetMyAssets";
 }

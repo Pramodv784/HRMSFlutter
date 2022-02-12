@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hrms/asset/asset_presenter.dart';
+import 'package:hrms/asset/asset_view.dart';
+import 'package:hrms/asset/model/asset_response.dart';
 import 'package:hrms/asset/user_asset_list.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
@@ -13,8 +16,16 @@ class EmployeeAsset extends StatefulWidget {
   _EmployeeAssetState createState() => _EmployeeAssetState();
 }
 
-class _EmployeeAssetState extends State<EmployeeAsset> {
+class _EmployeeAssetState extends State<EmployeeAsset>  implements AssetView{
   List<Widget> assetWidgetList = [];
+  AssetPresenter _presenter;
+
+   @override
+  void initState() {
+    _presenter=AssetPresenter(this);
+    _presenter.getAssetList(context, 146);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,24 +143,11 @@ class _EmployeeAssetState extends State<EmployeeAsset> {
                               ),
                               //CardGoal(),
 
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
-                              UserAssetList(),
+                            ListView(
+                              children: [
+                                ...assetWidgetList
+                              ],
+                            )
                             ],
                           ),
                         ),
@@ -163,5 +161,22 @@ class _EmployeeAssetState extends State<EmployeeAsset> {
         ),
       ),
     );
+  }
+
+  @override
+  void onAssetFecthed(AssetResponse response) {
+    for(MyAssetList item in response.myAssetList)
+      {
+        assetWidgetList.add(UserAssetList(item));
+      }
+    setState(() {
+
+    });
+
+  }
+
+  @override
+  onError(String message) {
+   Utility.showErrorToast(context, message);
   }
 }

@@ -25,6 +25,7 @@ import 'package:hrms/workFromHome/work_from_home_page.dart';
 import 'package:provider/provider.dart';
 import 'add_leave_request/add_leave_request_page.dart';
 import 'add_leave_request/add_leave_request_page2.dart';
+import 'asset/employee_asset.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
 
@@ -113,6 +114,10 @@ class _ScreenState extends State<MyApp> {
             case Screens.FeedbUserHistory:
               return RouteTransition(widget: FeedbackUserHistory());
               break;
+              case Screens.MyAsset:
+              return RouteTransition(widget: EmployeeAsset());
+              break;
+
             case Screens.AddAttendence:
               return RouteTransition(widget: AddAttendance());
               break;

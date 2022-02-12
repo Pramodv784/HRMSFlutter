@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import 'model/asset_response.dart';
+
 class UserAssetList extends StatelessWidget {
-  const UserAssetList({Key key}) : super(key: key);
+  MyAssetList _data;
+   UserAssetList(this._data,{Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class UserAssetList extends StatelessWidget {
                     child: Container(
                         alignment: Alignment.center,
                         width: Utility.screenWidth(context),
-                        child: Text(' Benq Monitor',
+                        child: Text('${_data.assetName}',
                             maxLines: 3, overflow: TextOverflow.ellipsis))),
                 SizedBox(
                   width: 5.0,

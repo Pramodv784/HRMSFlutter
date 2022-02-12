@@ -31,6 +31,7 @@ class Screens {
   static const ExpenseHistory = "expensehistory";
   static const WorkFromHomePage = "workfromhomepage";
   static const AddAttendence = "addAttendence";
+  static const MyAsset = "myasset";
 
 
 }
