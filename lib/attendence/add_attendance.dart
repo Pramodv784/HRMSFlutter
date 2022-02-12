@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/utility/Header.dart';
-import 'package:hrms/utility/InputField.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 
@@ -15,11 +14,8 @@ class AddAttendance extends StatefulWidget {
 }
 
 class _AddAttendanceState extends State<AddAttendance> {
-
-
   DateTime _end_date, _start_date;
   var text = 0;
-
 
   String title = "";
   String userId = '';
@@ -65,21 +61,21 @@ class _AddAttendanceState extends State<AddAttendance> {
                                 Flexible(
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       RichText(
                                           text: TextSpan(children: [
-                                            TextSpan(
-                                              text: 'Clock In ',
-                                              style: textStyleWhite12px400w,
-                                            ),
-                                            TextSpan(
-                                              text: '*',
-                                              style: TextStyle(
-                                                  color: AppColors.red,
-                                                  fontSize: 16.0),
-                                            ),
-                                          ])),
+                                        TextSpan(
+                                          text: 'Clock In ',
+                                          style: textStyleWhite12px400w,
+                                        ),
+                                        TextSpan(
+                                          text: '*',
+                                          style: TextStyle(
+                                              color: AppColors.red,
+                                              fontSize: 16.0),
+                                        ),
+                                      ])),
                                       SizedBox(
                                         height: 5.0,
                                       ),
@@ -92,7 +88,7 @@ class _AddAttendanceState extends State<AddAttendance> {
                                             alignment: Alignment.center,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(3.0),
+                                                  BorderRadius.circular(3.0),
                                               color: AppColors.dropbg,
                                               border: Border.all(
                                                 width: 1,
@@ -103,7 +99,7 @@ class _AddAttendanceState extends State<AddAttendance> {
                                             child: Text(
                                               _start_date != null
                                                   ? Utility.formatDate(
-                                                  _start_date.toString())
+                                                      _start_date.toString())
                                                   : 'hh/mm',
                                               style: TextStyle(fontSize: 15),
                                             )),
@@ -121,21 +117,21 @@ class _AddAttendanceState extends State<AddAttendance> {
                                 Flexible(
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       RichText(
                                           text: TextSpan(children: [
-                                            TextSpan(
-                                              text: 'Clock Out ',
-                                              style: textStyleWhite12px400w,
-                                            ),
-                                            TextSpan(
-                                              text: '*',
-                                              style: TextStyle(
-                                                  color: AppColors.red,
-                                                  fontSize: 16.0),
-                                            ),
-                                          ])),
+                                        TextSpan(
+                                          text: 'Clock Out ',
+                                          style: textStyleWhite12px400w,
+                                        ),
+                                        TextSpan(
+                                          text: '*',
+                                          style: TextStyle(
+                                              color: AppColors.red,
+                                              fontSize: 16.0),
+                                        ),
+                                      ])),
                                       SizedBox(
                                         height: 5.0,
                                       ),
@@ -148,7 +144,7 @@ class _AddAttendanceState extends State<AddAttendance> {
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                            BorderRadius.circular(3.0),
+                                                BorderRadius.circular(3.0),
                                             color: AppColors.dropbg,
                                             border: Border.all(
                                               width: 1,
@@ -159,7 +155,7 @@ class _AddAttendanceState extends State<AddAttendance> {
                                           child: Text(
                                               _end_date != null
                                                   ? Utility.formatDate(
-                                                  _end_date.toString())
+                                                      _end_date.toString())
                                                   : 'hh/mm',
                                               style: TextStyle(fontSize: 15)),
                                         ),
@@ -192,7 +188,7 @@ class _AddAttendanceState extends State<AddAttendance> {
                               child: Text(
                                   _start_date != null && _end_date != null
                                       ? '${daysBetween(_start_date, _end_date)} days'
-                                      .toString()
+                                          .toString()
                                       : '0 hrs',
                                   style: TextStyle(
                                       fontSize: 15, color: AppColors.white)),
@@ -200,22 +196,21 @@ class _AddAttendanceState extends State<AddAttendance> {
                             SizedBox(
                               height: 10.0,
                             ),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 RichText(
                                     text: TextSpan(children: [
-                                      TextSpan(
-                                        text: 'Note',
-                                        style: textStyleWhite12px400w,
-                                      ),
-                                      TextSpan(
-                                        text: '*',
-                                        style: TextStyle(
-                                            color: AppColors.red, fontSize: 16.0),
-                                      ),
-                                    ])),
+                                  TextSpan(
+                                    text: 'Note',
+                                    style: textStyleWhite12px400w,
+                                  ),
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                        color: AppColors.red, fontSize: 16.0),
+                                  ),
+                                ])),
                                 Text(
                                   '${text}/200 words',
                                   style: textStyleWhite12px400w,
@@ -242,7 +237,7 @@ class _AddAttendanceState extends State<AddAttendance> {
                                 },
                                 decoration: InputDecoration(
                                     hintText:
-                                    'Please enter reason for applying leave',
+                                        'Please enter reason for applying leave',
                                     hintStyle: TextStyle(color: AppColors.grey),
                                     border: InputBorder.none,
                                     counterStyle: TextStyle(
@@ -295,7 +290,7 @@ class _AddAttendanceState extends State<AddAttendance> {
           borderColor: AppColors.colorPrimary,
           textStyle: textStyleWhite14px600w,
           onTap: () {
-          //  addLeaveRequest();
+            //  addLeaveRequest();
           },
         ),
       ),
@@ -309,36 +304,37 @@ class _AddAttendanceState extends State<AddAttendance> {
     showCupertinoModalPopup(
         context: ctx,
         builder: (_) => Container(
-          height: 500,
-          color: Color.fromARGB(255, 255, 255, 255),
-          child: Column(
-            children: [
-              Container(
-                height: 400,
-                child: CupertinoDatePicker(
-                    minuteInterval: 1,
-                    mode: CupertinoDatePickerMode.date,
-                    onDateTimeChanged: (val) {
-                      if (i == 0) {
-                        _start_date = val;
-                      } else {
-                        _end_date = val;
-                      }
-                    }),
-              ),
+              height: 500,
+              color: Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  Container(
+                    height: 400,
+                    child: CupertinoDatePicker(
+                        minuteInterval: 1,
+                        mode: CupertinoDatePickerMode.date,
+                        onDateTimeChanged: (val) {
+                          if (i == 0) {
+                            _start_date = val;
+                          } else {
+                            _end_date = val;
+                          }
+                        }),
+                  ),
 
-              // Close the modal
-              CupertinoButton(
-                child: Text('OK'),
-                onPressed: () {
-                  setState(() {});
-                  Navigator.of(ctx).pop();
-                },
-              )
-            ],
-          ),
-        ));
+                  // Close the modal
+                  CupertinoButton(
+                    child: Text('OK'),
+                    onPressed: () {
+                      setState(() {});
+                      Navigator.of(ctx).pop();
+                    },
+                  )
+                ],
+              ),
+            ));
   }
+
   int daysBetween(DateTime from, DateTime to) {
     from = DateTime(from.year, from.month, from.day);
     to = DateTime(to.year, to.month, to.day);
