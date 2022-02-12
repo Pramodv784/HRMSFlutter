@@ -11,18 +11,13 @@ import 'package:hrms/feedback/empfeedback/model/feed_question_model.dart';
 import 'package:hrms/feedback/feed_question_view.dart';
 import 'package:hrms/feedback/select_emp/model/employee_data.dart';
 import 'package:hrms/home_screen/home_view.dart';
+import 'package:hrms/home_screen/model/check_in_response.dart';
 import 'package:hrms/home_screen/model/home_data.dart';
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/NetworkCheck.dart';
 import 'package:hrms/utility/Utility.dart';
 
-
-
-
-
-
-
-/// Created by Pratik Kataria on 19-05-2021.
+import 'model/check_in_request.dart';
 
 class HomePresenter {
   var tag = 'HomePresenter ';
@@ -38,7 +33,8 @@ class HomePresenter {
 
   getHomeData(BuildContext context) async {
     if (await NetworkCheck.check()) {
-    //  Dialogs.showLoader(context, 'Loading ...', '');
+      Dialogs.showLoader(context, 'Loading ...', '');
+    //  Dialogs.showCustomProgress(context);
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.get2('${EndPoints.GetHomeData}')
         ..then((Response res) async {
@@ -46,7 +42,7 @@ class HomePresenter {
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
-      //    Dialogs.hideLoader(context);
+          Dialogs.hideLoader(context);
 
           HomeData data = HomeData.fromJson(res.data);
           //print('pramod${data.data.message}');
@@ -57,7 +53,7 @@ class HomePresenter {
         }
         ).catchError((e) async {
           Utility.log(tag, e);
-        //  Dialogs.hideLoader(context);
+         Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
@@ -66,6 +62,35 @@ class HomePresenter {
 
 
 
+  CheckIn(BuildContext context,CheckInRequest checkInRequest) async {
 
+    if (await NetworkCheck.check()) {
+      Dialogs.showLoader(context, 'Loading ...', '');
+      // Dialogs.showLoader(context, 'Please wait getting chapters', '');
+      _repository.post(EndPoints.CheckInOut, body: checkInRequest.toJson())
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+          // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
+          //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
+
+          Dialogs.hideLoader(context);
+          CheckInResponse data = CheckInResponse.fromJson(res.data);
+          //print('pramod${data.data.message}');
+
+          //  if (data?.statusReason?? false)
+          _view.onCheckInFecthed(data);
+          /* else{
+              _view.onError(data.message);
+            }*/
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+          Dialogs.hideLoader(context);
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }
+  }
 
 }

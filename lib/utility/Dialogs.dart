@@ -30,7 +30,7 @@ class Dialogs {
 
   static void showLoader(BuildContext context, String description,
       String title) {
-    _dialog = ProgressDialog(context,
+   /* _dialog = ProgressDialog(context,
         type: ProgressDialogType.Normal,
         isDismissible: false,
         customBody: Container(
@@ -53,7 +53,17 @@ class Dialogs {
           ),
         ));
 
-    _dialog.show();
+    _dialog.show();*/
+    final spinkit = SpinKitThreeBounce(
+      color: AppColors.red,
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return spinkit;
+      },
+    );
   }
 
   static Widget buildProgressIndicator(bool isLoading) {
@@ -155,13 +165,7 @@ class Dialogs {
 
   static showCustomProgress(BuildContext context) {
     final spinkit = SpinKitThreeBounce(
-      itemBuilder: (BuildContext context, int index) {
-        return DecoratedBox(
-          decoration: BoxDecoration(
-            color: index.isEven ? Colors.red : Colors.green,
-          ),
-        );
-      },
+    color: AppColors.red,
     );
 
     showDialog(

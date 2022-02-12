@@ -133,6 +133,11 @@ const textStyleWhiteRegular12pxW700 = TextStyle(
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w700,
     fontSize: fontH5);
+const textStyleWhiteRegular15pxW700 = TextStyle(
+    color: AppColors.white,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w900,
+    fontSize: fontH4);
 const textStyleBlackRegular12pxW700 = TextStyle(
     color: AppColors.black,
     fontFamily: kFontFamily,

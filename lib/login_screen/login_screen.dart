@@ -113,7 +113,6 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                     leftIcon: 'assets/image/ic_email.svg',
                     placeHolderText: 'Enter Email',
                     errorMessage: 'Please Enter Valid email',
-                    text: 'lsharma@moreyeahs.com',
                     onTextChange: (String val) => _email = val,
 
                   ),
@@ -147,7 +146,6 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                   placeHolderText: 'Enter Password',
                   errorMessage: 'Please Enter Valid Password',
                   isPassword: true,
-                  text: 'Moreyeahs@123',
                   rightIcon:  Images.PasswordEyeClose,
                   onTextChange: (String val) => _password = val,
                   inputType: InputType.PASSWORD,

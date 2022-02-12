@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:hrms/drawer/BaseProvider.dart';
 import 'package:hrms/home_screen/home_presenter.dart';
 import 'package:hrms/home_screen/home_state.dart';
 import 'package:hrms/home_screen/home_view.dart';
+import 'package:hrms/home_screen/model/check_in_response.dart';
 import 'package:hrms/home_screen/model/home_avg_score_response.dart';
 import 'package:hrms/home_screen/model/home_data.dart';
 import 'package:hrms/login_screen/model/ScoreModel.dart';
@@ -19,12 +21,14 @@ import 'package:hrms/res/Screens.dart';
 import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_tooltip/simple_tooltip.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../utility/Dialogs.dart';
 import 'card/card_home.dart';
+import 'model/check_in_request.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -36,23 +40,38 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> implements HomeView {
   HomePresenter _presenter;
   List<MenuList> homlist = [];
-  DateTime pre_backpress = DateTime.now();
+  CheckInRequest _checkInRequest=CheckInRequest();
 
-  void getuserId() async {
-    var userData = await (AuthUser.getInstance()).getCurrentUser();
+  String _timeString;
+  String date = DateFormat('d').format(DateTime.now());
+  String month = DateFormat('MMM').format(DateTime.now());
+  String year = DateFormat('y').format(DateTime.now());
+  int userId=0;
+  bool checkStatus=false;
 
-    print(
-        'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
-  }
+
 
   @override
   void initState() {
     _presenter = HomePresenter(this);
     _presenter.getHomeData(context);
+    getuserId();
+
+
+    _timeString = _formatDateTime(DateTime.now());
+    Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+
 
     super.initState();
   }
 
+  void getuserId() async {
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
+    userId=userData.userId;
+
+    print(
+        'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+  }
   @override
   Widget build(BuildContext context) {
     return Consumer<BaseProvider>(builder: (_, baseprovider, __) {
@@ -95,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                             ],
                           ),
                         ),
+
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
@@ -119,12 +139,17 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                             'Clock In ',
                                             style: textStyleWhiteRegular12pxW700,
                                           ),
-                                          color: AppColors.colorPrimary,
+                                          color: checkStatus?AppColors.red:AppColors.colorPrimary,
                                           textColor: Colors.white,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(20.0)),
-                                          onPressed: () {},
+                                                  BorderRadius.circular(20.0),),
+
+                                          onPressed: () {
+                                            _checkInRequest.employeeId=userId;
+                                            _checkInRequest.clockIn=_timeString;
+                                            _presenter.CheckIn(context, _checkInRequest);
+                                          },
                                         ),
                                       ),
                                     ],
@@ -144,10 +169,10 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                         padding: const EdgeInsets.all(5.0),
                                         child: Column(
                                           children: [
-                                            Text('Fri 11, feb 2022',style: textStyleWhiteRegular12pxW700,
+                                            Text('$date $month,$year',style: textStyleWhiteRegular12pxW700,
                                             maxLines: 2,overflow: TextOverflow.ellipsis,),
                                             SizedBox(height: 10.0),
-                                            Text('10:00:00 AM',style: textStyleWhiteRegular12pxW700,),
+                                            Text('$_timeString',style: textStyleWhiteRegular15pxW700,),
                                           ],
                                         ),
                                       ),
@@ -309,5 +334,24 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   Future<void> _pullRefresh() async {
     _presenter.getHomeData(context);
     setState(() {});
+  }
+  void _getTime() {
+    final DateTime now = DateTime.now();
+    final String formattedDateTime = _formatDateTime(now);
+    setState(() {
+      _timeString = formattedDateTime;
+    });
+  }
+  String _formatDateTime(DateTime dateTime) {
+    return DateFormat('hh:mm:ss a').format(dateTime);
+  }
+
+  @override
+  void onCheckInFecthed(CheckInResponse response) {
+    print('Check In *****${response.message}');
+    checkStatus=response.attendance.isActive;
+    setState(() {
+
+    });
   }
 }
