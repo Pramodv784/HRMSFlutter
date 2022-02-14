@@ -143,11 +143,7 @@ class _EmployeeAssetState extends State<EmployeeAsset>  implements AssetView{
                               ),
                               //CardGoal(),
 
-                            ListView(
-                              children: [
-                                ...assetWidgetList
-                              ],
-                            )
+                            ...assetWidgetList
                             ],
                           ),
                         ),

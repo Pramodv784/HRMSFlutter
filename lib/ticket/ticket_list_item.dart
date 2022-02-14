@@ -24,14 +24,14 @@ class TicketListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${_data.comment}',
+              '${_data.caseTitle}',
               style: textStyleWhite12px400w,
             ),
             SizedBox(
               height: 8.0,
             ),
             Text(
-              'Ticket created on Jan 14, 2022, 01:13 pm',
+              '${_data.comment}',
               style: textStyleSubText14px600w,
             ),
             SizedBox(

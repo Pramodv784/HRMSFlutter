@@ -39,7 +39,7 @@ class FeedPresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetFeedType}')
+      _repository.get2('${EndPoints.GetFeedType}',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -66,7 +66,7 @@ class FeedPresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetTeamdata}?empId=$id')
+      _repository.get2('${EndPoints.GetTeamdata}?empId=$id',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -93,7 +93,7 @@ class FeedPresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetEmpData}?TeamLeadId=$id')
+      _repository.get2('${EndPoints.GetEmpData}?TeamLeadId=$id',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );

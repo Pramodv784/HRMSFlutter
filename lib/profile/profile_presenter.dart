@@ -13,6 +13,7 @@ import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/NetworkCheck.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import '../main.dart';
 import 'model/profile_response.dart';
 
 class ProfilePresenter {
@@ -90,6 +91,28 @@ class ProfilePresenter {
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
+    }
+  }
+  Future<List<ProfileResponse>> getProfiledata(int id) async {
+    try {
+      Map headers= await Utility.header();
+      Map<String, String> headerMap = headers ?? {};
+      Response response = await dio.get('${EndPoints.GetProfile}?EmployeeId=$id',
+          options: Options(
+            contentType: ContentType.json.toString(),
+            receiveTimeout: 300000,
+            sendTimeout: 300000,
+            method: "GET",
+            headers: headerMap,
+          ));
+      print('Api Call *** ${EndPoints.GetProfile}?Id=$id}');
+      // if there is a key before array, use this : return (response.data['data'] as List).map((child)=> Children.fromJson(child)).toList();
+      print('Response ****${response.data.toString()}');
+      return (response.data as List)
+          .map((x) => ProfileResponse.fromJson(x))
+          .toList();
+    } catch (error, stacktrace) {
+      throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
 

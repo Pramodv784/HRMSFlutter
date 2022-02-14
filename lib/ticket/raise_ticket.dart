@@ -17,6 +17,7 @@ import '../res/Screens.dart';
 import '../user/AuthUser.dart';
 import '../utility/Dialogs.dart';
 import 'model/add_ticket_request.dart';
+import 'model/get_all_emp_response.dart';
 
 class RaiseTicket extends StatefulWidget {
   const RaiseTicket({Key key}) : super(key: key);
@@ -32,14 +33,24 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
   List<CaseTypesData> ticketTypeList=[];
   AddTicketRequest _request=AddTicketRequest();
   int userId=0,orgId,cmpId=0;
+  List<GetAllEmpResponse> empList=[];
 
   @override
   void initState() {
     _presenter=TicketPresenter(this);
     _presenter.getTicketType(context);
     getuserId();
+    getTicketList();
     super.initState();
   }
+  void getTicketList() async{
+    empList= await _presenter.getAllEmp();
+    print('Emp listResponse ${empList.length}');
+    setState(() {
+
+    });
+  }
+
   void getuserId() async{
     var userData = await (AuthUser.getInstance()).getCurrentUser();
     userId=userData.userId;
@@ -140,7 +151,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                             SizedBox(
                               height: 5.0,
                             ),
-                            DropdownButtonFormField<CaseTypesData>(
+                            DropdownButtonFormField<GetAllEmpResponse>(
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 20.0),
@@ -156,24 +167,20 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                                 fillColor: AppColors.dropbg,
                               ),
                               dropdownColor: Colors.white,
-                              onChanged: (CaseTypesData value) {
+                              onChanged: (GetAllEmpResponse value) {
                                 setState(() {
-                                  _request.caseTypeId=value.caseTypeId.toString();
+                                 // _request.caseTypeId=value.caseTypeId.toString();
                                   print('Valuse....${value}');
-                                  if (value == 'EMPLOYEE') {
-                                    // empstatus = true;
-                                  } else {
-                                    //   empstatus = false;
-                                  }
+                                  _request.assignedToId=value.employeeId.toString();
                                 });
                               },
                               hint: Text('Select Category'),
                               icon: new Image.asset(Images.DropIcon),
                               items:
                               //["feed back type"]
-                              ticketTypeList
-                                  .map((CaseTypesData label) => DropdownMenuItem(
-                                child: Text(label.caseType),
+                              empList
+                                  .map((GetAllEmpResponse label) => DropdownMenuItem(
+                                child: Text(label.fullName),
                                 value: label,
                               ))
                                   .toList(),
@@ -272,7 +279,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                             SizedBox(
                               height: 20.0,
                             ),
-                            Row(
+                         /*   Row(
                               children: [
                                 SvgPicture.asset(
                                   Images.AddDocumentIcon,
@@ -291,18 +298,18 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
 
                                       ),
 
-                                      /* TextSpan(
+                                      *//* TextSpan(
                                         text: '*',
                                         style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                                      ),*/
+                                      ),*//*
                                     ])),
-                                /* Text('${text}/200 words',
+                                *//* Text('${text}/200 words',
                                   style: textStyleWhite12px400w,
-                                ),*//* Text('${text}/200 words',
+                                ),*//**//* Text('${text}/200 words',
                                   style: textStyleWhite12px400w,
-                                ),*/
+                                ),*//*
                               ],
-                            ),
+                            ),*/
                             SizedBox(
                               height: 40,
                             ),

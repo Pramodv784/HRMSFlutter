@@ -12,12 +12,18 @@ class CurrentUser {
     bool isLoggedIn,
     int userId,
     String userName
+
   }) : _userCredentials = userCredentials,
         _userId=userId,
   _userName=userName,
+
+
         _isLoggedIn = isLoggedIn;
   bool get isLoggedIn => _isLoggedIn ?? false;
   int get userId => _userId ?? 0;
+
+
+
 
 
   String get userName => _userName;

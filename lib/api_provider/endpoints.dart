@@ -1,7 +1,4 @@
 class EndPoints{
-
-
-
   //ngroke
   static const String baseUrl = "https://uatportalapi.moreyeahs.in";
   static const String Login = baseUrl+"/api/userlogin/UserLogin";
@@ -30,4 +27,5 @@ class EndPoints{
   static const String ExpenseHistory = baseUrl+"/api/expense/GetAllExpenseRequestsByStatus";
   static const String CheckInOut = baseUrl+"/api/Attendance/AddAttendance";
   static const String GetAsset = baseUrl+"/api/assets/GetMyAssets";
+  static const String GetAllEmp = baseUrl+"/api/employees/GetAllEmployees";
 }

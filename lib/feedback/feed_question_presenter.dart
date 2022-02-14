@@ -41,7 +41,7 @@ class FeedQuestionPresenter {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.get2('${EndPoints.GetQuestion}'
-          '?roleId=$roleId&SelectedEmpId=$selectedId&LoginEmpId=$loginId')
+          '?roleId=$roleId&SelectedEmpId=$selectedId&LoginEmpId=$loginId',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );

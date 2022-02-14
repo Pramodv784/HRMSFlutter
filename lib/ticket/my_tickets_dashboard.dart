@@ -29,9 +29,6 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-
-
-
     _presenter=TicketPresenter(this);
     getTicketList();
 
@@ -47,7 +44,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
     _tabController.dispose();
   }
   void getTicketList() async{
-    ticketList= await _presenter.getMyTicketData( 354);
+    ticketList= await _presenter.getMyTicketData(354);
     print('ticket listResponse ${ticketList.length}');
     for (MyTicketResponse t in ticketList) {
        if(t.caseStatus=='Open')

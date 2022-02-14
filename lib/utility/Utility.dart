@@ -10,6 +10,8 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../user/AuthUser.dart';
+
 
 
 /// Created by Pratik Kataria on 20-02-2021.
@@ -143,6 +145,9 @@ class Utility {
       gravity: ToastGravity.BOTTOM,
       toastDuration: Duration(seconds: 4),
     );
+  }
+  static Future<Map<String, String>> header() async {
+    return {'Authorization': await AuthUser.getInstance().token()};
   }
   }
 
@@ -315,9 +320,7 @@ class Utility {
     );
   }*/
 
-  /*static Future<Map<String, String>> header() async {
-    return {'Authorization': await AuthUser.getInstance().token()};
-  }*/
+
 
   /* static String getDateFormate(String serverdate)
   {

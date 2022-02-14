@@ -9,6 +9,7 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/user/AuthUser.dart';
+import 'package:hrms/user/CurrentUser.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
@@ -29,6 +30,8 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
   ProfilePresenter _presenter;
   File _FileImage;
   ProfileResponse _response;
+  List<ProfileResponse> profileList=[];
+
 
   @override
   void initState() {
@@ -36,14 +39,24 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
   getuserId();
     super.initState();
   }
+
   void getuserId() async{
     var userData = await (AuthUser.getInstance()).getCurrentUser();
-    _presenter.getProfile(context,userData.userId);
+  ///  _presenter.getProfile(context,userData.userId);
 
-    print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+    getProfileList(userData.userId);
+   // print('User Data****${AuthUser.getInstance().getCurrentUser().toString()}');
 
 
 
+  }
+  void getProfileList(int id) async {
+    profileList = await _presenter.getProfiledata(id);
+    print('profileList listResponse ${profileList.length}');
+    //AuthUser.getInstance().SetProfilePic(profileList[0].profile);
+    setState(() {
+
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -55,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
               headerText: 'Profile',
             ),
             Expanded(
-              child: ListView(
+              child: profileList.length>0?ListView(
                 children: [
                   Card(
                     shape: RoundedRectangleBorder(
@@ -80,7 +93,12 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                           Row(
                             children: [
                               _FileImage == null
-                                  ? Image.asset(Images.ProfileUserIcon)
+                                  ? profileList?.isEmpty?Image.asset(Images.ProfileUserIcon):
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    child: Image.network(profileList[0]?.profile, height: 100,
+                                      width: 100,),
+                                  )
                                   : Container(
                                       height: 100,
                                       width: 100,
@@ -149,8 +167,8 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                                       SizedBox(
                                         height: 5.0,
                                       ),
-                                      Text(
-                                        'Lovely',
+                                      Text(profileList.length>0?
+                                        '${profileList[0]?.firstName??""}':'',
                                         style: TextStyle(
                                             fontSize: 15,
                                             color: AppColors.SubText),
@@ -187,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                                       SizedBox(
                                         height: 5.0,
                                       ),
-                                      Text('sharma  ',
+                                      Text('${profileList[0]?.lastName??""}  ',
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: AppColors.SubText),
@@ -202,7 +220,7 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                                         height: 5.0,
                                       ),
                                       InkWell(
-                                        child: Text('+91 9876543210',
+                                        child: Text('${profileList[0]?.emergencyNumber??""}',
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 color: AppColors.SubText)),
@@ -227,7 +245,7 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                                   height: 5.0,
                                 ),
                                 Text(
-                                  'lsharma@moreyeas.com',
+                                  '${profileList[0]?.email??""}',
                                   style: TextStyle(
                                       fontSize: 15, color: AppColors.SubText),
                                 ),
@@ -240,7 +258,7 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                                 ),
                                 InkWell(
                                   child: Text(
-                                    '111, exp street, exp nagar, Indore, MP ',
+                                    '${profileList[0]?.permanentAddress??""}',
                                     style: TextStyle(
                                         fontSize: 15, color: AppColors.SubText),
                                     maxLines: 2,
@@ -289,7 +307,7 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                                       ),
                                       InkWell(
                                         child: Text(
-                                          'Human Resource Manager',
+                                          '${profileList[0]?.roleType??""}',
                                           style: TextStyle(
                                               fontSize: 15,
                                               color: AppColors.SubText),
@@ -368,6 +386,10 @@ class _ProfilePageState extends State<ProfilePage>implements ProfileView {
                       ),
                     ),
                   )
+                ],
+              ):ListView(
+                children: [
+
                 ],
               ),
             )

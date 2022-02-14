@@ -75,7 +75,7 @@ class _CardFeedState extends State<CardFeedQuestion> {
                       ),
                     ),
                   ),
-                  Row(
+                 /* Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -96,7 +96,7 @@ class _CardFeedState extends State<CardFeedQuestion> {
                       ),
                      Text('Did not witness this Human Skill',style: textStyleSubText14px400w,),
                     ],
-                  ),
+                  ),*/
 
                 Container(
                   height: 1,

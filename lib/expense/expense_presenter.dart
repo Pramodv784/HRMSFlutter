@@ -41,7 +41,7 @@ class ExpensePresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetExpenseCate}')
+      _repository.get2('${EndPoints.GetExpenseCate}',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -132,7 +132,7 @@ class ExpensePresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.ExpenseHistory}?Status=$status')
+      _repository.get2('${EndPoints.ExpenseHistory}?Status=$status',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );

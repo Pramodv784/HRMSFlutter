@@ -68,9 +68,14 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   void getuserId() async {
     var userData = await (AuthUser.getInstance()).getCurrentUser();
     userId=userData.userId;
+    print('User Token ***** ${getToken()}');
 
     print(
         'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+  }
+
+  Future<String> getToken()async{
+    return  await AuthUser.getInstance().token();
   }
   @override
   Widget build(BuildContext context) {

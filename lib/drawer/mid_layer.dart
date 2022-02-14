@@ -42,15 +42,15 @@ class _MidLayerState extends State<MidLayer> {
   }
 
   void init() async {
-    /* Future.delayed(const Duration(seconds: 1), () async {
-      var data = (await AuthUser.getInstance().getCurrentUser())?.profileResponse?.data?.jsonData;
-      firstName = data?.firstName;
-      email = data?.username;
-      picture = data?.picture ?? "";
-      lastName = data?.lastName ?? "";
+     Future.delayed(const Duration(seconds: 1), () async {
+      var data = (await AuthUser.getInstance().getCurrentUser());
+      firstName = data?.userName;
+      //picture=AuthUser.getInstance().GetProfile() as String;
+
+      print('Picture ****  $picture');
       // Here you can write your code
       setState((){});
-    });*/
+    });
   }
 
   @override
@@ -62,50 +62,36 @@ class _MidLayerState extends State<MidLayer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           verticalSpace(30.0),
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(left: 30.0),
-              child: Row(
-                children: [
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0),
-                      child: picture == ""
-                          ? Image.asset(
-                              Images.LogoIcon,
-                              height: 70,
-                              width: 70,
-                            )
-                          : FadeInImage(
-                              placeholder: AssetImage(Images.UserIcon),
-                              imageErrorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                  Images.LogoIcon,
-                                  height: 70,
-                                  width: 70,
-                                );
-                              },
-                              image: (picture ?? '').contains("https")
-                                  ? NetworkImage(picture ?? '')
-                                  : NetworkImage(
-                                      EndPoints.baseUrl + '/' + picture ?? ''),
-                              //NetworkImage(EndPoints.BASE_URL + picture),
-                              height: 70,
-                              width: 70)),
-                  //Image.asset(Images.kPlaceHolderProfile, height: 90),
-                  horizontalSpace(6.0),
-                  SizedBox(
-                    width: 120, // hard coding child width
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("$firstName $lastName",
-                            style: textStyleWhite14px500w),
-                        // Text("$email", style: textStyleWhite14px400w2l),
-                      ],
-                    ),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: picture == ""
+                        ? Image.asset(
+                            Images.LogoIcon,
+                            height: 70,
+                            width: 70,
+                          )
+                        : Image.network(picture,  height: 70,
+                      width: 70,),
+                ),
+                horizontalSpace(6.0),
+                SizedBox(
+                  width: 120, // hard coding child width
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("$firstName $lastName",
+                          style: textStyleWhite14px500w),
+                      // Text("$email", style: textStyleWhite14px400w2l),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           verticalSpace(40.0),

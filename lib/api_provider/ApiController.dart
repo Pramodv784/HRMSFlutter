@@ -122,7 +122,7 @@ class ApiController {
   Future<Response> get2(String url,
       {Map headers, body, encoding, payload}) async {
     Map<String, String> headerMap = headers ?? {};
-    headerMap["NoEncryption"] = 'true';
+   // headerMap["NoEncryption"] = 'true';
     Utility.log(tag, "Api Call :\n $url \n Inputs :\n ${body
         .toString()} \n Payload :\n ${payload}  \n Header :\n $headers");
 

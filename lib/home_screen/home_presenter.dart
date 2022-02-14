@@ -36,7 +36,7 @@ class HomePresenter {
       Dialogs.showLoader(context, 'Loading ...', '');
     //  Dialogs.showCustomProgress(context);
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetHomeData}')
+      _repository.get2('${EndPoints.GetHomeData}',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );

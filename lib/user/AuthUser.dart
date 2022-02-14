@@ -7,9 +7,6 @@ import 'package:hrms/utility/Utility.dart';
 import 'CurrentUser.dart';
 
 
-
-/// Created by Pratik Kataria on 04-03-2021.
-
 class AuthUser {
   var tag = 'AuthUser';
   static AuthUser _instance = AuthUser.internal();
@@ -68,10 +65,20 @@ class AuthUser {
 
   Future<String> token() async {
     CurrentUser userModel = await getCurrentUser();
-    //var token = userModel?.userCredentials?.data?.jsonData?.jwtToken ?? "";
+    var token = userModel?.userCredentials?.accesToken;
     print('token $token');
     return 'Bearer $token';
   }
+ /* Future<void> SetProfilePic(String image) async {
+   await SharedManager.setStringPreference(SharedPrefsKeys.kProfilePic, image);
+  }
+  Future<String> GetProfile() async {
+   String pic  = await SharedManager.getStringPreference(SharedPrefsKeys.kProfilePic);
+    print('picture $pic');
+    return pic;
+  }*/
+
+
   Future<void> logout() async {
     await SharedManager.setStringPreference(SharedPrefsKeys.kUserModel, "");
   }

@@ -38,7 +38,7 @@ class FeedDashPresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetTotalAvgScore}?empId=$id')
+      _repository.get2('${EndPoints.GetTotalAvgScore}?empId=$id',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -61,7 +61,7 @@ class FeedDashPresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.getList('${EndPoints.AvgMoth}?empId=$id')
+      _repository.getList('${EndPoints.AvgMoth}?empId=$id',headers: await Utility.header())
         ..then((List<Response> res) async {
          /* Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );*/
@@ -85,7 +85,16 @@ class FeedDashPresenter {
 
   Future<List<AvgMonthResponse>> getMonthData(int id) async {
     try {
-      Response response = await dio.get('${EndPoints.AvgMoth}?empId=$id');
+      Map headers= await Utility.header();
+      Map<String, String> headerMap = headers ?? {};
+      Response response = await dio.get('${EndPoints.AvgMoth}?empId=$id',
+          options: Options(
+            contentType: ContentType.json.toString(),
+            receiveTimeout: 300000,
+            sendTimeout: 300000,
+            method: "GET",
+            headers: headerMap,
+          ));
       // if there is a key before array, use this : return (response.data['data'] as List).map((child)=> Children.fromJson(child)).toList();
 
       return (response.data as List)
