@@ -602,7 +602,7 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
       Utility.showErrorToast(context, 'please pick start date');
     } else if (widget._request.endDate == null) {
       Utility.showErrorToast(context, 'please pick end date');
-    } else if (title == null) {
+    } else if (title.isEmpty) {
       Utility.showErrorToast(context, 'please enter title');
     } else if (widget._request.leaveType == null) {
       Utility.showErrorToast(context, 'please select leave type');
