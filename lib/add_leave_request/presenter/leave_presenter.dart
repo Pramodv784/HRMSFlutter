@@ -35,7 +35,7 @@ class LeavePresenter {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetLeave}')
+      _repository.get2('${EndPoints.GetLeave}',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -72,7 +72,7 @@ class LeavePresenter {
       if (await NetworkCheck.check()) {
         Dialogs.showLoader(context, 'Loading ...', '');
         // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-        _repository.post(EndPoints.AddLeave, body: addLeaveRequest.toJson())
+        _repository.post(EndPoints.AddLeave, body: addLeaveRequest.toJson(),headers: await Utility.header())
           ..then((Response res) async {
             Utility.log(tag, res);
             Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -102,7 +102,7 @@ class LeavePresenter {
     if (await NetworkCheck.check()) {
     //  Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetEmpKeyword}?searchtext=$key')
+      _repository.get2('${EndPoints.GetEmpKeyword}?searchtext=$key',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );

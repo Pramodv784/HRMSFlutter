@@ -74,7 +74,7 @@ class ExpensePresenter {
           '');
 
       _repository.post('${EndPoints.ImageUpload}?FolderName=Screenshots'
-          '&BaseUrl=http://a93d-2409-4043-2e8d-e75b-404d-60f-88af-a121.ngrok.io',
+          '&BaseUrl=${EndPoints.baseUrl}',
         body: formData,)
         ..then((Response res) async {
           Utility.log(tag, res);
@@ -105,7 +105,7 @@ class ExpensePresenter {
       if (await NetworkCheck.check()) {
         Dialogs.showLoader(context, 'Loading ...', '');
         // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-        _repository.post(EndPoints.AddExpense, body: addExpenseRequest.toJson())
+        _repository.post(EndPoints.AddExpense, body: addExpenseRequest.toJson(),headers: await Utility.header())
           ..then((Response res) async {
             Utility.log(tag, res);
             Utility.log('${tag}>>>',jsonDecode(res.toString()) );

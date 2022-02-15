@@ -81,7 +81,7 @@ class FeedQuestionPresenter {
       if (await NetworkCheck.check()) {
         Dialogs.showLoader(context, 'Loading ...', '');
         // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-        _repository.post(EndPoints.SubmitFeedback, body: feedbackRequest.toJson())
+        _repository.post(EndPoints.SubmitFeedback, body: feedbackRequest.toJson(),headers: await Utility.header())
           ..then((Response res) async {
             Utility.log(tag, res);
             Utility.log('${tag}>>>',jsonDecode(res.toString()) );
