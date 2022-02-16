@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -8,7 +7,6 @@ import 'package:hrms/res/Screens.dart';
 import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/Utility.dart';
-
 import 'package:provider/provider.dart';
 
 import 'BaseProvider.dart';
@@ -42,14 +40,15 @@ class _MidLayerState extends State<MidLayer> {
   }
 
   void init() async {
-     Future.delayed(const Duration(seconds: 1), () async {
+    Future.delayed(const Duration(seconds: 1), () async {
       var data = (await AuthUser.getInstance().getCurrentUser());
       firstName = data?.userName;
-      //picture=AuthUser.getInstance().GetProfile() as String;
+      picture = data?.userProfilePic;
 
-      print('Picture ****  $picture');
+      //   print('PictureMidLayer ****  $picture');
+
       // Here you can write your code
-      setState((){});
+      setState(() {});
     });
   }
 
@@ -69,15 +68,18 @@ class _MidLayerState extends State<MidLayer> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: picture == ""
-                        ? Image.asset(
-                            Images.LogoIcon,
-                            height: 70,
-                            width: 70,
-                          )
-                        : Image.network(picture,  height: 70,
-                      width: 70,),
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: picture == ""
+                      ? Image.asset(
+                          Images.LogoIcon,
+                          height: 70,
+                          width: 70,
+                        )
+                      : Image.network(
+                          picture,
+                          height: 70,
+                          width: 70,
+                        ),
                 ),
                 horizontalSpace(6.0),
                 SizedBox(
@@ -163,7 +165,7 @@ class _MidLayerState extends State<MidLayer> {
         await Future.delayed(Duration(milliseconds: 300));
         //_provider.currentScreen = ui;
         switch (screen) {
-        /*  case Screens.kScreenTestHistory:
+          /*  case Screens.kScreenTestHistory:
             _provider.currentScreen = ui;
             break;
           case Screens.kEditProfileScreen:
@@ -193,13 +195,11 @@ class _MidLayerState extends State<MidLayer> {
             Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
             break;
 
-             case "Add Feedback":
+          case "Add Feedback":
             //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.AddFeedBack);
             break;
-
-
 
           case "Logout":
             Dialogs.showCustomDialog(context, onAccept: () async {
@@ -215,5 +215,4 @@ class _MidLayerState extends State<MidLayer> {
       },
     );
   }
-
 }
