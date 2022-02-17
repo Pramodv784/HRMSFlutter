@@ -355,7 +355,7 @@ const textStyleRed12px500w = TextStyle(
     color: Colors.red,
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w500,
-    fontSize: fontH6);
+    fontSize: fontH5);
 
 const textStyleSubText16px500w = TextStyle(
     color: AppColors.textColorSubText,

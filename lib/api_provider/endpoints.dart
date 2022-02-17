@@ -25,7 +25,9 @@ class EndPoints{
   static const String AddTicket = baseUrl+"/api/Case/CreateCase";
   static const String MyTicketList = baseUrl+"/api/Case/GetAllTicket";
   static const String ExpenseHistory = baseUrl+"/api/expense/GetAllExpenseRequestsByStatus";
-  static const String CheckInOut = baseUrl+"/api/Attendance/AddAttendance";
+  static const String CheckIn = baseUrl+"/api/Attendance/AddAttendance";
+  static const String CheckOut = baseUrl+"/api/Attendance/UpdateClockOut";
   static const String GetAsset = baseUrl+"/api/assets/GetMyAssets";
   static const String GetAllEmp = baseUrl+"/api/employees/GetAllEmployees";
+  static const String GetAttendence = baseUrl+"/api/Attendance/GetAllAttendanceById";
 }

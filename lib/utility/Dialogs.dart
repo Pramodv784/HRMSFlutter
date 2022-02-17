@@ -163,6 +163,118 @@ class Dialogs {
     );
   }
 
+  static showDialogClockIn(BuildContext context,
+      {Function onAccept, Function onReject, String title, String message}) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text(
+        "cancel",
+        style: textStyleDark16px600w,
+      ),
+      onPressed: onReject ?? () => Navigator.pop(context),
+    );
+    Widget continueButton = TextButton(
+      child: Text(
+        "Clock-out",
+        style: textStyleWhite16px600w,
+      ),
+      onPressed: onAccept,
+    );
+
+
+    // set up the AlertDialog
+    Scaffold body = Scaffold(
+      backgroundColor: AppColors.background.withOpacity(0.1),
+      body: Center(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 40.0),
+          height: Utility.screenHeight(context) * .23,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+            color: AppColors.white,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text('$title', style: textStyleRegular16px700w),
+              Text('$message', style: textStyle12px500w),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50.0,
+                      margin: EdgeInsets.fromLTRB(20.0, 20.0, 10.0, 0.0),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(12.0),
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.textColor,
+                        ),
+                      ),
+                      child: cancelButton,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 50.0,
+                      margin: EdgeInsets.fromLTRB(10.0, 20.0, 20.0, 0.0),
+                      decoration: BoxDecoration(
+                        color: AppColors.colorPrimary,
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      child: continueButton,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return body;
+      },
+    );
+  }
+
+
+
+  static openDialogClockOut(BuildContext context,{Function onAccept, Function onReject}) {
+    showGeneralDialog(barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+              opacity: a1.value,
+              child: AlertDialog(
+                shape: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0)),
+                title: Text('Clock-out!!'),
+                content: Text('Do you want to Clock out ?'),
+                actions: [
+                  TextButton(onPressed: (){Navigator.pop(context);}, child: Text('cancel',style: textStyleBlackRegular12pxW700,),),
+                  TextButton(onPressed: (){
+                    onAccept();
+                  }, child: Text('Clock out',style: textStyleRed12px500w,)),
+
+                ],
+              ),
+            ),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
+  }
+
 
   static showCustomProgress(BuildContext context) {
     final spinkit = SpinKitThreeBounce(

@@ -22,8 +22,10 @@ class CheckInRequest {
       String createdDate, 
       String modifiedDate, 
       bool isActive, 
-      bool isDeleted, 
-      int companyId, 
+      bool isDeleted,
+    bool isClock,
+    int companyId,
+
       int orgId,}){
     _employeeId = employeeId;
     _date = date;
@@ -36,7 +38,9 @@ class CheckInRequest {
     _isActive = isActive;
     _isDeleted = isDeleted;
     _companyId = companyId;
+    _isClock = isClock;
     _orgId = orgId;
+
 }
 
   CheckInRequest.fromJson(dynamic json) {
@@ -52,6 +56,7 @@ class CheckInRequest {
     _isDeleted = json['isDeleted'];
     _companyId = json['companyId'];
     _orgId = json['orgId'];
+    _isClock = json['isClock'];
   }
   int _employeeId;
   String _date;
@@ -65,6 +70,7 @@ class CheckInRequest {
   bool _isDeleted;
   int _companyId;
   int _orgId;
+  bool _isClock;
 
   int get employeeId => _employeeId;
   String get date => _date;
@@ -79,6 +85,12 @@ class CheckInRequest {
   int get companyId => _companyId;
   int get orgId => _orgId;
 
+
+  bool get isClock => _isClock;
+
+  set isClock(bool value) {
+    _isClock = value;
+  }
 
   set employeeId(int value) {
     _employeeId = value;
@@ -98,6 +110,7 @@ class CheckInRequest {
     map['isDeleted'] = _isDeleted;
     map['companyId'] = _companyId;
     map['orgId'] = _orgId;
+    map['isClock'] = _isClock;
     return map;
   }
 

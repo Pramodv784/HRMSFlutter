@@ -1,9 +1,9 @@
-/// message : "Successful Added !!"
+/// message : "Successfull"
 /// status : true
-/// attendance : {"id":13,"employeeId":156,"appliedBy":null,"date":"2022-02-15T11:10:17.1709089+05:30","clockIn":"02:00:47 AM","clockOut":null,"totalTime":null,"comment":null,"isClock":true,"createdDate":"2022-02-15T11:10:17.1709089+05:30","modifiedDate":"2022-02-15T11:10:17.1709089+05:30","isActive":true,"isDeleted":false,"companyId":1,"orgId":1}
+/// attendance : {"id":1,"employeeId":156,"appliedBy":null,"date":"2022-02-14T18:43:02.537","clockIn":"18:37","clockOut":"18:42","totalTime":null,"comment":" ","isClock":false,"createdDate":"2022-02-14T18:38:21.857","modifiedDate":"2022-02-14T18:38:21.857","isActive":true,"isDeleted":false,"companyId":1,"orgId":1}
 
-class CheckInResponse {
-  CheckInResponse({
+class GetAttendenceResponse {
+  GetAttendenceResponse({
       String message, 
       bool status, 
       Attendance attendance,}){
@@ -12,7 +12,7 @@ class CheckInResponse {
     _attendance = attendance;
 }
 
-  CheckInResponse.fromJson(dynamic json) {
+  GetAttendenceResponse.fromJson(dynamic json) {
     _message = json['message'];
     _status = json['status'];
     _attendance = json['attendance'] != null ? Attendance.fromJson(json['attendance']) : null;
@@ -37,17 +37,17 @@ class CheckInResponse {
 
 }
 
-/// id : 13
+/// id : 1
 /// employeeId : 156
 /// appliedBy : null
-/// date : "2022-02-15T11:10:17.1709089+05:30"
-/// clockIn : "02:00:47 AM"
-/// clockOut : null
+/// date : "2022-02-14T18:43:02.537"
+/// clockIn : "18:37"
+/// clockOut : "18:42"
 /// totalTime : null
-/// comment : null
-/// isClock : true
-/// createdDate : "2022-02-15T11:10:17.1709089+05:30"
-/// modifiedDate : "2022-02-15T11:10:17.1709089+05:30"
+/// comment : " "
+/// isClock : false
+/// createdDate : "2022-02-14T18:38:21.857"
+/// modifiedDate : "2022-02-14T18:38:21.857"
 /// isActive : true
 /// isDeleted : false
 /// companyId : 1
@@ -60,9 +60,9 @@ class Attendance {
       dynamic appliedBy, 
       String date, 
       String clockIn, 
-      dynamic clockOut, 
+      String clockOut, 
       dynamic totalTime, 
-      dynamic comment, 
+      String comment, 
       bool isClock, 
       String createdDate, 
       String modifiedDate, 
@@ -109,9 +109,9 @@ class Attendance {
   dynamic _appliedBy;
   String _date;
   String _clockIn;
-  dynamic _clockOut;
+  String _clockOut;
   dynamic _totalTime;
-  dynamic _comment;
+  String _comment;
   bool _isClock;
   String _createdDate;
   String _modifiedDate;
@@ -125,9 +125,9 @@ class Attendance {
   dynamic get appliedBy => _appliedBy;
   String get date => _date;
   String get clockIn => _clockIn;
-  dynamic get clockOut => _clockOut;
+  String get clockOut => _clockOut;
   dynamic get totalTime => _totalTime;
-  dynamic get comment => _comment;
+  String get comment => _comment;
   bool get isClock => _isClock;
   String get createdDate => _createdDate;
   String get modifiedDate => _modifiedDate;
