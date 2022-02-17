@@ -19,8 +19,12 @@ import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/NetworkCheck.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import '../login_screen/model/login_response.dart';
+import '../user/AuthUser.dart';
+import '../user/CurrentUser.dart';
 import 'model/check_in_request.dart';
 import 'model/check_out_request.dart';
+import 'model/today_leave_response.dart';
 
 class HomePresenter {
   var tag = 'HomePresenter ';
@@ -87,6 +91,31 @@ class HomePresenter {
         });
     }
   }
+  getLeaveToday(BuildContext context) async {
+    if (await NetworkCheck.check()) {
+
+      _repository.get2('${EndPoints.LeaveToday}',headers: await Utility.header())
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+
+
+          TodayLeaveResponse data = TodayLeaveResponse.fromJson(res.data);
+          if(data?.status!='No Data!')
+            _view.onLeaveTodayFetch(data);
+          else{
+            _view.onError(data?.message);
+          }
+
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }
+  }
 
 
 
@@ -131,11 +160,18 @@ class HomePresenter {
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
           Dialogs.hideLoader(context);
           CheckoutResponse data = CheckoutResponse.fromJson(res.data);
+         /* if(res.statusCode==401)
+            {
+              login(context, input)
+            }*/
+         // else{
             if (data?.status?? false)
-          _view.onCheckOutFetch(data);
-           else{
+              _view.onCheckOutFetch(data);
+            else{
               _view.onError(data.message);
             }
+        //  }
+
         }
         ).catchError((e) async {
           Utility.log(tag, e);
@@ -145,5 +181,29 @@ class HomePresenter {
         });
     }
   }
+
+
+  /*login(Map input) async {
+    if (await NetworkCheck.check()) {
+
+      _repository.post(EndPoints.Login, body: input)
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>', jsonDecode(res.toString()));
+          LoginResponse data = LoginResponse.fromJson(res.data);
+          var currentUser = CurrentUser()..userCredentials = data;
+          currentUser.isLoggedIn = true;
+          currentUser.userId=data.userprofile.userId;
+          currentUser.userName=data.userprofile.fullName;
+          AuthUser.getInstance().login(currentUser);
+
+
+
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+        });
+    }
+  }*/
 
 }

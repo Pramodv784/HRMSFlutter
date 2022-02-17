@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:hrms/home_screen/model/checkout_response.dart';
 import 'package:hrms/home_screen/model/get_attendence_response.dart';
 import 'package:hrms/home_screen/model/home_avg_score_response.dart';
 import 'package:hrms/home_screen/model/home_data.dart';
+import 'package:hrms/home_screen/model/today_leave_response.dart';
 import 'package:hrms/login_screen/model/ScoreModel.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
@@ -30,6 +32,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../utility/Dialogs.dart';
 import 'card/card_home.dart';
+import 'card/card_leave_today.dart';
 import 'model/check_in_request.dart';
 import 'model/check_out_request.dart';
 
@@ -43,6 +46,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> implements HomeView {
   HomePresenter _presenter;
   List<MenuList> homlist = [];
+
+  List<Widget>todayleaveList=[];
+
   CheckInRequest _checkInRequest = CheckInRequest();
   CheckOutRequest _checkOutRequest=CheckOutRequest();
 
@@ -51,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   String month = DateFormat('MMM').format(DateTime.now());
   String year = DateFormat('y').format(DateTime.now());
   int userId = 0;
+  var list =[];
   bool checkStatus=false;
 
   @override
@@ -62,6 +69,26 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
 
+
+
+    todayleaveList.clear();
+    List<EmpList> itemData=[];
+    itemData.add(EmpList(employeeId: 1,fullName: 'pramod verma'));
+    itemData.add(EmpList(employeeId: 3,fullName: 'anijet verma'));
+    itemData.add(EmpList(employeeId: 4,fullName: 'anikit verma'));
+    itemData.add(EmpList(employeeId: 5,fullName: 'vipin verma'));
+    list=List<int>.generate(itemData.length, (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
+    for(int i =0; i<itemData.length;i++)
+    {
+      todayleaveList.add(CardLeaveToday(itemData[i],list[i]));
+    }
+
+
+    setState(() {
+
+    });
+
+    print(list);
     super.initState();
   }
 
@@ -70,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     userId = userData.userId;
     print('User Token ***** ${getToken()}');
     _presenter.getAttendence(context,userData.userId);
+    _presenter.getLeaveToday(context);
 
     print(
         'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
@@ -221,6 +249,45 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'On Leave Today',
+                                    style: textStyleBlackRegular12pxW700,
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Container(
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                       children: [ ...todayleaveList,],
+
+
+                                      ),
+                                    ),
+                                  ),
+
+
+
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                         Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),
@@ -366,6 +433,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   void onHomeFecthed(HomeData response) {
     homlist.clear();
     homlist.addAll(response.menuList);
+
     setState(() {});
   }
 
@@ -391,9 +459,12 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   void onCheckInFecthed(CheckInResponse response) {
     print('Check In *****${response.message}');
     //checkStatus = response.attendance.isClock;
-
+     if(response.message=='Your Attendance Already Added')
+       {
+         Utility.showErrorToast(context, response.message);
+       }
     setState(() {});
-    _presenter.getAttendence(context,userId);
+   _presenter.getAttendence(context,userId);
   }
 
   @override
@@ -415,6 +486,31 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     print('Clock out ${response.attendance.isClock}');
     checkStatus=response?.attendance?.isClock;
     _presenter.getAttendence(context,userId);
+    setState(() {
+
+    });
+  }
+  int generateRandomCode(int minValue, int maxValue) {
+    return Random().nextInt((maxValue - minValue).abs() + 1) + min(minValue, maxValue);
+  }
+
+  @override
+  void onLeaveTodayFetch(TodayLeaveResponse response) {
+    print('leave Today list *** ${response.empList.length}');
+    list=List<int>.generate(response.empList.length, (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
+    todayleaveList.clear();
+    List<EmpList> itemData=[];
+    itemData.add(EmpList(employeeId: 1,fullName: 'pramod verma'));
+    itemData.add(EmpList(employeeId: 2,fullName: 'parinati verma'));
+    itemData.add(EmpList(employeeId: 3,fullName: 'anijet verma'));
+    itemData.add(EmpList(employeeId: 4,fullName: 'anikit verma'));
+    itemData.add(EmpList(employeeId: 5,fullName: 'vipin verma'));
+    for(int i =0; i<response.empList.length;i++)
+      {
+        todayleaveList.add(CardLeaveToday(response.empList[i],list[i]));
+      }
+
+
     setState(() {
 
     });

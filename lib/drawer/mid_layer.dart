@@ -45,7 +45,7 @@ class _MidLayerState extends State<MidLayer> {
      Future.delayed(const Duration(seconds: 1), () async {
       var data = (await AuthUser.getInstance().getCurrentUser());
       firstName = data?.userName;
-      //picture=AuthUser.getInstance().GetProfile() as String;
+      //picture=AuthUser.getInstance().GetProfile();
 
       print('Picture ****  $picture');
       // Here you can write your code

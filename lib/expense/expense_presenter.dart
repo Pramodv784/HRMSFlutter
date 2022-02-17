@@ -24,6 +24,7 @@ import 'package:hrms/utility/Utility.dart';
 
 import 'model/add_expense_request.dart';
 import 'model/expense_category_response.dart';
+import 'model/get_project_list_response.dart';
 
 
 class ExpensePresenter {
@@ -60,6 +61,29 @@ class ExpensePresenter {
           // DioErrorParser.parseError(e, _signupView);
         });
     }}
+  getProjectList(BuildContext context) async {
+    if (await NetworkCheck.check()) {
+      Dialogs.showLoader(context, 'Loading ...', '');
+      // Dialogs.showLoader(context, 'Please wait getting chapters', '');
+      _repository.get2('${EndPoints.GetProjectList}',headers: await Utility.header())
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+          // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
+          //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
+          Dialogs.hideLoader(context);
+          GetProjectListResponse data = GetProjectListResponse.fromJson(res.data);
+          // if (data?.status??false)
+          _view.onProjectListFecthed(data);
+
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+          Dialogs.hideLoader(context);
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }}
 
   uploadImage(BuildContext context, File imageToUpload) async {
     if (await NetworkCheck.check()) {
@@ -73,7 +97,7 @@ class ExpensePresenter {
       Dialogs.showLoader(context, 'Please wait while uploading image',
           '');
 
-      _repository.post('${EndPoints.ImageUpload}?FolderName=Screenshots'
+      _repository.post('${EndPoints.ImageUpload}?FolderName=ExpenseBillUpload'
           '&BaseUrl=${EndPoints.baseUrl}',
         body: formData,)
         ..then((Response res) async {

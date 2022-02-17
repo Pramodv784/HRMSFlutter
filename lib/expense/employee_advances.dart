@@ -7,6 +7,7 @@ import 'package:hrms/expense/expense_view.dart';
 import 'package:hrms/expense/model/add_expense_request.dart';
 import 'package:hrms/expense/model/add_expense_response.dart';
 import 'package:hrms/expense/model/expense_history_response.dart';
+import 'package:hrms/expense/model/get_project_list_response.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
@@ -40,6 +41,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
   var text = 0;
   ExpensePresenter _presenter;
   List<ExpenseCategoryList> expcateList = [];
+  List<ProjectdataList> projectList=[];
   int userId = 0;
   String userName="";
 
@@ -47,6 +49,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
   void initState() {
     _presenter = ExpensePresenter(this);
     _presenter.getExpenseCategory(context);
+    _presenter.getProjectList(context);
     getuserId();
     super.initState();
   }
@@ -153,7 +156,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
                           SizedBox(
                             height: 5.0,
                           ),
-                          DropdownButtonFormField<String>(
+                          DropdownButtonFormField<ProjectdataList>(
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20.0),
@@ -171,19 +174,20 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
                               fillColor: AppColors.dropbg,
                             ),
                             dropdownColor: Colors.white,
-                            onChanged: (String value) {
+                            onChanged: (ProjectdataList value) {
+                              _request.projectId=value.id;
                               setState(() {});
                             },
                             hint: Text('Project/Cost Center*'),
                             icon: new Image.asset(Images.DropIcon),
-                            /*items:
+                            items:
                               //["feed back type"]
-                              feedTypeList
-                                  .map((DataCategory label) => DropdownMenuItem(
-                                child: Text(label.categoryType),
-                                value: label.categoryType,
+                              projectList
+                                  .map((ProjectdataList label) => DropdownMenuItem(
+                                child: Text(label.projectName),
+                                value: label,
                               ))
-                                  .toList(),*/
+                                  .toList(),
                           ),
                           SizedBox(
                             height: 20.0,
@@ -717,5 +721,14 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
   @override
   onError(String message) {
    Utility.showErrorToast(context, message);
+  }
+
+  @override
+  void onProjectListFecthed(GetProjectListResponse response) {
+     projectList.clear();
+     projectList.addAll(response.projectdataList);
+     setState(() {
+
+     });
   }
 }

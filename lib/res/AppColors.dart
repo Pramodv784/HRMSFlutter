@@ -66,5 +66,6 @@ abstract class AppColors {
 
   static const backGroundColor = Color(0xFFF8FBFF);
   static const cardBackGroundColor = Color(0xFFE7E7E7);
+  static const cardColor = Color(0xFFFF8B83);
 
 }

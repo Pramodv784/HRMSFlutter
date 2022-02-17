@@ -8,6 +8,7 @@ import 'package:hrms/expense/expense_view.dart';
 import 'package:hrms/expense/model/add_expense_response.dart';
 import 'package:hrms/expense/model/expense_category_response.dart';
 import 'package:hrms/expense/model/expense_history_response.dart';
+import 'package:hrms/expense/model/get_project_list_response.dart';
 import 'package:hrms/expense/total_expenses_list.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -184,5 +185,10 @@ class _ExpenseHistory extends State<ExpenseHistory>
   @override
   onError(String message) {
    Utility.showErrorToast(context, message);
+  }
+
+  @override
+  void onProjectListFecthed(GetProjectListResponse response) {
+    // TODO: implement onProjectListFecthed
   }
 }

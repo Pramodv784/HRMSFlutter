@@ -7,6 +7,7 @@ import 'package:hrms/home_screen/model/checkout_response.dart';
 import 'package:hrms/home_screen/model/home_data.dart';
 
 import 'model/get_attendence_response.dart';
+import 'model/today_leave_response.dart';
 
 
 
@@ -15,6 +16,7 @@ abstract class HomeView extends BaseView   {
   void onCheckInFecthed(CheckInResponse response);
   void onAttendenceFetch(GetAttendenceResponse response);
   void onCheckOutFetch(CheckoutResponse response);
+  void onLeaveTodayFetch(TodayLeaveResponse response);
 
 
 
