@@ -377,14 +377,28 @@ class _WorkFromHomePageState extends State<WorkFromHomePage>
           borderColor: AppColors.colorPrimary,
           textStyle: textStyleWhite14px600w,
           onTap: () {
-            widget._request.startDate =
-                Utility.formatDate(_start_date.toString());
-            widget._request.endDate = Utility.formatDate(_end_date.toString());
-            widget._request.employeeId = 5;
-            widget._request.numberOfDays = daysBetween(_start_date, _end_date);
+            try {
+              widget._request.startDate =
+                  Utility.formatDate(_start_date.toString());
+              widget._request.endDate =
+                  Utility.formatDate(_end_date.toString());
+              widget._request.employeeId = 5;
+              widget._request.numberOfDays =
+                  daysBetween(_start_date, _end_date);
+            } catch (Exception) {
+              print("");
+            }
             widget._request.comment = description;
-
-            _presenter.addWorkFromHomeRequest(context, widget._request);
+            if (widget._request.startDate == null) {
+              Utility.showErrorToast(context, 'please pick start date');
+            } else if (widget._request.endDate == null) {
+              Utility.showErrorToast(context, 'please pick end date');
+            } else if (title.isEmpty) {
+              Utility.showErrorToast(context, 'please enter description');
+            } else {
+              _presenter.addWorkFromHomeRequest(context, widget._request);
+            }
+            /*     _presenter.addWorkFromHomeRequest(context, widget._request);*/
           },
         ),
       ),
@@ -464,17 +478,16 @@ class _WorkFromHomePageState extends State<WorkFromHomePage>
 
   void _onChipTapped(EmployeeDataList profile) {
     print('$profile');
-  //  widget._request?.notifyTo = profile.fullName;
+    //  widget._request?.notifyTo = profile.fullName;
   }
 
   @override
   void onAddWFHRequest(WFHResponse response) {
-      Dialogs.showMsgCustomDialog(context, onok: () {
-        Navigator.pop(context);
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            Screens.kBaseScreen, ModalRoute.withName('/'));
-      }, message: '', title: response.message);
-
+    Dialogs.showMsgCustomDialog(context, onok: () {
+      Navigator.pop(context);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          Screens.kBaseScreen, ModalRoute.withName('/'));
+    }, message: '', title: response.message);
   }
 
   @override

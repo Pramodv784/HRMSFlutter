@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -27,37 +25,38 @@ class RaiseTicket extends StatefulWidget {
 }
 
 class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
-  String description='';
-  var text=0;
+  String description = '';
+  var text = 0;
   TicketPresenter _presenter;
-  List<CaseTypesData> ticketTypeList=[];
-  AddTicketRequest _request=AddTicketRequest();
-  int userId=0,orgId,cmpId=0;
-  List<GetAllEmpResponse> empList=[];
+  List<CaseTypesData> ticketTypeList = [];
+  AddTicketRequest _request = AddTicketRequest();
+  int userId = 0, orgId, cmpId = 0;
+  List<GetAllEmpResponse> empList = [];
 
   @override
   void initState() {
-    _presenter=TicketPresenter(this);
+    _presenter = TicketPresenter(this);
     _presenter.getTicketType(context);
     getuserId();
     getTicketList();
     super.initState();
   }
-  void getTicketList() async{
-    empList= await _presenter.getAllEmp();
+
+  void getTicketList() async {
+    empList = await _presenter.getAllEmp();
     print('Emp listResponse ${empList.length}');
-    setState(() {
-
-    });
+    setState(() {});
   }
 
-  void getuserId() async{
+  void getuserId() async {
     var userData = await (AuthUser.getInstance()).getCurrentUser();
-    userId=userData.userId;
-    orgId=userData.userCredentials.orgId;
-    cmpId=userData.userCredentials.companyId;
-    print('login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
+    userId = userData.userId;
+    orgId = userData.userCredentials.orgId;
+    cmpId = userData.userCredentials.companyId;
+    print(
+        'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,221 +64,228 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
       body: SafeArea(
         child: Column(
           children: [
-            Header(headerText: 'Raise Ticket',),
+            Header(
+              headerText: 'Raise Ticket',
+            ),
             Expanded(
                 child: ListView(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)
-                      ),
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 20,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                            text: 'I need help regarding ',
+                            style: textStyleWhite12px400w,
+                          ),
+                          TextSpan(
+                            text: '*',
+                            style:
+                                TextStyle(color: AppColors.red, fontSize: 16.0),
+                          ),
+                        ])),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        DropdownButtonFormField<CaseTypesData>(
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20.0),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            RichText(
-                                text: TextSpan(children: [
-                                  TextSpan(
-                                    text: 'I need help regarding ',
-                                    style: textStyleWhite12px400w,
-                                  ),
-                                  TextSpan(
-                                    text: '*',
-                                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                                  ),
-                                ])),
-                            SizedBox(
-                              height: 5.0,
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            DropdownButtonFormField<CaseTypesData>(
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 20.0),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white, width: 2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white, width: 2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                filled: true,
-                                fillColor: AppColors.dropbg,
-                              ),
-                              dropdownColor: Colors.white,
-                              onChanged: (CaseTypesData value) {
-                                setState(() {
-                                  _request.caseTypeId=value.caseTypeId.toString();
-                                  print('Valuse....${value}');
-                                  if (value == 'EMPLOYEE') {
-                                    // empstatus = true;
-                                  } else {
-                                    //   empstatus = false;
-                                  }
-                                });
-                              },
-                              hint: Text('Select Category'),
-                              icon: new Image.asset(Images.DropIcon),
-                              items:
+                            filled: true,
+                            fillColor: AppColors.dropbg,
+                          ),
+                          dropdownColor: Colors.white,
+                          onChanged: (CaseTypesData value) {
+                            setState(() {
+                              _request.caseTypeId = value.caseTypeId.toString();
+                              print('Valuse....${value}');
+                              if (value == 'EMPLOYEE') {
+                                // empstatus = true;
+                              } else {
+                                //   empstatus = false;
+                              }
+                            });
+                          },
+                          hint: Text('Select Category'),
+                          icon: new Image.asset(Images.DropIcon),
+                          items:
                               //["feed back type"]
                               ticketTypeList
-                                  .map((CaseTypesData label) => DropdownMenuItem(
-                                child: Text(label.caseType),
-                                value: label,
-                              ))
+                                  .map(
+                                      (CaseTypesData label) => DropdownMenuItem(
+                                            child: Text(label.caseType),
+                                            value: label,
+                                          ))
                                   .toList(),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                            text: 'AssignTo ',
+                            style: textStyleWhite12px400w,
+                          ),
+                          TextSpan(
+                            text: '*',
+                            style:
+                                TextStyle(color: AppColors.red, fontSize: 16.0),
+                          ),
+                        ])),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        DropdownButtonFormField<GetAllEmpResponse>(
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20.0),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            SizedBox(
-                              height: 20.0,
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            RichText(
-                                text: TextSpan(children: [
-                                  TextSpan(
-                                    text: 'AssignTo ',
-                                    style: textStyleWhite12px400w,
-                                  ),
-                                  TextSpan(
-                                    text: '*',
-                                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                                  ),
-                                ])),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            DropdownButtonFormField<GetAllEmpResponse>(
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 20.0),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white, width: 2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white, width: 2),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                filled: true,
-                                fillColor: AppColors.dropbg,
-                              ),
-                              dropdownColor: Colors.white,
-                              onChanged: (GetAllEmpResponse value) {
-                                setState(() {
-                                 // _request.caseTypeId=value.caseTypeId.toString();
-                                  print('Valuse....${value}');
-                                  _request.assignedToId=value.employeeId.toString();
-                                });
-                              },
-                              hint: Text('Select Category'),
-                              icon: new Image.asset(Images.DropIcon),
-                              items:
+                            filled: true,
+                            fillColor: AppColors.dropbg,
+                          ),
+                          dropdownColor: Colors.white,
+                          onChanged: (GetAllEmpResponse value) {
+                            setState(() {
+                              // _request.caseTypeId=value.caseTypeId.toString();
+                              print('Valuse....${value}');
+                              _request.assignedToId =
+                                  value.employeeId.toString();
+                            });
+                          },
+                          hint: Text('Select Category'),
+                          icon: new Image.asset(Images.DropIcon),
+                          items:
                               //["feed back type"]
                               empList
-                                  .map((GetAllEmpResponse label) => DropdownMenuItem(
-                                child: Text(label.fullName),
-                                value: label,
-                              ))
+                                  .map((GetAllEmpResponse label) =>
+                                      DropdownMenuItem(
+                                        child: Text(label.fullName),
+                                        value: label,
+                                      ))
                                   .toList(),
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                            text: 'Title ',
+                            style: textStyleWhite12px400w,
+                          ),
+                          TextSpan(
+                            text: '*',
+                            style:
+                                TextStyle(color: AppColors.red, fontSize: 16.0),
+                          ),
+                        ])),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        SizedBox(
+                          width: Utility.screenWidth(context),
+                          child: InputField(
+                            placeHolderText: 'Enter Title',
+                            errorMessage: 'Please Enter Title**',
+                            inputType: InputType.EMAIL,
+                            onTextChange: (value) {
+                              _request.caseTitle = value;
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             RichText(
                                 text: TextSpan(children: [
-                                  TextSpan(
-                                    text: 'Title ',
-                                    style: textStyleWhite12px400w,
-                                  ),
-                                  TextSpan(
-                                    text: '*',
-                                    style: TextStyle(
-                                        color: AppColors.red, fontSize: 16.0),
-                                  ),
-                                ])),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            SizedBox(
-                              width: Utility.screenWidth(context),
-                              child: InputField(
-                                placeHolderText: 'Enter Title',
-                                errorMessage: 'Please Enter Title**',
-                                inputType: InputType.EMAIL,
-                                onTextChange: (value) {
-
-                                  _request.caseTitle = value;
-                                },
+                              TextSpan(
+                                text: 'Description',
+                                style: textStyleWhite12px400w,
                               ),
-                            ),
-
-
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text: 'Description',
-                                        style: textStyleWhite12px400w,
-                                      ),
-                                      TextSpan(
-                                        text: '*',
-                                        style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                                      ),
-                                    ])),
-                                Text('${text}/200 words',
-                                  style: textStyleWhite12px400w,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5.0,),
-                            Container(
-                              height:100.0,
-                              child: TextFormField(
-                                minLines: null,
-                                maxLines: null,
-                                expands: true,
-                                maxLength: 200,
-                                textAlignVertical: TextAlignVertical.top,
-                                textInputAction: TextInputAction.newline,
-                                keyboardType: TextInputType.multiline,
-                                onChanged: (vale){
-                                  text=vale.length;
-                                  description=vale;
-                                  setState(() {
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    hintText: 'Enter Description',
-                                    hintStyle: TextStyle(
-                                        color: AppColors.greyNew
-                                    ),
-                                    border: InputBorder.none,
-                                    counterStyle: TextStyle(height: double.minPositive,),
-                                    counterText: ""
-                                ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
                               ),
-                              padding: EdgeInsets.symmetric(horizontal: 20.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3.0),
-                                color: AppColors.dropbg,
-                                border: Border.all(
-                                    width: 1.0,
-                                    color:AppColors.grey
+                            ])),
+                            Text(
+                              '${text}/200 words',
+                              style: textStyleWhite12px400w,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.0,
+                        ),
+                        Container(
+                          height: 100.0,
+                          child: TextFormField(
+                            minLines: null,
+                            maxLines: null,
+                            expands: true,
+                            maxLength: 200,
+                            textAlignVertical: TextAlignVertical.top,
+                            textInputAction: TextInputAction.newline,
+                            keyboardType: TextInputType.multiline,
+                            onChanged: (vale) {
+                              text = vale.length;
+                              description = vale;
+                              setState(() {});
+                            },
+                            decoration: InputDecoration(
+                                hintText: 'Enter Description',
+                                hintStyle: TextStyle(color: AppColors.greyNew),
+                                border: InputBorder.none,
+                                counterStyle: TextStyle(
+                                  height: double.minPositive,
                                 ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                         /*   Row(
+                                counterText: ""),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.0),
+                            color: AppColors.dropbg,
+                            border:
+                                Border.all(width: 1.0, color: AppColors.grey),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        /*   Row(
                               children: [
                                 SvgPicture.asset(
                                   Images.AddDocumentIcon,
@@ -298,27 +304,27 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
 
                                       ),
 
-                                      *//* TextSpan(
+                                      */ /* TextSpan(
                                         text: '*',
                                         style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                                      ),*//*
+                                      ),*/ /*
                                     ])),
-                                *//* Text('${text}/200 words',
+                                */ /* Text('${text}/200 words',
                                   style: textStyleWhite12px400w,
-                                ),*//**//* Text('${text}/200 words',
+                                ),*/ /**/ /* Text('${text}/200 words',
                                   style: textStyleWhite12px400w,
-                                ),*//*
+                                ),*/ /*
                               ],
                             ),*/
-                            SizedBox(
-                              height: 40,
-                            ),
-                          ],
+                        SizedBox(
+                          height: 40,
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                ])),
+                ),
+              ),
+            ])),
             bottomButton()
           ],
         ),
@@ -382,24 +388,30 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
 
   @override
   void onTicketTypeFecthed(TicketTypeResponse response) {
-   ticketTypeList.clear();
-   ticketTypeList.addAll(response.caseTypesData);
-   setState(() {
-
-   });
+    ticketTypeList.clear();
+    ticketTypeList.addAll(response.caseTypesData);
+    setState(() {});
   }
 
   void addTicket() {
-     _request.comment=description;
-     _request.caseCreatedById=userId.toString();
-     _request.orgId=orgId.toString();
-     _request.companyId=cmpId.toString();
-     _request.assignedToId='210';
-     print('Request *** ${_request.toString()}');
-     _presenter.AddTicket(context,_request);
+    _request.comment = description;
+    _request.caseCreatedById = userId.toString();
+    _request.orgId = orgId.toString();
+    _request.companyId = cmpId.toString();
+    _request.assignedToId = '210';
+    print('Request *** ${_request.toString()}');
 
-
-
+    if (_request.caseTypeId == null) {
+      Utility.showErrorToast(context, 'please select category type');
+    } else if (_request.assignedToId == null) {
+      Utility.showErrorToast(context, 'please select assign to');
+    } else if (_request.caseTitle == null) {
+      Utility.showErrorToast(context, 'please enter title');
+    } else if (description.isEmpty) {
+      Utility.showErrorToast(context, 'please enter description');
+    } else {
+      _presenter.AddTicket(context, _request);
+    }
   }
 
   @override
