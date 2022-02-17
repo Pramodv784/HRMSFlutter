@@ -7,7 +7,6 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/user/AuthUser.dart';
-import 'package:hrms/user/CurrentUser.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
@@ -50,11 +49,8 @@ class _ProfilePageState extends State<ProfilePage> implements ProfileView {
   void getProfileList(int id) async {
     profileList = await _presenter.getProfiledata(id);
     print('profileList listResponse ${profileList.length}');
-    //AuthUser.getInstance().SetProfilePic(profileList[0].profile);
+    AuthUser.getInstance().SetProfilePic(profileList[0].profile.toString());
 
-    var currentUser = CurrentUser()..userCredentials;
-    currentUser.userProfilePic = profileList.first.profile;
-    print('userProfilePage ${currentUser.userProfilePic}');
     setState(() {});
   }
 

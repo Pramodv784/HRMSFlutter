@@ -5,6 +5,7 @@ class SharedPrefsKeys {
   static const kLoggedIn = 'loggedIn';
   static const kUserName = 'usrName';
   static const kUserEmail = 'usrEmail';
+  static const kUserPass = 'usrPass';
   static const kUserModel = 'UserModel';
-  static const kProfilePic = 'UserModel';
+  static const kProfilePic = 'UserProfilePic';
 }

@@ -61,6 +61,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _ScreenState extends State<MyApp> {
+  String picture = "";
   @override
   void initState() {
     // TODO: implement initState

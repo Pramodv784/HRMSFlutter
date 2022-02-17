@@ -23,6 +23,8 @@ class _MidLayerState extends State<MidLayer> {
   String email = "";
   String picture = "";
   String lastName = "";
+  String UserEmail = "";
+  String UserPassword = "";
 
   BaseProvider _provider;
   Animation<double> scaleAnimation;
@@ -43,9 +45,12 @@ class _MidLayerState extends State<MidLayer> {
     Future.delayed(const Duration(seconds: 1), () async {
       var data = (await AuthUser.getInstance().getCurrentUser());
       firstName = data?.userName;
-      picture = data?.userProfilePic;
+      picture = await AuthUser.getInstance().GetProfile();
+      UserEmail = await AuthUser.getInstance().GetUserEmail();
+      UserPassword = await AuthUser.getInstance().GetUserPass();
 
-      //   print('PictureMidLayer ****  $picture');
+      print('UserEmail $UserEmail');
+      print('UserPassWord $UserPassword');
 
       // Here you can write your code
       setState(() {});
