@@ -47,19 +47,28 @@ class HomePresenter {
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
+           print('response code ***${res.statusCode}');
 
-          HomeData data = HomeData.fromJson(res.data);
           //print('pramod${data.data.message}');
 
           // if (data?.dataCategory?.isNotEmpty)
-          _view.onHomeFecthed(data);
           if (res.statusCode == 401) {
             login();
           } else {
+            HomeData data = HomeData.fromJson(res.data);
             _view.onHomeFecthed(data);
           }
         }).catchError((e) async {
           Utility.log(tag, e);
+          if(e is DioError){
+            if(e.response.statusCode==401)
+              {
+                login();
+              }
+          }
+
+          print('res code ***${e}');
+          if(e.res)
           Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);

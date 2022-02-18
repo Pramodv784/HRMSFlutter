@@ -32,6 +32,7 @@ class Screens {
   static const WorkFromHomePage = "workfromhomepage";
   static const AddAttendence = "addAttendence";
   static const MyAsset = "myasset";
+  static const ImageView = "imageview";
 
 
 }

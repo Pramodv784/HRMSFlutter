@@ -31,7 +31,10 @@ class AttendanceRequestList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                      Text('${
-                      Utility.formatDate(workFromHomeList?.endDate??"")}',
+                      Utility.formatDate(workFromHomeList?.startDate??"")} - '
+                         '${
+                         Utility.formatDate(workFromHomeList?.endDate??"")}'
+                         ,
                       style: textStyleRegular12px,
                     ),
                     SizedBox(

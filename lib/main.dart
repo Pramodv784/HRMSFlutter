@@ -9,6 +9,7 @@ import 'package:hrms/expense/expense_history.dart';
 import 'package:hrms/feedback_history/feedback_history_user_page.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
+import 'package:hrms/profile/image_view_page.dart';
 import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatefulWidget {
 
 class _ScreenState extends State<MyApp> {
   String picture = "";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -104,6 +106,10 @@ class _ScreenState extends State<MyApp> {
             case Screens.FeedbcakHistory:
               List<dynamic> args = settings.arguments;
               return RouteTransition(widget: FeedbackHistory(args[0]));
+              break;
+            case Screens.ImageView:
+              List<dynamic> args = settings.arguments;
+              return RouteTransition(widget: ImageViewPage(args[0]));
               break;
 
             case Screens.FeedbUserHistory:
