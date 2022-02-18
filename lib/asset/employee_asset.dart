@@ -16,13 +16,13 @@ class EmployeeAsset extends StatefulWidget {
   _EmployeeAssetState createState() => _EmployeeAssetState();
 }
 
-class _EmployeeAssetState extends State<EmployeeAsset>  implements AssetView{
+class _EmployeeAssetState extends State<EmployeeAsset> implements AssetView {
   List<Widget> assetWidgetList = [];
   AssetPresenter _presenter;
 
-   @override
+  @override
   void initState() {
-    _presenter=AssetPresenter(this);
+    _presenter = AssetPresenter(this);
     _presenter.getAssetList(context, 146);
     super.initState();
   }
@@ -143,7 +143,7 @@ class _EmployeeAssetState extends State<EmployeeAsset>  implements AssetView{
                               ),
                               //CardGoal(),
 
-                            ...assetWidgetList
+                              ...assetWidgetList
                             ],
                           ),
                         ),
@@ -161,18 +161,14 @@ class _EmployeeAssetState extends State<EmployeeAsset>  implements AssetView{
 
   @override
   void onAssetFecthed(AssetResponse response) {
-    for(MyAssetList item in response.myAssetList)
-      {
-        assetWidgetList.add(UserAssetList(item));
-      }
-    setState(() {
-
-    });
-
+    for (MyAssetList item in response.myAssetList) {
+      assetWidgetList.add(UserAssetList(item));
+    }
+    setState(() {});
   }
 
   @override
   onError(String message) {
-   Utility.showErrorToast(context, message);
+    Utility.showErrorToast(context, message);
   }
 }

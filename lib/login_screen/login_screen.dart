@@ -2,12 +2,7 @@ import 'dart:collection';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hrms/drawer/rev_drawer.dart';
-
 import 'package:hrms/login_screen/login_presenter.dart';
 import 'package:hrms/login_screen/login_view.dart';
 import 'package:hrms/login_screen/model/login_response.dart';
@@ -17,7 +12,6 @@ import 'package:hrms/res/Images.dart';
 import 'package:hrms/res/Screens.dart';
 import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/user/CurrentUser.dart';
-import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/InputField.dart';
 import 'package:hrms/utility/Utility.dart';
 
@@ -29,18 +23,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> implements LoginView {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  var _password ="";
-  var _email ="";
+  var _password = "";
+  var _email = "";
   LoginPresenter _presenter;
 
   @override
   void initState() {
-  _presenter=LoginPresenter(this);
+    _presenter = LoginPresenter(this);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,18 +86,17 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * .80,
-              child: RichText(
+                child: RichText(
                     text: TextSpan(children: [
-                      TextSpan(
-                        text: 'Email ',
-                        style: textStyleWhite12px400w,
-                      ),
-                      TextSpan(
-                        text: '*',
-                        style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                      ),
-                    ])
-                ),
+                  TextSpan(
+                    text: 'Email ',
+                    style: textStyleWhite12px400w,
+                  ),
+                  TextSpan(
+                    text: '*',
+                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                  ),
+                ])),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * .80,
@@ -114,7 +107,6 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                     placeHolderText: 'Enter Email',
                     errorMessage: 'Please Enter Valid email',
                     onTextChange: (String val) => _email = val,
-
                   ),
                 ),
               ),
@@ -125,31 +117,29 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                 width: MediaQuery.of(context).size.width * .80,
                 child: RichText(
                     text: TextSpan(children: [
-                      TextSpan(
-                        text: 'Password ',
-                        style: textStyleWhite12px400w,
-                      ),
-                      TextSpan(
-                        text: '*',
-                        style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                      ),
-                    ])
-                ),
+                  TextSpan(
+                    text: 'Password ',
+                    style: textStyleWhite12px400w,
+                  ),
+                  TextSpan(
+                    text: '*',
+                    style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                  ),
+                ])),
               ),
-              SizedBox(height: 5.0,),
+              SizedBox(
+                height: 5.0,
+              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * .80,
-
-
                 child: InputField(
                   leftIcon: 'assets/image/ic_password.svg',
                   placeHolderText: 'Enter Password',
                   errorMessage: 'Please Enter Valid Password',
                   isPassword: true,
-                  rightIcon:  Images.PasswordEyeClose,
+                  rightIcon: Images.PasswordEyeClose,
                   onTextChange: (String val) => _password = val,
                   inputType: InputType.PASSWORD,
-
                 ),
               ),
               const SizedBox(
@@ -176,10 +166,9 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                   input["UserName"] = _email.toString();
                   input["Password"] = _password.toString();
 
-                  if (_email.isNotEmpty &&
-                      _password.isNotEmpty) {
+                  if (_email.isNotEmpty && _password.isNotEmpty) {
                     _presenter.login(context, input);
-                   // loginBloc.add(UserLoginEvent(input: input));
+                    // loginBloc.add(UserLoginEvent(input: input));
                   } else {
                     Fluttertoast.showToast(msg: "Fields cant't be empty");
                   }
@@ -191,8 +180,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                       side: const BorderSide(color: Colors.black87),
                     ),
                   ),
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.black87),
+                  backgroundColor: MaterialStateProperty.all(Colors.black87),
                   fixedSize: MaterialStateProperty.all(
                     const Size(175, 30),
                   ),
@@ -224,15 +212,19 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
     log("Login Response +++++++++++ " + response.message);
     var currentUser = CurrentUser()..userCredentials = response;
     currentUser.isLoggedIn = true;
-    currentUser.userId=response.userprofile.userId;
-    currentUser.userName=response.userprofile.fullName;
+    currentUser.userId = response.userprofile.userId;
+    currentUser.userName = response.userprofile.fullName;
+
     AuthUser.getInstance().login(currentUser);
-    Navigator.of(context).pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
+    AuthUser.getInstance().setEmail(_email.toString());
+    AuthUser.getInstance().setPassword(_password.toString());
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(Screens.kBaseScreen, ModalRoute.withName('/'));
   }
 
   @override
   void onError(String error) {
-    print('error ** $error' );
+    print('error ** $error');
     Utility.showErrorToast(context, error);
     // TODO: implement onError
   }

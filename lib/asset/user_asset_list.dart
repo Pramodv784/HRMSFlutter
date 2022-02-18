@@ -6,7 +6,7 @@ import 'model/asset_response.dart';
 
 class UserAssetList extends StatelessWidget {
   MyAssetList _data;
-   UserAssetList(this._data,{Key key}) : super(key: key);
+  UserAssetList(this._data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +52,8 @@ class UserAssetList extends StatelessWidget {
                   child: Container(
                       alignment: Alignment.center,
                       width: Utility.screenWidth(context),
-                      child: Text('22/02/2022',
-                          overflow: TextOverflow.ellipsis))),
+                      child:
+                          Text('22/02/2022', overflow: TextOverflow.ellipsis))),
             ],
           ),
         ));
