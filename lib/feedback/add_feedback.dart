@@ -18,7 +18,7 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 
 import 'card/card_feed_question.dart';
-import 'feedback_request.dart';
+import 'model/feedback_request.dart';
 
 class AddFeedback extends StatefulWidget {
   int roleId=0,selectedId=0;

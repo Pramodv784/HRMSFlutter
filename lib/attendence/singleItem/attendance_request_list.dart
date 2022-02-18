@@ -6,6 +6,8 @@ import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/workFromHome/model/get_work_from_list_response.dart';
 
+import '../../utility/Utility.dart';
+
 class AttendanceRequestList extends StatelessWidget {
 
 
@@ -28,8 +30,8 @@ class AttendanceRequestList extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
-                      workFromHomeList.endDate,
+                     Text('${
+                      Utility.formatDate(workFromHomeList?.endDate??"")}',
                       style: textStyleRegular12px,
                     ),
                     SizedBox(
@@ -46,7 +48,7 @@ class AttendanceRequestList extends StatelessWidget {
             Row(
               children: [
                  Text(
-                 workFromHomeList.wfhStatus,
+                 workFromHomeList?.wfhStatus??"",
                   style: textStyleGreenRegular12px500w,
                 ),
                 const SizedBox(

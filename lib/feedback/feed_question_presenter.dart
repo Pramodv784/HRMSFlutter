@@ -9,7 +9,7 @@ import 'package:hrms/api_provider/ApiController.dart';
 import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/feedback/empfeedback/model/feed_question_model.dart';
 import 'package:hrms/feedback/feed_question_view.dart';
-import 'package:hrms/feedback/feedback_request.dart';
+import 'package:hrms/feedback/model/feedback_request.dart';
 import 'package:hrms/feedback/model/add_feedback_response.dart';
 import 'package:hrms/feedback/select_emp/model/employee_data.dart';
 import 'package:hrms/utility/Dialogs.dart';

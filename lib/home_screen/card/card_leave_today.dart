@@ -22,6 +22,7 @@ class CardLeaveToday extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String tag=_data.fullName.substring(0,1);
+    String d=_data.fullName.split(" ").last.substring(0,1);
     
     return Container(
       color: AppColors.white,
@@ -40,7 +41,7 @@ class CardLeaveToday extends StatelessWidget {
             child: Stack(children: [
               Align(
                 alignment: Alignment.center,
-                child: Text('${tag}'.toUpperCase(),
+                child: Text('${tag+d}'.toUpperCase(),
                     style: TextStyle(color: AppColors.white)),
               ),
               Align(

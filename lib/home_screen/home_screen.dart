@@ -74,9 +74,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     todayleaveList.clear();
     List<EmpList> itemData=[];
     itemData.add(EmpList(employeeId: 1,fullName: 'pramod verma'));
-    itemData.add(EmpList(employeeId: 3,fullName: 'anijet verma'));
-    itemData.add(EmpList(employeeId: 4,fullName: 'anikit verma'));
-    itemData.add(EmpList(employeeId: 5,fullName: 'vipin verma'));
+    itemData.add(EmpList(employeeId: 3,fullName: 'anijet sangoi'));
+    itemData.add(EmpList(employeeId: 4,fullName: 'anikit rahor'));
+    itemData.add(EmpList(employeeId: 5,fullName: 'vipin thakur'));
     list=List<int>.generate(itemData.length, (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
     for(int i =0; i<itemData.length;i++)
     {

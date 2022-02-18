@@ -74,7 +74,7 @@ class Utility {
   }
   static String formatDate(String date) {
     //format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
-    if (date == null) return "";
+    if (date == "") return "";
     DateTime dt = DateTime.parse(date);
     String dtm = DateFormat("MMM dd, yyyy").format(dt);
     return dtm;

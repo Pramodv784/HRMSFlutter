@@ -13,7 +13,7 @@ import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 
-import 'feedback_request.dart';
+import 'model/feedback_request.dart';
 class FeedbackRemark extends StatefulWidget {
   FeedbackRequest _feedbackRequest;
 
