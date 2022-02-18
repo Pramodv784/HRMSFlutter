@@ -1,23 +1,19 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/drawer/BaseProvider.dart';
+import 'package:hrms/home_screen/card/card_wfh_list.dart';
 import 'package:hrms/home_screen/home_presenter.dart';
-import 'package:hrms/home_screen/home_state.dart';
 import 'package:hrms/home_screen/home_view.dart';
 import 'package:hrms/home_screen/model/check_in_response.dart';
 import 'package:hrms/home_screen/model/checkout_response.dart';
 import 'package:hrms/home_screen/model/get_attendence_response.dart';
-import 'package:hrms/home_screen/model/home_avg_score_response.dart';
 import 'package:hrms/home_screen/model/home_data.dart';
 import 'package:hrms/home_screen/model/today_leave_response.dart';
-import 'package:hrms/login_screen/model/ScoreModel.dart';
+import 'package:hrms/home_screen/model/w_f_h_list_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -27,8 +23,6 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_tooltip/simple_tooltip.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../utility/Dialogs.dart';
 import 'card/card_home.dart';
@@ -47,18 +41,19 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   HomePresenter _presenter;
   List<MenuList> homlist = [];
 
-  List<Widget>todayleaveList=[];
+  List<Widget> todayleaveList = [];
+  List<Widget> wfhUserList = [];
 
   CheckInRequest _checkInRequest = CheckInRequest();
-  CheckOutRequest _checkOutRequest=CheckOutRequest();
+  CheckOutRequest _checkOutRequest = CheckOutRequest();
 
   String _timeString;
   String date = DateFormat('d').format(DateTime.now());
   String month = DateFormat('MMM').format(DateTime.now());
   String year = DateFormat('y').format(DateTime.now());
   int userId = 0;
-  var list =[];
-  bool checkStatus=false;
+  var list = [];
+  bool checkStatus = false;
 
   @override
   void initState() {
@@ -69,24 +64,20 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
 
-
-
     todayleaveList.clear();
-    List<EmpList> itemData=[];
-    itemData.add(EmpList(employeeId: 1,fullName: 'pramod verma'));
-    itemData.add(EmpList(employeeId: 3,fullName: 'anijet sangoi'));
-    itemData.add(EmpList(employeeId: 4,fullName: 'anikit rahor'));
-    itemData.add(EmpList(employeeId: 5,fullName: 'vipin thakur'));
-    list=List<int>.generate(itemData.length, (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
-    for(int i =0; i<itemData.length;i++)
-    {
-      todayleaveList.add(CardLeaveToday(itemData[i],list[i]));
+    wfhUserList.clear();
+    List<EmpList> itemData = [];
+    itemData.add(EmpList(employeeId: 1, fullName: 'pramod verma'));
+    itemData.add(EmpList(employeeId: 3, fullName: 'anijet sangoi'));
+    itemData.add(EmpList(employeeId: 4, fullName: 'anikit rahor'));
+    itemData.add(EmpList(employeeId: 5, fullName: 'vipin thakur'));
+    list = List<int>.generate(
+        itemData.length, (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
+    for (int i = 0; i < itemData.length; i++) {
+      todayleaveList.add(CardLeaveToday(itemData[i], list[i]));
     }
 
-
-    setState(() {
-
-    });
+    setState(() {});
 
     print(list);
     super.initState();
@@ -96,8 +87,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     var userData = await (AuthUser.getInstance()).getCurrentUser();
     userId = userData.userId;
     print('User Token ***** ${getToken()}');
-    _presenter.getAttendence(context,userData.userId);
+    _presenter.getAttendence(context, userData.userId);
     _presenter.getLeaveToday(context);
+    _presenter.getWFHList(context);
 
     print(
         'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
@@ -189,13 +181,14 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                             if (checkStatus) {
                                               Dialogs.openDialogClockOut(
                                                   context, onAccept: () {
-                                                _checkOutRequest.employeeId=userId.toString();
-                                                _checkOutRequest.clockOut=_timeString;
+                                                _checkOutRequest.employeeId =
+                                                    userId.toString();
+                                                _checkOutRequest.clockOut =
+                                                    _timeString;
                                                 _presenter.CheckOut(
                                                     context, _checkOutRequest);
                                                 Navigator.pop(context);
                                               });
-
                                             } else {
                                               _checkInRequest.employeeId =
                                                   userId;
@@ -204,7 +197,6 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                               _checkInRequest.isClock = true;
                                               _presenter.CheckIn(
                                                   context, _checkInRequest);
-
                                             }
                                           },
                                         ),
@@ -267,22 +259,57 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   SizedBox(
                                     height: 10.0,
                                   ),
-
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Container(
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                       children: [ ...todayleaveList,],
-
-
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ...todayleaveList,
+                                        ],
                                       ),
                                     ),
                                   ),
-
-
-
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'On WFH',
+                                    style: textStyleBlackRegular12pxW700,
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Container(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ...wfhUserList,
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -459,21 +486,18 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   void onCheckInFecthed(CheckInResponse response) {
     print('Check In *****${response.message}');
     //checkStatus = response.attendance.isClock;
-     if(response.message=='Your Attendance Already Added')
-       {
-         Utility.showErrorToast(context, response.message);
-       }
+    if (response.message == 'Your Attendance Already Added') {
+      Utility.showErrorToast(context, response.message);
+    }
     setState(() {});
-   _presenter.getAttendence(context,userId);
+    _presenter.getAttendence(context, userId);
   }
 
   @override
   void onAttendenceFetch(GetAttendenceResponse response) {
     print('Attendece****${response.attendance.isClock}');
-    checkStatus=response?.attendance?.isClock;
-    setState(() {
-
-    });
+    checkStatus = response?.attendance?.isClock;
+    setState(() {});
   }
 
   @override
@@ -484,35 +508,42 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   @override
   void onCheckOutFetch(CheckoutResponse response) {
     print('Clock out ${response.attendance.isClock}');
-    checkStatus=response?.attendance?.isClock;
-    _presenter.getAttendence(context,userId);
-    setState(() {
-
-    });
+    checkStatus = response?.attendance?.isClock;
+    _presenter.getAttendence(context, userId);
+    setState(() {});
   }
+
   int generateRandomCode(int minValue, int maxValue) {
-    return Random().nextInt((maxValue - minValue).abs() + 1) + min(minValue, maxValue);
+    return Random().nextInt((maxValue - minValue).abs() + 1) +
+        min(minValue, maxValue);
   }
 
   @override
   void onLeaveTodayFetch(TodayLeaveResponse response) {
     print('leave Today list *** ${response.empList.length}');
-    list=List<int>.generate(response.empList.length, (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
+    list = List<int>.generate(response.empList.length,
+        (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
     todayleaveList.clear();
-    List<EmpList> itemData=[];
-    itemData.add(EmpList(employeeId: 1,fullName: 'pramod verma'));
-    itemData.add(EmpList(employeeId: 2,fullName: 'parinati verma'));
-    itemData.add(EmpList(employeeId: 3,fullName: 'anijet verma'));
-    itemData.add(EmpList(employeeId: 4,fullName: 'anikit verma'));
-    itemData.add(EmpList(employeeId: 5,fullName: 'vipin verma'));
-    for(int i =0; i<response.empList.length;i++)
-      {
-        todayleaveList.add(CardLeaveToday(response.empList[i],list[i]));
-      }
+    List<EmpList> itemData = [];
+    itemData.add(EmpList(employeeId: 1, fullName: 'pramod verma'));
+    itemData.add(EmpList(employeeId: 2, fullName: 'parinati verma'));
+    itemData.add(EmpList(employeeId: 3, fullName: 'anijet verma'));
+    itemData.add(EmpList(employeeId: 4, fullName: 'anikit verma'));
+    itemData.add(EmpList(employeeId: 5, fullName: 'vipin verma'));
+    for (int i = 0; i < response.empList.length; i++) {
+      todayleaveList.add(CardLeaveToday(response.empList[i], list[i]));
+    }
 
+    setState(() {});
+  }
 
-    setState(() {
+  @override
+  void onWfhListFetched(WFHListResponse response) {
+    print('leave WFH list *** ${response.workFromHomeList.length}');
+    for (int i = 0; i < response.workFromHomeList.length; i++) {
+      wfhUserList.add(CardWFHList(response.workFromHomeList[i], list[i]));
+    }
 
-    });
+    setState(() {});
   }
 }
