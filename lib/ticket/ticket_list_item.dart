@@ -17,7 +17,8 @@ class TicketListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: AppColors.backGroundColor),
+      decoration: BoxDecoration(color: Color(0xFFEEF4FB)),
+      margin: EdgeInsets.only(bottom: 5.0),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -46,7 +47,7 @@ class TicketListItem extends StatelessWidget {
                 child: Container(
                   child: Column(
                     children: [
-                      Text('Expenses Category',
+                      Text('${_data.caseType}',
                           style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 14.0,
@@ -64,17 +65,7 @@ class TicketListItem extends StatelessWidget {
                 CircleAvatar(
                   radius: 20,
                   backgroundColor: AppColors.white,
-                  child: ClipOval(
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(Images.UserDemo,fit: BoxFit.cover,
-                          width: 60,
-                          height: 60,),
-                      ),
-
-
-                    ),
+                  child: SvgPicture.asset(Images.UserDemo,height: 60.0,width: 60.0,
                   ),
                 ),
                 SizedBox(
@@ -84,14 +75,14 @@ class TicketListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Project/Cost Center',
+                      'Assigned To',
                       style: textStyleWhite12px400w,
                     ),
                     SizedBox(
                       height: 8.0,
                     ),
                     Text(
-                      'Assigned on 14 Jan, 2022, 01:13 pm',
+                      '${_data.assignedTo}',
                       style: textStyleSubText14px600w,
                     ),
                   ],

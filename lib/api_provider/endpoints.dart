@@ -32,4 +32,5 @@ class EndPoints{
   static const String GetAttendence = baseUrl+"/api/Attendance/GetAllAttendanceById";
   static const String GetProjectList = baseUrl+"/api/project/GetAllProject";
   static const String LeaveToday = baseUrl+"/api/leave/EmployeesTodayOnLeave";
+
 }
