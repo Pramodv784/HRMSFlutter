@@ -262,6 +262,7 @@ class _AddAttendanceState extends State<AddAttendance> {
               ),
               bottomButton()
             ],
+
           ),
         ));
   }
