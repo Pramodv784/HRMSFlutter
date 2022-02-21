@@ -8,6 +8,7 @@ import 'package:hrms/common_page.dart';
 import 'package:hrms/expense/expense_history.dart';
 import 'package:hrms/feedback_history/feedback_history_user_page.dart';
 import 'package:hrms/home_screen/home_screen.dart';
+import 'package:hrms/leave_request/leave_balanace_history/balance_history_dashboard.dart';
 import 'package:hrms/leave_request/leave_balanace_history/leave_balance/leave_balance_page.dart';
 import 'package:hrms/leave_request/leave_balanace_history/leave_history/leave_history_request.dart';
 import 'package:hrms/login_screen/login_screen.dart';
@@ -138,7 +139,7 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget: LeaveRequestDashboard());
               break;
             case Screens.LeaveBalancePage:
-              return RouteTransition(widget: LeaveBalancePage());
+              return RouteTransition(widget: BalanceHistoryDashboard());
               break;
             case Screens.AttendencePage:
               return RouteTransition(widget: AttendanceDasboard());

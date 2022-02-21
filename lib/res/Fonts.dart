@@ -340,11 +340,25 @@ const textStyleGreen12px500w = TextStyle(
     fontFamily: kFontFamily,
     fontWeight: FontWeight.w500,
     fontSize: fontH6);
+
 const textStyleGreenRegular12px500w = TextStyle(
     color: AppColors.textColorGreen,
     fontFamily: kFontFamily,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w800,
     fontSize: fontH6);
+
+const textStyleOrgangeRegular12px500w = TextStyle(
+    color: AppColors.orange,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w800,
+    fontSize: fontH6);
+
+const textStyleRedRegular12px500w = TextStyle(
+    color: AppColors.red,
+    fontFamily: kFontFamily,
+    fontWeight: FontWeight.w800,
+    fontSize: fontH6);
+
 const textStyleGreen16px500w = TextStyle(
     color: AppColors.textColorGreen,
     fontFamily: kFontFamily,

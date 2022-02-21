@@ -296,7 +296,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'On WFH',
+                                      'Employee Working Remotly',
                                       style: textStyleBlackRegular12pxW700,
                                     ),
                                     SizedBox(

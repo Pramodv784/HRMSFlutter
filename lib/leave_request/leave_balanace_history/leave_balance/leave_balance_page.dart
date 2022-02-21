@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:hrms/add_leave_request/presenter/leave_presenter.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
+import 'package:hrms/res/Images.dart';
 import 'package:hrms/res/Screens.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
@@ -42,9 +43,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
               Expanded(
                 child: _response?.leaveBalanceList != null
                     ? ListView(children: [
-                        Header(
-                          headerText: 'Leave  Balance',
-                        ),
+
                         Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Card(
@@ -1003,9 +1002,11 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                               ),
                             )),
                       ])
-                    : ListView(
-                        children: [],
-                      ),
+                    : Container(
+                  color: AppColors.white,
+
+                  child: Image.asset(Images.IconNoDataFound, ),
+                ),
               ),
               bottomButton()
             ],

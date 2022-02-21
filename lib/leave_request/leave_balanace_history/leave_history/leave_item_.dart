@@ -54,10 +54,28 @@ class LeaveItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                   Text(
-                   _data?.leaveStatus??"",
+                  if(_data?.leaveStatus == 'Pending')
+                    Text(
+                      _data?.leaveStatus?? "",
+
+                      style: textStyleOrgangeRegular12px500w,
+                    ),
+                  if(_data?.leaveStatus == 'Approved')
+                    Text(
+                      _data?.leaveStatus?? "",
+                      style: textStyleGreenRegular12px500w,
+                    ),
+                  if(_data?.leaveStatus == 'Rejected')
+                    Text(
+                      _data?.leaveStatus?? "",
+                      style: textStyleRedRegular12px500w,
+                    ),
+
+                  /* Text(
+                   _data?.leaveStatus?? "",
+
                     style: textStyleGreenRegular12px500w,
-                  ),
+                  ),*/
                   const SizedBox(
                     width: 4.0,
                   ),

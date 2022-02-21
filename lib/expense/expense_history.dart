@@ -12,6 +12,7 @@ import 'package:hrms/expense/model/get_project_list_response.dart';
 import 'package:hrms/expense/total_expenses_list.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/res/AppColors.dart';
+import 'package:hrms/res/Images.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/Utility.dart';
 
@@ -107,7 +108,7 @@ class _ExpenseHistory extends State<ExpenseHistory>
                             // second tab [you can add an icon using the icon property]
                             Tab(
                               child: Text(
-                                'Reject',
+                                'Pending',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -119,7 +120,8 @@ class _ExpenseHistory extends State<ExpenseHistory>
                         child: TabBarView(
                           controller: _tabController,
                           children: [
-                            // first tab bar view widget
+                            //
+                           widgetApproveList.length >0?
                             ListView(
                               children: [
                                 const SizedBox(
@@ -127,17 +129,22 @@ class _ExpenseHistory extends State<ExpenseHistory>
                                 ),
                                 ...widgetApproveList
                               ],
-                            ),
-
+                            ):
+                           Image.asset(Images.IconNoDataFound),
                             // second tab bar view widget
+
+                            widgetRejectList.length > 0?
                             ListView(
                               children: [
                                 const SizedBox(
                                   height: 30,
                                 ),
+                               
                                 ...widgetRejectList
                               ],
-                            ),
+                            ):
+                            Image.asset(Images.IconNoDataFound)
+
                           ],
                         ),
                       ),
