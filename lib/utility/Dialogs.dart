@@ -254,6 +254,7 @@ class Dialogs {
               opacity: a1.value,
               child: AlertDialog(
                 shape: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.white),
                     borderRadius: BorderRadius.circular(16.0)),
                 title: Text('Clock-out!!'),
                 content: Text('Do you want to Clock out ?'),

@@ -99,7 +99,7 @@ class ExpensePresenter {
 
       _repository.post('${EndPoints.ImageUpload}?FolderName=ExpenseBillUpload'
           '&BaseUrl=${EndPoints.baseUrl}',
-        body: formData,)
+        body: formData,headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           UploadImageResponse uploadImageResponse =

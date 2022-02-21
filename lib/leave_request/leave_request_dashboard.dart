@@ -67,7 +67,7 @@ class _LeaveRequestDashboardState extends State<LeaveRequestDashboard>
              Container(
                height: 45,
                decoration: BoxDecoration(
-                 color: Colors.grey[300],
+                 color: Color(0xFFEEF4FB),
                  borderRadius: BorderRadius.circular(
                    25.0,
                  ),
@@ -86,8 +86,8 @@ class _LeaveRequestDashboardState extends State<LeaveRequestDashboard>
                        colors: [AppColors.g1, AppColors.g2]
                    ),
                  ),
-                 labelColor: Colors.white,
-                 unselectedLabelColor: Colors.black,
+                 labelColor: AppColors.white,
+                 unselectedLabelColor: Color(0xFF616576),
                  tabs: [
                    // first tab [you can add an icon using the icon property]
                    Tab(

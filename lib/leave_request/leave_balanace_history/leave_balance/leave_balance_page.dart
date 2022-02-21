@@ -2,10 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hrms/add_leave_request/presenter/leave_presenter.dart';
-import 'package:hrms/leave_request/leave_balance/card_balance.dart';
-import 'package:hrms/leave_request/leave_balance/leave_balance_presenter.dart';
-import 'package:hrms/leave_request/leave_balance/leave_balance_view.dart';
-import 'package:hrms/leave_request/leave_balance/model/leave_balance_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Screens.dart';
@@ -13,6 +9,9 @@ import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'leave_balance_presenter.dart';
+import 'leave_balance_view.dart';
+import 'model/leave_balance_model.dart';
 
 class LeaveBalancePage extends StatefulWidget {
   const LeaveBalancePage({Key key}) : super(key: key);
@@ -1045,15 +1044,17 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
     );
   }
 
+
+
+  @override
+  onError(String message) {
+    Utility.showErrorToast(context, message);
+  }
+
   @override
   void onLeaveBalanceFetched(LeaveBalanceModel response) {
     print('leave balance *** ${response.message}');
     _response = response;
     setState(() {});
-  }
-
-  @override
-  onError(String message) {
-    Utility.showErrorToast(context, message);
   }
 }

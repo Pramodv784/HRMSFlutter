@@ -1,7 +1,4 @@
 
-
-import 'package:hrms/leave_request/leave_balance/leave_balance_page.dart';
-
 /// 🔥 MVP Architecture🔥
 /// 🍴 Focused on Clean Architecture
 /// Created by 🔱 Pratik Kataria 🔱 on 12-08-2021.
@@ -30,8 +27,11 @@ class Screens {
   static const TicketDashBoard = "ticketdashboard";
   static const ExpenseHistory = "expensehistory";
   static const WorkFromHomePage = "workfromhomepage";
+  static const WorkFromHomePageDetail = "workfromhomepagedetail";
   static const AddAttendence = "addAttendence";
   static const MyAsset = "myasset";
+  static const ImageView = "imageview";
+  static const LeaveHistory = "leavehistory";
 
 
 }

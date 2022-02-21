@@ -12,6 +12,7 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../res/Screens.dart';
 import 'model/profile_response.dart';
 import 'model/upload_image_response.dart';
 import 'profile_view.dart';
@@ -93,13 +94,26 @@ class _ProfilePageState extends State<ProfilePage> implements ProfileView {
                                         ? profileList?.isEmpty
                                             ? Image.asset(
                                                 Images.ProfileUserIcon)
-                                            : ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
-                                                child: Image.network(
-                                                  profileList[0]?.profile,
-                                                  height: 100,
-                                                  width: 100,
+                                            : InkWell(
+                                                onTap: () {
+                                                  Navigator.pushNamed(context,
+                                                      Screens.ImageView,
+                                                      arguments: [
+                                                        profileList[0]?.profile
+                                                      ]);
+                                                },
+                                                child: Hero(
+                                                  tag: 'image',
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            18.0),
+                                                    child: Image.network(
+                                                      profileList[0]?.profile,
+                                                      height: 100,
+                                                      width: 100,
+                                                    ),
+                                                  ),
                                                 ),
                                               )
                                         : Container(
@@ -455,6 +469,7 @@ class _ProfilePageState extends State<ProfilePage> implements ProfileView {
                               child: Container(
                                   width: 90,
                                   height: 90,
+                                  padding: const EdgeInsets.all(20.0),
                                   decoration: BoxDecoration(
                                     color: AppColors.colorPrimaryLight,
                                     borderRadius: BorderRadius.circular(18.0),

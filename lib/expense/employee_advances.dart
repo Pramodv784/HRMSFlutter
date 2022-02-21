@@ -536,7 +536,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
               radius: 50.0,
               borderColor: AppColors.grey,
               onTap: () async {
-                // opendDialog();
+               Navigator.pop(context);
               },
             ),
           ),
@@ -598,6 +598,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
                               child: Container(
                                   width: 90,
                                   height: 90,
+                                  padding: const EdgeInsets.all(20.0),
                                   decoration: BoxDecoration(
                                     color: AppColors.colorPrimaryLight,
                                     borderRadius: BorderRadius.circular(18.0),
