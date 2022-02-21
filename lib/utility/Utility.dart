@@ -80,7 +80,22 @@ class Utility {
     return dtm;
   }
 
- /* static void CustomToast(BuildContext context,String) async{
+  static String getDateMonth(String date) {
+    //format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    if (date == "") return "";
+    DateTime dt = DateTime.parse(date);
+    String dtm = DateFormat("dd MMM").format(dt);
+    return dtm;
+  }
+  static String getDayFromServer(String date) {
+    //format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+    if (date == "") return "";
+    DateTime dt = DateTime.parse(date);
+    String dtm = DateFormat("EEEE").format(dt);
+    return dtm;
+  }
+
+  /* static void CustomToast(BuildContext context,String) async{
     Widget widget = Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30.0),

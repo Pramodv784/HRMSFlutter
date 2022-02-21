@@ -7,19 +7,18 @@ import 'package:hrms/res/Images.dart';
 import 'package:hrms/res/Screens.dart';
 import 'package:hrms/workFromHome/model/get_work_from_list_response.dart';
 
-import '../../utility/Utility.dart';
+import '../../../utility/Utility.dart';
+import 'model/leave_request_history_response.dart';
 
-class AttendanceRequestList extends StatelessWidget {
 
-
-  WorkFromHomeList workFromHomeList;
-
-  AttendanceRequestList(this.workFromHomeList, {Key key}) : super(key: key);
+class LeaveItem extends StatelessWidget {
+  LeaveRequestList _data;
+  LeaveItem(this._data, {Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap:(){
-        Navigator.pushNamed(context, Screens.WorkFromHomePageDetail,arguments: workFromHomeList);
+     //   Navigator.pushNamed(context, Screens.WorkFromHomePageDetail,arguments: workFromHomeList);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -36,9 +35,9 @@ class AttendanceRequestList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                        Text('${
-                        Utility.formatDate(workFromHomeList?.startDate??"")} - '
+                        Utility.formatDate(_data?.startdate??"")} - '
                            '${
-                           Utility.formatDate(workFromHomeList?.endDate??"")}'
+                           Utility.formatDate(_data?.endDate??"")}'
                            ,
                         style: textStyleRegular12px,
                       ),
@@ -56,7 +55,7 @@ class AttendanceRequestList extends StatelessWidget {
               Row(
                 children: [
                    Text(
-                   workFromHomeList?.wfhStatus??"",
+                   _data?.leaveStatus??"",
                     style: textStyleGreenRegular12px500w,
                   ),
                   const SizedBox(

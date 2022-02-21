@@ -41,7 +41,7 @@ class _ExpenseHistory extends State<ExpenseHistory>
    _tabController.addListener(() {
      print('controller index '+_tabController.index.toString());
      _tabController.index==0?_presenter.getExpenseHistory(context, 'Approve')
-         :_presenter.getExpenseHistory(context, 'Reject');
+         :_presenter.getExpenseHistory(context, 'Pending');
    });
     setState(() {});
     super.initState();
@@ -164,8 +164,9 @@ class _ExpenseHistory extends State<ExpenseHistory>
 
   @override
   void onExpenseHistoryFecthed(ExpenseHistoryResponse response) {
-     for(int i=0;i<= response.expenseList.length;i++){
-        if(response.expenseList[i].expenseStatus=='Reject'){
+    print('expense list ***** ${response.expenseList.length}');
+     for(int i=0;i<response.expenseList.length;i++){
+        if(response.expenseList[i].expenseStatus=='Pending'){
           widgetRejectList.add(TotalExpensesList(response.expenseList[i]));
         }
         else{

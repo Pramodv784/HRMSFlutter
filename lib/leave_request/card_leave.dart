@@ -17,7 +17,7 @@ class CardLeave extends StatelessWidget {
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
-            color: AppColors.dropbg,
+            color: Color(0xFFEEF4FB),
             border: Border.all(color: AppColors.grey)),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
@@ -74,6 +74,11 @@ class CardLeave extends StatelessWidget {
           case 'Work From Home':
             Navigator.pushNamed(context, Screens.WorkFromHomePage);
             break;
+             case 'Leave History':
+            Navigator.pushNamed(context, Screens.LeaveHistory);
+            break;
+
+
         }
       },
     );

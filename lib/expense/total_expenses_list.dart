@@ -5,6 +5,7 @@ import 'package:hrms/leave_request/model/data_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/utility/Utility.dart';
 
 import '../ticket/model/my_ticket_response.dart';
 import 'model/expense_history_response.dart';
@@ -25,14 +26,14 @@ class TotalExpensesList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${_data.comment}',
+              '${_data.expenseTitle}',
               style: textStyleWhite12px400w,
             ),
             SizedBox(
               height: 8.0,
             ),
             Text(
-              'Ticket created on Jan 14, 2022, 01:13 pm',
+              'Ticket created on ${Utility.formatDate(_data?.createdOn??"")}',
               style: textStyleSubText14px600w,
             ),
             SizedBox(
@@ -62,20 +63,17 @@ class TotalExpensesList extends StatelessWidget {
             ),
             Row(
               children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: AppColors.white,
-                  child: ClipOval(
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(Images.UserDemo,fit: BoxFit.cover,
-                          width: 60,
-                          height: 60,),
-                      ),
-
-
-                    ),
+                Container(
+                  height: 50.0,
+                  width: 50.0,
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(50.0),
+                  ),
+                  child: SvgPicture.asset(Images.UserDemo,
+                    height: double.infinity,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
                   ),
                 ),
                 SizedBox(
@@ -85,14 +83,14 @@ class TotalExpensesList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Project/Cost Center',
+                      '${_data?.projectName??""}',
                       style: textStyleWhite12px400w,
                     ),
                     SizedBox(
                       height: 8.0,
                     ),
                     Text(
-                      'Assigned on 14 Jan, 2022, 01:13 pm',
+                      'Assigned on ${(_data?.expenseDate??"")}',
                       style: textStyleSubText14px600w,
                     ),
                   ],

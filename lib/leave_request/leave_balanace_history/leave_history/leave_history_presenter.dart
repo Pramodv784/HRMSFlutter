@@ -13,26 +13,27 @@ import 'package:hrms/add_leave_request/model/leave_type_response.dart';
 
 import 'package:hrms/api_provider/ApiController.dart';
 import 'package:hrms/api_provider/endpoints.dart';
-import 'package:hrms/leave_request/leave_balance/leave_balance_view.dart';
-import 'package:hrms/leave_request/leave_balance/model/leave_balance_model.dart';
 
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/NetworkCheck.dart';
 import 'package:hrms/utility/Utility.dart';
-class LeaveBalancePresenter {
-  var tag = 'LeaveBalancePresenter ';
+
+import 'leave_history_view.dart';
+import 'model/leave_request_history_response.dart';
+class LeaveHistoryPresenter {
+  var tag = 'LeaveHistoryPresenter ';
   static const encryptionChannel = const MethodChannel('enc/dec');
 
 
-  LeaveBalanceView _view;
+  LeaveHistoryView _view;
   ApiController _repository = ApiController.getInstance();
 
-  LeaveBalancePresenter(this._view);
-  getLeaveBalance(BuildContext context) async {
+  LeaveHistoryPresenter(this._view);
+  getLeaveHistory(BuildContext context) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetLeaveBalance}',headers: await Utility.header())
+      _repository.get2('${EndPoints.GetLeaveHistory}',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
@@ -40,10 +41,10 @@ class LeaveBalancePresenter {
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
 
-          LeaveBalanceModel data = LeaveBalanceModel.fromJson(res.data);
+          LeaveRequestHistoryResponse data = LeaveRequestHistoryResponse.fromJson(res.data);
           print('pramod${data.message}');
           if (data?.status=='OK')
-            _view.onLeaveBalanceFetched(data);
+            _view.onLeaveHistoryFetched(data);
           else
             {
               _view.onError(data.message);

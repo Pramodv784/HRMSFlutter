@@ -86,11 +86,12 @@ class _MidLayerState extends State<MidLayer> {
                           width: 70,
                         ),
                 ),
-                horizontalSpace(6.0),
+                horizontalSpace(10.0),
+                verticalSpace(10.0),
                 SizedBox(
                   width: 120, // hard coding child width
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text("$firstName $lastName",
                           style: textStyleWhite14px500w),

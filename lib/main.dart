@@ -8,6 +8,8 @@ import 'package:hrms/common_page.dart';
 import 'package:hrms/expense/expense_history.dart';
 import 'package:hrms/feedback_history/feedback_history_user_page.dart';
 import 'package:hrms/home_screen/home_screen.dart';
+import 'package:hrms/leave_request/leave_balanace_history/leave_balance/leave_balance_page.dart';
+import 'package:hrms/leave_request/leave_balanace_history/leave_history/leave_history_request.dart';
 import 'package:hrms/login_screen/login_screen.dart';
 import 'package:hrms/profile/image_view_page.dart';
 import 'package:hrms/profile/profile_page.dart';
@@ -23,6 +25,7 @@ import 'package:provider/provider.dart';
 import 'add_leave_request/add_leave_request_page.dart';
 import 'add_leave_request/add_leave_request_page2.dart';
 import 'asset/employee_asset.dart';
+import 'attendence/attendance_leave_request_detail.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
 import 'expense/employee_advances.dart';
@@ -32,7 +35,6 @@ import 'feedback/select_emp/select_emp.dart';
 import 'feedback_dashboard/feedback_dashboard_page.dart';
 import 'feedback_history/feedback_history_page.dart';
 import 'goal/GoalPage.dart';
-import 'leave_request/leave_balance/leave_balance_page.dart';
 import 'leave_request/leave_request_dashboard.dart';
 
 void main() async {
@@ -103,6 +105,15 @@ class _ScreenState extends State<MyApp> {
             case Screens.GoalScreen:
               return RouteTransition(widget: GoalPage());
               break;
+            case Screens.WorkFromHomePageDetail:
+              return RouteTransition(
+                  widget: AttendanceLeaveRequestDetail(settings.arguments));
+              break;
+
+            case Screens.LeaveHistory:
+              return RouteTransition(widget: LeaveHistoryRequest());
+              break;
+
             case Screens.FeedbcakHistory:
               List<dynamic> args = settings.arguments;
               return RouteTransition(widget: FeedbackHistory(args[0]));

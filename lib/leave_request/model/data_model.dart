@@ -12,6 +12,7 @@ List<TimeModel> timeList=[
   TimeModel('Leave Balance', Images.LeaveBalanceIcon, 'View leave balance from here.'),
   TimeModel('Attendance History', Images.AttendenceIcon, 'view attendence history form here.'),
   TimeModel('Work From Home', Images.WfhIcon, 'You can apply work form home from here'),
+  TimeModel('Leave History', Images.WfhIcon, 'View leave history from here.'),
 ];
 List<TimeModel> helpList=[
   TimeModel('Raise Ticket', Images.RaiseTicktIcon, 'You can raise a ticket from here'),

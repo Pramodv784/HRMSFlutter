@@ -20,6 +20,7 @@ import 'package:hrms/utility/Utility.dart';
 
 import '../login_screen/model/login_response.dart';
 import '../user/AuthUser.dart';
+import '../user/CurrentUser.dart';
 import 'model/check_in_request.dart';
 import 'model/check_out_request.dart';
 import 'model/today_leave_response.dart';
@@ -35,7 +36,7 @@ class HomePresenter {
 
   getHomeData(BuildContext context) async {
     if (await NetworkCheck.check()) {
-      Dialogs.showLoader(context, 'Loading ...', '');
+      //Dialogs.showLoader(context, 'Loading ...', '');
       //  Dialogs.showCustomProgress(context);
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.get2('${EndPoints.GetHomeData}',
@@ -45,45 +46,40 @@ class HomePresenter {
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
-          Dialogs.hideLoader(context);
+         // Dialogs.hideLoader(context);
            print('response code ***${res.statusCode}');
 
           //print('pramod${data.data.message}');
 
           // if (data?.dataCategory?.isNotEmpty)
-          if (res.statusCode == 401) {
-            login();
-          } else {
+
             HomeData data = HomeData.fromJson(res.data);
             _view.onHomeFecthed(data);
-          }
+
         }).catchError((e) async {
           Utility.log(tag, e);
           if(e is DioError){
             if(e.response.statusCode==401)
               {
-                login();
+              //  login();
               }
           }
 
           print('res code ***${e}');
-          if(e.res)
-          Dialogs.hideLoader(context);
-          //  _view.onError(e);
-          // DioErrorParser.parseError(e, _signupView);
+
         });
     }
   }
 
   getAttendence(BuildContext context, int id) async {
     if (await NetworkCheck.check()) {
-      Dialogs.showLoader(context, 'Loading ...', '');
+    //  Dialogs.showLoader(context, 'Loading ...', '');
       _repository.get2('${EndPoints.GetAttendence}?empId=$id',
           headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
-          Dialogs.hideLoader(context);
+       //   Dialogs.hideLoader(context);
 
           GetAttendenceResponse data = GetAttendenceResponse.fromJson(res.data);
           if (data?.status ?? false)
@@ -93,7 +89,7 @@ class HomePresenter {
           }
         }).catchError((e) async {
           Utility.log(tag, e);
-          Dialogs.hideLoader(context);
+         // Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
@@ -148,7 +144,7 @@ class HomePresenter {
 
   CheckIn(BuildContext context, CheckInRequest checkInRequest) async {
     if (await NetworkCheck.check()) {
-      Dialogs.showLoader(context, 'Loading ...', '');
+    //  Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.post(EndPoints.CheckIn,
           body: checkInRequest.toJson(), headers: await Utility.header());
@@ -160,7 +156,7 @@ class HomePresenter {
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
 
-          Dialogs.hideLoader(context);
+        //  Dialogs.hideLoader(context);
           CheckInResponse data = CheckInResponse.fromJson(res.data);
           //print('pramod${data.data.message}');
 
@@ -171,7 +167,7 @@ class HomePresenter {
             }*/
         }).catchError((e) async {
           Utility.log(tag, e);
-          Dialogs.hideLoader(context);
+        ///  Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
@@ -180,14 +176,14 @@ class HomePresenter {
 
   CheckOut(BuildContext context, CheckOutRequest checkOutRequest) async {
     if (await NetworkCheck.check()) {
-      Dialogs.showLoader(context, 'Loading ...', '');
+     // Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.put(EndPoints.CheckOut,
           body: checkOutRequest.toJson(), headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
-          Dialogs.hideLoader(context);
+        //  Dialogs.hideLoader(context);
           CheckoutResponse data = CheckoutResponse.fromJson(res.data);
           /* if(res.statusCode==401)
             {
@@ -202,36 +198,12 @@ class HomePresenter {
           //  }
         }).catchError((e) async {
           Utility.log(tag, e);
-          Dialogs.hideLoader(context);
+        //  Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
     }
   }
-
-  /*login(Map input) async {
-    if (await NetworkCheck.check()) {
-
-      _repository.post(EndPoints.Login, body: input)
-        ..then((Response res) async {
-          Utility.log(tag, res);
-          Utility.log('${tag}>>>', jsonDecode(res.toString()));
-          LoginResponse data = LoginResponse.fromJson(res.data);
-          var currentUser = CurrentUser()..userCredentials = data;
-          currentUser.isLoggedIn = true;
-          currentUser.userId=data.userprofile.userId;
-          currentUser.userName=data.userprofile.fullName;
-          AuthUser.getInstance().login(currentUser);
-
-
-
-        }
-        ).catchError((e) async {
-          Utility.log(tag, e);
-        });
-    }
-  }*/
-
   login() async {
     if (await NetworkCheck.check()) {
       Map input = HashMap();
@@ -245,6 +217,12 @@ class HomePresenter {
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           LoginResponse data = LoginResponse.fromJson(res.data);
+          var currentUser = CurrentUser()..userCredentials = data;
+          currentUser.isLoggedIn = true;
+          currentUser.userId = data.userprofile.userId;
+          currentUser.userName = data.userprofile.fullName;
+
+          AuthUser.getInstance().login(currentUser);
           //print('pramod${data.data.message}');
         }).catchError((e) async {
           Utility.log(tag, e);
