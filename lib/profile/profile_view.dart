@@ -7,6 +7,7 @@ abstract class ProfileView   {
 
   void onImageUpload(UploadImageResponse response);
   void onProfileFetch(ProfileResponse response);
+  void onProfileListFetch(List<ProfileResponse> responselist);
 
 
 }

@@ -10,6 +10,7 @@ import 'package:hrms/home_screen/home_view.dart';
 import 'package:hrms/home_screen/model/check_in_response.dart';
 import 'package:hrms/home_screen/model/checkout_response.dart';
 import 'package:hrms/home_screen/model/get_attendence_response.dart';
+import 'package:hrms/home_screen/model/get_my_attendence_response.dart';
 import 'package:hrms/home_screen/model/home_data.dart';
 import 'package:hrms/home_screen/model/w_f_h_list_response.dart';
 import 'package:hrms/login_screen/model/login_response.dart';
@@ -90,6 +91,30 @@ class HomePresenter {
         }).catchError((e) async {
           Utility.log(tag, e);
          // Dialogs.hideLoader(context);
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }
+  }
+  getMyAttendence(BuildContext context, int id) async {
+    if (await NetworkCheck.check()) {
+      //  Dialogs.showLoader(context, 'Loading ...', '');
+      _repository.get2('${EndPoints.GetMyTodayAttendence}?empId=$id',
+          headers: await Utility.header())
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>', jsonDecode(res.toString()));
+          //   Dialogs.hideLoader(context);
+
+          GetMyAttendenceResponse data = GetMyAttendenceResponse.fromJson(res.data);
+          if (data?.status ?? false)
+            _view.onMyAttendenceFetch(data);
+          else {
+            _view.onError(data?.message);
+          }
+        }).catchError((e) async {
+          Utility.log(tag, e);
+          // Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });

@@ -11,6 +11,7 @@ import 'package:hrms/home_screen/home_view.dart';
 import 'package:hrms/home_screen/model/check_in_response.dart';
 import 'package:hrms/home_screen/model/checkout_response.dart';
 import 'package:hrms/home_screen/model/get_attendence_response.dart';
+import 'package:hrms/home_screen/model/get_my_attendence_response.dart';
 import 'package:hrms/home_screen/model/home_data.dart';
 import 'package:hrms/home_screen/model/today_leave_response.dart';
 import 'package:hrms/home_screen/model/w_f_h_list_response.dart';
@@ -64,6 +65,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
 
+    print('Time Now ****$_timeString');
+
     todayleaveList.clear();
     wfhUserList.clear();
     List<EmpList> itemData = [];
@@ -88,8 +91,10 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     userId = userData.userId;
     print('User Token ***** ${getToken()}');
     _presenter.getAttendence(context, userData.userId);
+    _presenter.getMyAttendence(context, userData.userId);
     _presenter.getLeaveToday(context);
     _presenter.getWFHList(context);
+
     String data=await (AuthUser.getInstance()).GetUserEmail();
     print('User Credential ***$data');
 
@@ -103,12 +108,12 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: (){
-        print('on back press');
-      },
-      child: Consumer<BaseProvider>(builder: (_, baseprovider, __) {
-        return Container(
+    return Consumer<BaseProvider>(builder: (_, baseprovider, __) {
+      return Container(
+        child: WillPopScope(
+          onWillPop: (){
+            print('back press');
+          },
           child: Column(
             children: [
               header(baseprovider),
@@ -368,9 +373,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
               )),
             ],
           ),
-        );
-      }),
-    );
+        ),
+      );
+    });
   }
 
   Container header(BaseProvider baseProvider) {
@@ -552,5 +557,14 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     }
 
     setState(() {});
+  }
+
+  @override
+  void onMyAttendenceFetch(GetMyAttendenceResponse response) {
+    print('MyAttendece****${response.attendance.isClock}');
+   checkStatus=response?.attendance?.isClock;
+   setState(() {
+
+   });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:hrms/drawer/rev_bottom_navigation.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/login_screen/login_screen.dart';
@@ -47,8 +48,11 @@ class Base extends StatelessWidget {
         child: WillPopScope(
             onWillPop: () {
               if (baseProvider.isOpen) baseProvider.close();
-              if (baseProvider.currentScreen != Screens.kHomeScreen)
-                baseProvider.currentScreen = Screens.kHomeScreen;
+             /* if (baseProvider.currentScreen != Screens.kHomeScreen)
+                baseProvider.currentScreen = Screens.kHomeScreen;*/
+              if(!baseProvider.isOpen){
+                SystemNavigator.pop();
+              }
               return;
             },
             child: ClipRRect(

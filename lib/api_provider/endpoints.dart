@@ -48,5 +48,7 @@ class EndPoints {
       baseUrl + "/api/WorkFromHome/GetAllWFHRequests";
   static const String GetLeaveHistory =
       baseUrl + "/api/leaverequest/GetAllLeaveRequestsByEmployeeId";
+ static const String GetMyTodayAttendence =
+      baseUrl + "/api/Attendance/GetMyTodaysAttendance";
 
 }

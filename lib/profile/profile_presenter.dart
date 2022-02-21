@@ -72,17 +72,21 @@ class ProfilePresenter {
       _repository.get2('${EndPoints.GetProfile}?EmployeeId=$id',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
-          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
-
+            List<ProfileResponse> listData=[];
+          listData=(res.data as List)
+              .map((x) => ProfileResponse.fromJson(x))
+              .toList();
+          print('list sized ${listData.length}');
          // List<ProfileResponse> data = jsonDecode(res.data.toString());
           //print('profileData***${data[0].firstName}');
-           ProfileResponse response=ProfileResponse.fromJson(res.data.toString());
+         //  ProfileResponse response=ProfileResponse.fromJson(res.data.toString());
 
 
-          _view.onProfileFetch(response);
+          _view.onProfileListFetch(listData);
 
         }
         ).catchError((e) async {

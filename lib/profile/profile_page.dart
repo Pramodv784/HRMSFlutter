@@ -40,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> implements ProfileView {
 
   void getuserId() async {
     var userData = await (AuthUser.getInstance()).getCurrentUser();
-
+      _presenter.getProfile(context,userData.userId);
     ///  _presenter.getProfile(context,userData.userId);
 
     getProfileList(userData.userId);
@@ -539,5 +539,10 @@ class _ProfilePageState extends State<ProfilePage> implements ProfileView {
     print('Profile ****** ${_response.firstName}');
     _response = response;
     setState(() {});
+  }
+
+  @override
+  void onProfileListFetch(List<ProfileResponse> responselist) {
+    print('response profile ***${responselist.length}');
   }
 }
