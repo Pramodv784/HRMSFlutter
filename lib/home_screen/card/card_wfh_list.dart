@@ -5,14 +5,18 @@ import 'package:hrms/res/Fonts.dart';
 
 class CardWFHList extends StatelessWidget {
   WorkFromHomeList _data;
-  int color;
 
-  CardWFHList(this._data, this.color, {Key key}) : super(key: key);
+
+  CardWFHList(this._data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String tag = _data.appliedBy.substring(0, 1);
-    String d = _data.appliedBy.split(" ").last.substring(0, 1);
+    if(_data.appliedBy!=null && _data.appliedBy!="")
+      {
+        String tag = _data.appliedBy.substring(0, 1);
+        String d = _data.appliedBy.split(" ").last.substring(0, 1);
+      }
+
 
     return Container(
       color: AppColors.white,
@@ -31,7 +35,8 @@ class CardWFHList extends StatelessWidget {
             child: Stack(children: [
               Align(
                 alignment: Alignment.center,
-                child: Text('${tag + d}'.toUpperCase(),
+                child: Text(_data.appliedBy!=null&& _data.appliedBy!=''?
+                '${_data.appliedBy.substring(0, 1) + _data.appliedBy.split(" ").last.substring(0, 1)}'.toUpperCase():'',
                     style: TextStyle(color: AppColors.white)),
               ),
               Align(

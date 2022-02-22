@@ -167,10 +167,11 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                   input["Password"] = _password.toString();
 
                   if (_email.isNotEmpty && _password.isNotEmpty) {
+                    print('login press');
                     _presenter.login(context, input);
                     // loginBloc.add(UserLoginEvent(input: input));
                   } else {
-                    Fluttertoast.showToast(msg: "Fields cant't be empty");
+                    Utility.showErrorToast(context,"Fields cant't be empty");
                   }
                 },
                 style: ButtonStyle(

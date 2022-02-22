@@ -56,6 +56,9 @@ class LoginPresenter {
           // DioErrorParser.parseError(e, _signupView);
         });
     }
+    else{
+      Utility.showErrorToast(context, 'please connect to internet');
+    }
   }
 
 

@@ -15,9 +15,9 @@ import '../model/today_leave_response.dart';
 
 class CardLeaveToday extends StatelessWidget {
   EmpList _data;
-  int color;
 
-  CardLeaveToday(this._data, this.color, {Key key}) : super(key: key);
+
+  CardLeaveToday(this._data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

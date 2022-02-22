@@ -88,9 +88,7 @@ class HomePresenter {
           }
         }).catchError((e) async {
           Utility.log(tag, e);
-         // Dialogs.hideLoader(context);
-          //  _view.onError(e);
-          // DioErrorParser.parseError(e, _signupView);
+
         });
     }
   }
@@ -151,6 +149,7 @@ class HomePresenter {
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
 
           WFHListResponse data = WFHListResponse.fromJson(res.data);
+          print('wfh **** ${data.workFromHomeList.length}');
           if (data?.status != 'No Data!')
             _view.onWfhListFetched(data);
           else {

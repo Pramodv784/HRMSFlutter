@@ -53,7 +53,6 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   String month = DateFormat('MMM').format(DateTime.now());
   String year = DateFormat('y').format(DateTime.now());
   int userId = 0;
-  var list = [];
   bool checkStatus = false;
 
   @override
@@ -66,14 +65,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
 
     print('Time Now ****$_timeString');
-
-    todayleaveList.clear();
-    wfhUserList.clear();
-
-
     setState(() {});
-
-    print(list);
     super.initState();
   }
 
@@ -260,7 +252,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Container(
-                                      child: Row(
+                                      child:todayleaveList.length>0?
+                                      Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         mainAxisAlignment:
@@ -268,7 +261,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                         children: [
                                           ...todayleaveList,
                                         ],
-                                      ),
+                                      ):
+                                      Text('No data'),
                                     ),
                                   ),
                                 ],
@@ -288,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'On WFH',
+                                    'Employee Working Remotly',
                                     style: textStyleBlackRegular12pxW700,
                                   ),
                                   SizedBox(
@@ -297,7 +291,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Container(
-                                      child: Row(
+                                      child: wfhUserList.length>0?
+                                      Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         mainAxisAlignment:
@@ -305,7 +300,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                         children: [
                                           ...wfhUserList,
                                         ],
-                                      ),
+                                      ):
+                                      Text('No Data'),
                                     ),
                                   ),
                                 ],
@@ -511,20 +507,15 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     setState(() {});
   }
 
-  int generateRandomCode(int minValue, int maxValue) {
-    return Random().nextInt((maxValue - minValue).abs() + 1) +
-        min(minValue, maxValue);
-  }
+
 
   @override
   void onLeaveTodayFetch(TodayLeaveResponse response) {
     print('leave Today list *** ${response.empList.length}');
-    list = List<int>.generate(response.empList.length,
-        (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
     todayleaveList.clear();
 
     for (int i = 0; i < response.empList.length; i++) {
-      todayleaveList.add(CardLeaveToday(response.empList[i], list[i]));
+      todayleaveList.add(CardLeaveToday(response.empList[i]));
     }
 
     setState(() {});
@@ -534,7 +525,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   void onWfhListFetched(WFHListResponse response) {
     print('leave WFH list *** ${response.workFromHomeList.length}');
     for (int i = 0; i < response.workFromHomeList.length; i++) {
-      wfhUserList.add(CardWFHList(response.workFromHomeList[i], list[i]));
+      wfhUserList.add(CardWFHList(response.workFromHomeList[i]));
     }
 
     setState(() {});

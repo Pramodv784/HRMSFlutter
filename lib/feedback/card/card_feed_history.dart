@@ -20,7 +20,7 @@ class CardFeedHistoy extends StatelessWidget {
             Text(_data.categoryName!=null?'${_data.categoryName}':'',style: textStyleWhite14px500w,),
             Row(
               children: [
-                Text('${_data.categoryId}',style: textStyleWhite14px500w,),
+                Text('${_data?.questionScores??""}',style: textStyleWhite14px500w,),
                 SizedBox(width: 5.0,),
                 Image.asset(Images.StarICon),
               ],
