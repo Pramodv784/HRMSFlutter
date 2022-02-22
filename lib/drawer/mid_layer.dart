@@ -123,14 +123,10 @@ class _MidLayerState extends State<MidLayer> {
                   drawerRowBuilder(Images.LogoutIcon, 'My Goals',
                       context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.LogoutIcon, 'Leave Request',
+                  drawerRowBuilder(Images.LogoutIcon, 'Leave,Ticket,Expense',
                       context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
-
-                  verticalSpace(30.0),
-                  drawerRowBuilder(Images.LogoutIcon, 'Add Feedback',
-                      context: context),
                   verticalSpace(30.0),
                   drawerRowBuilder(Images.LogoutIcon, 'Logout',
                       context: context),
@@ -171,41 +167,28 @@ class _MidLayerState extends State<MidLayer> {
         await Future.delayed(Duration(milliseconds: 300));
         //_provider.currentScreen = ui;
         switch (screen) {
-          /*  case Screens.kScreenTestHistory:
-            _provider.currentScreen = ui;
-            break;
-          case Screens.kEditProfileScreen:
-            var isUpdated = await Navigator.pushNamed(context, Screens.kEditProfileScreen) ;
-            print("isUpdated ${isUpdated}");
-            init();
-            break;
-          case Screens.kScreenTnc:
-            Navigator.pushNamed(context, Screens.kScreenTnc);
-            break;
-          case "Contact Us":
-            //  Navigator.pushNamed(context, Screens.kContactScreen);
-            break;*/
           case "Employee feedback":
             //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.FeedbUserHistory);
             break;
-          case "My Goals":
+      /*    case "My Goals":
             //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.GoalScreen);
-            break;
-          case "Leave Request":
+            break;*/
+          case "Leave,Ticket,Expense":
             //Navigator.pop(context);
             _provider.close();
             Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
             break;
-
-          case "Add Feedback":
+              case "My Goals":
             //Navigator.pop(context);
             _provider.close();
-            Navigator.pushNamed(context, Screens.AddFeedBack);
+            Navigator.pushNamed(context, Screens.CommonPage,
+                arguments: 'My Goal');
             break;
+
 
           case "Logout":
             Dialogs.showCustomDialog(context, onAccept: () async {

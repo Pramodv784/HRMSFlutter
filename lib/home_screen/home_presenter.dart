@@ -50,9 +50,7 @@ class HomePresenter {
          // Dialogs.hideLoader(context);
            print('response code ***${res.statusCode}');
 
-          //print('pramod${data.data.message}');
 
-          // if (data?.dataCategory?.isNotEmpty)
 
             HomeData data = HomeData.fromJson(res.data);
             _view.onHomeFecthed(data);
@@ -169,7 +167,7 @@ class HomePresenter {
 
   CheckIn(BuildContext context, CheckInRequest checkInRequest) async {
     if (await NetworkCheck.check()) {
-    //  Dialogs.showLoader(context, 'Loading ...', '');
+      Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.post(EndPoints.CheckIn,
           body: checkInRequest.toJson(), headers: await Utility.header());
@@ -181,7 +179,7 @@ class HomePresenter {
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
 
-        //  Dialogs.hideLoader(context);
+          Dialogs.hideLoader(context);
           CheckInResponse data = CheckInResponse.fromJson(res.data);
           //print('pramod${data.data.message}');
 
@@ -192,7 +190,7 @@ class HomePresenter {
             }*/
         }).catchError((e) async {
           Utility.log(tag, e);
-        ///  Dialogs.hideLoader(context);
+          Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
@@ -201,20 +199,16 @@ class HomePresenter {
 
   CheckOut(BuildContext context, CheckOutRequest checkOutRequest) async {
     if (await NetworkCheck.check()) {
-     // Dialogs.showLoader(context, 'Loading ...', '');
+      Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.put(EndPoints.CheckOut,
           body: checkOutRequest.toJson(), headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
-        //  Dialogs.hideLoader(context);
+         Dialogs.hideLoader(context);
           CheckoutResponse data = CheckoutResponse.fromJson(res.data);
-          /* if(res.statusCode==401)
-            {
-              login(context, input)
-            }*/
-          // else{
+
           if (data?.status ?? false)
             _view.onCheckOutFetch(data);
           else {
@@ -223,7 +217,7 @@ class HomePresenter {
           //  }
         }).catchError((e) async {
           Utility.log(tag, e);
-        //  Dialogs.hideLoader(context);
+          Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });

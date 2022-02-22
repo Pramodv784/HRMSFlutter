@@ -65,7 +65,6 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
                   child: InputField(
                       placeHolderText: 'Search',
-                      errorMessage: 'Please enter first name',
                       inputType: InputType.ONLY_WORDS,
                       rightIcon: Images.SearchIcon,
                       onTextChange: (String val) => {}),

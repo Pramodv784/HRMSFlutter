@@ -40,7 +40,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> implements HomeView {
   HomePresenter _presenter;
-  List<MenuList> homlist = [];
+  List<MenuList> homelist = [];
 
   List<Widget> todayleaveList = [];
   List<Widget> wfhUserList = [];
@@ -69,16 +69,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
 
     todayleaveList.clear();
     wfhUserList.clear();
-    List<EmpList> itemData = [];
-    itemData.add(EmpList(employeeId: 1, fullName: 'pramod verma'));
-    itemData.add(EmpList(employeeId: 3, fullName: 'anijet sangoi'));
-    itemData.add(EmpList(employeeId: 4, fullName: 'anikit rahor'));
-    itemData.add(EmpList(employeeId: 5, fullName: 'vipin thakur'));
-    list = List<int>.generate(
-        itemData.length, (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
-    for (int i = 0; i < itemData.length; i++) {
-      todayleaveList.add(CardLeaveToday(itemData[i], list[i]));
-    }
+
 
     setState(() {});
 
@@ -110,269 +101,264 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   Widget build(BuildContext context) {
     return Consumer<BaseProvider>(builder: (_, baseprovider, __) {
       return Container(
-        child: WillPopScope(
-          onWillPop: (){
-            print('back press');
-          },
-          child: Column(
-            children: [
-              header(baseprovider),
-              Expanded(
-                  child: Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.background,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10.0),
-                    topLeft: Radius.circular(10.0),
-                  ),
-                ),
+        child: Column(
+          children: [
+            header(baseprovider),
+            Expanded(
                 child: Container(
-                  height: Utility.screenHeight(context),
-                  child: RefreshIndicator(
-                      onRefresh: _pullRefresh,
-                      color: AppColors.colorPrimary,
-                      child: ListView(
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: 60.0,
-                            color: AppColors.white,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(Images.IconVirus),
-                                SizedBox(
-                                  width: 20.0,
-                                ),
-                                Text(
-                                  'I am vaccinated against COVID-19',
-                                  style: textStyleRed14px700w,
-                                )
-                              ],
-                            ),
+              decoration: const BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10.0),
+                  topLeft: Radius.circular(10.0),
+                ),
+              ),
+              child: Container(
+                height: Utility.screenHeight(context),
+                child: RefreshIndicator(
+                    onRefresh: _pullRefresh,
+                    color: AppColors.colorPrimary,
+                    child: ListView(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: 60.0,
+                          color: AppColors.white,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(Images.IconVirus),
+                              SizedBox(
+                                width: 20.0,
+                              ),
+                              Text(
+                                'I am vaccinated against COVID-19',
+                                style: textStyleRed14px700w,
+                              )
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10.0),
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text(
-                                          'Shift Today- 9:30 - 7:00 PM',
-                                          style: textStyleBlackRegular12pxW700,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 10.0),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Shift Today- 9:30 - 7:00 PM',
+                                        style: textStyleBlackRegular12pxW700,
+                                      ),
+                                      SizedBox(height: 20.0),
+                                      Container(
+                                        height: 40,
+                                        alignment: Alignment.center,
+                                        child: FlatButton(
+                                          child: Text(
+                                            checkStatus
+                                                ? 'Clock out '
+                                                : 'Clock In',
+                                            style:
+                                                textStyleWhiteRegular12pxW700,
+                                          ),
+                                          color: checkStatus
+                                              ? AppColors.red
+                                              : AppColors.colorPrimary,
+                                          textColor: Colors.white,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20.0),
+                                          ),
+                                          onPressed: () {
+                                            if (checkStatus) {
+                                              Dialogs.openDialogClockOut(
+                                                  context, onAccept: () {
+                                                _checkOutRequest.employeeId =
+                                                    userId.toString();
+                                                _checkOutRequest.clockOut =
+                                                    _timeString;
+                                                _presenter.CheckOut(
+                                                    context, _checkOutRequest);
+                                                Navigator.pop(context);
+                                              });
+                                            } else {
+                                              _checkInRequest.employeeId =
+                                                  userId;
+                                              _checkInRequest.clockIn =
+                                                  _timeString;
+                                              _checkInRequest.isClock = true;
+                                              _presenter.CheckIn(
+                                                  context, _checkInRequest);
+                                            }
+                                          },
                                         ),
-                                        SizedBox(height: 20.0),
-                                        Container(
-                                          height: 40,
-                                          alignment: Alignment.center,
-                                          child: FlatButton(
-                                            child: Text(
-                                              checkStatus
-                                                  ? 'Clock out '
-                                                  : 'Clock In',
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  Flexible(
+                                    child: Container(
+                                      width: Utility.screenWidth(context),
+                                      padding: EdgeInsets.all(15.0),
+                                      decoration: BoxDecoration(
+                                          color: AppColors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              '$date $month,$year',
                                               style:
                                                   textStyleWhiteRegular12pxW700,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
-                                            color: checkStatus
-                                                ? AppColors.red
-                                                : AppColors.colorPrimary,
-                                            textColor: Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
+                                            SizedBox(height: 10.0),
+                                            Text(
+                                              '$_timeString',
+                                              style:
+                                                  textStyleWhiteRegular15pxW700,
                                             ),
-                                            onPressed: () {
-                                              if (checkStatus) {
-                                                Dialogs.openDialogClockOut(
-                                                    context, onAccept: () {
-                                                  _checkOutRequest.employeeId =
-                                                      userId.toString();
-                                                  _checkOutRequest.clockOut =
-                                                      _timeString;
-                                                  _presenter.CheckOut(
-                                                      context, _checkOutRequest);
-                                                  Navigator.pop(context);
-                                                });
-                                              } else {
-                                                _checkInRequest.employeeId =
-                                                    userId;
-                                                _checkInRequest.clockIn =
-                                                    _timeString;
-                                                _checkInRequest.isClock = true;
-                                                _presenter.CheckIn(
-                                                    context, _checkInRequest);
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: 20.0,
-                                    ),
-                                    Flexible(
-                                      child: Container(
-                                        width: Utility.screenWidth(context),
-                                        padding: EdgeInsets.all(15.0),
-                                        decoration: BoxDecoration(
-                                            color: AppColors.red,
-                                            borderRadius:
-                                                BorderRadius.circular(15.0)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                '$date $month,$year',
-                                                style:
-                                                    textStyleWhiteRegular12pxW700,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              SizedBox(height: 10.0),
-                                              Text(
-                                                '$_timeString',
-                                                style:
-                                                    textStyleWhiteRegular15pxW700,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'On Leave Today',
-                                      style: textStyleBlackRegular12pxW700,
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Container(
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ...todayleaveList,
                                           ],
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.0)),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 20.0, horizontal: 10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'On WFH',
-                                      style: textStyleBlackRegular12pxW700,
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Container(
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ...wfhUserList,
-                                          ],
-                                        ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'On Leave Today',
+                                    style: textStyleBlackRegular12pxW700,
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Container(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ...todayleaveList,
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8.0, vertical: 4.0),
-                            margin: EdgeInsets.symmetric(
-                                vertical: 20.0, horizontal: 10.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                              child: GridView.count(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  // to disable GridView's scrolling
-                                  shrinkWrap: true,
-                                  // You won't see infinite size error
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 1.0,
-                                  mainAxisSpacing: 1.0,
-                                  childAspectRatio: 1.0,
-                                  primary: false,
-                                  children:
-                                      List.generate(homlist.length, (index) {
-                                    return /* index==17?SimpleTooltip(
-                                      tooltipTap: () {
-                                        print("Feedback");
-
-                                      },
-
-                                      animationDuration: Duration(milliseconds: 20),
-                                      show: true,
-
-                                      hideOnTooltipTap: true,
-                                      tooltipDirection: TooltipDirection.up,
-                                      content: Text(
-                                        "Give or know your feedback",
-                                          style: textStylePrimary18pxW500
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20.0, horizontal: 10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'On WFH',
+                                    style: textStyleBlackRegular12pxW700,
+                                  ),
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Container(
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ...wfhUserList,
+                                        ],
                                       ),
-                                      borderColor: AppColors.red,
-                                      child: CardHome(homlist[index])):
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 4.0),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 10.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            child: GridView.count(
+                                physics: NeverScrollableScrollPhysics(),
+                                // to disable GridView's scrolling
+                                shrinkWrap: true,
+                                // You won't see infinite size error
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 1.0,
+                                mainAxisSpacing: 1.0,
+                                childAspectRatio: 1.0,
+                                primary: false,
+                                children:
+                                    List.generate(homelist.length, (index) {
+                                  return /* index==17?SimpleTooltip(
+                                    tooltipTap: () {
+                                      print("Feedback");
+
+                                    },
+
+                                    animationDuration: Duration(milliseconds: 20),
+                                    show: true,
+
+                                    hideOnTooltipTap: true,
+                                    tooltipDirection: TooltipDirection.up,
+                                    content: Text(
+                                      "Give or know your feedback",
+                                        style: textStylePrimary18pxW500
+                                    ),
+                                    borderColor: AppColors.red,
+                                    child: CardHome(homlist[index])):
 */
-                                        CardHome(homlist[index]);
-                                  })),
-                            ),
+                                      CardHome(homelist[index]);
+                                })),
                           ),
-                        ],
-                      )),
-                ),
-              )),
-            ],
-          ),
+                        ),
+                      ],
+                    )),
+              ),
+            )),
+          ],
         ),
       );
     });
@@ -470,8 +456,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
 
   @override
   void onHomeFecthed(HomeData response) {
-    homlist.clear();
-    homlist.addAll(response.menuList);
+    homelist.clear();
+    homelist.addAll(response.menuList);
 
     setState(() {});
   }
@@ -536,12 +522,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     list = List<int>.generate(response.empList.length,
         (i) => generateRandomCode(0xFF0587D8, 0xFF0345B5));
     todayleaveList.clear();
-    List<EmpList> itemData = [];
-    itemData.add(EmpList(employeeId: 1, fullName: 'pramod verma'));
-    itemData.add(EmpList(employeeId: 2, fullName: 'parinati verma'));
-    itemData.add(EmpList(employeeId: 3, fullName: 'anijet verma'));
-    itemData.add(EmpList(employeeId: 4, fullName: 'anikit verma'));
-    itemData.add(EmpList(employeeId: 5, fullName: 'vipin verma'));
+
     for (int i = 0; i < response.empList.length; i++) {
       todayleaveList.add(CardLeaveToday(response.empList[i], list[i]));
     }
