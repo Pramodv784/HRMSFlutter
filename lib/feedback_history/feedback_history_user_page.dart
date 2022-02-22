@@ -69,6 +69,7 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                       rightIcon: Images.SearchIcon,
                       onTextChange: (String val) => {}),
                 ),
+                userWidgetList.length >0?
                 Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0)),
@@ -120,7 +121,8 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                       ],
                     ),
                   ),
-                ),
+                ):
+                Image.asset(Images.IconNoDataFound),
               ],
             ),
           ),

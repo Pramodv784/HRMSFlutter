@@ -74,9 +74,7 @@ class CardLeave extends StatelessWidget {
           case 'Work From Home':
             Navigator.pushNamed(context, Screens.WorkFromHomePage);
             break;
-             case 'Leave History':
-            Navigator.pushNamed(context, Screens.LeaveHistory);
-            break;
+
 
 
         }

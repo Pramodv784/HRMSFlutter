@@ -40,7 +40,7 @@ class _EmployeeAssetState extends State<EmployeeAsset> implements AssetView {
                   Header(
                     headerText: 'Emplyee assets',
                   ),
-                  Padding(
+                 /* Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Card(
                       elevation: 3.0,
@@ -95,18 +95,19 @@ class _EmployeeAssetState extends State<EmployeeAsset> implements AssetView {
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
+                  ),*/
+                  const SizedBox(
                     height: 20.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Card(
+                    child:
+                    Card(
                       elevation: 3.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Card(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                             vertical: 20.0, horizontal: 10.0),
                         child: Padding(
                           padding: const EdgeInsets.all(0.0),
@@ -117,28 +118,32 @@ class _EmployeeAssetState extends State<EmployeeAsset> implements AssetView {
                                 height: 30,
                                 alignment: Alignment.center,
                                 color: AppColors.grey,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      'Asset Name',
-                                      style: textStylePrimary12px500w,
-                                    ),
-                                    Text(
-                                      'QTY',
-                                      style: textStylePrimary12px500w,
-                                    ),
-                                    Text(
-                                      'Status',
-                                      style: textStylePrimary12px500w,
-                                    ),
-                                    Text(
-                                      'Date',
-                                      style: textStylePrimary12px500w,
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: const [
+
+                                      Text(
+                                        'Asset Name',
+                                        style: textStylePrimary12px500w,
+                                      ),
+                                      Text(
+                                        'QTY      ',
+                                        style: textStylePrimary12px500w,
+                                      ),
+                                      Text(
+                                        'Status    ',
+                                        style: textStylePrimary12px500w,
+                                      ),
+                                      Text(
+                                        'Date  ',
+                                        style: textStylePrimary12px500w,
+                                      ),
+
+                                    ],
+                                  ),
                                 ),
                               ),
                               //CardGoal(),

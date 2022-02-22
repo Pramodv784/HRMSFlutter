@@ -1,66 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:hrms/expense/total_expenses_list.dart';
-import 'package:hrms/leave_request/card_leave.dart';
-import 'package:hrms/leave_request/model/data_model.dart';
+import 'package:hrms/leave_request/leave_balanace_history/leave_balance/leave_balance_page.dart';
+import 'package:hrms/leave_request/leave_balanace_history/leave_history/leave_history_request.dart';
 import 'package:hrms/res/AppColors.dart';
-import 'package:hrms/res/Images.dart';
-import 'package:hrms/ticket/model/add_ticket_response.dart';
-import 'package:hrms/ticket/model/my_ticket_response.dart';
-import 'package:hrms/ticket/model/ticket_type_response.dart';
-import 'package:hrms/ticket/ticket_list_item.dart';
-import 'package:hrms/ticket/ticket_presenter.dart';
-import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
 
-class MyTicketDashBoard extends StatefulWidget {
-  const MyTicketDashBoard({Key key}) : super(key: key);
+class BalanceHistoryDashboard extends StatefulWidget {
+  const BalanceHistoryDashboard({Key key}) : super(key: key);
 
   @override
-  _MyTicketDashBoardState createState() => _MyTicketDashBoardState();
+  _BalanceHistoryDashboardState createState() => _BalanceHistoryDashboardState();
 }
 
-class _MyTicketDashBoardState extends State<MyTicketDashBoard>
-    with SingleTickerProviderStateMixin implements TicketView {
+class _BalanceHistoryDashboardState extends State<BalanceHistoryDashboard>  with SingleTickerProviderStateMixin {
+
   TabController _tabController;
-  List<Widget> widgetOpenList=[];
-  List<Widget> widgetClosedSettlement=[];
-  TicketPresenter _presenter;
-  List<MyTicketResponse> ticketList=[];
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    _presenter=TicketPresenter(this);
-    getTicketList();
+    setState(() {
 
-
-    setState(() {});
+    });
     super.initState();
   }
-
-  @override
+@override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _tabController.dispose();
-  }
-  void getTicketList() async{
-    ticketList= await _presenter.getMyTicketData(354);
-    print('ticket listResponse ${ticketList.length}');
-    for (MyTicketResponse t in ticketList) {
-       if(t.caseStatus=='Open')
-         {
-           widgetOpenList.add(TicketListItem(t));
-         }
-       else
-         {
-           widgetClosedSettlement.add(TicketListItem(t));
-         }
-    }
-    setState(() {
-
-    });
-
   }
   @override
   Widget build(BuildContext context) {
@@ -69,7 +36,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
         body: SafeArea(
           child: Column(children: [
             Header(
-              headerText: 'My Tickets',
+              headerText: 'Leave Balance',
             ),
             Expanded(
               child: Padding(
@@ -107,7 +74,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
                               // first tab [you can add an icon using the icon property]
                               Tab(
                                 child: Text(
-                                  'Open',
+                                  'Balance',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -115,7 +82,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
                               // second tab [you can add an icon using the icon property]
                               Tab(
                                 child: Text(
-                                  'Closed',
+                                  'History',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -128,28 +95,10 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
                             children: [
                               // first tab bar view widget
 
-                              widgetOpenList.length >0?
-                              ListView(
-                                children: [
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  ...widgetOpenList
-                                ],
-                              ):
-                              Image.asset(Images.IconNoDataFound),
-                              // second tab bar view widget
+                                LeaveBalancePage(),
 
-                              widgetClosedSettlement.length >0?
-                              ListView(
-                                children: [
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  ...widgetClosedSettlement
-                                ],
-                              ):
-                              Image.asset(Images.IconNoDataFound)
+                              // second tab bar view widget
+                                LeaveHistoryRequest(),
                             ],
                           ),
                         ),
@@ -162,22 +111,4 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
           ]),
         ));
   }
-
-  @override
-  onError(String message) {
-    // TODO: implement onError
-    throw UnimplementedError();
-  }
-
-  @override
-  void onTicketAddedFecthed(AddTicketResponse response) {
-    // TODO: implement onTicketAddedFecthed
-  }
-
-  @override
-  void onTicketTypeFecthed(TicketTypeResponse response) {
-    // TODO: implement onTicketTypeFecthed
-  }
 }
-
-

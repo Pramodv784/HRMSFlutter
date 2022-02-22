@@ -27,7 +27,13 @@ class UserAssetList extends StatelessWidget {
                       alignment: Alignment.center,
                       width: Utility.screenWidth(context),
                       child: Text('${_data.assetName}',
-                          maxLines: 3, overflow: TextOverflow.ellipsis))),
+                          maxLines: 3, overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: AppColors.greyNew,
+                              fontWeight : FontWeight.w600,
+                              fontFamily: 'Poppins_SemiBold',
+                              fontSize: 15.0
+                          )))),
               SizedBox(
                 width: 5.0,
               ),
@@ -35,7 +41,13 @@ class UserAssetList extends StatelessWidget {
                   child: Container(
                       alignment: Alignment.center,
                       width: Utility.screenWidth(context),
-                      child: Text('2', overflow: TextOverflow.ellipsis))),
+                      child: Text('2', overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: AppColors.greyNew,
+                              fontWeight : FontWeight.w600,
+                              fontFamily: 'Poppins_SemiBold',
+                            fontSize: 15.0
+                          )))),
               SizedBox(
                 width: 5.0,
               ),
@@ -44,7 +56,13 @@ class UserAssetList extends StatelessWidget {
                       alignment: Alignment.center,
                       width: Utility.screenWidth(context),
                       child:
-                          Text('Received', overflow: TextOverflow.ellipsis))),
+                          Text('Received', overflow: TextOverflow.ellipsis,   style: TextStyle(
+                              color: AppColors.green,
+                              fontWeight : FontWeight.w600,
+                              fontFamily: 'Poppins_SemiBold',
+                              fontSize: 15.0
+
+                          )))),
               SizedBox(
                 width: 5.0,
               ),
@@ -53,7 +71,13 @@ class UserAssetList extends StatelessWidget {
                       alignment: Alignment.center,
                       width: Utility.screenWidth(context),
                       child:
-                          Text('22/02/2022', overflow: TextOverflow.ellipsis))),
+                          Text('22/02/2022', overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: AppColors.greyNew,
+                            fontWeight : FontWeight.w600,
+                              fontFamily: 'Poppins_SemiBold',
+                              fontSize: 15.0
+                          ),))),
             ],
           ),
         ));
