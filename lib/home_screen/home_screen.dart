@@ -121,10 +121,10 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset(Images.IconVirus),
-                              SizedBox(
+                              const SizedBox(
                                 width: 20.0,
                               ),
-                              Text(
+                              const Text(
                                 'I am vaccinated against COVID-19',
                                 style: textStyleRed14px700w,
                               )
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                 children: [
                                   Column(
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Shift Today- 9:30 - 7:00 PM',
                                         style: textStyleBlackRegular12pxW700,
                                       ),
@@ -193,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                const  SizedBox(
                                     width: 20.0,
                                   ),
                                   Flexible(
@@ -242,11 +242,11 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'On Leave Today',
                                     style: textStyleBlackRegular12pxW700,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
                                   SingleChildScrollView(
@@ -281,11 +281,11 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Employee Working Remotly',
                                     style: textStyleBlackRegular12pxW700,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10.0,
                                   ),
                                   SingleChildScrollView(
@@ -310,9 +310,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 8.0, vertical: 4.0),
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               vertical: 20.0, horizontal: 10.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -391,7 +391,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                       baseProvider.open();
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Container(
@@ -428,7 +428,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                           arguments: 'Notification');
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5.0,
                   ),
                   InkWell(

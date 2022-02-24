@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hrms/api_provider/api_repository.dart';
-import 'package:hrms/attendence/add_attendance.dart';
+
 import 'package:hrms/attendence/attendance_dashboard.dart';
 import 'package:hrms/common_page.dart';
 import 'package:hrms/expense/expense_history.dart';
@@ -12,6 +12,7 @@ import 'package:hrms/leave_request/leave_balanace_history/balance_history_dashbo
 import 'package:hrms/leave_request/leave_balanace_history/leave_balance/leave_balance_page.dart';
 import 'package:hrms/leave_request/leave_balanace_history/leave_history/leave_history_request.dart';
 import 'package:hrms/login_screen/login_screen.dart';
+import 'package:hrms/profile/about_page.dart';
 import 'package:hrms/profile/image_view_page.dart';
 import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -131,10 +132,6 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget: EmployeeAsset());
               break;
 
-            case Screens.AddAttendence:
-              return RouteTransition(widget: AddAttendance());
-              break;
-
             case Screens.LeaveRequestDashboard:
               return RouteTransition(widget: LeaveRequestDashboard());
               break;
@@ -186,7 +183,9 @@ class _ScreenState extends State<MyApp> {
               break;
           }
         },
-        home: checkAuthUser(widget?.isLoggedIn)
+        home:
+        checkAuthUser(widget?.isLoggedIn)
+        //ProfilePage()
         //ChatePage()
         //AddFeedback()
         );
