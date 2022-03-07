@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/employee/emp_block.dart';
+import 'package:hrms/employee/emp_view.dart';
 
 import 'package:multiselect/multiselect.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ import '../utility/Dialogs.dart';
 import '../utility/Header.dart';
 import '../utility/NetworkCheck.dart';
 import '../utility/Utility.dart';
+import 'emp_presenter.dart';
 import 'model/employee_list_response.dart';
 import 'model/get_company_type.dart';
 import 'model/get_emp_type_response.dart';
@@ -37,52 +39,112 @@ class EmployeePage extends StatefulWidget {
 
 
 
-class _EmployeePageState extends State<EmployeePage> {
+class _EmployeePageState extends State<EmployeePage> implements EmpView {
   EmpBlock empBlock=EmpBlock();
   RandomColor _randomColor = RandomColor();
   final ScrollController _scrollController=ScrollController();
   List<EmployeeDataList> userList=[];
   List<EmployeeDataList> dummyUserList=[];
+  EmpPresenter _presenter;
 
 
   @override
   void initState() {
+    _presenter=EmpPresenter(this);
+    _presenter.getEmpList(context);
     empBlock.fetchUserList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: empBlock?.emplist,
-        builder: (context,AsyncSnapshot<EmployeeListResponse> empData)
-    {
-              if(empData?.hasData)
-                {
-                  return _home(context,empData.data.employeeDataList);
-                }
-               else if(empData?.hasError)
-                 {
-                   return Text('${empData?.error.toString()}');
-                 }
-               else
-                 {
-                  return Center(child: CircularProgressIndicator(color: AppColors.red,));
-                 }
-    });
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Header(headerText: 'Employee List',rightWidget:
+            InkWell(child: Icon(Icons.filter_list,color: AppColors.white,),onTap: (){opendFilterDialog(context); },)),
+            Center(
+              child: TextField(
+
+                onChanged: (value){
+                  filterSearchResults(value);
+
+                },
+
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search,color: Colors.amber,),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.clear,color: Colors.amber,),
+                      onPressed: () {
+                        // editingController.clear();
+                      },
+
+                    ),
+                    hintText: 'Search...',
+                    border: InputBorder.none),
+              ),
+            ),
+            Expanded(
+              child: Scrollbar(
+                isAlwaysShown: true,
+                controller: _scrollController,
+                child: ListView.separated(
+                    controller: _scrollController,
+                    itemCount: dummyUserList?.length,
+                    separatorBuilder: (context, index) => Divider(),
+                    itemBuilder:(context,index){
+                      return ListTile(
+                        title: Text('${dummyUserList[index]?.fullName}'),
+                        subtitle: Text('${dummyUserList[index].roleType}'),
+                        onTap: (){
+                          Navigator.pushNamed(context, Screens.EmpDetail,
+                              arguments: dummyUserList[index]);
+                        },
+                        leading:  Hero(
+                          tag: '${dummyUserList[index].employeeId}',
+                          child: ClipRRect(
+                            child: Container(
+                              height: 40.0,
+                              width: 40.0,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100.0),
+                                color: _randomColor.randomColor(colorHue: ColorHue.orange),
+                              ),
+                              child: Stack(children: [
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(dummyUserList[index]?.fullName!=null&& dummyUserList[index]?.fullName!=''?
+                                  '${dummyUserList[index]?.fullName.substring(0, 1) + dummyUserList[index]?.fullName.split(" ").last.substring(0, 1)}'.toUpperCase():'',
+                                      style: TextStyle(color: AppColors.white)),
+                                ),
+                              ]),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
       
       
       
       
 
   }
-  /*void filterSearchResults(String query) {
+  void filterSearchResults(String query) {
     List<EmployeeDataList> dummySearchList = [];
     dummySearchList.addAll(userList);
     if(query.isNotEmpty) {
       List<EmployeeDataList> dummyListData = [];
       dummySearchList.forEach((item) {
-        if(item.displayName.toLowerCase().contains(query.toLowerCase())) {
+        if(item.fullName.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
         }
       });
@@ -98,89 +160,9 @@ class _EmployeePageState extends State<EmployeePage> {
       });
     }
 
-  }*/
-
-  Scaffold _home(BuildContext context, List<EmployeeDataList> employeeDataList){
-    dummyUserList.addAll(employeeDataList);
-    return  Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Header(headerText: 'Employee List',rightWidget:
-            InkWell(child: Icon(Icons.filter_list,color: AppColors.white,),onTap: (){opendFilterDialog(context); },)),
-            Center(
-              child: TextField(
-
-                onChanged: (value){
-                  value = value.toLowerCase();
-                 /* setState(() {
-                    dummyUserList = userList.where((u) {
-                      return u.fullName.contains(value));
-                    }).toList();
-                  });*/
-                },
-               // controller:editingController,
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search,color: Colors.amber,),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.clear,color: Colors.amber,),
-                      onPressed: () {
-                       // editingController.clear();
-                      },
-
-                    ),
-                    hintText: 'Search...',
-                    border: InputBorder.none),
-              ),
-            ),
-            Expanded(
-              child: Scrollbar(
-                 isAlwaysShown: true,
-                controller: _scrollController,
-                child: ListView.separated(
-                  controller: _scrollController,
-                  itemCount: dummyUserList?.length,
-                    separatorBuilder: (context, index) => Divider(),
-                    itemBuilder:(context,index){
-                     return ListTile(
-                       title: Text('${dummyUserList[index]?.fullName}'),
-                       subtitle: Text('${dummyUserList[index].roleType}'),
-                       onTap: (){
-                         Navigator.pushNamed(context, Screens.EmpDetail,
-                             arguments: dummyUserList[index]);
-                       },
-                       leading:  Hero(
-                       tag: '${dummyUserList[index].employeeId}',
-                         child: ClipRRect(
-                           child: Container(
-                             height: 40.0,
-                             width: 40.0,
-                             alignment: Alignment.center,
-                             decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(100.0),
-                                color: _randomColor.randomColor(colorHue: ColorHue.orange),
-                             ),
-                             child: Stack(children: [
-                               Align(
-                                 alignment: Alignment.center,
-                                 child: Text(dummyUserList[index]?.fullName!=null&& dummyUserList[index]?.fullName!=''?
-                                 '${dummyUserList[index]?.fullName.substring(0, 1) + dummyUserList[index]?.fullName.split(" ").last.substring(0, 1)}'.toUpperCase():'',
-                                     style: TextStyle(color: AppColors.white)),
-                               ),
-                             ]),
-                           ),
-                         ),
-                       ),
-                     );
-                    }
-                ),
-              ),
-              ),
-          ],
-        ),
-      ),
-    );
   }
+
+
   opendFilterDialog(BuildContext context) {
     int empID,cmpId;
     empBlock.fetchRoll();
@@ -435,8 +417,9 @@ class _EmployeePageState extends State<EmployeePage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0)),
                         onPressed: () {
-                         // Navigator.pop(context);
-                          postFilter(selectedDepartment,empID,cmpId);
+                          Navigator.pop(context);
+                          _presenter.postFilter(context, selectedDepartment, empID, cmpId);
+
                         },
                       ),
                     ),
@@ -499,7 +482,7 @@ class _EmployeePageState extends State<EmployeePage> {
             {
 
               dummyUserList.addAll(employeeListResponse.employeeDataList);
-              _home(context, dummyUserList);
+            //  _home(context, dummyUserList);
             }
 
 
@@ -515,6 +498,21 @@ class _EmployeePageState extends State<EmployeePage> {
 
 
 
+  }
+
+  @override
+  onError(String message) {
+   Utility.showErrorToast(context, message);
+  }
+
+  @override
+  void onUserListFetch(EmployeeListResponse response) {
+
+    dummyUserList=response.employeeDataList;
+    userList.addAll(dummyUserList);
+    setState(() {
+
+    });
   }
 
 
