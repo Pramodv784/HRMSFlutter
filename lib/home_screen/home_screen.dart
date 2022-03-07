@@ -8,10 +8,9 @@ import 'package:hrms/drawer/BaseProvider.dart';
 import 'package:hrms/home_screen/card/card_wfh_list.dart';
 import 'package:hrms/home_screen/home_presenter.dart';
 import 'package:hrms/home_screen/home_view.dart';
-import 'package:hrms/home_screen/model/check_in_response.dart';
-import 'package:hrms/home_screen/model/checkout_response.dart';
-import 'package:hrms/home_screen/model/get_attendence_response.dart';
-import 'package:hrms/home_screen/model/get_my_attendence_response.dart';
+import 'package:hrms/home_screen/model/check_in_out_response.dart';
+import 'package:hrms/home_screen/model/get_clock_in_time_response.dart';
+
 import 'package:hrms/home_screen/model/home_data.dart';
 import 'package:hrms/home_screen/model/today_leave_response.dart';
 import 'package:hrms/home_screen/model/w_f_h_list_response.dart';
@@ -28,8 +27,6 @@ import 'package:provider/provider.dart';
 import '../utility/Dialogs.dart';
 import 'card/card_home.dart';
 import 'card/card_leave_today.dart';
-import 'model/check_in_request.dart';
-import 'model/check_out_request.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -45,15 +42,13 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   List<Widget> todayleaveList = [];
   List<Widget> wfhUserList = [];
 
-  CheckInRequest _checkInRequest = CheckInRequest();
-  CheckOutRequest _checkOutRequest = CheckOutRequest();
-
   String _timeString;
   String date = DateFormat('d').format(DateTime.now());
   String month = DateFormat('MMM').format(DateTime.now());
   String year = DateFormat('y').format(DateTime.now());
   int userId = 0;
   bool checkStatus = false;
+  GetClockInTimeResponse getClockInTimeResponse;
 
   @override
   void initState() {
@@ -73,12 +68,12 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     var userData = await (AuthUser.getInstance()).getCurrentUser();
     userId = userData.userId;
     print('User Token ***** ${getToken()}');
-    _presenter.getAttendence(context, userData.userId);
-    _presenter.getMyAttendence(context, userData.userId);
+
+    _presenter.getAttendence(context);
     _presenter.getLeaveToday(context);
     _presenter.getWFHList(context);
 
-    String data=await (AuthUser.getInstance()).GetUserEmail();
+    String data = await (AuthUser.getInstance()).GetUserEmail();
     print('User Credential ***$data');
 
     print(
@@ -148,52 +143,66 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                         style: textStyleBlackRegular12pxW700,
                                       ),
                                       SizedBox(height: 20.0),
-                                      Container(
-                                        height: 40,
-                                        alignment: Alignment.center,
-                                        child: FlatButton(
-                                          child: Text(
-                                            checkStatus
-                                                ? 'Clock out '
-                                                : 'Clock In',
-                                            style:
-                                                textStyleWhiteRegular12pxW700,
-                                          ),
-                                          color: checkStatus
-                                              ? AppColors.red
-                                              : AppColors.colorPrimary,
-                                          textColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                          ),
-                                          onPressed: () {
-                                            if (checkStatus) {
-                                              Dialogs.openDialogClockOut(
-                                                  context, onAccept: () {
-                                                _checkOutRequest.employeeId =
-                                                    userId.toString();
-                                                _checkOutRequest.clockOut =
-                                                    _timeString;
-                                                _presenter.CheckOut(
-                                                    context, _checkOutRequest);
-                                                Navigator.pop(context);
-                                              });
-                                            } else {
-                                              _checkInRequest.employeeId =
-                                                  userId;
-                                              _checkInRequest.clockIn =
-                                                  _timeString;
-                                              _checkInRequest.isClock = true;
-                                              _presenter.CheckIn(
-                                                  context, _checkInRequest);
-                                            }
-                                          },
-                                        ),
-                                      ),
+                                      getClockInTimeResponse?.data?.totalTime !=
+                                              null
+                                          ? Container(
+                                              // child: Text('Today Working Time \n${getClockInTimeResponse?.data?.totalTime}'),
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text('Today Working Time',
+                                                        style:
+                                                            textStyleBlackRegular12pxW700),
+                                                    SizedBox(
+                                                      height: 5.0,
+                                                    ),
+                                                    Text(
+                                                        '${getClockInTimeResponse?.data?.totalTime}',
+                                                        style:
+                                                            textStyleBlackRegular12pxW700)
+                                                  ]),
+                                            )
+                                          : Container(
+                                              height: 40,
+                                              alignment: Alignment.center,
+                                              child: FlatButton(
+                                                child: Text(
+                                                  checkStatus
+                                                      ? 'Clock out '
+                                                      : 'Clock In',
+                                                  style:
+                                                      textStyleWhiteRegular12pxW700,
+                                                ),
+                                                color: checkStatus
+                                                    ? AppColors.red
+                                                    : AppColors.colorPrimary,
+                                                textColor: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0),
+                                                ),
+                                                onPressed: () {
+                                                  if (checkStatus) {
+                                                    Dialogs.openDialogClockOut(
+                                                        context, onAccept: () {
+                                                      _presenter.CheckInOut(
+                                                          context);
+                                                      Navigator.pop(context);
+                                                    });
+                                                  } else {
+                                                    _presenter.CheckInOut(
+                                                        context);
+                                                  }
+                                                },
+                                              ),
+                                            ),
                                     ],
                                   ),
-                                const  SizedBox(
+                                  const SizedBox(
                                     width: 20.0,
                                   ),
                                   Flexible(
@@ -252,17 +261,18 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Container(
-                                      child:todayleaveList.length>0?
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ...todayleaveList,
-                                        ],
-                                      ):
-                                      Text('No data'),
+                                      child: todayleaveList.length > 0
+                                          ? Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                ...todayleaveList,
+                                              ],
+                                            )
+                                          : Text('No data'),
                                     ),
                                   ),
                                 ],
@@ -291,17 +301,18 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Container(
-                                      child: wfhUserList.length>0?
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ...wfhUserList,
-                                        ],
-                                      ):
-                                      Text('No Data'),
+                                      child: wfhUserList.length > 0
+                                          ? Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                ...wfhUserList,
+                                              ],
+                                            )
+                                          : Text('No Data'),
                                     ),
                                   ),
                                 ],
@@ -460,7 +471,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
 
   Future<void> _pullRefresh() async {
     _presenter.getHomeData(context);
-    _presenter.getAttendence(context, userId);
+    _presenter.getAttendence(context);
     setState(() {});
   }
 
@@ -477,37 +488,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   }
 
   @override
-  void onCheckInFecthed(CheckInResponse response) {
-    print('Check In *****${response.message}');
-    //checkStatus = response.attendance.isClock;
-    if (response.message == 'Your Attendance Already Added') {
-      Utility.showErrorToast(context, response.message);
-    }
-    setState(() {});
-    _presenter.getAttendence(context, userId);
-  }
-
-  @override
-  void onAttendenceFetch(GetAttendenceResponse response) {
-    print('Attendece****${response.attendance.isClock}');
-    checkStatus = response?.attendance?.isClock;
-    setState(() {});
-  }
-
-  @override
   onError(String message) {
     Utility.showErrorToast(context, message);
   }
-
-  @override
-  void onCheckOutFetch(CheckoutResponse response) {
-    print('Clock out ${response.attendance.isClock}');
-    checkStatus = response?.attendance?.isClock;
-    _presenter.getAttendence(context, userId);
-    setState(() {});
-  }
-
-
 
   @override
   void onLeaveTodayFetch(TodayLeaveResponse response) {
@@ -532,11 +515,15 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   }
 
   @override
-  void onMyAttendenceFetch(GetMyAttendenceResponse response) {
-    print('MyAttendece****${response.attendance.isClock}');
-   checkStatus=response?.attendance?.isClock;
-   setState(() {
+  void onCheckInOutFetched(CheckInOutResponse response) {
+    _presenter.getAttendence(context);
+    setState(() {});
+  }
 
-   });
+  @override
+  void ongetClockInTimeFetch(GetClockInTimeResponse response) {
+    getClockInTimeResponse = response;
+    checkStatus = response.data.isClockIn;
+    setState(() {});
   }
 }

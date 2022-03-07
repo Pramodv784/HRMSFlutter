@@ -18,7 +18,7 @@ class CardHistory extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          height: 30,
+          height: 40,
           alignment: Alignment.center,
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0),

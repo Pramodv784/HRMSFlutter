@@ -81,9 +81,6 @@ class ProfilePresenter {
               .map((x) => ProfileResponse.fromJson(x))
               .toList();
           print('list sized ${listData.length}');
-         // List<ProfileResponse> data = jsonDecode(res.data.toString());
-          //print('profileData***${data[0].firstName}');
-         //  ProfileResponse response=ProfileResponse.fromJson(res.data.toString());
 
 
           _view.onProfileListFetch(listData);

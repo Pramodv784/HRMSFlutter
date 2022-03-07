@@ -271,7 +271,8 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
                             child: InputField(
                               placeHolderText: 'Amount*',
                               errorMessage: 'Please Enter Amount**',
-                              inputType: InputType.NUMBER,
+                              inputType: InputType.AMOUNT,
+
                               onTextChange: (value) {
                                 // value=title;
                                 print('amount $value');

@@ -120,14 +120,7 @@ class _AttendanceDasboardState extends State<AttendanceDasboard>
                             ),
 
                             // second tab bar view widget
-                            ListView(
-                              children: [
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                ...widgetLogsSettlement
-                              ],
-                            ),
+                            AttendanceLogs(),
 
                             ListView(
                               children: [

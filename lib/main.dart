@@ -9,10 +9,8 @@ import 'package:hrms/expense/expense_history.dart';
 import 'package:hrms/feedback_history/feedback_history_user_page.dart';
 import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/leave_request/leave_balanace_history/balance_history_dashboard.dart';
-import 'package:hrms/leave_request/leave_balanace_history/leave_balance/leave_balance_page.dart';
 import 'package:hrms/leave_request/leave_balanace_history/leave_history/leave_history_request.dart';
 import 'package:hrms/login_screen/login_screen.dart';
-import 'package:hrms/profile/about_page.dart';
 import 'package:hrms/profile/image_view_page.dart';
 import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -30,6 +28,8 @@ import 'asset/employee_asset.dart';
 import 'attendence/attendance_leave_request_detail.dart';
 import 'drawer/BaseProvider.dart';
 import 'drawer/rev_drawer.dart';
+import 'employee/Employee_page.dart';
+import 'employee/employee_detail.dart';
 import 'expense/employee_advances.dart';
 import 'feedback/add_feedback.dart';
 import 'feedback/feedback_remark.dart';
@@ -43,8 +43,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool authResult = await (AuthUser.getInstance()).isLoggedIn();
   Future.delayed(Duration(seconds: 2)).whenComplete(() => {
-        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-          // navigation bar color
+        SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           statusBarColor: AppColors.colorPrimary,
         )),
         SystemChrome.setPreferredOrientations([
@@ -78,7 +77,8 @@ class _ScreenState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
+        theme:
+        ThemeData(
             scaffoldBackgroundColor: AppColors.white,
             primarySwatch: Colors.grey),
         // ignore: missing_return
@@ -106,6 +106,12 @@ class _ScreenState extends State<MyApp> {
               break;
             case Screens.GoalScreen:
               return RouteTransition(widget: GoalPage());
+              break;
+               case Screens.EmpPage:
+              return RouteTransition(widget: EmployeePage());
+              break;
+                case Screens.EmpDetail:
+              return RouteTransition(widget: EmployeeDetail(settings.arguments));
               break;
             case Screens.WorkFromHomePageDetail:
               return RouteTransition(

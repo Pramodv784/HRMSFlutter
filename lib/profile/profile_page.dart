@@ -31,7 +31,9 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStateMixin  implements ProfileView {
+class _ProfilePageState extends State<ProfilePage>
+    with SingleTickerProviderStateMixin
+    implements ProfileView {
   final picker = ImagePicker();
   ProfilePresenter _presenter;
   File _FileImage;
@@ -70,408 +72,438 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
     return Scaffold(
         backgroundColor: AppColors.background,
         body: SafeArea(
-          child: profileList.length > 0 ?
-          Column(children: [
-            Header(
-              headerText: 'Profile',
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Card(
-                elevation: 3.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 15.0, horizontal: 14.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.10),
-                        blurRadius: 20.0,
-                        spreadRadius: 5.0,
-                        offset: const Offset(0, -6),
-                      )
-                    ],
+          child: profileList.length > 0
+              ? Column(children: [
+                  Header(
+                    headerText: 'Profile',
                   ),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _FileImage == null
-                              ? profileList?.isEmpty
-                              ? Image.asset(
-                              Images.ProfileUserIcon)
-                              : InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context,
-                                  Screens.ImageView,
-                                  arguments: [
-                                    profileList[0]?.profile
-                                  ]);
-                            },
-                            child: Hero(
-                              tag: 'image',
-                              child: ClipRRect(
-                                borderRadius:
-                                BorderRadius.circular(
-                                    30.0),
-                                child: Image.network(
-                                  profileList[0]?.profile,
-                                  height: 80,
-                                  width: 100,
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      elevation: 3.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 14.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.10),
+                              blurRadius: 20.0,
+                              spreadRadius: 5.0,
+                              offset: const Offset(0, -6),
+                            )
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _FileImage == null
+                                    ? profileList?.isEmpty
+                                        ? Image.asset(Images.ProfileUserIcon)
+                                        : InkWell(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                  context, Screens.ImageView,
+                                                  arguments: [
+                                                    profileList[0]?.profile
+                                                  ]);
+                                            },
+                                            child: Hero(
+                                              tag: 'image',
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
+                                                child: Image.network(
+                                                  profileList[0]?.profile,
+                                                  height: 80,
+                                                  width: 100,
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                    : Container(
+                                        height: 100,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                          image: DecorationImage(
+                                            image: FileImage(_FileImage),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        )),
+                                const SizedBox(
+                                  width: 10.0,
                                 ),
-                              ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${profileList[0]?.fullName}',
+                                      style: textStyleRegular18pxW600,
+                                    ),
+                                    Text(
+                                      '${profileList[0]?.roleType}',
+                                      style: textStyleRegular12pxGrey,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              sendMail();
+                                            },
+                                            icon: const Icon(
+                                              Icons.email,
+                                              color: AppColors.greyNew,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {
+                                              addressMap();
+                                            },
+                                            icon: const Icon(
+                                              Icons.location_on,
+                                              color: AppColors.greyNew,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {
+                                              CallNumber();
+                                            },
+                                            icon: const Icon(
+                                              Icons.call,
+                                              color: AppColors.greyNew,
+                                            )),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
                             ),
-                          )
-                              : Container(
-                              height: 100,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(30.0),
-                                image: DecorationImage(
-                                  image: FileImage(_FileImage),
-                                  fit: BoxFit.fill,
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    RichText(
+                                        text: TextSpan(children: [
+                                      const TextSpan(
+                                          text: 'Department:',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.SubText)),
+                                      TextSpan(
+                                          text: profileList[0]?.roleType ?? "",
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.SubText))
+                                    ])),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    RichText(
+                                        text: const TextSpan(children: [
+                                      TextSpan(
+                                          text: 'Reporting to:',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.SubText)),
+                                      TextSpan(
+                                          text: ' Akhilesh Gandhi',
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.SubText))
+                                    ])),
+                                  ],
                                 ),
-                              )),
-                          const SizedBox(
-                            width: 10.0,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${profileList[0]?.fullName}',
-                                style: textStyleRegular18pxW600,
-                              ),
-                              Text(
-                                '${profileList[0]?.roleType}',
-                                style: textStyleRegular12pxGrey,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  IconButton(onPressed: () {
-                                    sendMail();
-                                  }
-                                      ,
-                                      icon: Icon(Icons.email,
-                                        color: AppColors.greyNew,)),
-                                  IconButton(onPressed: () {
-                                    addressMap();
-                                  },
-                                      icon: Icon(Icons.location_on,
-                                        color: AppColors.greyNew,)),
-                                  IconButton(onPressed: () {
-                                    CallNumber();
-                                  },
-                                      icon: Icon(
-                                        Icons.call, color: AppColors.greyNew,)),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-
-
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(text: TextSpan(
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    TextSpan(
-                                        text: 'Department:', style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.SubText)),
-                                    TextSpan(
-                                        text: '${profileList[0]?.roleType ??
-                                            ""}', style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.SubText)
-                                    )
-                                  ]
-                              )),
-                              SizedBox(height: 10.0,),
-
-                              RichText(text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text: 'Reporting to:', style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.SubText)),
-                                    TextSpan(
-                                        text: ' Akhilesh Gandhi',
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: AppColors.SubText)
-                                    )
-                                  ]
-                              )),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              RichText(text: TextSpan(
-                                  children: [
-                                    TextSpan(text: 'Business Unit: -',
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.SubText)),
-                                    TextSpan(
-                                        text: '', style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.SubText)
-                                    )
-                                  ]
-                              )),
-                              SizedBox(height: 10.0,),
-                              RichText(text: TextSpan(
-                                  children: [
-                                    TextSpan(text: 'Emp no.:', style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.SubText)),
-                                    TextSpan(
-                                        text: '000', style: TextStyle(
-                                        fontSize: 15,
-                                        color: AppColors.SubText)
-                                    )
-                                  ]
-                              )),
-                            ],
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-                child:
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Column(
-                      children: [
-
-
-                        TabBar(
-                          controller: _tabController,
-                          isScrollable: true,
-                          labelColor: AppColors.black,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          unselectedLabelColor: Color(0xFF616576),
-                          indicatorColor: AppColors.red,
-                          tabs: [
-                            // first tab [you can add an icon using the icon property]
-                            Tab(
-                              child: Text('About', style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),),
-                            ),
-                            // second tab [you can add an icon using the icon property]
-                            Tab(
-                              child: Text('Profile', style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),),
-                            ),
-                            Tab(
-                              child: Text('Job', style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),),
-                            ),
-                            Tab(
-                              child: Text('Document', style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),),
-                            ),
-                            Tab(
-                              child: Text('Assets', style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),),
+                                    RichText(
+                                        text: const TextSpan(children: [
+                                      TextSpan(
+                                          text: 'Business Unit: -',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.SubText)),
+                                      TextSpan(
+                                          text: '',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.SubText))
+                                    ])),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    RichText(
+                                        text: const TextSpan(children: [
+                                      TextSpan(
+                                          text: 'Emp no.:',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.SubText)),
+                                      TextSpan(
+                                          text: '000',
+                                          style: const TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.SubText))
+                                    ])),
+                                  ],
+                                )
+                              ],
                             ),
                           ],
                         ),
-                        Expanded(child: TabBarView(
-                            controller: _tabController,
-                            children: [
-                              Container(
-                                color: AppColors.white,
-                                child: AboutPage(profileList),
-                              ),
-                              Container(
-                                color: AppColors.white,
-                                child: ProfileDetail(profileList),
-                              ),
-                              Container(
-                                color: AppColors.white,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: 20.0,),
-                                    Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        child: Text(
-                                          'Job Details',
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              color: Colors.red,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
-                                        children: [
-                                          Flexible(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment
-                                                  .start,
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .spaceEvenly,
-                                              children: [
-                                                Text('Employer number',
-                                                    style: TextStyle(
-                                                        fontSize: 15)),
-                                                SizedBox(
-                                                  height: 5.0,
-                                                ),
-                                                InkWell(
-                                                  child: Text(
-                                                    '${profileList[0]
-                                                        ?.employeeCode ?? ""}',
-                                                    style:
-                                                    TextStyle(fontSize: 15,
-                                                        color: AppColors
-                                                            .SubText),
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                  ),
-                                                  onTap: () {},
-                                                ),
-                                                SizedBox(
-                                                  height: 10.0,
-                                                ),
-                                                Text('Job title Primary',
-                                                    style: TextStyle(
-                                                        fontSize: 15)),
-                                                SizedBox(
-                                                  height: 5.0,
-                                                ),
-                                                InkWell(
-                                                  child: Text(
-                                                    'HR-Manager',
-                                                    style:
-                                                    TextStyle(fontSize: 15,
-                                                        color: AppColors
-                                                            .SubText),
-                                                  ),
-                                                  onTap: () {},
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment
-                                                  .start,
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .spaceEvenly,
-                                              children: [
-                                                Text('Date of Joining',
-                                                    style: TextStyle(
-                                                        fontSize: 15)),
-                                                SizedBox(
-                                                  height: 5.0,
-                                                ),
-                                                InkWell(
-                                                  child: Text(
-                                                    '${profileList[0]
-                                                        ?.joiningDate ?? ""}',
-                                                    style:
-                                                    TextStyle(fontSize: 15,
-                                                        color: AppColors
-                                                            .SubText),
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                  ),
-                                                  onTap: () {
-                                                    // _showDatePicker(context,1);
-                                                  },
-                                                ),
-                                                SizedBox(height: 10.0,),
-                                                Text('Job Title Secondary',
-                                                    style: TextStyle(
-                                                        fontSize: 15)),
-                                                SizedBox(
-                                                  height: 5.0,
-                                                ),
-                                                InkWell(
-                                                  child: Text(
-                                                    'HR-Head',
-                                                    style:
-                                                    TextStyle(fontSize: 15,
-                                                        color: AppColors
-                                                            .SubText),
-                                                    maxLines: 2,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                  ),
-                                                  onTap: () {
-                                                    // _showDatePicker(context,1);
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                  child: Center(child: Text('Comming Soon'))
-                              ),
-                              Container(
-                                color: AppColors.white,
-                                child: EmployeeAssetPage(),
-                              ),
-                            ])),
-                      ],
+                      ),
                     ),
                   ),
-                )
-
-
-            )
-          ]) : Column(
-            children: [],
-          ),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: Column(
+                        children: [
+                          TabBar(
+                            controller: _tabController,
+                            isScrollable: true,
+                            labelColor: AppColors.black,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            unselectedLabelColor: const Color(0xFF616576),
+                            indicatorColor: AppColors.red,
+                            tabs: const [
+                              // first tab [you can add an icon using the icon property]
+                              Tab(
+                                child: Text(
+                                  'About',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              // second tab [you can add an icon using the icon property]
+                              Tab(
+                                child: Text(
+                                  'Profile',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Job',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Document',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              Tab(
+                                child: Text(
+                                  'Assets',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                              child: TabBarView(
+                                  controller: _tabController,
+                                  children: [
+                                Container(
+                                  color: AppColors.white,
+                                  child: AboutPage(profileList),
+                                ),
+                                Container(
+                                  color: AppColors.white,
+                                  child: ProfileDetail(profileList),
+                                ),
+                                Container(
+                                  color: AppColors.white,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(
+                                        height: 20.0,
+                                      ),
+                                      Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: const Text(
+                                            'Job Details',
+                                            style: TextStyle(
+                                                fontSize: 18.0,
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  const Text('Employer number',
+                                                      style: const TextStyle(
+                                                          fontSize: 15)),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  InkWell(
+                                                    child: Text(
+                                                      '${profileList[0]?.employeeCode ?? ""}',
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          color: AppColors
+                                                              .SubText),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    onTap: () {},
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10.0,
+                                                  ),
+                                                  const Text(
+                                                      'Job title Primary',
+                                                      style: TextStyle(
+                                                          fontSize: 15)),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  InkWell(
+                                                    child: const Text(
+                                                      'HR-Manager',
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          color: AppColors
+                                                              .SubText),
+                                                    ),
+                                                    onTap: () {},
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Flexible(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  const Text('Date of Joining',
+                                                      style: const TextStyle(
+                                                          fontSize: 15)),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  InkWell(
+                                                    child: Text(
+                                                      '${profileList[0]?.joiningDate ?? ""}',
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          color: AppColors
+                                                              .SubText),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    onTap: () {
+                                                      // _showDatePicker(context,1);
+                                                    },
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 10.0,
+                                                  ),
+                                                  const Text(
+                                                      'Job Title Secondary',
+                                                      style: const TextStyle(
+                                                          fontSize: 15)),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  InkWell(
+                                                    child: const Text(
+                                                      'HR-Head',
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          color: AppColors
+                                                              .SubText),
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    onTap: () {
+                                                      // _showDatePicker(context,1);
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                    child: const Center(
+                                        child: Text('Comming Soon'))),
+                                Container(
+                                  color: AppColors.white,
+                                  child: const EmployeeAssetPage(),
+                                ),
+                              ])),
+                        ],
+                      ),
+                    ),
+                  ))
+                ])
+              : Column(
+                  children: const [],
+                ),
         ));
   }
 
@@ -485,9 +517,9 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: AppColors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(12.0),
                       topLeft: Radius.circular(12.0),
                     )),
@@ -523,7 +555,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                   child: Image.asset(Images.CameraIcon)),
                             ),
                             verticalSpace(4.0),
-                            Text(
+                            const Text(
                               'Camera',
                               style: textStyle12px600w,
                             ),
@@ -547,7 +579,7 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
                                   child: Image.asset(Images.GalleryIcon)),
                             ),
                             verticalSpace(4.0),
-                            Text(
+                            const Text(
                               'Gallery',
                               style: textStyle12px600w,
                             ),
@@ -601,26 +633,21 @@ class _ProfilePageState extends State<ProfilePage> with SingleTickerProviderStat
   void CallNumber() async {
     if (await canLaunch('tel:${profileList[0].primaryContact}')) {
       await launch('tel:${profileList[0].primaryContact}');
-    }
-    else {
+    } else {
       throw 'could not launch';
     }
-
-
   }
 
-
-
-
-void sendMail() async {
-  var url = 'mailto:pramodv784@gmail.com?subject=demo&body=Helloo';
-  if (await canLaunch(url)) {
-  await launch(url);
-  } else {
-  throw 'Could not launch $url';
+  void sendMail() async {
+    var url = 'mailto:${profileList[0]?.email}?subject=&body=';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
-}
-void addressMap()async{
- var res=await MapsLauncher.launchQuery(profileList[0].localAddress);
-}
+
+  void addressMap() async {
+    var res = await MapsLauncher.launchQuery(profileList[0].localAddress);
+  }
 }

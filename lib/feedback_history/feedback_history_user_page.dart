@@ -30,6 +30,7 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
   List<FeedbackDatas> userList = [];
   FeedHistoryResponse _response;
 
+
   @override
   void initState() {
     _presenter = FeedHistoryPresenter(this);
@@ -57,7 +58,7 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
           Expanded(
             child: ListView(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 Container(
@@ -67,7 +68,9 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                       placeHolderText: 'Search',
                       inputType: InputType.ONLY_WORDS,
                       rightIcon: Images.SearchIcon,
-                      onTextChange: (String val) => {}),
+                      onTextChange: (String val) => {
+                        //filterSearchResults(val)
+                      }),
                 ),
                 userWidgetList.length >0?
                 Card(
@@ -88,7 +91,7 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                               children: [
                                 Text(
                                   'Total Feedback    ${_response?.feedbackDatas?.length.toString()}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18.0,
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold),
@@ -108,7 +111,7 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
+                            children: const [
                               Text('Employee name'),
                               Text('Team lead'),
                               Text('Feedback type'),
@@ -118,6 +121,13 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                         ),
                         //CardGoal(),
                         ...userWidgetList
+                        /*ListView.builder(
+                          itemCount: userList.length,
+                          itemBuilder: (context, index) {
+                           return ListTile(
+                             title: Text(userList[index].receiverEmployeeName),
+                           );
+                        },)*/
                       ],
                     ),
                   ),
@@ -135,13 +145,22 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
   void onFeedHistoryFecthed(FeedHistoryResponse response) {
     // print('response list **** ${response.feedbackDatas[0].dataCategories}');
 
-    if (response.feedbackDatas != null) {
+    if (response.feedbackDatas != null && response.feedbackDatas.isNotEmpty) {
       for (int i = 0; i < response.feedbackDatas.length; i++) {
         userWidgetList.add(CardHistory(response.feedbackDatas[i]));
       }
       _response = response;
       setState(() {});
     }
+    else
+      {
+        userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
+        userList.add(FeedbackDatas(receiverEmployeeName: 'Pramod'));
+        userList.add(FeedbackDatas(receiverEmployeeName: 'Harshit'));
+        userList.add(FeedbackDatas(receiverEmployeeName: 'mayank'));
+        userList.add(FeedbackDatas(receiverEmployeeName: 'Bhavender'));
+        userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
+      }
   }
 
   opendFilterDialog() {
@@ -178,7 +197,7 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                   ),
                 ),
                 RichText(
-                    text: TextSpan(children: [
+                    text: const TextSpan(children: [
                   TextSpan(
                     text: 'Filter by Team Lead ',
                     style: textStyleWhite12px400w,
@@ -372,10 +391,19 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
         });
   }
 
+
   @override
   onError(String message) {
     Utility.showErrorToast(context, message);
-    // TODO: implement onError
-    throw UnimplementedError();
+    userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
+    userList.add(FeedbackDatas(receiverEmployeeName: 'Pramod'));
+    userList.add(FeedbackDatas(receiverEmployeeName: 'Harshit'));
+    userList.add(FeedbackDatas(receiverEmployeeName: 'mayank'));
+    userList.add(FeedbackDatas(receiverEmployeeName: 'Bhavender'));
+    userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
+    setState(() {
+
+    });
+
   }
 }

@@ -37,11 +37,11 @@ class EndPoints {
   static const String ExpenseHistory =
       baseUrl + "/api/expense/GetAllExpenseRequestsByStatus";
   static const String CheckIn = baseUrl + "/api/Attendance/AddAttendance";
-  static const String CheckOut = baseUrl + "/api/Attendance/UpdateClockOut";
+  static const String CheckOut = baseUrl + "/api/attendancenew/clockinclockout";
   static const String GetAsset = baseUrl + "/api/assets/GetMyAssets";
   static const String GetAllEmp = baseUrl + "/api/employees/GetAllEmployees";
   static const String GetAttendence =
-      baseUrl + "/api/Attendance/GetAllAttendanceById";
+      baseUrl + "/api/attendancenew/getclocklogtime";
   static const String GetProjectList = baseUrl + "/api/project/GetAllProject";
   static const String LeaveToday = baseUrl + "/api/leave/EmployeesTodayOnLeave";
   static const String GetWFHAllRequestList =
@@ -50,5 +50,17 @@ class EndPoints {
       baseUrl + "/api/leaverequest/GetAllLeaveRequestsByEmployeeId";
  static const String GetMyTodayAttendence =
       baseUrl + "/api/Attendance/GetMyTodaysAttendance";
+ static const String GetAttendencelog =
+      baseUrl + "/api/attendancenew/getuserattendancelist";
+ static const String GetAllEmpData =
+      baseUrl + "/api/employees/GetAllEmployeeByJoiningDate";
+static const String GetDepartment =
+      baseUrl + "/api/Employees/GetAllRole";
+static const String GetEmpType =
+      baseUrl + "/api/Employees/GetEmployeeTypes";
+static const String GetCompany =
+      baseUrl + "/api/employees/GetCompany";
+static const String UserFilter =
+      baseUrl + "/api/employees/CreateAdvaceFilter";
 
 }

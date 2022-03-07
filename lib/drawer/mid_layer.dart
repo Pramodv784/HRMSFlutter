@@ -119,8 +119,7 @@ class _MidLayerState extends State<MidLayer> {
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconRateUs, Screens.kScreenRateUs, context: context),
                   verticalSpace(30.0),
-
-                  drawerRowBuilder(Images.LogoutIcon, 'My Goals',
+                  drawerRowBuilder(Images.EmpIcon, 'Employee Directory',
                       context: context),
                   verticalSpace(30.0),
                   drawerRowBuilder(Images.LogoutIcon, 'Leave,Ticket,Expense',
@@ -182,11 +181,10 @@ class _MidLayerState extends State<MidLayer> {
             _provider.close();
             Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
             break;
-              case "My Goals":
+              case "Employee Directory":
             //Navigator.pop(context);
             _provider.close();
-            Navigator.pushNamed(context, Screens.CommonPage,
-                arguments: 'My Goal');
+            Navigator.pushNamed(context, Screens.EmpPage);
             break;
 
 

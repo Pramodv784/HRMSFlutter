@@ -32,6 +32,8 @@ class Screens {
   static const MyAsset = "myasset";
   static const ImageView = "imageview";
   static const LeaveHistory = "leavehistory";
+  static const EmpPage = "empPage";
+  static const EmpDetail = "empdetail";
 
 
 }

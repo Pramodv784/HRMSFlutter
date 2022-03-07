@@ -106,13 +106,16 @@ class InputFieldState extends State<InputField> {
                       keyboardType: getInputType(),
                       textAlign: TextAlign.left,
                       controller: _controller,
+
                       maxLines: 1, textInputAction: TextInputAction.next,
                       textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
 
                       style: hasError ? textStyleRed16px400w : textStyleDarkRegular16px400w,
                       decoration: InputDecoration(
+
                         border: InputBorder.none,
                         hintText: widget.placeHolderText,
+
                         hintStyle: hasError ? textStyleRed16px400w : textStyleRegular16px400w,
                         suffixStyle: TextStyle(color: AppColors.textColor),
                       ),
@@ -233,6 +236,10 @@ class InputFieldState extends State<InputField> {
       case InputType.NUMBER:
         return[FilteringTextInputFormatter.digitsOnly];
         break;
+         case InputType.AMOUNT:
+        return[FilteringTextInputFormatter.digitsOnly];
+        break;
+
       default:
         return [LengthLimitingTextInputFormatter(250)];
         break;
@@ -246,5 +253,6 @@ enum InputType {
   PASSWORD,
   PIN_CODE,
   ONLY_WORDS,
-  NUMBER
+  NUMBER,
+  AMOUNT
 }
