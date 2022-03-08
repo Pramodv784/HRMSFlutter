@@ -1,30 +1,17 @@
 /// employeeId : 156
-/// fullName : "LovelySharma"
+/// v : "LovelySharma"
+/// email : "lsharma@moreyeahs.com"
 /// firstName : "Lovely"
 /// lastName : "Sharma"
-/// password : "Moreyeahs@123"
-/// companyId : 1
-/// uploadResume : null
 /// primaryContact : "8517014372"
-/// roleType : "HR Head"
-/// email : "lsharma@moreyeahs.com"
-/// employeeTypeID : 5
-/// employeeCode : null
-/// secondaryContact : null
 /// maritalStatus : "Married"
 /// spouseName : "Mr. Krishankant Dubey"
 /// fatherName : "Mr. Gautam Sharma"
 /// motherName : "Mrs. Aasha Sharma"
-/// createdOn : null
-/// updatedOn : null
-/// isActive : false
-/// isDeleted : false
-/// bloodGroupId : 7
-/// bloodGroup : "AB+"
+/// bloodGroupType : "AB+"
 /// document : null
-/// roleId : 120
-/// permanentAddress : "894 -101 Uniqe Center Mahalaxmi Nagar Indore (M.P)"
-/// localAddress : "894 -101 Uniqe Center Mahalaxmi Nagar Indore (M.P)"
+/// roleType : "HR Head"
+/// password : "Moreyeahs@123"
 /// joiningDate : null
 /// confirmationDate : null
 /// dob : null
@@ -32,52 +19,40 @@
 /// whatsappNumber : "8517014372"
 /// aadharNumber : null
 /// panNumber : "EYYPS5491H"
+/// permanentAddress : "894 -101 Uniqe Center Mahalaxmi Nagar Indore (M.P)"
+/// localAddress : "894 -101 Uniqe Center Mahalaxmi Nagar Indore (M.P)"
 /// medicalIssue : "No issues"
-/// profile : "https://uatportalapi.moreyeahs.in/uploadimage/MicrosoftTeams-image (9)20220212120232AM.png"
+/// profile : "https://uatportalapi.moreyeahs.in/uploadimage/one20220228052736PM.jpg"
 /// salary : null
 /// bankAccountNumber : "50100185795642"
 /// ifsc : "HDFC0003812"
 /// accountHolderName : "Lovely Sharma"
 /// bankName : "HDFC "
 /// moreyeahsMailId : "lsharma@moreyeahs.com"
-/// employeeType : "Employee On Probation Period"
+/// employeeTypes : "Employee On Probation Period"
 /// companyName : null
-/// departmentName : null
-/// departmentId : 0
-/// gender : null
-/// aboutMeRemark : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lacinia consectetur nulla a eleifend. Nunc non leo risus. Aliquam lacus libero, aliquam eu molestie et, ullamcorper vel velit. Curabitur sagittis, libero vel varius rutrum, metus elit fermentum neque, porta sagittis nisl lacus ac velit. Vivamus ut ex luctus, laoreet ipsum et, iaculis erat. In hac habitasse platea dictumst. Proin nec eros nec lacus varius dignissim at at nibh. Donec rhoncus diam ut venenatis laoreet. Nulla in lacus eros. Nulla facilisi."
-/// aboutMyJobRemark : null
-/// interestAndHobbiesRemark : null
+/// bloodGroupId : 7
+/// roleId : 120
+/// employeeTypeID : 5
+/// companyId : 1
+/// uploadResume : null
 
 class ProfileResponse {
   ProfileResponse({
       int employeeId, 
-      String fullName, 
+      String v, 
+      String email, 
       String firstName, 
       String lastName, 
-      String password, 
-      int companyId, 
-      dynamic uploadResume, 
       String primaryContact, 
-      String roleType, 
-      String email, 
-      int employeeTypeID, 
-      dynamic employeeCode, 
-      dynamic secondaryContact, 
       String maritalStatus, 
       String spouseName, 
       String fatherName, 
       String motherName, 
-      dynamic createdOn, 
-      dynamic updatedOn, 
-      bool isActive, 
-      bool isDeleted, 
-      int bloodGroupId, 
-      String bloodGroup, 
+      String bloodGroupType, 
       dynamic document, 
-      int roleId, 
-      String permanentAddress, 
-      String localAddress, 
+      String roleType, 
+      String password, 
       dynamic joiningDate, 
       dynamic confirmationDate, 
       dynamic dob, 
@@ -85,6 +60,8 @@ class ProfileResponse {
       String whatsappNumber, 
       dynamic aadharNumber, 
       String panNumber, 
+      String permanentAddress, 
+      String localAddress, 
       String medicalIssue, 
       String profile, 
       dynamic salary, 
@@ -93,41 +70,27 @@ class ProfileResponse {
       String accountHolderName, 
       String bankName, 
       String moreyeahsMailId, 
-      String employeeType, 
+      String employeeTypes, 
       dynamic companyName, 
-      dynamic departmentName, 
-      int departmentId, 
-      dynamic gender, 
-      String aboutMeRemark, 
-      dynamic aboutMyJobRemark, 
-      dynamic interestAndHobbiesRemark,}){
+      int bloodGroupId, 
+      int roleId, 
+      int employeeTypeID, 
+      int companyId, 
+      dynamic uploadResume,}){
     _employeeId = employeeId;
-    _fullName = fullName;
+    _v = v;
+    _email = email;
     _firstName = firstName;
     _lastName = lastName;
-    _password = password;
-    _companyId = companyId;
-    _uploadResume = uploadResume;
     _primaryContact = primaryContact;
-    _roleType = roleType;
-    _email = email;
-    _employeeTypeID = employeeTypeID;
-    _employeeCode = employeeCode;
-    _secondaryContact = secondaryContact;
     _maritalStatus = maritalStatus;
     _spouseName = spouseName;
     _fatherName = fatherName;
     _motherName = motherName;
-    _createdOn = createdOn;
-    _updatedOn = updatedOn;
-    _isActive = isActive;
-    _isDeleted = isDeleted;
-    _bloodGroupId = bloodGroupId;
-    _bloodGroup = bloodGroup;
+    _bloodGroupType = bloodGroupType;
     _document = document;
-    _roleId = roleId;
-    _permanentAddress = permanentAddress;
-    _localAddress = localAddress;
+    _roleType = roleType;
+    _password = password;
     _joiningDate = joiningDate;
     _confirmationDate = confirmationDate;
     _dob = dob;
@@ -135,6 +98,8 @@ class ProfileResponse {
     _whatsappNumber = whatsappNumber;
     _aadharNumber = aadharNumber;
     _panNumber = panNumber;
+    _permanentAddress = permanentAddress;
+    _localAddress = localAddress;
     _medicalIssue = medicalIssue;
     _profile = profile;
     _salary = salary;
@@ -143,44 +108,30 @@ class ProfileResponse {
     _accountHolderName = accountHolderName;
     _bankName = bankName;
     _moreyeahsMailId = moreyeahsMailId;
-    _employeeType = employeeType;
+    _employeeTypes = employeeTypes;
     _companyName = companyName;
-    _departmentName = departmentName;
-    _departmentId = departmentId;
-    _gender = gender;
-    _aboutMeRemark = aboutMeRemark;
-    _aboutMyJobRemark = aboutMyJobRemark;
-    _interestAndHobbiesRemark = interestAndHobbiesRemark;
+    _bloodGroupId = bloodGroupId;
+    _roleId = roleId;
+    _employeeTypeID = employeeTypeID;
+    _companyId = companyId;
+    _uploadResume = uploadResume;
 }
 
   ProfileResponse.fromJson(dynamic json) {
     _employeeId = json['employeeId'];
-    _fullName = json['fullName'];
+    _v = json['v'];
+    _email = json['email'];
     _firstName = json['firstName'];
     _lastName = json['lastName'];
-    _password = json['password'];
-    _companyId = json['companyId'];
-    _uploadResume = json['uploadResume'];
     _primaryContact = json['primaryContact'];
-    _roleType = json['roleType'];
-    _email = json['email'];
-    _employeeTypeID = json['employeeTypeID'];
-    _employeeCode = json['employeeCode'];
-    _secondaryContact = json['secondaryContact'];
     _maritalStatus = json['maritalStatus'];
     _spouseName = json['spouseName'];
     _fatherName = json['fatherName'];
     _motherName = json['motherName'];
-    _createdOn = json['createdOn'];
-    _updatedOn = json['updatedOn'];
-    _isActive = json['isActive'];
-    _isDeleted = json['isDeleted'];
-    _bloodGroupId = json['bloodGroupId'];
-    _bloodGroup = json['bloodGroup'];
+    _bloodGroupType = json['bloodGroupType'];
     _document = json['document'];
-    _roleId = json['roleId'];
-    _permanentAddress = json['permanentAddress'];
-    _localAddress = json['localAddress'];
+    _roleType = json['roleType'];
+    _password = json['password'];
     _joiningDate = json['joiningDate'];
     _confirmationDate = json['confirmationDate'];
     _dob = json['dob'];
@@ -188,6 +139,8 @@ class ProfileResponse {
     _whatsappNumber = json['whatsappNumber'];
     _aadharNumber = json['aadharNumber'];
     _panNumber = json['panNumber'];
+    _permanentAddress = json['permanentAddress'];
+    _localAddress = json['localAddress'];
     _medicalIssue = json['medicalIssue'];
     _profile = json['profile'];
     _salary = json['salary'];
@@ -196,42 +149,28 @@ class ProfileResponse {
     _accountHolderName = json['accountHolderName'];
     _bankName = json['bankName'];
     _moreyeahsMailId = json['moreyeahsMailId'];
-    _employeeType = json['employeeType'];
+    _employeeTypes = json['employeeTypes'];
     _companyName = json['companyName'];
-    _departmentName = json['departmentName'];
-    _departmentId = json['departmentId'];
-    _gender = json['gender'];
-    _aboutMeRemark = json['aboutMeRemark'];
-    _aboutMyJobRemark = json['aboutMyJobRemark'];
-    _interestAndHobbiesRemark = json['interestAndHobbiesRemark'];
+    _bloodGroupId = json['bloodGroupId'];
+    _roleId = json['roleId'];
+    _employeeTypeID = json['employeeTypeID'];
+    _companyId = json['companyId'];
+    _uploadResume = json['uploadResume'];
   }
   int _employeeId;
-  String _fullName;
+  String _v;
+  String _email;
   String _firstName;
   String _lastName;
-  String _password;
-  int _companyId;
-  dynamic _uploadResume;
   String _primaryContact;
-  String _roleType;
-  String _email;
-  int _employeeTypeID;
-  dynamic _employeeCode;
-  dynamic _secondaryContact;
   String _maritalStatus;
   String _spouseName;
   String _fatherName;
   String _motherName;
-  dynamic _createdOn;
-  dynamic _updatedOn;
-  bool _isActive;
-  bool _isDeleted;
-  int _bloodGroupId;
-  String _bloodGroup;
+  String _bloodGroupType;
   dynamic _document;
-  int _roleId;
-  String _permanentAddress;
-  String _localAddress;
+  String _roleType;
+  String _password;
   dynamic _joiningDate;
   dynamic _confirmationDate;
   dynamic _dob;
@@ -239,6 +178,8 @@ class ProfileResponse {
   String _whatsappNumber;
   dynamic _aadharNumber;
   String _panNumber;
+  String _permanentAddress;
+  String _localAddress;
   String _medicalIssue;
   String _profile;
   dynamic _salary;
@@ -247,42 +188,28 @@ class ProfileResponse {
   String _accountHolderName;
   String _bankName;
   String _moreyeahsMailId;
-  String _employeeType;
+  String _employeeTypes;
   dynamic _companyName;
-  dynamic _departmentName;
-  int _departmentId;
-  dynamic _gender;
-  String _aboutMeRemark;
-  dynamic _aboutMyJobRemark;
-  dynamic _interestAndHobbiesRemark;
+  int _bloodGroupId;
+  int _roleId;
+  int _employeeTypeID;
+  int _companyId;
+  dynamic _uploadResume;
 
   int get employeeId => _employeeId;
-  String get fullName => _fullName;
+  String get v => _v;
+  String get email => _email;
   String get firstName => _firstName;
   String get lastName => _lastName;
-  String get password => _password;
-  int get companyId => _companyId;
-  dynamic get uploadResume => _uploadResume;
   String get primaryContact => _primaryContact;
-  String get roleType => _roleType;
-  String get email => _email;
-  int get employeeTypeID => _employeeTypeID;
-  dynamic get employeeCode => _employeeCode;
-  dynamic get secondaryContact => _secondaryContact;
   String get maritalStatus => _maritalStatus;
   String get spouseName => _spouseName;
   String get fatherName => _fatherName;
   String get motherName => _motherName;
-  dynamic get createdOn => _createdOn;
-  dynamic get updatedOn => _updatedOn;
-  bool get isActive => _isActive;
-  bool get isDeleted => _isDeleted;
-  int get bloodGroupId => _bloodGroupId;
-  String get bloodGroup => _bloodGroup;
+  String get bloodGroupType => _bloodGroupType;
   dynamic get document => _document;
-  int get roleId => _roleId;
-  String get permanentAddress => _permanentAddress;
-  String get localAddress => _localAddress;
+  String get roleType => _roleType;
+  String get password => _password;
   dynamic get joiningDate => _joiningDate;
   dynamic get confirmationDate => _confirmationDate;
   dynamic get dob => _dob;
@@ -290,6 +217,8 @@ class ProfileResponse {
   String get whatsappNumber => _whatsappNumber;
   dynamic get aadharNumber => _aadharNumber;
   String get panNumber => _panNumber;
+  String get permanentAddress => _permanentAddress;
+  String get localAddress => _localAddress;
   String get medicalIssue => _medicalIssue;
   String get profile => _profile;
   dynamic get salary => _salary;
@@ -298,44 +227,30 @@ class ProfileResponse {
   String get accountHolderName => _accountHolderName;
   String get bankName => _bankName;
   String get moreyeahsMailId => _moreyeahsMailId;
-  String get employeeType => _employeeType;
+  String get employeeTypes => _employeeTypes;
   dynamic get companyName => _companyName;
-  dynamic get departmentName => _departmentName;
-  int get departmentId => _departmentId;
-  dynamic get gender => _gender;
-  String get aboutMeRemark => _aboutMeRemark;
-  dynamic get aboutMyJobRemark => _aboutMyJobRemark;
-  dynamic get interestAndHobbiesRemark => _interestAndHobbiesRemark;
+  int get bloodGroupId => _bloodGroupId;
+  int get roleId => _roleId;
+  int get employeeTypeID => _employeeTypeID;
+  int get companyId => _companyId;
+  dynamic get uploadResume => _uploadResume;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['employeeId'] = _employeeId;
-    map['fullName'] = _fullName;
+    map['v'] = _v;
+    map['email'] = _email;
     map['firstName'] = _firstName;
     map['lastName'] = _lastName;
-    map['password'] = _password;
-    map['companyId'] = _companyId;
-    map['uploadResume'] = _uploadResume;
     map['primaryContact'] = _primaryContact;
-    map['roleType'] = _roleType;
-    map['email'] = _email;
-    map['employeeTypeID'] = _employeeTypeID;
-    map['employeeCode'] = _employeeCode;
-    map['secondaryContact'] = _secondaryContact;
     map['maritalStatus'] = _maritalStatus;
     map['spouseName'] = _spouseName;
     map['fatherName'] = _fatherName;
     map['motherName'] = _motherName;
-    map['createdOn'] = _createdOn;
-    map['updatedOn'] = _updatedOn;
-    map['isActive'] = _isActive;
-    map['isDeleted'] = _isDeleted;
-    map['bloodGroupId'] = _bloodGroupId;
-    map['bloodGroup'] = _bloodGroup;
+    map['bloodGroupType'] = _bloodGroupType;
     map['document'] = _document;
-    map['roleId'] = _roleId;
-    map['permanentAddress'] = _permanentAddress;
-    map['localAddress'] = _localAddress;
+    map['roleType'] = _roleType;
+    map['password'] = _password;
     map['joiningDate'] = _joiningDate;
     map['confirmationDate'] = _confirmationDate;
     map['dob'] = _dob;
@@ -343,6 +258,8 @@ class ProfileResponse {
     map['whatsappNumber'] = _whatsappNumber;
     map['aadharNumber'] = _aadharNumber;
     map['panNumber'] = _panNumber;
+    map['permanentAddress'] = _permanentAddress;
+    map['localAddress'] = _localAddress;
     map['medicalIssue'] = _medicalIssue;
     map['profile'] = _profile;
     map['salary'] = _salary;
@@ -351,14 +268,13 @@ class ProfileResponse {
     map['accountHolderName'] = _accountHolderName;
     map['bankName'] = _bankName;
     map['moreyeahsMailId'] = _moreyeahsMailId;
-    map['employeeType'] = _employeeType;
+    map['employeeTypes'] = _employeeTypes;
     map['companyName'] = _companyName;
-    map['departmentName'] = _departmentName;
-    map['departmentId'] = _departmentId;
-    map['gender'] = _gender;
-    map['aboutMeRemark'] = _aboutMeRemark;
-    map['aboutMyJobRemark'] = _aboutMyJobRemark;
-    map['interestAndHobbiesRemark'] = _interestAndHobbiesRemark;
+    map['bloodGroupId'] = _bloodGroupId;
+    map['roleId'] = _roleId;
+    map['employeeTypeID'] = _employeeTypeID;
+    map['companyId'] = _companyId;
+    map['uploadResume'] = _uploadResume;
     return map;
   }
 

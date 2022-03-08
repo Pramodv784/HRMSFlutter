@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage>
   File _FileImage;
   TabController _tabController;
   ProfileResponse _response;
-  List<ProfileResponse> profileList = [];
+
 
   @override
   void initState() {
@@ -52,28 +52,17 @@ class _ProfilePageState extends State<ProfilePage>
   void getuserId() async {
     var userData = await (AuthUser.getInstance()).getCurrentUser();
     _presenter.getProfile(context, userData.userId);
-
-    ///  _presenter.getProfile(context,userData.userId);
-
-    getProfileList(userData.userId);
-    // print('User Data****${AuthUser.getInstance().getCurrentUser().toString()}');
   }
 
-  void getProfileList(int id) async {
-    profileList = await _presenter.getProfiledata(id);
-    print('profileList listResponse ${profileList.length}');
-    AuthUser.getInstance().SetProfilePic(profileList[0]?.profile?.toString());
 
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.background,
         body: SafeArea(
-          child: profileList.length > 0
-              ? Column(children: [
+          child:_response!=null?
+          Column(children: [
                   Header(
                     headerText: 'Profile',
                   ),
@@ -104,14 +93,14 @@ class _ProfilePageState extends State<ProfilePage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _FileImage == null
-                                    ? profileList?.isEmpty
+                                    ? _response?.profile.isEmpty
                                         ? Image.asset(Images.ProfileUserIcon)
                                         : InkWell(
                                             onTap: () {
                                               Navigator.pushNamed(
                                                   context, Screens.ImageView,
                                                   arguments: [
-                                                    profileList[0]?.profile
+                                                    _response.profile
                                                   ]);
                                             },
                                             child: Hero(
@@ -120,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                 borderRadius:
                                                     BorderRadius.circular(30.0),
                                                 child: Image.network(
-                                                  profileList[0]?.profile,
+                                                  _response?.profile,
                                                   height: 80,
                                                   width: 100,
                                                 ),
@@ -146,11 +135,11 @@ class _ProfilePageState extends State<ProfilePage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${profileList[0]?.fullName}',
+                                      '${_response?.firstName} ${_response?.lastName}',
                                       style: textStyleRegular18pxW600,
                                     ),
                                     Text(
-                                      '${profileList[0]?.roleType}',
+                                      '${_response?.roleType.toString()}',
                                       style: textStyleRegular12pxGrey,
                                     ),
                                     Row(
@@ -207,7 +196,7 @@ class _ProfilePageState extends State<ProfilePage>
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.SubText)),
                                       TextSpan(
-                                          text: profileList[0]?.roleType ?? "",
+                                          text: _response?.roleType ?? "",
                                           style: const TextStyle(
                                               fontSize: 15,
                                               color: AppColors.SubText))
@@ -340,11 +329,11 @@ class _ProfilePageState extends State<ProfilePage>
                                   children: [
                                 Container(
                                   color: AppColors.white,
-                                  child: AboutPage(profileList),
+                                  child: AboutPage(_response),
                                 ),
                                 Container(
                                   color: AppColors.white,
-                                  child: ProfileDetail(profileList),
+                                  child: ProfileDetail(_response),
                                 ),
                                 Container(
                                   color: AppColors.white,
@@ -391,7 +380,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                   ),
                                                   InkWell(
                                                     child: Text(
-                                                      '${profileList[0]?.employeeCode ?? ""}',
+                                                      '${_response.employeeTypeID ?? ""}',
                                                       style: const TextStyle(
                                                           fontSize: 15,
                                                           color: AppColors
@@ -441,7 +430,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                   ),
                                                   InkWell(
                                                     child: Text(
-                                                      '${profileList[0]?.joiningDate ?? ""}',
+                                                      '${_response.joiningDate ?? ""}',
                                                       style: const TextStyle(
                                                           fontSize: 15,
                                                           color: AppColors
@@ -500,10 +489,10 @@ class _ProfilePageState extends State<ProfilePage>
                       ),
                     ),
                   ))
-                ])
-              : Column(
-                  children: const [],
-                ),
+                ]):Column(
+            children: [],
+          )
+
         ));
   }
 
@@ -614,15 +603,12 @@ class _ProfilePageState extends State<ProfilePage>
 
   @override
   void onProfileFetch(ProfileResponse response) {
-    print('Profile ****** ${_response.firstName}');
     _response = response;
     setState(() {});
+
   }
 
-  @override
-  void onProfileListFetch(List<ProfileResponse> responselist) {
-    print('response profile ***${responselist.length}');
-  }
+
 
   @override
   void dispose() {
@@ -631,15 +617,15 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   void CallNumber() async {
-    if (await canLaunch('tel:${profileList[0].primaryContact}')) {
-      await launch('tel:${profileList[0].primaryContact}');
+    if (await canLaunch('tel:${_response.primaryContact}')) {
+      await launch('tel:${_response.primaryContact}');
     } else {
       throw 'could not launch';
     }
   }
 
   void sendMail() async {
-    var url = 'mailto:${profileList[0]?.email}?subject=&body=';
+    var url = 'mailto:${_response.email}?subject=&body=';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -648,6 +634,11 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   void addressMap() async {
-    var res = await MapsLauncher.launchQuery(profileList[0].localAddress);
+    var res = await MapsLauncher.launchQuery(_response.localAddress);
+  }
+
+  @override
+  onError(String message) {
+    Utility.showErrorToast(context, message);
   }
 }

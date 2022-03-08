@@ -5,7 +5,7 @@ import '../res/AppColors.dart';
 import 'model/profile_response.dart';
 
 class AboutPage extends StatefulWidget {
-  List<ProfileResponse> profileList;
+  ProfileResponse  profileList;
   AboutPage(this.profileList,{Key key}) : super(key: key);
 
   @override
@@ -45,10 +45,8 @@ class _AboutPageState extends State<AboutPage> {
                             height: 5.0,
                           ),
                           Text(
-                            widget?.profileList?.length > 0
-                                ? '${widget.profileList[0]?.firstName ?? ""}'
-                                : ''
-                            '',
+                                '${widget.profileList.firstName ?? ""}'
+                            ,
                             style: TextStyle(
                                 fontSize: 15, color: AppColors.SubText),
                             maxLines: 2,
@@ -75,9 +73,8 @@ class _AboutPageState extends State<AboutPage> {
                             height: 5.0,
                           ),
                           Text(
-                            widget?.profileList?.length > 0
-                                ? '${widget?.profileList[0]?.maritalStatus ?? ""}'
-                                : '',
+                            '${widget?.profileList.maritalStatus ?? ""}'
+                               ,
                             style: TextStyle(
                                 fontSize: 15, color: AppColors.SubText),
                           ),
@@ -95,9 +92,8 @@ class _AboutPageState extends State<AboutPage> {
                           SizedBox(
                             height: 5.0,
                           ),
-                          Text(widget?.profileList.length > 0
-                              ? '${widget?.profileList[0]?.lastName ?? ""}'
-                              : '',
+                          Text( '${widget?.profileList.lastName ?? ""}'
+                             ,
                               style: TextStyle(
                                   fontSize: 15, color: AppColors.SubText),
                               maxLines: 2,
@@ -110,9 +106,9 @@ class _AboutPageState extends State<AboutPage> {
                           SizedBox(
                             height: 5.0,
                           ),
-                          Text(widget?.profileList?.length > 0
-                              ? '${widget?.profileList[0]?.dob ?? ""}'
-                              : '',
+                          Text(
+                               '${widget?.profileList.dob ?? ""}'
+                              ,
                               style: TextStyle(
                                   fontSize: 15, color: AppColors.SubText)),
                           SizedBox(

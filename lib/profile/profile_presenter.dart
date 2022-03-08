@@ -76,14 +76,16 @@ class ProfilePresenter {
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
-            List<ProfileResponse> listData=[];
-          listData=(res.data as List)
-              .map((x) => ProfileResponse.fromJson(x))
-              .toList();
-          print('list sized ${listData.length}');
+          if(res.statusCode==200)
+            {
+              ProfileResponse profileResponse=ProfileResponse.fromJson(res.data);
+              _view.onProfileFetch(profileResponse);
+            }
+          else
+            {
+              _view.onError('some thing went wrong');
+            }
 
-
-          _view.onProfileListFetch(listData);
 
         }
         ).catchError((e) async {

@@ -5,7 +5,7 @@ import '../res/AppColors.dart';
 import 'model/profile_response.dart';
 
 class ProfileDetail extends StatefulWidget {
-  List<ProfileResponse> profileList;
+  ProfileResponse profileList;
 
   ProfileDetail(this.profileList, {Key key}) : super(key: key);
 
@@ -48,9 +48,8 @@ class _ProfileDetailState extends State<ProfileDetail> {
                         height: 5.0,
                       ),
                       Text(
-                        widget.profileList.length > 0
-                            ? '${widget.profileList[0]?.firstName ?? ""}'
-                            : '',
+                         '${widget.profileList?.firstName ?? ""}'
+                            ,
                         style:
                             TextStyle(fontSize: 15, color: AppColors.SubText),
                         maxLines: 2,
@@ -81,7 +80,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       SizedBox(
                         height: 5.0,
                       ),
-                      Text('${widget.profileList[0]?.lastName ?? ""}  ',
+                      Text('${widget.profileList?.lastName ?? ""}  ',
                           style:
                               TextStyle(fontSize: 15, color: AppColors.SubText),
                           maxLines: 2,
@@ -95,7 +94,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       ),
                       InkWell(
                         child: Text(
-                            '${widget.profileList[0]?.emergencyNumber ?? ""}',
+                            '${widget.profileList?.emergencyNumber ?? ""}',
                             style: TextStyle(
                                 fontSize: 15, color: AppColors.SubText)),
                         onTap: () {
@@ -135,7 +134,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                   height: 5.0,
                 ),
                 Text(
-                  '${widget.profileList[0]?.localAddress ?? ""}',
+                  '${widget.profileList?.localAddress ?? ""}',
                   style: TextStyle(fontSize: 15, color: AppColors.SubText),
                 ),
                 SizedBox(
@@ -147,7 +146,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                 ),
                 InkWell(
                   child: Text(
-                    '${widget.profileList[0]?.permanentAddress ?? ""}',
+                    '${widget.profileList?.permanentAddress ?? ""}',
                     style: TextStyle(fontSize: 15, color: AppColors.SubText),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -188,9 +187,8 @@ class _ProfileDetailState extends State<ProfileDetail> {
                         height: 5.0,
                       ),
                       Text(
-                        widget.profileList.length > 0
-                            ? '${widget.profileList[0]?.email ?? ""}'
-                            : '',
+                        '${widget.profileList?.email ?? ""}'
+                           ,
                         style:
                             TextStyle(fontSize: 15, color: AppColors.SubText),
                         maxLines: 2,
@@ -204,9 +202,8 @@ class _ProfileDetailState extends State<ProfileDetail> {
                         height: 5.0,
                       ),
                       Text(
-                        widget.profileList.length > 0
-                            ? '${widget.profileList[0]?.primaryContact ?? ""}'
-                            : '',
+                       '${widget.profileList?.primaryContact ?? ""}'
+                         ,
                         style:
                             TextStyle(fontSize: 15, color: AppColors.SubText),
                       ),
@@ -216,9 +213,8 @@ class _ProfileDetailState extends State<ProfileDetail> {
                         height: 5.0,
                       ),
                       Text(
-                        widget.profileList.length > 0
-                            ? '${widget.profileList[0]?.secondaryContact ?? ""}'
-                            : '',
+                       '${widget.profileList?.emergencyNumber ?? ""}'
+                           ,
                         style:
                         TextStyle(fontSize: 15, color: AppColors.SubText),
                       ),
@@ -237,7 +233,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       SizedBox(
                         height: 5.0,
                       ),
-                      Text('${widget.profileList[0]?.email ?? ""}  ',
+                      Text('${widget.profileList?.email ?? ""}  ',
                           style:
                               TextStyle(fontSize: 15, color: AppColors.SubText),
                           maxLines: 2,
@@ -251,7 +247,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       ),
                       InkWell(
                         child: Text(
-                            '${widget.profileList[0]?.emergencyNumber ?? ""}',
+                            '${widget.profileList?.emergencyNumber ?? ""}',
                             style: TextStyle(
                                 fontSize: 15, color: AppColors.SubText)),
                         onTap: () {
@@ -265,7 +261,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       ),
                       InkWell(
                         child: Text(
-                            '${widget.profileList[0]?.email ?? ""}',
+                            '${widget.profileList?.email ?? ""}',
                             style: TextStyle(
                                 fontSize: 15, color: AppColors.SubText)),
                         onTap: () {
@@ -307,7 +303,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       ),
                       InkWell(
                         child: Text(
-                          '${widget.profileList[0]?.fatherName ?? ""}',
+                          '${widget.profileList?.fatherName ?? ""}',
                           style:
                               TextStyle(fontSize: 15, color: AppColors.SubText),
                           maxLines: 2,
@@ -344,7 +340,7 @@ class _ProfileDetailState extends State<ProfileDetail> {
                       ),
                       InkWell(
                         child: Text(
-                          '${widget.profileList[0]?.motherName ?? ""}',
+                          '${widget.profileList?.motherName ?? ""}',
                           style:
                               TextStyle(fontSize: 15, color: AppColors.SubText),
                           maxLines: 2,
