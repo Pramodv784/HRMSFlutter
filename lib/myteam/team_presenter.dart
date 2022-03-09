@@ -12,8 +12,6 @@ import 'package:hrms/expense/expense_view.dart';
 import 'package:hrms/expense/model/add_expense_response.dart';
 import 'package:hrms/feedback_history/feedhistory_view.dart';
 import 'package:hrms/feedback_history/model/feed_history_response.dart';
-import 'package:hrms/holidays/holiday_view.dart';
-import 'package:hrms/holidays/model/get_all_holidays_response.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 
 import 'package:hrms/utility/Dialogs.dart';
@@ -23,33 +21,35 @@ import 'package:hrms/utility/Utility.dart';
 
 
 
-class HolidayPresenter {
-  var tag = 'HolidayPresenter ';
+class TeamPresenter {
+  var tag = 'TeamPresenter ';
   static const encryptionChannel = const MethodChannel('enc/dec');
 
 
-  HolidayView _view;
+  FeedHistoryView _view;
   ApiController _repository = ApiController.getInstance();
 
-  HolidayPresenter(this._view);
+  TeamPresenter(this._view);
 
 
 
-  getHoliday(BuildContext context) async {
+  getFeedHistory(BuildContext context,int id) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetAllHolidays}',headers: await Utility.header())
+      _repository.get2('${EndPoints.FeedHistory}?empId=$id',headers: await Utility.header())
         ..then((Response res) async {
-
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+          // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
+          //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
-          GetAllHolidaysResponse getAllHolidaysResponse=GetAllHolidaysResponse.fromJson(res.data);
-          if (getAllHolidaysResponse.status??false) {
-            _view.onFeedHolidayFecthed(getAllHolidaysResponse);
-          }
+          FeedHistoryResponse data = FeedHistoryResponse.fromJson(res.data);
+          if (data?.statusReason??false)
+            _view.onFeedHistoryFecthed(data);
           else
             {
-              _view.onError('some thing went wrong');
+              _view.onError(data.message);
             }
 
         }

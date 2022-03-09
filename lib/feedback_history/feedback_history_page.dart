@@ -166,7 +166,7 @@ class _FeedbackHistoryState extends State<FeedbackHistory>
   _buildExpandableContent(DataCategories dataCategories) {
     List<Widget> columnContent = [];
     int ques = 1;
-    for (QuestionScores content in dataCategories.questionScores)
+    for (QuestionScores content in dataCategories.questionScores) {
       columnContent.add(
         Container(
           color: AppColors.white,
@@ -203,6 +203,7 @@ class _FeedbackHistoryState extends State<FeedbackHistory>
           ),
         ),
       );
+    }
 
     return columnContent;
   }

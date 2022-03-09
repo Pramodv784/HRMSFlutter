@@ -126,8 +126,8 @@ const textStylePrimary18pxW500 = TextStyle(
 const textStyleWhiteRegular18pxW700 = TextStyle(
     color: AppColors.white,
     fontFamily: kFontFamily,
-    fontWeight: FontWeight.w700,
-    fontSize: fontH3);
+    fontWeight: FontWeight.w900,
+    fontSize: fontH1);
 const textStyleWhiteRegular12pxW700 = TextStyle(
     color: AppColors.white,
     fontFamily: kFontFamily,

@@ -96,12 +96,12 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                                       color: Colors.red,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                InkWell(
+                              /*  InkWell(
                                   child: Image.asset(Images.FilterIcon),
                                   onTap: () {
                                     opendFilterDialog();
                                   },
-                                )
+                                )*/
                               ],
                             )),
                         Container(

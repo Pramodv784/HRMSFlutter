@@ -36,7 +36,7 @@ class CardHome extends StatelessWidget {
               )
             ],
           ),
-         splashColor: AppColors.red,
+         splashColor: AppColors.grey,
           onTap: (){
             Future.delayed(const Duration(milliseconds: 300), () {
               switch(_data.menuId)
@@ -53,6 +53,11 @@ class CardHome extends StatelessWidget {
                     case 21:
                   Navigator.pushNamed(context, Screens.HolidayPage);
                   break;
+                     case 12:
+                  Navigator.pushNamed(context, Screens.EmpPage);
+                  break;
+
+
 
 
 

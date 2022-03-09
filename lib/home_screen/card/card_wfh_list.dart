@@ -5,9 +5,10 @@ import 'package:hrms/res/Fonts.dart';
 
 class CardWFHList extends StatelessWidget {
   WorkFromHomeList _data;
+  Color color;
 
 
-  CardWFHList(this._data, {Key key}) : super(key: key);
+  CardWFHList(this._data,this.color, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CardWFHList extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.0),
-              color: AppColors.cardColor,
+              color: color,
             ),
             child: Stack(children: [
               Align(

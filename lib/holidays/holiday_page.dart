@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/holidays/holiday_presenter.dart';
@@ -8,6 +10,7 @@ import 'package:hrms/res/Images.dart';
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import '../res/Fonts.dart';
 import '../utility/Header.dart';
 import 'card_holiday.dart';
 
@@ -20,7 +23,7 @@ class HolidayPage extends StatefulWidget {
 
 class _HolidayPageState extends State<HolidayPage> implements HolidayView {
   HolidayPresenter _presenter;
-  List<GetAllHolidaysResponse> holidayList = [];
+  List<Holiday> holidayList = [];
 
   @override
   void initState() {
@@ -46,23 +49,25 @@ class _HolidayPageState extends State<HolidayPage> implements HolidayView {
                     itemBuilder: (context, index) {
                       return ListTile(
                         contentPadding: EdgeInsets.all(10.0),
-                        title: Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(15.0),
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(Images.ImageHoliday),
-                                colorFilter: ColorFilter.mode(Colors.black, BlendMode.dstATop),
-                             opacity: 0.5,
-                              fit: BoxFit.fill
-                            )
+                        title:
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                height: 52,
+                                  width: Utility.screenWidth(context),
+                                  child: ImageFiltered(
+                                      imageFilter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+                                      child: Image.network(holidayList[index].imageUrl,fit: BoxFit.cover))),
+                              Align(
+
+                                child: Text('${holidayList[index].holidayName} \n ${Utility.getDayFromServer(holidayList[index]?.holidayDate ?? "")}',style: textStyleWhiteRegular18pxW700,),
+                                alignment: Alignment.center,
+                              ),
+
+                              
+                            ],
                           ),
-                            child: Column(
-                              children: [
-                                Text(holidayList[index].holidayName,style: TextStyle(fontSize: 15.0,color: AppColors.white,fontWeight: FontWeight.w800),),
-                                Text('${Utility.getDayFromServer(holidayList[index]?.holidayDate?? "")}',style: TextStyle(fontSize: 15.0,color: AppColors.white,)),
-                              ],
-                            )),
                         leading:   Container(
                           padding: EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
@@ -89,10 +94,10 @@ class _HolidayPageState extends State<HolidayPage> implements HolidayView {
   }
 
   @override
-  void onFeedHolidayFecthed(List<GetAllHolidaysResponse> response) {
-    print('response *****${response.length}');
+  void onFeedHolidayFecthed(GetAllHolidaysResponse response) {
+    print('response *****${response.holiday.length}');
     holidayList.clear();
-    holidayList.addAll(response);
+    holidayList.addAll(response.holiday);
     setState(() {});
   }
 }

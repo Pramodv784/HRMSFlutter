@@ -23,6 +23,7 @@ import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:random_color/random_color.dart';
 
 import '../utility/Dialogs.dart';
 import 'card/card_home.dart';
@@ -49,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   int userId = 0;
   bool checkStatus = false;
   GetClockInTimeResponse getClockInTimeResponse;
+  RandomColor _randomColor = RandomColor();
 
   @override
   void initState() {
@@ -133,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                 borderRadius: BorderRadius.circular(20.0)),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 20.0, horizontal: 10.0),
+                                  vertical: 15.0, horizontal: 10.0),
                               child: Row(
                                 children: [
                                   Column(
@@ -241,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 0.0,horizontal: 10.0),
                           child: Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0)),
@@ -281,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10.0),
                           child: Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20.0)),
@@ -322,9 +324,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 4.0),
+                              horizontal: 10.0, vertical: 0.0),
                           margin: const EdgeInsets.symmetric(
-                              vertical: 20.0, horizontal: 10.0),
+                              vertical: 5.0, horizontal: 10.0),
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             child: GridView.count(
@@ -482,6 +484,15 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
         {
           homelist.add(response.menuList[i]);
         }
+        if(response.menuList[i].menuId==22)
+        {
+          homelist.add(response.menuList[i]);
+        }
+        if(response.menuList[i].menuId==12)
+        {
+          homelist.add(response.menuList[i]);
+        }
+
       }
 
 
@@ -517,7 +528,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     todayleaveList.clear();
 
     for (int i = 0; i < response.empList.length; i++) {
-      todayleaveList.add(CardLeaveToday(response.empList[i]));
+      todayleaveList.add(CardLeaveToday(response.empList[i],_randomColor.randomColor(colorHue: ColorHue.red)));
     }
 
     setState(() {});
@@ -528,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     print('leave WFH list *** ${response.workFromHomeList.length}');
     for (int i = 0; i < response.workFromHomeList.length; i++) {
 
-      wfhUserList.add(CardWFHList(response.workFromHomeList[i]));
+      wfhUserList.add(CardWFHList(response.workFromHomeList[i],_randomColor.randomColor(colorHue: ColorHue.red)));
     }
 
     setState(() {});

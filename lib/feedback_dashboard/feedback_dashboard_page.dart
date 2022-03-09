@@ -81,17 +81,37 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> implements
 
   }
   void getMoth(int id) async{
-    final AvgMonthResponse= await _presenter.getMonthData(id);
-    print('Month Data********${AvgMonthResponse.length}');
-      AvgMonthResponse.where((element) => element!=null).toList()
-    .sort((a, b) => b.key.compareTo(a.key));
-    for(int i=0;i<AvgMonthResponse.length;i++)
+    List<AvgMonthResponse> avgList= await _presenter.getMonthData(id);
+    print('Month Data********${avgList.length}');
+
+    for(int i=0;i<avgList.length;i++)
       {
-        String date=Utility.formatDate(AvgMonthResponse[i].key);
+        String date=Utility.formatDate(avgList[i].key);
         String month=date.substring(0,date.indexOf(' '));
         print('date** ${month}');
+
+        if(month=='Jan')
+        {
+          avgList[0]=AvgMonthResponse(key: avgList[i].key,value: avgList[i].value);
+        }
+        if(month=='Feb')
+        {
+          avgList[1]=AvgMonthResponse(key: avgList[i].key,value: avgList[i].value);
+        }
+      }
+    for(int i=0;i<avgList.length;i++)
+      {
+
+        String date=Utility.formatDate(avgList[i].key);
+        String month=date.substring(0,date.indexOf(' '));
+        print('date** ${month}');
+
+         if(month=='Jan')
+           {
+             avgList[0]=AvgMonthResponse(key: avgList[i].key,value: avgList[i].value);
+           }
         chartData.add(ScoreData(month,
-            AvgMonthResponse[i].value, AppColors.red));
+            avgList[i].value, AppColors.red));
       }
     setState(() {
 
