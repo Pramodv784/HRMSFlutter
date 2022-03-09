@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -119,10 +120,10 @@ class _MidLayerState extends State<MidLayer> {
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconRateUs, Screens.kScreenRateUs, context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.EmpIcon, 'Employee Directory',
+                  drawerRowBuilder(Images.EmpDirectory, 'Employee Directory',
                       context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.LogoutIcon, 'Leave,Ticket,Expense',
+                  drawerRowBuilder(Images.LeaveRequest, 'Leave,Ticket,Expense',
                       context: context),
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
@@ -148,7 +149,7 @@ class _MidLayerState extends State<MidLayer> {
           //change here don't //worked
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset(
+            SvgPicture.asset(
               iconRes,
               width: 24,
               height: 24,

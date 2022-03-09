@@ -60,6 +60,7 @@ abstract class AppColors {
 
   static const red = Color(0xFFDE1F26);
   static const blue = Color(0xFF00A3C8);
+  static const blueCard = Color(0xFF30C6F6);
   static const green = Color(0xFF14CD93);
   static const borderColor = Color(0xFF616576);
   static const ratingColor = Color(0xFFFFC107);
