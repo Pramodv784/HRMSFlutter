@@ -37,6 +37,7 @@ import 'feedback/select_emp/select_emp.dart';
 import 'feedback_dashboard/feedback_dashboard_page.dart';
 import 'feedback_history/feedback_history_page.dart';
 import 'goal/GoalPage.dart';
+import 'holidays/holiday_page.dart';
 import 'leave_request/leave_request_dashboard.dart';
 
 void main() async {
@@ -166,6 +167,10 @@ class _ScreenState extends State<MyApp> {
             case Screens.WorkFromHomePage:
               return RouteTransition(widget: WorkFromHomePage());
               break;
+                case Screens.HolidayPage:
+              return RouteTransition(widget: HolidayPage());
+              break;
+
             case Screens.CommonPage:
               String title = settings.arguments;
               return RouteTransition(widget: CommonPage(title));
@@ -191,9 +196,8 @@ class _ScreenState extends State<MyApp> {
         },
         home:
         checkAuthUser(widget?.isLoggedIn)
-        //ProfilePage()
-        //ChatePage()
-        //AddFeedback()
+        //HolidayPage()
+
         );
   }
 

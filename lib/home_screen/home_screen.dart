@@ -208,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   Flexible(
                                     child: Container(
                                       width: Utility.screenWidth(context),
-                                      padding: EdgeInsets.all(15.0),
+                                      padding: EdgeInsets.all(10.0),
                                       decoration: BoxDecoration(
                                           color: AppColors.red,
                                           borderRadius:
@@ -357,7 +357,8 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                     borderColor: AppColors.red,
                                     child: CardHome(homlist[index])):
 */
-                                      CardHome(homelist[index]);
+
+                                     CardHome(homelist[index]);
                                 })),
                           ),
                         ),
@@ -374,7 +375,6 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   Container header(BaseProvider baseProvider) {
     return Container(
       color: AppColors.colorPrimary,
-      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0),bottomRight: Radius.circular(20.0))),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -464,7 +464,26 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   @override
   void onHomeFecthed(HomeData response) {
     homelist.clear();
-    homelist.addAll(response.menuList);
+    for(int i=0;i<response.menuList.length;i++)
+      {
+        if(response.menuList[i].menuId==1)
+          {
+            homelist.add(response.menuList[i]);
+          }
+        if(response.menuList[i].menuId==18)
+        {
+          homelist.add(response.menuList[i]);
+        }
+        if(response.menuList[i].menuId==20)
+        {
+          homelist.add(response.menuList[i]);
+        }
+        if(response.menuList[i].menuId==21)
+        {
+          homelist.add(response.menuList[i]);
+        }
+      }
+
 
     setState(() {});
   }
@@ -508,6 +527,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   void onWfhListFetched(WFHListResponse response) {
     print('leave WFH list *** ${response.workFromHomeList.length}');
     for (int i = 0; i < response.workFromHomeList.length; i++) {
+
       wfhUserList.add(CardWFHList(response.workFromHomeList[i]));
     }
 

@@ -393,8 +393,8 @@ class _WorkFromHomePageState extends State<WorkFromHomePage>
               Utility.showErrorToast(context, 'please pick start date');
             } else if (widget._request.endDate == null) {
               Utility.showErrorToast(context, 'please pick end date');
-            } else if (title.isEmpty) {
-              Utility.showErrorToast(context, 'please enter description');
+            } else if (widget._request.comment.isEmpty) {
+              Utility.showErrorToast(context, 'please enter reason');
             } else {
               _presenter.addWorkFromHomeRequest(context, widget._request);
             }

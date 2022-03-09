@@ -43,4 +43,5 @@ class Images {
   static const IconEye = base + 'ic_eye.svg';
   static const IconVirus = base + 'ic_virus.svg';
   static const IconNoDataFound = base + 'ic_no_data_found.png';
+  static const ImageHoliday = base + 'holiday_image.png';
 }

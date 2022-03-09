@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -121,7 +122,7 @@ class Utility {
     );
   }*/
   static void showErrorToast(BuildContext context, String text) async {
-    FToast fToast = FToast(context);
+   /* FToast fToast = FToast(context);
     Widget toast = Container(
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6.0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: AppColors.red),
@@ -140,7 +141,28 @@ class Utility {
       child: toast,
       gravity: ToastGravity.TOP,
       toastDuration: Duration(seconds: 2),
-    );
+    );*/
+    Flushbar(
+      padding: EdgeInsets.all(10.0),
+
+      backgroundGradient:   LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomLeft,
+          colors: [AppColors.red
+            , AppColors.red]
+      ),
+      boxShadows: [
+        BoxShadow(color: Colors.black45,offset: Offset(3,3),blurRadius: 3),
+      ],
+      dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      title: text,
+      message: 'swip to dismis',
+      icon: Icon(Icons.error,color: AppColors.white,),
+      duration: Duration(milliseconds: 1500),
+
+      flushbarPosition: FlushbarPosition.TOP,
+    )..show(context);
   }
 
   static void showSuccessToastB(BuildContext context, String text) async {

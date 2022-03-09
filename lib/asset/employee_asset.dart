@@ -9,6 +9,8 @@ import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import '../res/Images.dart';
+
 class EmployeeAsset extends StatefulWidget {
   const EmployeeAsset({Key key}) : super(key: key);
 
@@ -40,69 +42,13 @@ class _EmployeeAssetState extends State<EmployeeAsset> implements AssetView {
                   Header(
                     headerText: 'Emplyee assets',
                   ),
-                 /* Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      elevation: 3.0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Container(
-                        height: 80.0,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15.0, horizontal: 14.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.10),
-                              blurRadius: 20.0,
-                              spreadRadius: 5.0,
-                              offset: Offset(0, -6),
-                            )
-                          ],
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Expanded(
-                              child: RevButton(
-                                height: 55.0,
-                                text: 'Emplyee assets',
-                                textStyle: textStyleDark16px600w,
-                                color: AppColors.white,
-                                radius: 50.0,
-                                borderColor: AppColors.white,
-                                onTap: () async {
-                                  // opendDialog();
-                                },
-                              ),
-                            ),
-                            horizontalSpace(10.0),
-                            Expanded(
-                              child: RevButton(
-                                width: 55.0,
-                                text: 'Request Asset',
-                                radius: 50.0,
-                                borderColor: AppColors.colorPrimary,
-                                textStyle: textStyleWhite14px600w,
-                                onTap: () {
-                                  // Navigator.pushNamed(context, Screens.AddFeedBack );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),*/
                   const SizedBox(
                     height: 20.0,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child:
-                    Card(
+                      assetWidgetList.length>0?Card(
                       elevation: 3.0,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
@@ -147,13 +93,12 @@ class _EmployeeAssetState extends State<EmployeeAsset> implements AssetView {
                                 ),
                               ),
                               //CardGoal(),
-
                               ...assetWidgetList
                             ],
                           ),
                         ),
                       ),
-                    ),
+                    ):  Center(child: Image.asset(Images.IconNoDataFound)),
                   ),
                 ],
               ),

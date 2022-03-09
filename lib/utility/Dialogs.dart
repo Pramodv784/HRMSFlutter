@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -27,6 +28,27 @@ class Dialogs {
   }
 
   static ProgressDialog _dialog;
+
+  static void showSnackBar(BuildContext context)
+  {
+    Flushbar(
+      padding: EdgeInsets.all(10.0),
+      backgroundGradient:   LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomLeft,
+          colors: [AppColors.g1, AppColors.g2]
+      ),
+      boxShadows: [
+        BoxShadow(color: Colors.black45,offset: Offset(3,3),blurRadius: 3),
+      ],
+           dismissDirection: FlushbarDismissDirection.HORIZONTAL,
+      forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+      title: 'title',
+      message: 'Hello titlesdf ',
+      duration: Duration(milliseconds: 1500),
+      flushbarPosition: FlushbarPosition.TOP,
+    )..show(context);
+  }
 
   static void showLoader(BuildContext context, String description,
       String title) {

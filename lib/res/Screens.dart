@@ -34,6 +34,7 @@ class Screens {
   static const LeaveHistory = "leavehistory";
   static const EmpPage = "empPage";
   static const EmpDetail = "empdetail";
+  static const HolidayPage = "holidaypage";
 
 
 }

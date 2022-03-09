@@ -50,6 +50,10 @@ class CardHome extends StatelessWidget {
                   case 20:
                   Navigator.pushNamed(context, Screens.MyAsset);
                   break;
+                    case 21:
+                  Navigator.pushNamed(context, Screens.HolidayPage);
+                  break;
+
 
 
               }

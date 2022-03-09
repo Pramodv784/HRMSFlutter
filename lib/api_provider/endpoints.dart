@@ -62,5 +62,7 @@ static const String GetCompany =
       baseUrl + "/api/employees/GetCompany";
 static const String UserFilter =
       baseUrl + "/api/employees/CreateAdvaceFilter";
+static const String GetAllHolidays =
+      baseUrl + "/api/Holiday/GetAllHolidays";
 
 }
