@@ -24,78 +24,108 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
             Header(headerText: 'User Profile',),
             Expanded(child: ListView(
               children: [
-                Container(
-                  height: 150.0,
-                  color: AppColors.greyNew,
-                  alignment: Alignment.center,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Hero(
-                        tag:'${widget._data.employeeId}',
-                        child: ClipRRect(
-                          child: Container(
-                            height: 100.0,
-                            width: 100.0,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.0),
-                              color: AppColors.orange,
-                            ),
-                            child: Stack(children: [
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(widget._data?.fullName!=null&& widget._data?.fullName!=''?
-                                '${widget._data?.fullName.substring(0, 1) + widget._data?.fullName.split(" ").last.substring(0, 1)}'.toUpperCase():'',
-                                    style: TextStyle(color: AppColors.white,fontSize: 30.0)),
-                              ),
-                            ]),
-                          ),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('${widget._data.fullName}'),
-                          Text('${widget._data.roleType}'),
 
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.start,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.start,
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    sendMail();
-                                  },
-                                  icon: const Icon(
-                                    Icons.email,
-                                    color: AppColors.greyNew,
-                                  )),
-                              IconButton(
-                                  onPressed: () {
-                                    addressMap();
-                                  },
-                                  icon: const Icon(
-                                    Icons.location_on,
-                                    color: AppColors.greyNew,
-                                  )),
-                              IconButton(
-                                  onPressed: () {
-                                    CallNumber();
-                                  },
-                                  icon: const Icon(
-                                    Icons.call,
-                                    color: AppColors.greyNew,
-                                  )),
-                            ],
+
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Card(
+                    elevation: 3.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 14.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.10),
+                            blurRadius: 20.0,
+                            spreadRadius: 5.0,
+                            offset: const Offset(0, -6),
                           )
                         ],
-                      )
-                    ],
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Hero(
+                                tag:'${widget._data.employeeId}',
+                                child: ClipRRect(
+                                  child: Container(
+                                    height: 100.0,
+                                    width: 100.0,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(100.0),
+                                      color: AppColors.orange,
+                                    ),
+                                    child: Stack(children: [
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Text(widget._data?.fullName!=null&& widget._data?.fullName!=''?
+                                        '${widget._data?.fullName.substring(0, 1) + widget._data?.fullName.split(" ").last.substring(0, 1)}'.toUpperCase():'',
+                                            style: TextStyle(color: AppColors.white,fontSize: 30.0)),
+                                      ),
+                                    ]),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10.0,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('${widget._data.fullName}'),
+                                  Text('${widget._data.roleType}'),
+
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            sendMail();
+                                          },
+                                          icon: const Icon(
+                                            Icons.email,
+                                            color: AppColors.greyNew,
+                                          )),
+                                      IconButton(
+                                          onPressed: () {
+                                            addressMap();
+                                          },
+                                          icon: const Icon(
+                                            Icons.location_on,
+                                            color: AppColors.greyNew,
+                                          )),
+                                      IconButton(
+                                          onPressed: () {
+                                            CallNumber();
+                                          },
+                                          icon: const Icon(
+                                            Icons.call,
+                                            color: AppColors.greyNew,
+                                          )),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
             Padding(
