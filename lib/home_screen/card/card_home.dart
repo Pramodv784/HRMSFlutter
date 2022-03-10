@@ -8,9 +8,11 @@ import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/res/Screens.dart';
 import 'package:hrms/utility/Utility.dart';
+
 class CardHome extends StatelessWidget {
   MenuList _data;
-   CardHome(this._data,{Key key}) : super(key: key);
+
+  CardHome(this._data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,48 +28,50 @@ class CardHome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.network('${EndPoints.baseUrl}/${_data.menuIcon}',),
-              SizedBox(height: 10.0,),
+              SvgPicture.network(
+                '${EndPoints.baseUrl}/${_data.menuIcon}',
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
-                  alignment: Alignment.center,
-                    child: Text('${_data.tittle}',style: textStylePrimary12px500w,textAlign: TextAlign.center,)),
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${_data.tittle}',
+                      style: textStylePrimary12px500w,
+                      textAlign: TextAlign.center,
+                    )),
               )
             ],
           ),
-         splashColor: AppColors.grey,
-          onTap: (){
+          splashColor: AppColors.grey,
+          onTap: () {
             Future.delayed(const Duration(milliseconds: 300), () {
-              switch(_data.menuId)
-              {
+              switch (_data.menuId) {
                 case 1:
                   Navigator.pushNamed(context, Screens.LeaveRequestDashboard);
                   break;
                 case 18:
                   Navigator.pushNamed(context, Screens.HomeScreen2);
                   break;
-                  case 20:
+                case 20:
                   Navigator.pushNamed(context, Screens.MyAsset);
                   break;
-                    case 21:
+                case 21:
                   Navigator.pushNamed(context, Screens.HolidayPage);
                   break;
-                     case 12:
+                case 12:
                   Navigator.pushNamed(context, Screens.EmpPage);
                   break;
-
-
-
-
-
+                case 22:
+                  Navigator.pushNamed(context, Screens.MyTeam);
+                  break;
               }
-
             });
-
-
           },
-     ),
+        ),
       ),
     );
   }

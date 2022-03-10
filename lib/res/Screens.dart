@@ -32,6 +32,7 @@ class Screens {
   static const EmpPage = "empPage";
   static const EmpDetail = "empdetail";
   static const HolidayPage = "holidaypage";
+  static const MyTeam= "myteam";
 
 
 }

@@ -157,7 +157,7 @@ class Utility {
       dismissDirection: FlushbarDismissDirection.HORIZONTAL,
       forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
       title: text,
-      message: 'swip to dismis',
+      message: 'swip to dismiss',
       icon: Icon(Icons.error,color: AppColors.white,),
       duration: Duration(milliseconds: 1500),
 

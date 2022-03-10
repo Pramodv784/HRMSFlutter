@@ -76,7 +76,6 @@ class _HolidayPageState extends State<HolidayPage> implements HolidayView {
                           child: Column(
                             children: [
                               Flexible(child: Text(' ${Utility.getDateMonth(holidayList[index]?.holidayDate ?? "").replaceAll(' ', '\n')}',style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w800),)),
-                            
                             ],
                           ),
                         ),
