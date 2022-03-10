@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hrms/leave_request/model/ProfileModel.dart';
+import 'package:hrms/profile/model/skill_list_response.dart';
 import 'package:hrms/profile/profile_detail_page.dart';
 import 'package:hrms/profile/profile_presenter.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -39,12 +40,14 @@ class _ProfilePageState extends State<ProfilePage>
   File _FileImage;
   TabController _tabController;
   ProfileResponse _response;
+  List<SkillData> skillList=[];
 
 
   @override
   void initState() {
     _tabController = TabController(length: 5, vsync: this);
     _presenter = ProfilePresenter(this);
+    _presenter.getSkill(context);
     getuserId();
     super.initState();
   }
@@ -307,7 +310,7 @@ class _ProfilePageState extends State<ProfilePage>
                               ),
                               Tab(
                                 child: Text(
-                                  'Document',
+                                  'Skill',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -478,8 +481,9 @@ class _ProfilePageState extends State<ProfilePage>
                                   ),
                                 ),
                                 Container(
-                                    child: const Center(
-                                        child: Text('Comming Soon'))),
+
+                                    child:_skillUI()
+                                    ),
                                 Container(
                                   color: AppColors.white,
                                   child: const EmployeeAssetPage(),
@@ -494,6 +498,60 @@ class _ProfilePageState extends State<ProfilePage>
           )
 
         ));
+  }
+
+  Widget _skillUI()
+  {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
+        children: [
+          DropdownButtonFormField<SkillData>(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20, vertical: 20.0),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: AppColors.grey, width: 1),
+                  borderRadius: BorderRadius.circular(3),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      color: Colors.white, width: 2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                filled: true,
+                fillColor: AppColors.dropbg,
+              ),
+              dropdownColor: Colors.white,
+              onChanged: (SkillData value) {
+                setState(() {
+                  //_selected = value;
+
+                });
+              },
+              hint: Text('Select skill'),
+              icon: new Image.asset(Images.DropIcon),
+              items: skillList != null
+                  ? skillList
+                  .map((SkillData label) =>
+                  DropdownMenuItem(
+                      child: Text(label.skillName),
+                      value: label))
+                  .toList()
+                  : ['select skill']
+                  .map((e) => DropdownMenuItem(
+                child: Text(
+                  e.toString(),
+                ),
+              ))),
+          SizedBox(height: 10.0,),
+          MaterialButton(onPressed: (){},child: Text('ADD',style: TextStyle(color: AppColors.white),),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          color: AppColors.red,)
+        ],
+      ),
+    );
   }
 
   void _modalBottomSheetMenu() {
@@ -640,5 +698,15 @@ class _ProfilePageState extends State<ProfilePage>
   @override
   onError(String message) {
     Utility.showErrorToast(context, message);
+  }
+
+  @override
+  void onSkillFetch(SkillListResponse response) {
+    print('data skill ***${response.message}');
+    skillList.clear();
+    skillList.addAll(response.data);
+    setState(() {
+
+    });
   }
 }

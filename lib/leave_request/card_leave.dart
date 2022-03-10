@@ -34,6 +34,8 @@ class CardLeave extends StatelessWidget {
                     _data.title,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   )
                 ],
               ),

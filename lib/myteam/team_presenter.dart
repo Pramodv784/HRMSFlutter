@@ -12,6 +12,8 @@ import 'package:hrms/expense/expense_view.dart';
 import 'package:hrms/expense/model/add_expense_response.dart';
 import 'package:hrms/feedback_history/feedhistory_view.dart';
 import 'package:hrms/feedback_history/model/feed_history_response.dart';
+import 'package:hrms/myteam/model/get_team_response.dart';
+import 'package:hrms/myteam/team_view.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 
 import 'package:hrms/utility/Dialogs.dart';
@@ -26,27 +28,27 @@ class TeamPresenter {
   static const encryptionChannel = const MethodChannel('enc/dec');
 
 
-  FeedHistoryView _view;
+  TeamView _view;
   ApiController _repository = ApiController.getInstance();
 
   TeamPresenter(this._view);
 
 
 
-  getFeedHistory(BuildContext context,int id) async {
+ /* getTeam(BuildContext context,int id) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.FeedHistory}?empId=$id',headers: await Utility.header())
+      _repository.get2('${EndPoints.GetTEam}',headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
           Dialogs.hideLoader(context);
-          FeedHistoryResponse data = FeedHistoryResponse.fromJson(res.data);
-          if (data?.statusReason??false)
-            _view.onFeedHistoryFecthed(data);
+          GetTeamResponse data = GetTeamResponse.fromJson(res.data);
+          if (data?.status??false)
+            _view.onTeamFecthed(data);
           else
             {
               _view.onError(data.message);
@@ -59,7 +61,7 @@ class TeamPresenter {
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });
-    }}
+    }}*/
 
 
 

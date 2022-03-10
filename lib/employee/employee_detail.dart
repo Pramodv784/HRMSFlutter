@@ -78,7 +78,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                                 width: 10.0,
                               ),
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text('${widget._data.fullName}'),

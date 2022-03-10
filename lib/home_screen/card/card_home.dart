@@ -42,6 +42,8 @@ class CardHome extends StatelessWidget {
                       '${_data.tittle}',
                       style: textStylePrimary12px500w,
                       textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     )),
               )
             ],

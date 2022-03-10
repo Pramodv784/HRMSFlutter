@@ -33,7 +33,7 @@ class AssetPresenter {
 
   getAssetList(BuildContext context,int id) async {
     if (await NetworkCheck.check()) {
-      Dialogs.showLoader(context, 'Loading ...', '');
+     // Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.get2('${EndPoints.GetAsset}?Id=$id',headers: await Utility.header())
         ..then((Response res) async {
@@ -41,7 +41,7 @@ class AssetPresenter {
           Utility.log('${tag}>>>',jsonDecode(res.toString()) );
           // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
           //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
-          Dialogs.hideLoader(context);
+         // Dialogs.hideLoader(context);
           AssetResponse data = AssetResponse.fromJson(res.data);
           if (data?.status=="Ok")
             _view.onAssetFecthed(data);
@@ -53,7 +53,7 @@ class AssetPresenter {
         }
         ).catchError((e) async {
           Utility.log(tag, e);
-          Dialogs.hideLoader(context);
+         // Dialogs.hideLoader(context);
           //  _view.onError(e);
           // DioErrorParser.parseError(e, _signupView);
         });

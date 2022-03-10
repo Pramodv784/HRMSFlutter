@@ -11,7 +11,6 @@ class Images {
   static const DashIcon = base + 'ic_home.svg';
   static const EmpIcon = base + 'ic_emp_feedback.svg';
   static const EmpDirectory = base + 'ic_employee_directory.svg';
-  static const LogoutIcon = base + 'ic_logout.png';
   static const LeaveRequest = base + 'ic_leave_request.svg';
   static const ArrowIcon = base + 'ic_arrow_right.png';
   static const BackIcon = base + 'ic_back.svg';
@@ -44,4 +43,5 @@ class Images {
   static const IconVirus = base + 'ic_virus.svg';
   static const IconNoDataFound = base + 'ic_no_data_found.png';
   static const ImageHoliday = base + 'holiday_image.png';
+  static const IconLogout = base + 'icon_logout.svg';
 }

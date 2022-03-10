@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'package:hrms/api_provider/ApiController.dart';
 import 'package:hrms/api_provider/endpoints.dart';
+import 'package:hrms/profile/model/skill_list_response.dart';
 import 'package:hrms/profile/profile_view.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/utility/Dialogs.dart';
@@ -96,6 +97,41 @@ class ProfilePresenter {
         });
     }
   }
+
+  getSkill(BuildContext context) async {
+    if (await NetworkCheck.check()) {
+     // Dialogs.showLoader(context, 'Loading ...', '');
+      // Dialogs.showLoader(context, 'Please wait getting chapters', '');
+      _repository.get2('${EndPoints.GetSkill}',headers: await Utility.header())
+        ..then((Response res) async {
+          // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
+          //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
+         // Dialogs.hideLoader(context);
+          if(res.statusCode==200)
+          {
+
+           SkillListResponse data=SkillListResponse.fromJson(res.data);
+
+            _view.onSkillFetch(data);
+          }
+          else
+          {
+            _view.onError('some thing went wrong');
+          }
+
+
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+         // Dialogs.hideLoader(context);
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }
+  }
+
+
+
   Future<List<ProfileResponse>> getProfiledata(int id) async {
     try {
       Map headers= await Utility.header();

@@ -128,7 +128,7 @@ class _MidLayerState extends State<MidLayer> {
                   // verticalSpace(30.0),
                   // drawerRowBuilder(Images.kIconReferFriend, Screens.kScreenReferFriend, context: context),
                   verticalSpace(30.0),
-                  drawerRowBuilder(Images.LogoutIcon, 'Logout',
+                  drawerRowBuilder(Images.IconLogout, 'Logout',
                       context: context),
                   verticalSpace(30.0),
                 ],

@@ -121,9 +121,12 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                               const SizedBox(
                                 width: 20.0,
                               ),
-                              const Text(
-                                'I am vaccinated against COVID-19',
-                                style: textStyleRed14px700w,
+                              Flexible(
+                                child: const Text(
+                                  'I am vaccinated against COVID-19',overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: textStyleRed14px700w,
+                                ),
                               )
                             ],
                           ),
@@ -136,108 +139,110 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 15.0, horizontal: 10.0),
-                              child: Row(
-                                children: [
-                                  Column(
-                                    children: [
-                                      const Text(
-                                        'Shift Today- 9:30 - 7:00 PM',
-                                        style: textStyleBlackRegular12pxW700,
-                                      ),
-                                      SizedBox(height: 20.0),
-                                      getClockInTimeResponse?.data?.totalTime !=
-                                              null
-                                          ? Container(
-                                              // child: Text('Today Working Time \n${getClockInTimeResponse?.data?.totalTime}'),
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text('Today Working Time',
-                                                        style:
-                                                            textStyleBlackRegular12pxW700),
-                                                    SizedBox(
-                                                      height: 5.0,
-                                                    ),
-                                                    Text(
-                                                        '${getClockInTimeResponse?.data?.totalTime}',
-                                                        style:
-                                                            textStyleBlackRegular12pxW700)
-                                                  ]),
-                                            )
-                                          : Container(
-                                              height: 40,
-                                              alignment: Alignment.center,
-                                              child: FlatButton(
-                                                child: Text(
-                                                  checkStatus
-                                                      ? 'Clock out '
-                                                      : 'Clock In',
-                                                  style:
-                                                      textStyleWhiteRegular12pxW700,
-                                                ),
-                                                color: checkStatus
-                                                    ? AppColors.red
-                                                    : AppColors.colorPrimary,
-                                                textColor: Colors.white,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                ),
-                                                onPressed: () {
-                                                  if (checkStatus) {
-                                                    Dialogs.openDialogClockOut(
-                                                        context, onAccept: () {
+                              child: Flexible(
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        const Text(
+                                          'Shift Today- 9:30 - 7:00 PM',
+                                          style: textStyleBlackRegular12pxW700,
+                                        ),
+                                        SizedBox(height: 20.0),
+                                        getClockInTimeResponse?.data?.totalTime !=
+                                                null
+                                            ? Container(
+                                                // child: Text('Today Working Time \n${getClockInTimeResponse?.data?.totalTime}'),
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.center,
+                                                    children: [
+                                                      Text('Today Working Time',
+                                                          style:
+                                                              textStyleBlackRegular12pxW700),
+                                                      SizedBox(
+                                                        height: 5.0,
+                                                      ),
+                                                      Text(
+                                                          '${getClockInTimeResponse?.data?.totalTime}',
+                                                          style:
+                                                              textStyleBlackRegular12pxW700)
+                                                    ]),
+                                              )
+                                            : Container(
+                                                height: 40,
+                                                alignment: Alignment.center,
+                                                child: FlatButton(
+                                                  child: Text(
+                                                    checkStatus
+                                                        ? 'Clock out '
+                                                        : 'Clock In',
+                                                    style:
+                                                        textStyleWhiteRegular12pxW700,
+                                                  ),
+                                                  color: checkStatus
+                                                      ? AppColors.red
+                                                      : AppColors.colorPrimary,
+                                                  textColor: Colors.white,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                  ),
+                                                  onPressed: () {
+                                                    if (checkStatus) {
+                                                      Dialogs.openDialogClockOut(
+                                                          context, onAccept: () {
+                                                        _presenter.CheckInOut(
+                                                            context);
+                                                        Navigator.pop(context);
+                                                      });
+                                                    } else {
                                                       _presenter.CheckInOut(
                                                           context);
-                                                      Navigator.pop(context);
-                                                    });
-                                                  } else {
-                                                    _presenter.CheckInOut(
-                                                        context);
-                                                  }
-                                                },
+                                                    }
+                                                  },
+                                                ),
                                               ),
-                                            ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 20.0,
-                                  ),
-                                  Flexible(
-                                    child: Container(
-                                      width: Utility.screenWidth(context),
-                                      padding: EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                          color: AppColors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              '$date $month,$year',
-                                              style:
-                                                  textStyleWhiteRegular12pxW700,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(height: 10.0),
-                                            Text(
-                                              '$_timeString',
-                                              style:
-                                                  textStyleWhiteRegular15pxW700,
-                                            ),
-                                          ],
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 20.0,
+                                    ),
+                                    Flexible(
+                                      child: Container(
+                                        width: Utility.screenWidth(context),
+                                        padding: EdgeInsets.all(10.0),
+                                        decoration: BoxDecoration(
+                                            color: AppColors.red,
+                                            borderRadius:
+                                                BorderRadius.circular(15.0)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                '$date $month,$year',
+                                                style:
+                                                    textStyleWhiteRegular12pxW700,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              SizedBox(height: 10.0),
+                                              Text(
+                                                '$_timeString',
+                                                style:
+                                                    textStyleWhiteRegular15pxW700,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),

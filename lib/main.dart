@@ -11,6 +11,7 @@ import 'package:hrms/home_screen/home_screen.dart';
 import 'package:hrms/leave_request/leave_balanace_history/balance_history_dashboard.dart';
 import 'package:hrms/leave_request/leave_balanace_history/leave_history/leave_history_request.dart';
 import 'package:hrms/login_screen/login_screen.dart';
+import 'package:hrms/myteam/myteam_page.dart';
 import 'package:hrms/profile/image_view_page.dart';
 import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -118,6 +119,11 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(
                   widget: AttendanceLeaveRequestDetail(settings.arguments));
               break;
+               case Screens.MyTeam:
+              return RouteTransition(
+                  widget: MyTeamPage());
+              break;
+
 
             case Screens.LeaveHistory:
               return RouteTransition(widget: LeaveHistoryRequest());

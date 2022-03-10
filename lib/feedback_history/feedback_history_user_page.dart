@@ -30,7 +30,6 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
   List<FeedbackDatas> userList = [];
   FeedHistoryResponse _response;
 
-
   @override
   void initState() {
     _presenter = FeedHistoryPresenter(this);
@@ -69,70 +68,88 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
                       inputType: InputType.ONLY_WORDS,
                       rightIcon: Images.SearchIcon,
                       onTextChange: (String val) => {
-                        //filterSearchResults(val)
-                      }),
+                            //filterSearchResults(val)
+                          }),
                 ),
-                userWidgetList.length >0?
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  margin:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            margin: EdgeInsets.all(10.0),
-                            padding: EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Total Feedback    ${_response?.feedbackDatas?.length.toString()}',
-                                  style: const TextStyle(
-                                      fontSize: 18.0,
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              /*  InkWell(
+                userWidgetList.length > 0
+                    ? Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        margin: EdgeInsets.symmetric(
+                            vertical: 20.0, horizontal: 10.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.all(10.0),
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Total Feedback    ${_response?.feedbackDatas?.length.toString()}',
+                                        style: const TextStyle(
+                                            fontSize: 18.0,
+                                            color: Colors.red,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      /*  InkWell(
                                   child: Image.asset(Images.FilterIcon),
                                   onTap: () {
                                     opendFilterDialog();
                                   },
                                 )*/
-                              ],
-                            )),
-                        Container(
-                          height: 30,
-                          alignment: Alignment.center,
-                          color: AppColors.grey,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
-                              Text('Employee name'),
-                              Text('Team lead'),
-                              Text('Feedback type'),
-                              Text('Action'),
-                            ],
-                          ),
-                        ),
-                        //CardGoal(),
-                        ...userWidgetList
-                        /*ListView.builder(
+                                    ],
+                                  )),
+                              Container(
+                                height: 30,
+                                alignment: Alignment.center,
+                                color: AppColors.grey,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: const [
+                                    Text(
+                                      'Employee name',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      'Team lead',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      'Feedback type',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      'Action',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              //CardGoal(),
+                              ...userWidgetList
+                              /*ListView.builder(
                           itemCount: userList.length,
                           itemBuilder: (context, index) {
                            return ListTile(
                              title: Text(userList[index].receiverEmployeeName),
                            );
                         },)*/
-                      ],
-                    ),
-                  ),
-                ):
-                Image.asset(Images.IconNoDataFound),
+                            ],
+                          ),
+                        ),
+                      )
+                    : Image.asset(Images.IconNoDataFound),
               ],
             ),
           ),
@@ -151,16 +168,14 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
       }
       _response = response;
       setState(() {});
+    } else {
+      userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
+      userList.add(FeedbackDatas(receiverEmployeeName: 'Pramod'));
+      userList.add(FeedbackDatas(receiverEmployeeName: 'Harshit'));
+      userList.add(FeedbackDatas(receiverEmployeeName: 'mayank'));
+      userList.add(FeedbackDatas(receiverEmployeeName: 'Bhavender'));
+      userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
     }
-    else
-      {
-        userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
-        userList.add(FeedbackDatas(receiverEmployeeName: 'Pramod'));
-        userList.add(FeedbackDatas(receiverEmployeeName: 'Harshit'));
-        userList.add(FeedbackDatas(receiverEmployeeName: 'mayank'));
-        userList.add(FeedbackDatas(receiverEmployeeName: 'Bhavender'));
-        userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
-      }
   }
 
   opendFilterDialog() {
@@ -391,7 +406,6 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
         });
   }
 
-
   @override
   onError(String message) {
     Utility.showErrorToast(context, message);
@@ -401,9 +415,6 @@ class _FeedbackUserHistoryState extends State<FeedbackUserHistory>
     userList.add(FeedbackDatas(receiverEmployeeName: 'mayank'));
     userList.add(FeedbackDatas(receiverEmployeeName: 'Bhavender'));
     userList.add(FeedbackDatas(receiverEmployeeName: 'Vipin'));
-    setState(() {
-
-    });
-
+    setState(() {});
   }
 }
