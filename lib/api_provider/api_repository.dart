@@ -13,7 +13,6 @@ import 'package:hrms/employee/model/get_emp_type_response.dart';
 import 'package:hrms/employee/model/get_roll_type_response.dart';
 import 'package:hrms/feedback/select_emp/model/team_role_response.dart';
 import 'package:hrms/home_screen/model/home_avg_score_response.dart';
-import 'package:hrms/login_screen/model/login_response.dart';
 import 'package:hrms/main.dart';
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/Utility.dart';

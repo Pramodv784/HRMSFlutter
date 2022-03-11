@@ -50,7 +50,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                       child: Column(
                         children: [
                           Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Hero(
                                 tag:'${widget._data.employeeId}',
@@ -79,7 +79,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text('${widget._data.fullName}'),
                                   Text('${widget._data.roleType}'),

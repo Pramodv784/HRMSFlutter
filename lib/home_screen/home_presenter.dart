@@ -12,13 +12,13 @@ import 'package:hrms/home_screen/model/get_clock_in_time_response.dart';
 
 import 'package:hrms/home_screen/model/home_data.dart';
 import 'package:hrms/home_screen/model/w_f_h_list_response.dart';
-import 'package:hrms/login_screen/model/login_response.dart';
+
 import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/NetworkCheck.dart';
 import 'package:hrms/utility/Utility.dart';
 
-import '../login_screen/model/login_response.dart';
+import '../login_screen/model/LoginResponse.dart';
 import '../user/AuthUser.dart';
 import '../user/CurrentUser.dart';
 
@@ -182,8 +182,8 @@ class HomePresenter {
           LoginResponse data = LoginResponse.fromJson(res.data);
           var currentUser = CurrentUser()..userCredentials = data;
           currentUser.isLoggedIn = true;
-          currentUser.userId = data.userprofile.userId;
-          currentUser.userName = data.userprofile.fullName;
+          currentUser.userId = data.userId;
+          currentUser.userName = data.fullName;
 
           AuthUser.getInstance().login(currentUser);
           //print('pramod${data.data.message}');

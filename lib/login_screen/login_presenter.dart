@@ -9,10 +9,12 @@ import 'package:hrms/api_provider/ApiController.dart';
 import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/feedback/select_emp/model/employee_data.dart';
 import 'package:hrms/login_screen/login_view.dart';
-import 'package:hrms/login_screen/model/login_response.dart';
+
 import 'package:hrms/utility/Dialogs.dart';
 import 'package:hrms/utility/NetworkCheck.dart';
 import 'package:hrms/utility/Utility.dart';
+
+import 'model/LoginResponse.dart';
 
 
 class LoginPresenter {
@@ -42,7 +44,7 @@ class LoginPresenter {
           LoginResponse data = LoginResponse.fromJson(res.data);
           //print('pramod${data.data.message}');
 
-          if (data?.statusReason ?? false)
+          if (data?.status ?? false)
             _view.onLoginFetch(data);
           else {
             _view.onError(data.message);

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hrms/login_screen/login_presenter.dart';
 import 'package:hrms/login_screen/login_view.dart';
-import 'package:hrms/login_screen/model/login_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -14,6 +13,8 @@ import 'package:hrms/user/AuthUser.dart';
 import 'package:hrms/user/CurrentUser.dart';
 import 'package:hrms/utility/InputField.dart';
 import 'package:hrms/utility/Utility.dart';
+
+import 'model/LoginResponse.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
@@ -213,8 +214,8 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
     log("Login Response +++++++++++ " + response.message);
     var currentUser = CurrentUser()..userCredentials = response;
     currentUser.isLoggedIn = true;
-    currentUser.userId = response.userprofile.userId;
-    currentUser.userName = response.userprofile.fullName;
+    currentUser.userId = response.userId;
+    currentUser.userName = response.fullName;
 
     AuthUser.getInstance().login(currentUser);
     AuthUser.getInstance().setEmail(_email.toString());

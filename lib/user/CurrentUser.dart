@@ -1,4 +1,6 @@
-import 'package:hrms/login_screen/model/login_response.dart';
+
+
+import '../login_screen/model/LoginResponse.dart';
 
 class CurrentUser {
   LoginResponse _userCredentials;

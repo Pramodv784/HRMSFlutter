@@ -169,7 +169,7 @@ class _AddFeedbackState extends State<AddFeedback>
               radius: 50.0,
               borderColor: AppColors.grey,
               onTap: () async {
-                // opendDialog();
+              Navigator.pop(context);
               },
             ),
           ),
@@ -277,6 +277,6 @@ class _AddFeedbackState extends State<AddFeedback>
   @override
   void onError(String error) {
     Utility.showErrorToast(context, error);
-    Navigator.pop(context);
+
   }
 }

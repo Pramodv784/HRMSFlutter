@@ -282,7 +282,7 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
               radius: 50.0,
               borderColor: AppColors.grey,
               onTap: () async {
-                // opendDialog();
+              Navigator.pop(context);
               },
             ),
           ),
