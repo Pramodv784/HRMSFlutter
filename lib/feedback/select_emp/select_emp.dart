@@ -36,7 +36,8 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
   List<TypeVMs> empList = [];
 
   bool empstatus = false;
-  int roleId=0,selectedId=0;
+  int roleId=0,selectedId=0,teamId=0;
+
 
   @override
   void initState() {
@@ -166,7 +167,7 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
                             //_selected = value;
                             empList.clear();
                             _presenter.getEmploydata(context, int.parse(value));
-
+                             teamId=value as int;
                             print('Team Id ****$value');
                           });
                         },
@@ -236,6 +237,7 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
                           setState(() {
                               roleId=value.roleId;
                               selectedId=value.employeeId;
+                              teamId=value.teamLeadId;
                             //_selected = value;
                           });
                         },
@@ -302,7 +304,7 @@ class _SelectEmpState extends State<SelectEmp> implements FeedView {
                      else
                        {
                          Navigator.pushNamed(context, Screens.AddEmpFeedBack,
-                             arguments:[roleId,selectedId]);
+                             arguments:[roleId,selectedId,teamId]);
                        }
 
               },

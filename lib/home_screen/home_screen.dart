@@ -521,7 +521,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
 
   @override
   onError(String message) {
-    Utility.showErrorToast(context, message);
+   // Utility.showErrorToast(context, message);
   }
 
   @override

@@ -40,7 +40,7 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
   List<Leaves> leaveTypeList = [];
   List<EmployeeDataList> emplist = [];
 
-  String title = "";
+  String title = '';
   String userId = '';
   String userName = '';
   String notify = "";
@@ -108,7 +108,7 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
                                     children: [
                                       RichText(
                                           text: TextSpan(children: [
-                                        TextSpan(
+                                       TextSpan(
                                           text: 'From Date ',
                                           style: textStyleWhite12px400w,
                                         ),
@@ -597,12 +597,13 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
     widget._request.appliedBy = userName;
 
     widget._request.notifyTo = notify;
+    widget._request.comment=title;
 
     if (widget._request.startdate == null) {
       Utility.showErrorToast(context, 'please pick start date');
     } else if (widget._request.endDate == null) {
       Utility.showErrorToast(context, 'please pick end date');
-    } else if (title.isEmpty) {
+    } else if (widget._request.comment==null) {
       Utility.showErrorToast(context, 'please enter title');
     } else if (widget._request.leaveType == null) {
       Utility.showErrorToast(context, 'please select leave type');

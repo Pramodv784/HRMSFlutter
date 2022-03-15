@@ -19,7 +19,9 @@ class LeaveRequest {
       String numberOfDays, 
       String leaveTypeId, 
       String leaveType, 
-      String notifyTo, 
+      String notifyTo,
+      String comment,
+
       String appliedBy,}){
     _employeeId = employeeId;
     _companyId = companyId;
@@ -55,6 +57,14 @@ class LeaveRequest {
   String _leaveType;
   String _notifyTo;
   String _appliedBy;
+  String _comment;
+
+
+  String get comment => _comment;
+
+  set comment(String value) {
+    _comment = value;
+  }
 
   String get employeeId => _employeeId;
   String get companyId => _companyId;
@@ -84,6 +94,7 @@ class LeaveRequest {
     map['LeaveType'] = _leaveType;
     map['NotifyTo'] = _notifyTo;
     map['AppliedBy'] = _appliedBy;
+    map['Comment'] = _comment;
     return map;
   }
 

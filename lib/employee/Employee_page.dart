@@ -1,11 +1,13 @@
 
 
 import 'dart:convert';
+import 'dart:math';
 
 
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/employee/emp_block.dart';
@@ -46,6 +48,8 @@ class _EmployeePageState extends State<EmployeePage> implements EmpView {
   List<EmployeeDataList> userList=[];
   List<EmployeeDataList> dummyUserList=[];
   EmpPresenter _presenter;
+  double loginWidth = 40.0;
+
 
 
   @override
@@ -54,6 +58,22 @@ class _EmployeePageState extends State<EmployeePage> implements EmpView {
     _presenter.getEmpList(context);
     empBlock.fetchUserList();
     super.initState();
+
+    _scrollController.addListener(() {
+      if(_scrollController.position.userScrollDirection==ScrollDirection.reverse)
+        {
+          setState(() {
+            loginWidth=Utility.screenWidth(context);
+          });
+
+        }
+      else{
+        setState(() {
+          loginWidth=40.0;
+        });
+
+      }
+    });
   }
 
   @override
@@ -61,30 +81,43 @@ class _EmployeePageState extends State<EmployeePage> implements EmpView {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Header(headerText: 'Employee List',rightWidget:
             InkWell(child: Icon(Icons.filter_list,color: AppColors.white,),onTap: (){opendFilterDialog(context); },)),
-            Center(
-              child: TextField(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AnimatedContainer (
+                duration: Duration (milliseconds: 500),
+                width: loginWidth,
+                alignment: Alignment.center,
+                height: 40,
+                decoration: BoxDecoration(
+                    color:AppColors.colorPrimary,
+                    borderRadius: BorderRadius.circular(50.0)
+                ),
+                child: TextField(
+                  style: textStyleWhiteRegular16px,
 
-                onChanged: (value){
-                  filterSearchResults(value);
+                  onChanged: (value){
+                    filterSearchResults(value);
+                  },
 
-                },
+                  decoration: InputDecoration(
+                      prefixIcon: IconButton(icon: Icon(Icons.search),color: Colors.amber,onPressed: (){
+                        setState(() {
+                          loginWidth=Utility.screenWidth(context);
+                        });
 
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search,color: Colors.amber,),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.clear,color: Colors.amber,),
-                      onPressed: () {
-                        // editingController.clear();
-                      },
-
-                    ),
-                    hintText: 'Search...',
-                    border: InputBorder.none),
+                      }),
+                      hintText: 'Search...',
+                      hintStyle: textStyleWhiteRegular16px,
+                      border: InputBorder.none),
+                ),
               ),
             ),
+
+
             Expanded(
               child: Scrollbar(
                 isAlwaysShown: true,
@@ -110,7 +143,7 @@ class _EmployeePageState extends State<EmployeePage> implements EmpView {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100.0),
-                                color: _randomColor.randomColor(colorHue: ColorHue.orange),
+                                color: AppColors.orange
                               ),
                               child: Stack(children: [
                                 Align(

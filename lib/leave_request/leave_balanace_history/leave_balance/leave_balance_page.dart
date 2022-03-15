@@ -104,7 +104,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -211,7 +211,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -318,7 +318,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -425,7 +425,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -531,7 +531,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -638,7 +638,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -741,7 +741,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -847,7 +847,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
@@ -954,7 +954,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   MainAxisAlignment.spaceAround,
                                               children: [
                                                 Text(
-                                                  'Annual Quota',
+                                                  'Annual  \n Quota',
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),

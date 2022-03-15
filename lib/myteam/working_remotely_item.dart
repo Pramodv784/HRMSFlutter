@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 
+import 'model/GetMyTeamResposne.dart';
+
 class CardWorkingRemotely extends StatelessWidget {
-  CardWorkingRemotely({Key key}) : super(key: key);
+  OnLeave _data;
+  CardWorkingRemotely(this._data,{Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +38,8 @@ class CardWorkingRemotely extends StatelessWidget {
           const SizedBox(
             height: 5.0,
           ),
-          const Text(
-            'Lovely\nSharma',
+           Text(
+            '${_data.employeeName.replaceAll(' ', '\n')}',
             style: textStyleDarkRegular14px700w,
             textAlign: TextAlign.center,
           ),

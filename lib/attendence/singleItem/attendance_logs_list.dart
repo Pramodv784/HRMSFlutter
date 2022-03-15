@@ -51,18 +51,20 @@ class AttendanceLogsList extends StatelessWidget {
 
                          ],
                        ),
-                     Column(
-                       children: [
-                         Text(
-                          'Clock In - ${_data.clockInTime}',
-                          style: textStyleRegular12px,
-                             ),
-                         SizedBox(height: 10.0,),
-                         Text(
-                           'Clock Out - ${_data.clockOutTime}',
-                           style: textStyleRegular12px,
-                         ),
-                       ],
+                     Flexible(
+                       child: Column(
+                         children: [
+                           Text(
+                            'Clock In - ${_data.clockInTime}',
+                            style: textStyleRegular12px,
+                               ),
+                           SizedBox(height: 10.0,),
+                           Text(
+                             'Clock Out - ${_data.clockOutTime}',
+                             style: textStyleRegular12px,
+                           ),
+                         ],
+                       ),
                      )
                     ],
                   ),

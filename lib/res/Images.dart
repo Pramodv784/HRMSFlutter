@@ -44,4 +44,7 @@ class Images {
   static const IconNoDataFound = base + 'ic_no_data_found.png';
   static const ImageHoliday = base + 'holiday_image.png';
   static const IconLogout = base + 'icon_logout.svg';
+  static const IconAchive1 = base + 'ic_achive_1.svg';
+  static const IconAchive2 = base + 'ic_achive_2.svg';
+  static const IconAchive3 = base + 'ic_achive_3.svg';
 }

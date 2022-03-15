@@ -671,7 +671,7 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
   void onImageFecthed(UploadImageResponse response) {
     print('image upload **** ${response.data.filepath}');
     _request.imageUrl = response.data.fileurl;
-    Utility.showSuccessToastB(context, response.message);
+    Utility.showErrorToast(context, response.message);
     setState(() {
 
     });

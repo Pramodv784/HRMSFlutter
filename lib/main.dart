@@ -184,7 +184,7 @@ class _ScreenState extends State<MyApp> {
 
             case Screens.AddEmpFeedBack:
               List<dynamic> args = settings.arguments;
-              return RouteTransition(widget: AddFeedback(args[0], args[1]));
+              return RouteTransition(widget: AddFeedback(args[0], args[1],args[2]));
               break;
 
             case Screens.kBaseScreen:

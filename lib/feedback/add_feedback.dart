@@ -21,8 +21,8 @@ import 'card/card_feed_question.dart';
 import 'model/feedback_request.dart';
 
 class AddFeedback extends StatefulWidget {
-  int roleId=0,selectedId=0;
-   AddFeedback(this.roleId,this.selectedId,{Key key}) : super(key: key);
+  int roleId=0,selectedId=0,teamId=0;
+   AddFeedback(this.roleId,this.selectedId,this.teamId,{Key key}) : super(key: key);
 
   @override
   _AddFeedbackState createState() => _AddFeedbackState();
@@ -36,6 +36,7 @@ class _AddFeedbackState extends State<AddFeedback>
   List<Quenstions> questionListAnis = [];
   FeedbackRequest _feedbackRequest =FeedbackRequest();
   List<FBScore> scoreList=[];
+  int UId=0;
 
   @override
   void initState() {
@@ -46,6 +47,8 @@ class _AddFeedbackState extends State<AddFeedback>
 
   void getuserId() async {
      var userData = await (AuthUser.getInstance()).getCurrentUser();
+     UId=userData.userId;
+
     _presenter.getQuestion(context, widget.roleId, widget.selectedId,  userData.userId??0);
   }
 
@@ -253,7 +256,9 @@ class _AddFeedbackState extends State<AddFeedback>
     }
 
     _feedbackRequest?.categoryTypeId=(questionList[listpos]?.categoryTypeId);
-    _feedbackRequest?.ratedByEmpId=questionList[listpos]?.userId ;
+    _feedbackRequest?.ratedByEmpId=UId;
+    _feedbackRequest?.rolId=widget.roleId;
+    _feedbackRequest?.teamLeadId=widget.teamId;
     _feedbackRequest?.receiverEmployeeId=widget.selectedId;
     /*_feedbackRequest?.fBScore=[FBScore(categoryId: questionList[listpos]?.categoryTypeId ,
         questionId: questionList[listpos]?.quenstions[pos]?.questionId,questionScore:

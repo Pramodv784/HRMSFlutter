@@ -1,41 +1,41 @@
 /// message : "Holiday list found!"
 /// status : true
-/// holiday : [{"holidayId":16,"holidayName":"Good Friday","description":"Good Friday up1 1","isFloaterOptional":false,"imageUrl":"https://uatportalapi.moreyeahs.in/MenuImage/download (2)20220308061729PM.jfif","holidayDate":"2022-04-15T00:00:00","createdBy":156,"updatedBy":156,"createdOn":"2022-03-01T00:00:00","updatedOn":"2022-03-01T00:00:00","isActive":true,"isDeleted":false,"message":null,"companyId":1,"orgId":1},{"holidayId":18,"holidayName":"holii","description":"holi festival up","isFloaterOptional":true,"imageUrl":"https://uatportalapi.moreyeahs.in/MenuImage/celebration-indian-festival-holi-hai-600w-193908269220220308061447PM.jpg","holidayDate":"2022-03-17T18:30:00","createdBy":156,"updatedBy":156,"createdOn":"2022-03-04T16:50:39.337","updatedOn":"2022-03-04T16:50:39.337","isActive":true,"isDeleted":false,"message":null,"companyId":1,"orgId":1},{"holidayId":24,"holidayName":"Good Friday 2","description":"Description up","isFloaterOptional":true,"imageUrl":"https://uatportalapi.moreyeahs.in/uploadimage/HolidayImage/download (2)20220308064926PM.jfif","holidayDate":"2022-03-10T18:30:00","createdBy":156,"updatedBy":156,"createdOn":"2022-03-08T18:54:16.197","updatedOn":"2022-03-08T18:54:16.197","isActive":true,"isDeleted":false,"message":null,"companyId":1,"orgId":1}]
+/// data : [{"holidayId":16,"holidayName":"Good Friday","description":"Good Friday up1 1","isFloaterOptional":false,"imageUrl":"https://uatportalapi.moreyeahs.in/MenuImage/download (2)20220308061729PM.jfif","holidayDate":"2022-04-15T00:00:00","createdBy":156,"updatedBy":156,"createdOn":"2022-03-01T00:00:00","updatedOn":"2022-03-01T00:00:00","isActive":true,"isDeleted":false,"message":null,"companyId":1,"orgId":1},{"holidayId":18,"holidayName":"holii","description":"holi festival up","isFloaterOptional":true,"imageUrl":"https://uatportalapi.moreyeahs.in/MenuImage/celebration-indian-festival-holi-hai-600w-193908269220220308061447PM.jpg","holidayDate":"2022-03-17T18:30:00","createdBy":156,"updatedBy":156,"createdOn":"2022-03-04T16:50:39.337","updatedOn":"2022-03-04T16:50:39.337","isActive":true,"isDeleted":false,"message":null,"companyId":1,"orgId":1},{"holidayId":24,"holidayName":"Good Friday 2","description":"Description up","isFloaterOptional":true,"imageUrl":"https://uatportalapi.moreyeahs.in/uploadimage/HolidayImage/download (2)20220308064926PM.jfif","holidayDate":"2022-03-10T18:30:00","createdBy":156,"updatedBy":156,"createdOn":"2022-03-08T18:54:16.197","updatedOn":"2022-03-08T18:54:16.197","isActive":true,"isDeleted":false,"message":null,"companyId":1,"orgId":1}]
 
 class GetAllHolidaysResponse {
   GetAllHolidaysResponse({
       String message, 
       bool status, 
-      List<Holiday> holiday,}){
+      List<Data> data,}){
     _message = message;
     _status = status;
-    _holiday = holiday;
+    _data = data;
 }
 
   GetAllHolidaysResponse.fromJson(dynamic json) {
     _message = json['message'];
     _status = json['status'];
-    if (json['holiday'] != null) {
-      _holiday = [];
-      json['holiday'].forEach((v) {
-        _holiday.add(Holiday.fromJson(v));
+    if (json['data'] != null) {
+      _data = [];
+      json['data'].forEach((v) {
+        _data.add(Data.fromJson(v));
       });
     }
   }
   String _message;
   bool _status;
-  List<Holiday> _holiday;
+  List<Data> _data;
 
   String get message => _message;
   bool get status => _status;
-  List<Holiday> get holiday => _holiday;
+  List<Data> get data => _data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['message'] = _message;
     map['status'] = _status;
-    if (_holiday != null) {
-      map['holiday'] = _holiday.map((v) => v.toJson()).toList();
+    if (_data != null) {
+      map['data'] = _data.map((v) => v.toJson()).toList();
     }
     return map;
   }
@@ -58,8 +58,8 @@ class GetAllHolidaysResponse {
 /// companyId : 1
 /// orgId : 1
 
-class Holiday {
-  Holiday({
+class Data {
+  Data({
       int holidayId, 
       String holidayName, 
       String description, 
@@ -92,7 +92,7 @@ class Holiday {
     _orgId = orgId;
 }
 
-  Holiday.fromJson(dynamic json) {
+  Data.fromJson(dynamic json) {
     _holidayId = json['holidayId'];
     _holidayName = json['holidayName'];
     _description = json['description'];

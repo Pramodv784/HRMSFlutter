@@ -158,28 +158,31 @@ class _HomeScreen2 extends State<FeedBackDashboardPage> implements
 
                                   ],
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Image.asset(Images.AchievIcon,),
-                                        Text('10X',style: textStyleWhite12px400w,),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Image.asset(Images.AchievIcon,),
-                                        Text('10X',style: textStyleWhite12px400w,),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Image.asset(Images.AchievIcon,),
-                                        Text('10X',style: textStyleWhite12px400w,),
-                                      ],
-                                    ),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          SvgPicture.asset(Images.IconAchive1),
+                                          Text('10X',style: textStyleWhite12px400w,),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          SvgPicture.asset(Images.IconAchive2),
+                                          Text('10X',style: textStyleWhite12px400w,),
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          SvgPicture.asset(Images.IconAchive3),
+                                          Text('10X',style: textStyleWhite12px400w,),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

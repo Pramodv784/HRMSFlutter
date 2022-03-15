@@ -167,12 +167,20 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                   input["UserName"] = _email.toString();
                   input["Password"] = _password.toString();
 
-                  if (_email.isNotEmpty && _password.isNotEmpty) {
+
+                  if (_email.isEmpty) {
+                    Utility.showErrorToast(context,"Please enter email");
+                  }
+                  else if (_password.isEmpty) {
+                    Utility.showErrorToast(context,"Please enter password");
+                  }
+                 /* else if(!_email.contains('@')&&!_email.contains('.com')|| !_email.contains('.in'))
+                    {
+                      Utility.showErrorToast(context, 'Invalid email id');
+                    }*/
+                  else {
                     print('login press');
                     _presenter.login(context, input);
-                    // loginBloc.add(UserLoginEvent(input: input));
-                  } else {
-                    Utility.showErrorToast(context,"Fields cant't be empty");
                   }
                 },
                 style: ButtonStyle(

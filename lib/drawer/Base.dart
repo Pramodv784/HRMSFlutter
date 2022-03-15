@@ -50,9 +50,9 @@ class Base extends StatelessWidget {
               if (baseProvider.isOpen) baseProvider.close();
              /* if (baseProvider.currentScreen != Screens.kHomeScreen)
                 baseProvider.currentScreen = Screens.kHomeScreen;*/
-              if(!baseProvider.isOpen){
-                SystemNavigator.pop();
-              }
+             // if(!baseProvider.isOpen){
+                else SystemNavigator.pop();
+              //}
               return;
             },
             child: ClipRRect(

@@ -38,7 +38,7 @@ class _CardFeedState extends State<CardFeedQuestion> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: 'Q ${widget.pos+1} ',
+                      text: 'Q ${widget.pos+1}. ',
                       style: textStyleDark16px600w,
                       children: [
                         TextSpan(

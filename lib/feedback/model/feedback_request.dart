@@ -10,17 +10,23 @@ class FeedbackRequest {
       int ratedByEmpId,
       String yourFeedback,
       int categoryTypeId,
+    int teamLeadId,
+    int roleId,
       List<FBScore> fBScore,}){
     _receiverEmployeeId = receiverEmployeeId;
     _ratedByEmpId = ratedByEmpId;
     _yourFeedback = yourFeedback;
     _categoryTypeId = categoryTypeId;
+    _rolId=roleId;
+    _teamLeadId=teamLeadId;
     _fBScore = fBScore;
 }
 
   FeedbackRequest.fromJson(dynamic json) {
     _receiverEmployeeId = json['ReceiverEmployeeId'];
     _ratedByEmpId = json['RatedByEmpId'];
+    _teamLeadId = json['TeamLeadId'];
+    _rolId = json['RoleId'];
     _yourFeedback = json['YourFeedback'];
     _categoryTypeId = json['CategoryTypeId'];
     if (json['FBScore'] != null) {
@@ -32,9 +38,18 @@ class FeedbackRequest {
   }
   int _receiverEmployeeId;
   int _ratedByEmpId;
+  int _teamLeadId;
+  int _rolId;
   String _yourFeedback;
   int _categoryTypeId;
   List<FBScore> _fBScore;
+
+
+  int get teamLeadId => _teamLeadId;
+
+  set teamLeadId(int value) {
+    _teamLeadId = value;
+  }
 
   int get receiverEmployeeId => _receiverEmployeeId;
   int get ratedByEmpId => _ratedByEmpId;
@@ -53,6 +68,8 @@ class FeedbackRequest {
     map['ReceiverEmployeeId'] = _receiverEmployeeId;
     map['RatedByEmpId'] = _ratedByEmpId;
     map['YourFeedback'] = _yourFeedback;
+    map['RoleId'] = _rolId;
+    map['TeamLeadId'] = _teamLeadId;
     map['CategoryTypeId'] = _categoryTypeId;
     if (_fBScore != null) {
       map['FBScore'] = _fBScore.map((v) => v.toJson()).toList();
@@ -74,6 +91,12 @@ class FeedbackRequest {
 
   set fBScore(List<FBScore> value) {
     _fBScore = value;
+  }
+
+  int get rolId => _rolId;
+
+  set rolId(int value) {
+    _rolId = value;
   }
 }
 

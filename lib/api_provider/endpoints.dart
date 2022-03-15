@@ -1,7 +1,7 @@
 class EndPoints {
   //ngroke
- // static const String baseUrl = "https://uatportalapi.moreyeahs.in";
-  static const String baseUrl = "http://981f-103-15-67-125.ngrok.io";
+  static const String baseUrl = "https://uatportalapi.moreyeahs.in";
+ // static const String baseUrl = "http://981f-103-15-67-125.ngrok.io";
   static const String Login = baseUrl + "/api/userlogin/login";
   static const String GetTotalAvgScore =
       baseUrl + "/api/project/MyTotalCategoryScore";
@@ -67,5 +67,7 @@ static const String GetAllHolidays =
       baseUrl + "/api/Holiday/GetAllHolidays";
 static const String GetSkill =
       baseUrl + "/api/skills/getallskill";
+static const String GetMyTeam =
+      baseUrl + "/api/leave/EmployeesTodayOnLeaveTeam";
 
 }

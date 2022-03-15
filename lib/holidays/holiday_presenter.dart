@@ -13,7 +13,7 @@ import 'package:hrms/expense/model/add_expense_response.dart';
 import 'package:hrms/feedback_history/feedhistory_view.dart';
 import 'package:hrms/feedback_history/model/feed_history_response.dart';
 import 'package:hrms/holidays/holiday_view.dart';
-import 'package:hrms/holidays/model/get_all_holidays_response.dart';
+import 'package:hrms/holidays/model/GetAllHolidaysResponse.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 
 import 'package:hrms/utility/Dialogs.dart';
@@ -38,13 +38,18 @@ class HolidayPresenter {
   getHoliday(BuildContext context) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
-      // Dialogs.showLoader(context, 'Please wait getting chapters', '');
+     //  Dialogs.showLoader(context, 'Please wait getting chapters', '');
       _repository.get2('${EndPoints.GetAllHolidays}',headers: await Utility.header())
         ..then((Response res) async {
 
           Dialogs.hideLoader(context);
-          GetAllHolidaysResponse getAllHolidaysResponse=GetAllHolidaysResponse.fromJson(res.data);
-          if (getAllHolidaysResponse.status??false) {
+
+          if (res.statusCode==200) {
+           /*  List<GetAllHolidaysResponse> list=
+            (res.data as List)
+                .map((x) => GetAllHolidaysResponse.fromJson(x))
+                .toList();*/
+            GetAllHolidaysResponse getAllHolidaysResponse=GetAllHolidaysResponse.fromJson(res.data);
             _view.onFeedHolidayFecthed(getAllHolidaysResponse);
           }
           else
