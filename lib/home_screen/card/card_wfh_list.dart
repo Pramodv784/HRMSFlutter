@@ -12,13 +12,6 @@ class CardWFHList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(_data.appliedBy!=null && _data.appliedBy!="")
-      {
-        String tag = _data.appliedBy.substring(0, 1);
-        String d = _data.appliedBy.split(" ").last.substring(0, 1);
-      }
-
-
     return Container(
       color: AppColors.white,
       padding: EdgeInsets.all(10.0),
@@ -58,7 +51,7 @@ class CardWFHList extends StatelessWidget {
             height: 5.0,
           ),
           Text(
-            '${_data.appliedBy}',
+            '${_data?.appliedBy??"NA"}',
             style: textStyleBlackRegular12pxW700,
           ),
         ],

@@ -9,6 +9,8 @@ import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
 
+import '../user/AuthUser.dart';
+
 class EmployeeAssetPage extends StatefulWidget {
   const EmployeeAssetPage({Key key}) : super(key: key);
 
@@ -23,8 +25,14 @@ class _EmployeeAssetState extends State<EmployeeAssetPage> implements AssetView 
   @override
   void initState() {
     _presenter = AssetPresenter(this);
-    _presenter.getAssetList(context, 146);
+  getuserId();
     super.initState();
+  }
+  void getuserId() async {
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
+
+    _presenter.getAssetList(context, userData.userId);
+
   }
 
   @override

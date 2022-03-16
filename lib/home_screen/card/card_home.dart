@@ -42,7 +42,7 @@ class CardHome extends StatelessWidget {
                       '${_data.tittle}',
                       style: textStylePrimary12px500w,
                       textAlign: TextAlign.center,
-                      maxLines: 2,
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     )),
               )
@@ -69,6 +69,67 @@ class CardHome extends StatelessWidget {
                   break;
                 case 22:
                   Navigator.pushNamed(context, Screens.MyTeam);
+                  break;
+                case 2:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Covid-19 care');
+                  break;
+                case 3:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Payroll');
+                  break;
+                case 4:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Health and Wellness');
+                  break;
+                case 5:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Strategy');
+                  break;
+
+                case 6:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Query');
+                  break;
+                case 7:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Policies');
+                  break;
+                case 8:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Reimbursement');
+                  break;
+                case 9:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'ID/Visiting card');
+                  break;
+                case 10:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Mandatory Declarations');
+                  break;
+                case 11:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Open learning academy');
+                  break;
+                case 13:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Travel');
+                  break;
+                case 14:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Webcast');
+                  break;
+                case 15:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Champion Award');
+                  break;
+                case 16:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'Catalyst');
+                  break;
+                case 17:
+                  Navigator.pushNamed(context, Screens.CommonPage,
+                      arguments: 'eFacility');
                   break;
               }
             });

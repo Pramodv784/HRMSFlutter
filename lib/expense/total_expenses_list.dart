@@ -90,7 +90,7 @@ class TotalExpensesList extends StatelessWidget {
                       height: 8.0,
                     ),
                     Text(
-                      'Assigned on ${(_data?.expenseDate??"")}',
+                      'Assigned on ${Utility.formatDate(_data?.expenseDate??"")}',
                       style: textStyleSubText14px600w,
                     ),
                   ],

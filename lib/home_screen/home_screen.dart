@@ -138,6 +138,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 15.0, horizontal: 10.0),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     children: [
@@ -203,39 +204,39 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                                 },
                                               ),
                                             ),
+
                                     ],
                                   ),
                                   const SizedBox(
                                     width: 20.0,
                                   ),
                                   Flexible(
-                                    child: Container(
-                                      width: Utility.screenWidth(context),
-                                      padding: EdgeInsets.all(10.0),
-                                      decoration: BoxDecoration(
-                                          color: AppColors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              '$date $month,$year',
-                                              style:
-                                                  textStyleWhiteRegular12pxW700,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                            SizedBox(height: 10.0),
-                                            Text(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          '$date $month,$year',
+                                          style:
+                                          textStyleBlackRegular12pxW700,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 10.0,),
+                                        Container(
+                                          padding: EdgeInsets.all(10.0),
+                                          decoration: BoxDecoration(
+                                              color: AppColors.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: Text(
                                               '$_timeString',
                                               style:
                                                   textStyleWhiteRegular15pxW700,
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   )
                                 ],
@@ -473,30 +474,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
     homelist.clear();
     for(int i=0;i<response.menuList.length;i++)
       {
-        if(response.menuList[i].menuId==1)
-          {
-            homelist.add(response.menuList[i]);
-          }
-        if(response.menuList[i].menuId==18)
-        {
+
           homelist.add(response.menuList[i]);
-        }
-        if(response.menuList[i].menuId==20)
-        {
-          homelist.add(response.menuList[i]);
-        }
-        if(response.menuList[i].menuId==21)
-        {
-          homelist.add(response.menuList[i]);
-        }
-        if(response.menuList[i].menuId==22)
-        {
-          homelist.add(response.menuList[i]);
-        }
-        if(response.menuList[i].menuId==12)
-        {
-          homelist.add(response.menuList[i]);
-        }
+
       }
     setState(() {});
   }

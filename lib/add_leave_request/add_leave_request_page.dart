@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:chips_input/chips_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_chips_input/flutter_chips_input.dart';
 import 'package:hrms/add_leave_request/leave_view.dart';
 import 'package:hrms/add_leave_request/model/add_leave_request.dart';
 import 'package:hrms/add_leave_request/model/emp_key_response.dart';
@@ -48,12 +48,14 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
   String orgId = '';
 
   String description = '';
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     _presenter = LeavePresenter(this);
     _presenter.getLeaveType(context);
     getuserId();
+
     super.initState();
   }
 
@@ -72,58 +74,120 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.background,
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView(children: [
-                  Header(
-                    headerText: 'Add Leave Rquest',
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Request Details',
-                              style: textStyleWhite12px400w,
-                            ),
-                            SizedBox(
-                              height: 20.0,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                          text: TextSpan(children: [
-                                       TextSpan(
-                                          text: 'From Date ',
-                                          style: textStyleWhite12px400w,
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
+          child: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView(children: [
+                    Header(
+                      headerText: 'Add Leave Rquest',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Request Details',
+                                style: textStyleWhite12px400w,
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                            text: TextSpan(children: [
+                                          TextSpan(
+                                            text: 'From Date ',
+                                            style: textStyleWhite12px400w,
+                                          ),
+                                          TextSpan(
+                                            text: '*',
+                                            style: TextStyle(
+                                                color: AppColors.red,
+                                                fontSize: 16.0),
+                                          ),
+                                        ])),
+                                        SizedBox(
+                                          height: 5.0,
                                         ),
-                                        TextSpan(
-                                          text: '*',
-                                          style: TextStyle(
-                                              color: AppColors.red,
-                                              fontSize: 16.0),
+                                        InkWell(
+                                          child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20.0),
+                                              width:
+                                                  Utility.screenWidth(context),
+                                              height: 52.0,
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(3.0),
+                                                color: AppColors.dropbg,
+                                                border: Border.all(
+                                                  width: 1,
+                                                  color: AppColors.grey,
+                                                  style: BorderStyle.solid,
+                                                ),
+                                              ),
+                                              child: Text(
+                                                _start_date != null
+                                                    ? Utility.formatDate(
+                                                        _start_date.toString())
+                                                    : 'dd/mm/yyyy',
+                                                style: TextStyle(fontSize: 15),
+                                              )),
+                                          onTap: () {
+                                            _start_date = DateTime.now();
+                                            _showDatePicker(context, 0);
+                                          },
                                         ),
-                                      ])),
-                                      SizedBox(
-                                        height: 5.0,
-                                      ),
-                                      InkWell(
-                                        child: Container(
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                            text: TextSpan(children: [
+                                          TextSpan(
+                                            text: 'To Date ',
+                                            style: textStyleWhite12px400w,
+                                          ),
+                                          TextSpan(
+                                            text: '*',
+                                            style: TextStyle(
+                                                color: AppColors.red,
+                                                fontSize: 16.0),
+                                          ),
+                                        ])),
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        InkWell(
+                                          child: Container(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 20.0),
                                             width: Utility.screenWidth(context),
@@ -140,308 +204,268 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
                                               ),
                                             ),
                                             child: Text(
-                                              _start_date != null
-                                                  ? Utility.formatDate(
-                                                      _start_date.toString())
-                                                  : 'dd/mm/yyyy',
-                                              style: TextStyle(fontSize: 15),
-                                            )),
-                                        onTap: () {
-                                          _start_date = DateTime.now();
-                                          _showDatePicker(context, 0);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Flexible(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                          text: TextSpan(children: [
-                                        TextSpan(
-                                          text: 'To Date ',
-                                          style: textStyleWhite12px400w,
-                                        ),
-                                        TextSpan(
-                                          text: '*',
-                                          style: TextStyle(
-                                              color: AppColors.red,
-                                              fontSize: 16.0),
-                                        ),
-                                      ])),
-                                      SizedBox(
-                                        height: 5.0,
-                                      ),
-                                      InkWell(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20.0),
-                                          width: Utility.screenWidth(context),
-                                          height: 52.0,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(3.0),
-                                            color: AppColors.dropbg,
-                                            border: Border.all(
-                                              width: 1,
-                                              color: AppColors.grey,
-                                              style: BorderStyle.solid,
-                                            ),
+                                                _end_date != null
+                                                    ? Utility.formatDate(
+                                                        _end_date.toString())
+                                                    : 'dd/mm/yyyy',
+                                                style: TextStyle(fontSize: 15)),
                                           ),
-                                          child: Text(
-                                              _end_date != null
-                                                  ? Utility.formatDate(
-                                                      _end_date.toString())
-                                                  : 'dd/mm/yyyy',
-                                              style: TextStyle(fontSize: 15)),
+                                          onTap: () {
+                                            _showDatePicker(context, 1);
+                                          },
                                         ),
-                                        onTap: () {
-                                          _showDatePicker(context, 1);
-                                        },
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                width: Utility.screenWidth(context),
+                                height: 52.0,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3.0),
+                                  color: Color(0xFF616576),
+                                  border: Border.all(
+                                    width: 1,
+                                    color: AppColors.grey,
+                                    style: BorderStyle.solid,
                                   ),
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20.0),
-                              width: Utility.screenWidth(context),
-                              height: 52.0,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3.0),
-                                color: Color(0xFF616576),
-                                border: Border.all(
-                                  width: 1,
-                                  color: AppColors.grey,
-                                  style: BorderStyle.solid,
-                                ),
-                              ),
-                              child: Text(
-                                  _start_date != null && _end_date != null
-                                      ? '${daysBetween(_start_date, _end_date)} days'
-                                          .toString()
-                                      : '0 days',
-                                  style: TextStyle(
-                                      fontSize: 15, color: AppColors.white)),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            RichText(
-                                text: TextSpan(children: [
-                              TextSpan(
-                                text: 'Leave Title ',
-                                style: textStyleWhite12px400w,
-                              ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    color: AppColors.red, fontSize: 16.0),
-                              ),
-                            ])),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            SizedBox(
-                              width: Utility.screenWidth(context),
-                              child: InputField(
-                                placeHolderText: 'Enter leave title',
-                                errorMessage: 'Please Enter leave  title',
-                                inputType: InputType.ONLY_WORDS,
-                                onTextChange: (value) {
-                                  value = title;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            RichText(
-                                text: TextSpan(children: [
-                              TextSpan(
-                                text: 'Select Available Leave Type',
-                                style: textStyleWhite12px400w,
-                              ),
-                              TextSpan(
-                                text: '*',
-                                style: TextStyle(
-                                    color: AppColors.red, fontSize: 16.0),
-                              ),
-                            ])),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            if (leaveTypeList?.length > 0)
-                              DropdownButtonFormField<Leaves>(
-                                  decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 20.0),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: AppColors.grey, width: 1),
-                                      borderRadius: BorderRadius.circular(3),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 2),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    filled: true,
-                                    fillColor: AppColors.dropbg,
-                                  ),
-                                  dropdownColor: Colors.white,
-                                  onChanged: (Leaves value) {
-                                    setState(() {
-                                      //_selected = value;
-                                      widget?._request?.leaveTypeId =
-                                          value.leaveTypeId.toString();
-                                      widget?._request?.leaveType =
-                                          value.leavetype;
-                                    });
-                                  },
-                                  hint: Text('Available leave type'),
-                                  icon: new Image.asset(Images.DropIcon),
-                                  items: leaveTypeList != null
-                                      ? leaveTypeList
-                                          .map((Leaves label) =>
-                                              DropdownMenuItem(
-                                                  child: Text(label.leavetype),
-                                                  value: label))
-                                          .toList()
-                                      : ['select leave type']
-                                          .map((e) => DropdownMenuItem(
-                                                child: Text(
-                                                  e.toString(),
-                                                ),
-                                              ))),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Text(
-                              'Notify ',
-                              style: textStyleWhite12px400w,
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20.0),
-                              width: Utility.screenWidth(context),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3.0),
-                                color: AppColors.dropbg,
-                                border: Border.all(
-                                    width: 1.0, color: AppColors.grey),
-                              ),
-                              child: ChipsInput<EmployeeDataList>(
-                                decoration: InputDecoration(
-                                    border: InputBorder.none, hintText: ''),
-                                findSuggestions: getList,
-                                onChanged: _onChanged,
-                                chipBuilder: (BuildContext context,
-                                    ChipsInputState<EmployeeDataList> state,
-                                    EmployeeDataList profile) {
-                                  return InputChip(
-                                    label: Text(profile.fullName),
-                                    onDeleted: () => state.deleteChip(profile),
-                                    onSelected: (_) => _onChipTapped(profile),
-                                    materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                  );
-                                },
-                                suggestionBuilder: (BuildContext context,
-                                    ChipsInputState<EmployeeDataList> state,
-                                    EmployeeDataList profile) {
-                                  return ListTile(
-                                    key: ObjectKey(profile),
-                                    title: Text(profile.fullName),
-                                    onTap: () =>
-                                        state.selectSuggestion(profile),
-                                  );
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15.0,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                RichText(
-                                    text: TextSpan(children: [
-                                  TextSpan(
-                                    text: 'Note',
-                                    style: textStyleWhite12px400w,
-                                  ),
-                                  TextSpan(
-                                    text: '*',
+                                child: Text(
+                                    _start_date != null && _end_date != null
+                                        ? '${daysBetween(_start_date, _end_date)} days'
+                                            .toString()
+                                        : '0 days',
                                     style: TextStyle(
-                                        color: AppColors.red, fontSize: 16.0),
-                                  ),
-                                ])),
-                                Text(
-                                  '${text}/200 words',
+                                        fontSize: 15, color: AppColors.white)),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              RichText(
+                                  text: TextSpan(children: [
+                                TextSpan(
+                                  text: 'Leave Title ',
                                   style: textStyleWhite12px400w,
                                 ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5.0,
-                            ),
-                            Container(
-                              height: 100.0,
-                              child: TextFormField(
-                                minLines: null,
-                                maxLines: null,
-                                expands: true,
-                                maxLength: 200,
-                                textAlignVertical: TextAlignVertical.top,
-                                textInputAction: TextInputAction.newline,
-                                keyboardType: TextInputType.multiline,
-                                onChanged: (vale) {
-                                  text = vale.length;
-                                  description = vale;
-                                  setState(() {});
-                                },
-                                decoration: InputDecoration(
-                                    hintText:
-                                        'Please enter reason for applying leave',
-                                    hintStyle: TextStyle(color: AppColors.grey),
-                                    border: InputBorder.none,
-                                    counterStyle: TextStyle(
-                                      height: double.minPositive,
+                                TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: AppColors.red, fontSize: 16.0),
+                                ),
+                              ])),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              SizedBox(
+                                width: Utility.screenWidth(context),
+                                child: InputField(
+                                  placeHolderText: 'Enter leave title',
+                                  errorMessage: 'Please Enter leave  title',
+                                  inputType: InputType.ONLY_WORDS,
+                                  textCapitalization: TextCapitalization.words,
+                                  onTextChange: (value) {
+                                    value = title;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              RichText(
+                                  text: TextSpan(children: [
+                                TextSpan(
+                                  text: 'Select Available Leave Type',
+                                  style: textStyleWhite12px400w,
+                                ),
+                                TextSpan(
+                                  text: '*',
+                                  style: TextStyle(
+                                      color: AppColors.red, fontSize: 16.0),
+                                ),
+                              ])),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              if (leaveTypeList?.length > 0)
+                                DropdownButtonFormField<Leaves>(
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 20.0),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: AppColors.grey, width: 1),
+                                        borderRadius: BorderRadius.circular(3),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 2),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      filled: true,
+                                      fillColor: AppColors.dropbg,
                                     ),
-                                    counterText: ""),
+                                    dropdownColor: Colors.white,
+                                    onChanged: (Leaves value) {
+                                      setState(() {
+                                        //_selected = value;
+                                        widget?._request?.leaveTypeId =
+                                            value.leaveTypeId.toString();
+                                        widget?._request?.leaveType =
+                                            value.leavetype;
+                                      });
+                                    },
+                                    hint: Text('Available leave type'),
+                                    icon: new Image.asset(Images.DropIcon),
+                                    items: leaveTypeList != null
+                                        ? leaveTypeList
+                                            .map((Leaves label) =>
+                                                DropdownMenuItem(
+                                                    child:
+                                                        Text(label.leavetype),
+                                                    value: label))
+                                            .toList()
+                                        : ['select leave type']
+                                            .map((e) => DropdownMenuItem(
+                                                  child: Text(
+                                                    e.toString(),
+                                                  ),
+                                                ))),
+                              SizedBox(
+                                height: 10.0,
                               ),
-                              padding: EdgeInsets.symmetric(horizontal: 20.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3.0),
-                                color: AppColors.dropbg,
-                                border: Border.all(
-                                    width: 1.0, color: AppColors.grey),
+                              Text(
+                                'Notify ',
+                                style: textStyleWhite12px400w,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                width: Utility.screenWidth(context),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3.0),
+                                  color: AppColors.dropbg,
+                                  border: Border.all(
+                                      width: 1.0, color: AppColors.grey),
+                                ),
+                                child: ChipsInput(
+                                  textCapitalization: TextCapitalization.words,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: 'Notify'),
+                                  maxChips: 10,
+                                  // remove, if you like infinity number of chips
+
+                                  findSuggestions: getList,
+                                  onChanged: (data) {
+                                   _onChanged(data);
+                                  },
+                                  chipBuilder: (context, state,
+                                      EmployeeDataList profile) {
+                                    return InputChip(
+                                      key: ObjectKey(profile),
+                                      label: Text(profile.fullName),
+                                      avatar: CircleAvatar(
+                                        child: Icon(Icons.account_circle),
+                                      ),
+                                      onDeleted: () =>
+                                          state.deleteChip(profile),
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                    );
+                                  },
+                                  suggestionBuilder:
+                                      (context, EmployeeDataList profile) {
+                                    return ListTile(
+                                      key: ObjectKey(profile),
+                                      leading: CircleAvatar(
+                                        child: Icon(Icons.account_circle),
+                                      ),
+                                      title: Text(profile.fullName),
+                                      subtitle: Text(profile.email),
+                                    );
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  RichText(
+                                      text: TextSpan(children: [
+                                    TextSpan(
+                                      text: 'Note',
+                                      style: textStyleWhite12px400w,
+                                    ),
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                          color: AppColors.red, fontSize: 16.0),
+                                    ),
+                                  ])),
+                                  Text(
+                                    '${text}/200 words',
+                                    style: textStyleWhite12px400w,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Container(
+                                height: 100.0,
+                                child: TextFormField(
+                                  minLines: null,
+                                  maxLines: null,
+                                  expands: true,
+                                  maxLength: 200,
+                                  textAlignVertical: TextAlignVertical.top,
+                                  textInputAction: TextInputAction.newline,
+                                  keyboardType: TextInputType.multiline,
+                                  onChanged: (vale) {
+                                    text = vale.length;
+                                    description = vale;
+                                    setState(() {});
+                                  },
+                                  decoration: InputDecoration(
+                                      hintText:
+                                          'Please enter reason for applying leave',
+                                      hintStyle:
+                                          TextStyle(color: AppColors.grey),
+                                      border: InputBorder.none,
+                                      counterStyle: TextStyle(
+                                        height: double.minPositive,
+                                      ),
+                                      counterText: ""),
+                                ),
+                                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3.0),
+                                  color: AppColors.dropbg,
+                                  border: Border.all(
+                                      width: 1.0, color: AppColors.grey),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ]),
-              ),
-              bottomButton()
-            ],
+                  ]),
+                ),
+                bottomButton()
+              ],
+            ),
           ),
         ));
   }
@@ -528,9 +552,11 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
           return element.f.contains(query);
         }).toList(growable:false);*/
       return emplist.where((element) {
-        return element.fullName.contains(query);
+        setState(() {});
+        return element.firstName.toLowerCase().contains(query.toLowerCase());
       }).toList(growable: false);
     } else {
+      setState(() {});
       return const <EmployeeDataList>[];
     }
   }
@@ -581,14 +607,12 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
 
   void addLeaveRequest() {
     widget._request.employeeId = userId;
-    try{
+    try {
       widget._request.startdate = Utility.formatDate(_start_date.toString());
       widget._request.endDate = Utility.formatDate(_end_date.toString());
       widget._request.numberOfDays =
           daysBetween(_start_date, _end_date).toString();
-    }
-    catch(Exception)
-    {
+    } catch (Exception) {
       print("");
     }
 
@@ -597,13 +621,13 @@ class _AddLeaveRequest extends State<AddLeaveRequest> implements LeaveView {
     widget._request.appliedBy = userName;
 
     widget._request.notifyTo = notify;
-    widget._request.comment=title;
+    widget._request.comment = title;
 
     if (widget._request.startdate == null) {
       Utility.showErrorToast(context, 'please pick start date');
     } else if (widget._request.endDate == null) {
       Utility.showErrorToast(context, 'please pick end date');
-    } else if (widget._request.comment==null) {
+    } else if (widget._request.comment == null) {
       Utility.showErrorToast(context, 'please enter title');
     } else if (widget._request.leaveType == null) {
       Utility.showErrorToast(context, 'please select leave type');

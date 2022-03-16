@@ -66,405 +66,410 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Header(
-              headerText: 'Add Expenses',
-            ),
-            Expanded(
-                child: ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: 'Expenses Category ',
-                              style: textStyleWhite12px400w,
+      body: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).requestFocus(new FocusNode());
+        },
+        child: SafeArea(
+          child: Column(
+            children: [
+              Header(
+                headerText: 'Add Expenses',
+              ),
+              Expanded(
+                  child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 30.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 20.0,
                             ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  color: AppColors.red, fontSize: 16.0),
-                            ),
-                          ])),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          DropdownButtonFormField<ExpenseCategoryList>(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20.0),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              filled: true,
-                              fillColor: AppColors.dropbg,
-                            ),
-                            dropdownColor: Colors.white,
-                            onChanged: (ExpenseCategoryList value) {
-                              setState(() {
-                                _request.categoryId = value.categoryId;
-                              });
-                            },
-                            hint: Text('Expenses Category*'),
-                            icon: new Image.asset(Images.DropIcon),
-                            items:
-                                //["feed back type"]
-                                expcateList
-                                    .map((ExpenseCategoryList label) =>
-                                        DropdownMenuItem(
-                                          child: Text(label.categoryName),
-                                          value: label,
-                                        ))
-                                    .toList(),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: 'Project/Cost Center ',
-                              style: textStyleWhite12px400w,
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  color: AppColors.red, fontSize: 16.0),
-                            ),
-                          ])),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          DropdownButtonFormField<ProjectdataList>(
-                            decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20.0),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.white, width: 2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 2),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              filled: true,
-                              fillColor: AppColors.dropbg,
-                            ),
-                            dropdownColor: Colors.white,
-                            onChanged: (ProjectdataList value) {
-                              _request.projectId=value.id;
-                              setState(() {});
-                            },
-                            hint: Text('Project/Cost Center*'),
-                            icon: new Image.asset(Images.DropIcon),
-                            items:
-                              //["feed back type"]
-                              projectList
-                                  .map((ProjectdataList label) => DropdownMenuItem(
-                                child: Text(label.projectName),
-                                value: label,
-                              ))
-                                  .toList(),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: 'Name of the expense ',
-                              style: textStyleWhite12px400w,
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  color: AppColors.red, fontSize: 16.0),
-                            ),
-                          ])),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          SizedBox(
-                            width: Utility.screenWidth(context),
-                            child: InputField(
-                              placeHolderText: 'Name of the expense',
-                              errorMessage: 'Please Enter Name of the expense*',
-                              inputType: InputType.ONLY_WORDS,
-                              onTextChange: (value) {
-                                _request.expenseTitle = value;
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: 'Merchant name ',
-                              style: textStyleWhite12px400w,
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  color: AppColors.red, fontSize: 16.0),
-                            ),
-                          ])),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          SizedBox(
-                            width: Utility.screenWidth(context),
-                            child: InputField(
-                              placeHolderText: 'Merchant name',
-                              errorMessage: 'Please Enter Merchant name*',
-                              inputType: InputType.ONLY_WORDS,
-                              onTextChange: (value) {
-                                // value=title;
-                                _request.merchantName = value;
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: 'Amount ',
-                              style: textStyleWhite12px400w,
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  color: AppColors.red, fontSize: 16.0),
-                            ),
-                          ])),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          SizedBox(
-                            width: Utility.screenWidth(context),
-                            child: InputField(
-                              placeHolderText: 'Amount*',
-                              errorMessage: 'Please Enter Amount**',
-                              inputType: InputType.MOBILE,
-
-                              onTextChange: (value) {
-                                // value=title;
-                                print('amount $value');
-                                _request.expenseAmount = double.parse(value);
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: 'Invoice number ',
-                              style: textStyleWhite12px400w,
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  color: AppColors.red, fontSize: 16.0),
-                            ),
-                          ])),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          SizedBox(
-                            width: Utility.screenWidth(context),
-                            child: InputField(
-                              placeHolderText: 'Invoice number',
-                              errorMessage: 'Please Enter Invoice number*',
-                              inputType: InputType.ONLY_WORDS,
-                              onTextChange: (value) {
-                                // value=title;
-                                _request.billNumber = value;
-                              },
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          RichText(
-                              text: TextSpan(children: [
-                            TextSpan(
-                              text: 'Expenses Date ',
-                              style: textStyleWhite12px400w,
-                            ),
-                            TextSpan(
-                              text: '*',
-                              style: TextStyle(
-                                  color: AppColors.red, fontSize: 16.0),
-                            ),
-                          ])),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          InkWell(
-                            child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                                width: Utility.screenWidth(context),
-                                height: 52.0,
-                                alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3.0),
-                                  color: AppColors.dropbg,
-                                  border: Border.all(
-                                    width: 1,
-                                    color: AppColors.grey,
-                                    style: BorderStyle.solid,
-                                  ),
-                                ),
-                                child: Text(
-                                  _expense_date != null
-                                      ? Utility.formatDate(
-                                          _expense_date.toString())
-                                      : 'dd/mm/yyyy',
-                                  style: TextStyle(fontSize: 15),
-                                )),
-                            onTap: () {
-                              _expense_date = DateTime.now();
-                              _showDatePicker(context);
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                  text: 'Note for approvers',
-                                  style: textStyleWhite12px400w,
-                                ),
-                                TextSpan(
-                                  text: '*',
-                                  style: TextStyle(
-                                      color: AppColors.red, fontSize: 16.0),
-                                ),
-                              ])),
-                              Text(
-                                '${text}/200 words',
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                text: 'Expenses Category ',
                                 style: textStyleWhite12px400w,
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Container(
-                            height: 100.0,
-                            child: TextFormField(
-                              minLines: null,
-                              maxLines: null,
-                              expands: true,
-                              maxLength: 200,
-                              textAlignVertical: TextAlignVertical.top,
-                              textInputAction: TextInputAction.newline,
-                              keyboardType: TextInputType.multiline,
-                              onChanged: (vale) {
-                                text = vale.length;
-                                _request.comment = vale;
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
+                              ),
+                            ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            DropdownButtonFormField<ExpenseCategoryList>(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20.0),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white, width: 2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white, width: 2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                filled: true,
+                                fillColor: AppColors.dropbg,
+                              ),
+                              dropdownColor: Colors.white,
+                              onChanged: (ExpenseCategoryList value) {
+                                setState(() {
+                                  _request.categoryId = value.categoryId;
+                                });
+                              },
+                              hint: Text('Expenses Category*'),
+                              icon: new Image.asset(Images.DropIcon),
+                              items:
+                                  //["feed back type"]
+                                  expcateList
+                                      .map((ExpenseCategoryList label) =>
+                                          DropdownMenuItem(
+                                            child: Text(label.categoryName),
+                                            value: label,
+                                          ))
+                                      .toList(),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                text: 'Project/Cost Center ',
+                                style: textStyleWhite12px400w,
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
+                              ),
+                            ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            DropdownButtonFormField<ProjectdataList>(
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 20.0),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.white, width: 2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey, width: 2),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                filled: true,
+                                fillColor: AppColors.dropbg,
+                              ),
+                              dropdownColor: Colors.white,
+                              onChanged: (ProjectdataList value) {
+                                _request.projectId=value.id;
                                 setState(() {});
                               },
-                              decoration: InputDecoration(
-                                  hintText:
-                                      'Please enter reason for applying leave',
-                                  hintStyle:
-                                      TextStyle(color: AppColors.greyNew),
-                                  border: InputBorder.none,
-                                  counterStyle: TextStyle(
-                                    height: double.minPositive,
+                              hint: Text('Project/Cost Center*'),
+                              icon: new Image.asset(Images.DropIcon),
+                              items:
+                                //["feed back type"]
+                                projectList
+                                    .map((ProjectdataList label) => DropdownMenuItem(
+                                  child: Text(label.projectName),
+                                  value: label,
+                                ))
+                                    .toList(),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                text: 'Name of the expense ',
+                                style: textStyleWhite12px400w,
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
+                              ),
+                            ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            SizedBox(
+                              width: Utility.screenWidth(context),
+                              child: InputField(
+                                placeHolderText: 'Name of the expense',
+                                errorMessage: 'Please Enter Name of the expense*',
+                                inputType: InputType.ONLY_WORDS,
+                                onTextChange: (value) {
+                                  _request.expenseTitle = value;
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                text: 'Merchant name ',
+                                style: textStyleWhite12px400w,
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
+                              ),
+                            ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            SizedBox(
+                              width: Utility.screenWidth(context),
+                              child: InputField(
+                                placeHolderText: 'Merchant name',
+                                errorMessage: 'Please Enter Merchant name*',
+                                inputType: InputType.ONLY_WORDS,
+                                onTextChange: (value) {
+                                  // value=title;
+                                  _request.merchantName = value;
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                text: 'Amount ',
+                                style: textStyleWhite12px400w,
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
+                              ),
+                            ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            SizedBox(
+                              width: Utility.screenWidth(context),
+                              child: InputField(
+                                placeHolderText: 'Amount*',
+                                errorMessage: 'Please Enter Amount**',
+                                inputType: InputType.MOBILE,
+
+                                onTextChange: (value) {
+                                  // value=title;
+                                  print('amount $value');
+                                  _request.expenseAmount = double.parse(value);
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                text: 'Invoice number ',
+                                style: textStyleWhite12px400w,
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
+                              ),
+                            ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            SizedBox(
+                              width: Utility.screenWidth(context),
+                              child: InputField(
+                                placeHolderText: 'Invoice number',
+                                errorMessage: 'Please Enter Invoice number*',
+                                inputType: InputType.ONLY_WORDS,
+                                onTextChange: (value) {
+                                  // value=title;
+                                  _request.billNumber = value;
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            RichText(
+                                text: TextSpan(children: [
+                              TextSpan(
+                                text: 'Expenses Date ',
+                                style: textStyleWhite12px400w,
+                              ),
+                              TextSpan(
+                                text: '*',
+                                style: TextStyle(
+                                    color: AppColors.red, fontSize: 16.0),
+                              ),
+                            ])),
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            InkWell(
+                              child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                  width: Utility.screenWidth(context),
+                                  height: 52.0,
+                                  alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3.0),
+                                    color: AppColors.dropbg,
+                                    border: Border.all(
+                                      width: 1,
+                                      color: AppColors.grey,
+                                      style: BorderStyle.solid,
+                                    ),
                                   ),
-                                  counterText: ""),
+                                  child: Text(
+                                    _expense_date != null
+                                        ? Utility.formatDate(
+                                            _expense_date.toString())
+                                        : 'dd/mm/yyyy',
+                                    style: TextStyle(fontSize: 15),
+                                  )),
+                              onTap: () {
+                                _expense_date = DateTime.now();
+                                _showDatePicker(context);
+                              },
                             ),
-                            padding: EdgeInsets.symmetric(horizontal: 20.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3.0),
-                              color: AppColors.dropbg,
-                              border:
-                                  Border.all(width: 1.0, color: AppColors.grey),
+                            SizedBox(
+                              height: 20.0,
                             ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          InkWell(
-                            child: Row(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SvgPicture.asset(
-                                  Images.AddDocumentIcon,
-                                  width: 20,
-                                  height: 20,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
                                 RichText(
                                     text: TextSpan(children: [
                                   TextSpan(
-                                    text: 'Add Attachment',
-                                    style: textStyleWhite12px400wRed,
+                                    text: 'Note for approvers',
+                                    style: textStyleWhite12px400w,
                                   ),
-
-                                  /* TextSpan(
-                                          text: '*',
-                                          style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                                        ),*/
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(
+                                        color: AppColors.red, fontSize: 16.0),
+                                  ),
                                 ])),
-                                /* Text('${text}/200 words',
-                                    style: textStyleWhite12px400w,
-                                  ),*/ /* Text('${text}/200 words',
-                                    style: textStyleWhite12px400w,
-                                  ),*/
+                                Text(
+                                  '${text}/200 words',
+                                  style: textStyleWhite12px400w,
+                                ),
                               ],
                             ),
-                            onTap: () {
-                              _modalBottomSheetMenu();
-                            },
-                          ),
-                          SizedBox(
-                            height: 40.0,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 5.0,
+                            ),
+                            Container(
+                              height: 100.0,
+                              child: TextFormField(
+                                minLines: null,
+                                maxLines: null,
+                                expands: true,
+                                maxLength: 200,
+                                textAlignVertical: TextAlignVertical.top,
+                                textInputAction: TextInputAction.newline,
+                                keyboardType: TextInputType.multiline,
+                                onChanged: (vale) {
+                                  text = vale.length;
+                                  _request.comment = vale;
+                                  setState(() {});
+                                },
+                                decoration: InputDecoration(
+                                    hintText:
+                                        'Please enter reason for applying leave',
+                                    hintStyle:
+                                        TextStyle(color: AppColors.greyNew),
+                                    border: InputBorder.none,
+                                    counterStyle: TextStyle(
+                                      height: double.minPositive,
+                                    ),
+                                    counterText: ""),
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3.0),
+                                color: AppColors.dropbg,
+                                border:
+                                    Border.all(width: 1.0, color: AppColors.grey),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            InkWell(
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    Images.AddDocumentIcon,
+                                    width: 20,
+                                    height: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  RichText(
+                                      text: TextSpan(children: [
+                                    TextSpan(
+                                      text: 'Add Attachment',
+                                      style: textStyleWhite12px400wRed,
+                                    ),
+
+                                    /* TextSpan(
+                                            text: '*',
+                                            style: TextStyle(color: AppColors.red, fontSize: 16.0),
+                                          ),*/
+                                  ])),
+                                  /* Text('${text}/200 words',
+                                      style: textStyleWhite12px400w,
+                                    ),*/ /* Text('${text}/200 words',
+                                      style: textStyleWhite12px400w,
+                                    ),*/
+                                ],
+                              ),
+                              onTap: () {
+                                _modalBottomSheetMenu();
+                              },
+                            ),
+                            SizedBox(
+                              height: 40.0,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            )),
-            bottomButton()
-          ],
+                ],
+              )),
+              bottomButton()
+            ],
+          ),
         ),
       ),
     );

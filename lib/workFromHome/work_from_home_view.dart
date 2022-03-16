@@ -16,7 +16,7 @@ abstract class WorkFromHomeView extends BaseView  {
 
   void onAddWFHRequest(WFHResponse response);
   void onGetFHList(GetWorkFromListResponse response);
-
+  void onEmpkeyFecthed(EmpKeyResponse response);
 
 
 

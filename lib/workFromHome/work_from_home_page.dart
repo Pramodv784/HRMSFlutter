@@ -1,6 +1,6 @@
+import 'package:chips_input/chips_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chips_input/flutter_chips_input.dart';
 import 'package:hrms/add_leave_request/model/emp_key_response.dart';
 import 'package:hrms/add_leave_request/model/leave_type_response.dart';
 import 'package:hrms/res/AppColors.dart';
@@ -251,30 +251,41 @@ class _WorkFromHomePageState extends State<WorkFromHomePage>
                                 border: Border.all(
                                     width: 1.0, color: AppColors.grey),
                               ),
-                              child: ChipsInput<EmployeeDataList>(
-                                decoration: const InputDecoration(
-                                    border: InputBorder.none, hintText: ''),
+                              child: ChipsInput(
+                                textCapitalization: TextCapitalization.words,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Notify'),
+                                maxChips: 10,
+                                // remove, if you like infinity number of chips
+
                                 findSuggestions: getList,
-                                onChanged: _onChanged,
-                                chipBuilder: (BuildContext context,
-                                    ChipsInputState<EmployeeDataList> state,
+                                onChanged: (data) {
+                                _onChanged(data);
+                                },
+                                chipBuilder: (context, state,
                                     EmployeeDataList profile) {
                                   return InputChip(
+                                    key: ObjectKey(profile),
                                     label: Text(profile.fullName),
-                                    onDeleted: () => state.deleteChip(profile),
-                                    onSelected: (_) => _onChipTapped(profile),
+                                    avatar: CircleAvatar(
+                                      child: Icon(Icons.account_circle),
+                                    ),
+                                    onDeleted: () =>
+                                        state.deleteChip(profile),
                                     materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
+                                    MaterialTapTargetSize.shrinkWrap,
                                   );
                                 },
-                                suggestionBuilder: (BuildContext context,
-                                    ChipsInputState<EmployeeDataList> state,
-                                    EmployeeDataList profile) {
+                                suggestionBuilder:
+                                    (context, EmployeeDataList profile) {
                                   return ListTile(
                                     key: ObjectKey(profile),
+                                    leading: CircleAvatar(
+                                      child: Icon(Icons.account_circle),
+                                    ),
                                     title: Text(profile.fullName),
-                                    onTap: () =>
-                                        state.selectSuggestion(profile),
+                                    subtitle: Text(profile.email),
                                   );
                                 },
                               ),
@@ -451,15 +462,21 @@ class _WorkFromHomePageState extends State<WorkFromHomePage>
   }
 
   Future<List<EmployeeDataList>> getList(String query) async {
-    if (query.isNotEmpty) {
-      //_presenter.getEmpKey(context, query);
+    if (query.length != 0) {
+      _presenter.getEmpKey(context, query);
       /*   return leaveTypeList.where((element) {
           return element.f.contains(query);
         }).toList(growable:false);*/
       return emplist.where((element) {
-        return element.fullName.contains(query);
+        setState(() {
+
+        });
+        return element.firstName.contains(query);
       }).toList(growable: false);
     } else {
+      setState(() {
+
+      });
       return const <EmployeeDataList>[];
     }
   }
@@ -479,7 +496,7 @@ class _WorkFromHomePageState extends State<WorkFromHomePage>
 
   void _onChipTapped(EmployeeDataList profile) {
     print('$profile');
-    //  widget._request?.notifyTo = profile.fullName;
+    widget._request?.comment = profile.fullName;
   }
 
   @override
@@ -500,5 +517,13 @@ class _WorkFromHomePageState extends State<WorkFromHomePage>
   @override
   void onGetFHList(GetWorkFromListResponse response) {
     // TODO: implement onGetFHList
+  }
+
+  @override
+  void onEmpkeyFecthed(EmpKeyResponse response) {
+    print('Empkey response **********${response.employeeDataList.length}');
+    emplist.clear();
+    emplist.addAll(response.employeeDataList);
+    setState(() {});
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hrms/add_leave_request/model/emp_key_response.dart';
 import 'package:hrms/attendence/singleItem/attendance_request_list.dart';
 import 'package:hrms/utility/Utility.dart';
 import 'package:hrms/workFromHome/model/get_work_from_list_response.dart';
@@ -52,5 +53,10 @@ class _AttendanceRequestState extends State<AttendanceRequest>
     }
     setState(() {
     });
+  }
+
+  @override
+  void onEmpkeyFecthed(EmpKeyResponse response) {
+    // TODO: implement onEmpkeyFecthed
   }
 }

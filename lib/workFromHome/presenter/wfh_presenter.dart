@@ -16,6 +16,8 @@ import 'package:hrms/workFromHome/model/w_f_h_request.dart';
 import 'package:hrms/workFromHome/model/w_f_h_response.dart';
 import 'package:hrms/workFromHome/work_from_home_view.dart';
 
+import '../../add_leave_request/model/emp_key_response.dart';
+
 class WFHPresenter {
   var tag = 'WorkFromPresenterPresenter ';
   static const encryptionChannel = MethodChannel('enc/dec');
@@ -78,7 +80,32 @@ class WFHPresenter {
         });
     }}
 
+  getEmpKey(BuildContext context,String key) async {
+    if (await NetworkCheck.check()) {
+      //  Dialogs.showLoader(context, 'Loading ...', '');
+      // Dialogs.showLoader(context, 'Please wait getting chapters', '');
+      _repository.get2('${EndPoints.GetEmpKeyword}?searchtext=$key',headers: await Utility.header())
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>',jsonDecode(res.toString()) );
+          // final decoded_data = GZipCodec().decode(res.data.bodyBytes);
+          //Utility.log('${tag}>>>pramod>>>',decoded_data.first);
+          // Dialogs.hideLoader(context);
 
+          EmpKeyResponse data = EmpKeyResponse.fromJson(res.data);
+          //print('pramod${data.data.message}');
+
+          // if (data?.status??false)
+          _view.onEmpkeyFecthed(data);
+
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+          // Dialogs.hideLoader(context);
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }}
 }
 
 

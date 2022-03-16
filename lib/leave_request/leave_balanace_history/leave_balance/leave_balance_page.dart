@@ -664,7 +664,10 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                         child: CircularPercentIndicator(
                                           radius: 70.0,
                                           lineWidth: 40.0,
-                                          percent: 0.3,
+                                          percent: _response.leaveBalanceList[0]
+                                              .maternityLeave
+                                              .toDouble() /
+                                              10,
                                           center: new Text(
                                             "${_response?.leaveBalanceList[0]?.maternityLeave}%",
                                             style: TextStyle(fontSize: 20.0),
@@ -877,7 +880,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                   ?.leaveBalanceList[0]
                                                   ?.bereavementLeave
                                                   .toDouble() /
-                                              100,
+                                              10,
                                           center: new Text(
                                             "${_response?.leaveBalanceList[0]?.bereavementLeave}%",
                                             style: TextStyle(fontSize: 20.0),

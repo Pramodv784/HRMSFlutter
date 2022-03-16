@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
@@ -26,11 +27,30 @@ class _CommonPageState extends State<CommonPage> {
             headerText: '${widget.title}',
           ),
           Expanded(
-            child: Center(
-                child: Text(
-              'Comming Soon',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            )),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 20.0),
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SvgPicture.asset(Images.CommingSoon),
+                      ),
+                      SizedBox(height: 10.0,),
+                      Text(
+                    'Coming Soon!!!',
+                    style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.w900,letterSpacing: 2.0),
+                  overflow: TextOverflow.ellipsis,maxLines: 1,),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ]),
       ),
