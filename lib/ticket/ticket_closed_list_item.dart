@@ -1,35 +1,32 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hrms/leave_request/model/data_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/res/Screens.dart';
 import 'package:hrms/ticket/model/TicketResponse.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
+import 'package:hrms/utility/Utility.dart';
 
-import '../ticket/model/my_ticket_response.dart';
 import 'model/GetMyCaseResponse.dart';
 
-class TicketListItem extends StatefulWidget {
-  OpenTicket _data;
+class TicketCloseedListItem extends StatefulWidget {
+  CloseTicket _data;
   TicketPresenter _presenter;
 
-  TicketListItem(this._data,this._presenter, {Key key}) : super(key: key);
+  TicketCloseedListItem(this._data, this._presenter, {Key key})
+      : super(key: key);
 
   @override
-  State<TicketListItem> createState() => _TicketListItemState();
+  State<TicketCloseedListItem> createState() => _TicketCloseedListItemState();
 }
 
-class _TicketListItemState extends State<TicketListItem> {
+class _TicketCloseedListItemState extends State<TicketCloseedListItem> {
   Statuses itemselected;
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(color: Color(0xFFEEF4FB)),
       margin: EdgeInsets.only(bottom: 5.0),
@@ -45,7 +42,7 @@ class _TicketListItemState extends State<TicketListItem> {
                   '${widget._data.title}',
                   style: textStyleWhite12px400w,
                 ),
-               /* Flexible(
+                /* Flexible(
                   child: Container(
                     width: 150.0,
                     height: 50,
@@ -86,8 +83,8 @@ class _TicketListItemState extends State<TicketListItem> {
               height: 8.0,
             ),
             Text(
-              '${widget._data.ticketStatus}',
-              style: textStyleSubText14px600w,
+              'Ticket created on ${Utility.getDateFormate(widget?._data?.createdOn ?? '')}',
+              style: textStyleSubText12px600w,
             ),
             SizedBox(
               height: 8.0,
@@ -114,9 +111,13 @@ class _TicketListItemState extends State<TicketListItem> {
                     ),
                   ),
                 ),
-                InkWell(child: Icon(Icons.edit),onTap: (){
-                  Navigator.pushNamed(context, Screens.RaiseTicket,arguments: widget._data);
-                },)
+                InkWell(
+                  child: Icon(Icons.edit),
+                  onTap: () {
+                    Navigator.pushNamed(context, Screens.RaiseTicket,
+                        arguments: widget._data);
+                  },
+                )
               ],
             ),
             SizedBox(
@@ -147,8 +148,10 @@ class _TicketListItemState extends State<TicketListItem> {
                       height: 8.0,
                     ),
                     Text(
-                      '${widget._data.assignedTo}',
-                      style: textStyleSubText14px600w,
+                      'Ticket Closed On ${Utility.getDateFormate(widget?._data?.closedOn ?? '')}',
+                      style: textStyleSubText12px600w,
+                    maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 )

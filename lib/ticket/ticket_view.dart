@@ -8,10 +8,12 @@ import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/ticket_type_response.dart';
 
 import 'model/GetAllUser.dart';
+import 'model/TicketResponse.dart';
 abstract class TicketView extends BaseView  {
   void onTicketTypeFecthed(TicketTypeResponse response);
   void onTicketAddedFecthed(AddTicketResponse response);
   void onUserByDepartmentFecthed(GetAllUser response);
   void onGetMyCaseFecthed(GetMyCaseResponse response);
+  void onGetMyTicketFecthed(TicketResponse response);
 
 }

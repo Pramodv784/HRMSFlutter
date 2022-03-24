@@ -15,6 +15,7 @@ import 'package:hrms/feedback_history/model/feed_history_response.dart';
 import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/ticket/model/GetAllUser.dart';
 import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
+import 'package:hrms/ticket/model/TicketResponse.dart';
 import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/my_ticket_response.dart';
 import 'package:hrms/ticket/model/ticket_type_response.dart';
@@ -86,6 +87,9 @@ class TicketPresenter {
         });
     }
   }
+
+
+
   getMyCase(BuildContext context,int id) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
@@ -186,6 +190,31 @@ class TicketPresenter {
     }
   }
 
+
+  getMyTicket(BuildContext context) async {
+    if (await NetworkCheck.check()) {
+      Dialogs.showLoader(context, 'Loading ...', '');
+      // Dialogs.showLoader(context, 'Please wait getting chapters', '');
+      _repository.get2('${EndPoints.GetMyCase}',headers: await Utility.header())
+        ..then((Response res) async {
+          Utility.log(tag, res);
+          Utility.log('${tag}>>>', jsonDecode(res.toString()));
+          Dialogs.hideLoader(context);
+          TicketResponse data = TicketResponse.fromJson(res.data);
+          if (data?.status ?? false)
+            _view.onGetMyTicketFecthed(data);
+          else {
+            _view.onError(data.message);
+          }
+        }
+        ).catchError((e) async {
+          Utility.log(tag, e);
+          Dialogs.hideLoader(context);
+          //  _view.onError(e);
+          // DioErrorParser.parseError(e, _signupView);
+        });
+    }
+  }
   Future<List<MyTicketResponse>> getMyTicketData(int id) async {
     try {
       Map headers= await Utility.header();

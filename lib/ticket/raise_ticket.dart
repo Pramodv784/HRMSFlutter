@@ -4,6 +4,7 @@ import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/ticket/model/GetAllUser.dart';
 import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
+import 'package:hrms/ticket/model/TicketResponse.dart';
 import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/ticket_type_response.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
@@ -443,5 +444,10 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
   @override
   void onGetMyCaseFecthed(GetMyCaseResponse response) {
 
+  }
+
+  @override
+  void onGetMyTicketFecthed(TicketResponse response) {
+    // TODO: implement onGetMyTicketFecthed
   }
 }
