@@ -476,6 +476,7 @@ const textStyleWhite14px600w = TextStyle(
 const textStyleSubText14px600w = TextStyle(
     color: AppColors.textColorSubText,
     fontFamily: kFontFamily,
+
     fontWeight: FontWeight.w600,
     fontSize: 14);
 

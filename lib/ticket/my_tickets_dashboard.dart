@@ -7,9 +7,13 @@ import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/ticket/model/GetAllUser.dart';
 import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
+import 'package:hrms/ticket/model/TicketResponse.dart';
+import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
 import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
 import 'package:hrms/ticket/model/my_ticket_response.dart';
+import 'package:hrms/ticket/model/ticket_type_response.dart';
+import 'package:hrms/ticket/ticket_closed_list_item.dart';
 import 'package:hrms/ticket/ticket_list_item.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
@@ -154,7 +158,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
                                   SizedBox(
                                     height: 30,
                                   ),
-                                 // ...widgetClosedSettlement
+                                  ...widgetClosedSettlement
                                 ],
                               ):
                               Image.asset(Images.IconNoDataFound)
@@ -191,14 +195,23 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
 
   @override
   void onGetMyCaseFecthed(GetMyCaseResponse response) {
-     for(CaseDataList data in response.caseDataList)
-       {
-         widgetOpenList.add(TicketListItem(data,_presenter));
-       }
 
-     setState(() {
+  }
 
-     });
+  @override
+  void onGetMyTicketFecthed(TicketResponse response) {
+    for(OpenTicket data in response.data.openTicket)
+    {
+      widgetOpenList.add(TicketListItem(data,_presenter));
+    }
+    for(CloseTicket data in response.data.closeTicket)
+    {
+      widgetClosedSettlement.add(TicketCloseedListItem(data,_presenter));
+    }
+
+    setState(() {
+
+    });
   }
 
   @override

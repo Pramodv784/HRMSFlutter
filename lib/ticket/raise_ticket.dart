@@ -13,6 +13,9 @@ import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
 import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
 import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
 
+import 'package:hrms/ticket/model/TicketResponse.dart';
+import 'package:hrms/ticket/model/add_ticket_response.dart';
+import 'package:hrms/ticket/model/ticket_type_response.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
@@ -621,5 +624,10 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
     setState(() {
 
     });
+  }
+
+  @override
+  void onGetMyTicketFecthed(TicketResponse response) {
+    // TODO: implement onGetMyTicketFecthed
   }
 }

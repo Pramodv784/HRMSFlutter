@@ -11,12 +11,14 @@ import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
 
 import '../profile/model/upload_image_response.dart';
 import 'model/GetAllUser.dart';
+import 'model/TicketResponse.dart';
 abstract class TicketView extends BaseView  {
   void onTicketcateFecthed(TicketCategoryResponse response);
   void onTicketPriorityFecthed(TicketPriorityResponse response);
   void onTicketAddedFecthed(AddTicketResponse response);
   void onUserByDepartmentFecthed(GetAllUser response);
   void onGetMyCaseFecthed(GetMyCaseResponse response);
+  void onGetMyTicketFecthed(TicketResponse response);
   void onImageFecthed(UploadImageResponse response);
 
 }

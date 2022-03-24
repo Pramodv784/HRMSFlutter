@@ -1,6 +1,8 @@
 class EndPoints {
   //ngroke
-  static const String baseUrl = "http://609e-103-15-67-125.ngrok.io";
+ // static const String baseUrl = "https://uatportalapi.moreyeahs.in";
+ static const String baseUrl = "http://609e-103-15-67-125.ngrok.io";
+
  // static const String baseUrl = "http://981f-103-15-67-125.ngrok.io";
   static const String Login = baseUrl + "/api/userlogin/login";
   static const String GetTotalAvgScore =
@@ -48,7 +50,7 @@ class EndPoints {
    static const String GetUserByDepartment =
       baseUrl + "/api/Case/GetEmployeeByRoleId";
   static const String GetMyCase =
-      baseUrl + "/api/case/GetMyCases";
+      baseUrl + "/api/ticketmaster/mytickets";
 
 
   static const String GetProjectList = baseUrl + "/api/project/GetAllProject";
