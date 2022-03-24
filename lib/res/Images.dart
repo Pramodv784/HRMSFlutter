@@ -48,4 +48,5 @@ class Images {
   static const IconAchive2 = base + 'ic_achive_2.svg';
   static const IconAchive3 = base + 'ic_achive_3.svg';
   static const CommingSoon = base + 'comming_soon.svg';
+  static const PlaceHolder = base + 'ic_placeholder.svg';
 }

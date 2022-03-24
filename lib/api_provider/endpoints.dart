@@ -43,6 +43,12 @@ class EndPoints {
   static const String GetAllEmp = baseUrl + "/api/employees/GetAllEmployees";
   static const String GetAttendence =
       baseUrl + "/api/attendancenew/getclocklogtime";
+   static const String GetUserByDepartment =
+      baseUrl + "/api/Case/GetEmployeeByRoleId";
+  static const String GetMyCase =
+      baseUrl + "/api/case/GetMyCases";
+
+
   static const String GetProjectList = baseUrl + "/api/project/GetAllProject";
   static const String LeaveToday = baseUrl + "/api/leave/EmployeesTodayOnLeave";
   static const String GetWFHAllRequestList =
@@ -69,5 +75,9 @@ static const String GetSkill =
       baseUrl + "/api/skills/getallskill";
 static const String GetMyTeam =
       baseUrl + "/api/leave/EmployeesTodayOnLeaveTeam";
+static const String UpdateTicket =
+      baseUrl + "/api/Case/UpdateCase";
+static const String UpdateTicketStatus =
+      baseUrl + "/api/Case/UpdateCaseStatus";
 
 }

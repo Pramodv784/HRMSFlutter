@@ -73,8 +73,10 @@ class _HolidayPageState extends State<HolidayPage> implements HolidayView {
                                   ),
                                   Flexible(
                                     child: ClipRRect(
-                                        child: Image.network(holidayList[index].imageUrl,
-                                          fit: BoxFit.cover,height: 130.0,width: Utility.screenWidth(context),)),
+                                        child:holidayList[index].imageUrl!=null?
+                                        Image.network(holidayList[index].imageUrl,
+                                          fit: BoxFit.cover,height: 130.0,width: Utility.screenWidth(context),):
+                                    SvgPicture.asset(Images.PlaceHolder,fit: BoxFit.contain,height: 130.0,width: Utility.screenWidth(context),)),
                                   ),
                                   Container(
                                     height: 30.0,

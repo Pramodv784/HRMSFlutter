@@ -67,7 +67,7 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
                                       Align(
                                         alignment: Alignment.center,
                                         child: Text(widget._data?.fullName!=null&& widget._data?.fullName!=''?
-                                        '${widget._data?.fullName.substring(0, 1) + widget._data?.fullName.split(" ").last.substring(0, 1)}'.toUpperCase():'',
+                                        '${firstLetterWord(widget._data?.fullName)}':'',
                                             style: TextStyle(color: AppColors.white,fontSize: 30.0)),
                                       ),
                                     ]),
@@ -475,7 +475,24 @@ class _EmployeeDetailState extends State<EmployeeDetail> {
       throw 'could not launch';
     }
   }
-
+  String firstLetterWord(String str)
+  {
+    String result = "";
+    bool v = true;
+    for (int i = 0; i < str.length; i++)
+    {
+      if (str[i] == ' ')
+      {
+        v = true;
+      }
+      else if (str[i] != ' ' && v == true)
+      {
+        result += (str[i]);
+        v = false;
+      }
+    }
+    return result;
+  }
   void sendMail() async {
     var url = 'mailto:${widget._data?.email}?subject=&body=';
     if (await canLaunch(url)) {

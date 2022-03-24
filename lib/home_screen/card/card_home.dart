@@ -28,8 +28,11 @@ class CardHome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.network(
+              _data.menuIcon!=null?SvgPicture.network(
                 '${EndPoints.baseUrl}/${_data.menuIcon}',
+              ):
+              SvgPicture.asset(
+                Images.PlaceHolder,
               ),
               SizedBox(
                 height: 10.0,

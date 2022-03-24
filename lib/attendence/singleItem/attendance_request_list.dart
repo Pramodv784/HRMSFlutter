@@ -55,10 +55,25 @@ class AttendanceRequestList extends StatelessWidget {
               ),
               Row(
                 children: [
-                   Text(
+                  if(workFromHomeList?.wfhStatus == 'Pending')
+                    Text(
+                      workFromHomeList?.wfhStatus??"",
+                      style: textStyleOrgangeRegular12px500w,
+                    ),
+                  if(workFromHomeList?.wfhStatus == 'Approved')
+                    Text(
+                      workFromHomeList?.wfhStatus??"",
+                      style: textStyleGreenRegular12px500w,
+                    ),
+                  if(workFromHomeList?.wfhStatus == 'Rejected')
+                    Text(
+                      workFromHomeList?.wfhStatus??"",
+                      style: textStyleRedRegular12px500w,
+                    ),
+                  /* Text(
                    workFromHomeList?.wfhStatus??"",
                     style: textStyleGreenRegular12px500w,
-                  ),
+                  ),*/
                   const SizedBox(
                     width: 4.0,
                   ),

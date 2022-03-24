@@ -29,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
   var _password = "";
   var _email = "";
   LoginPresenter _presenter;
+  bool buttonColor=false;
 
   @override
   void initState() {
@@ -139,7 +140,22 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                   errorMessage: 'Please Enter Valid Password',
                   isPassword: true,
                   rightIcon: Images.PasswordEyeClose,
-                  onTextChange: (String val) => _password = val,
+                  onTextChange: (String val) {
+                    _password = val;
+                    if(val.length>0)
+                      {
+                        buttonColor=true;
+                        setState(() {
+
+                        });
+                      }
+                    else{
+                      buttonColor=false;
+                      setState(() {
+
+                      });
+                    }
+                  },
                   inputType: InputType.PASSWORD,
                 ),
               ),
@@ -187,10 +203,10 @@ class _LoginScreenState extends State<LoginScreen> implements LoginView {
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18),
-                      side: const BorderSide(color: Colors.black87),
+                      side:  BorderSide(color: buttonColor?Colors.black87:Colors.black26),
                     ),
                   ),
-                  backgroundColor: MaterialStateProperty.all(Colors.black87),
+                  backgroundColor: MaterialStateProperty.all(buttonColor?Colors.black87:Colors.black26),
                   fixedSize: MaterialStateProperty.all(
                     const Size(175, 30),
                   ),

@@ -5,10 +5,10 @@ import 'package:hrms/res/Fonts.dart';
 
 class CardWFHList extends StatelessWidget {
   WorkFromHomeList _data;
-  Color color;
 
 
-  CardWFHList(this._data,this.color, {Key key}) : super(key: key);
+
+  CardWFHList(this._data, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +24,13 @@ class CardWFHList extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.0),
-              color: color,
+              color: AppColors.orange,
             ),
             child: Stack(children: [
               Align(
                 alignment: Alignment.center,
-                child: Text(_data.appliedBy!=null&& _data.appliedBy!=''?
-                '${_data.appliedBy.substring(0, 1) + _data.appliedBy.split(" ").last.substring(0, 1)}'.toUpperCase():'',
+                child: Text(_data?.appliedBy!=null&& _data?.appliedBy!=''?
+                '${firstLetterWord(_data.appliedBy)} ':'',
                     style: TextStyle(color: AppColors.white)),
               ),
               Align(
@@ -57,5 +57,26 @@ class CardWFHList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+
+
+   String firstLetterWord(String str)
+  {
+    String result = "";
+    bool v = true;
+    for (int i = 0; i < str.length; i++)
+    {
+      if (str[i] == ' ')
+      {
+        v = true;
+      }
+      else if (str[i] != ' ' && v == true)
+      {
+        result += (str[i]);
+        v = false;
+      }
+    }
+    return result;
   }
 }

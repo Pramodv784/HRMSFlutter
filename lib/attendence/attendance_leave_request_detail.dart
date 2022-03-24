@@ -29,7 +29,7 @@ class _AttendanceLeaveRequestDetailState
         child: Column(
           children: [
             Header(
-              headerText: 'Attendance',
+              headerText: 'Work From Home Detail',
             ),
             Expanded(
               child: Padding(
@@ -44,7 +44,7 @@ class _AttendanceLeaveRequestDetailState
                         const SizedBox(
                           height: 15.0,
                         ),
-                        Container(
+                      /*  Container(
                           color: AppColors.backGroundColor,
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
@@ -73,7 +73,7 @@ class _AttendanceLeaveRequestDetailState
                                   children: const [
                                     Text(
                                       'Lovely Sharma',
-                                      /*style: textStyleLightRegular12pxNew,*/
+                                      *//*style: textStyleLightRegular12pxNew,*//*
                                       style: textStyleRegular12px,
                                     ),
                                     SizedBox(
@@ -88,7 +88,7 @@ class _AttendanceLeaveRequestDetailState
                               ],
                             ),
                           ),
-                        ),
+                        ),*/
                         const SizedBox(
                           height: 20.0,
                         ),
@@ -102,22 +102,33 @@ class _AttendanceLeaveRequestDetailState
                                 Row(
                                   children:  [
                                     Text(
-                                      'Lovely Sharma',
-                                      /*style: textStyleLightRegular12pxNew,*/
+                                      'Request Status',
+
                                       style: textStyleRegular12px,
                                     ),
                                     Text(
                                       ':',
-                                      /*style: textStyleLightRegular12pxNew,*/
                                       style: textStyleRegular12px,
                                     ),
                                     SizedBox(
                                       width: 6.0,
                                     ),
-                                    Text(widget?.workFromHomeList?.wfhStatus??"",
 
-                                      style: textStyleGreenRegular12px500w,
-                                    )
+                                    if(widget?.workFromHomeList?.wfhStatus == 'Pending')
+                                      Text(
+                                        widget?.workFromHomeList?.wfhStatus??"",
+                                        style: textStyleOrgangeRegular12px500w,
+                                      ),
+                                    if(widget?.workFromHomeList?.wfhStatus == 'Approved')
+                                      Text(
+                                        widget?.workFromHomeList?.wfhStatus??"",
+                                        style: textStyleGreenRegular12px500w,
+                                      ),
+                                    if(widget?.workFromHomeList?.wfhStatus == 'Rejected')
+                                      Text(
+                                        widget?.workFromHomeList?.wfhStatus??"",
+                                        style: textStyleRedRegular12px500w,
+                                      ),
                                   ],
                                 ),
                                 const SizedBox(
@@ -196,7 +207,7 @@ class _AttendanceLeaveRequestDetailState
                                 const SizedBox(
                                   height: 20.0,
                                 ),
-                                const Text(
+                                /*const Text(
                                   '10 day(s) of Work From Home',
                                   style: textStyleRegular12px,
                                 ),
@@ -209,7 +220,7 @@ class _AttendanceLeaveRequestDetailState
                                 ),
                                 const SizedBox(
                                   height: 20.0,
-                                ),
+                                ),*/
                                 Text(
                                   'Reason',
                                   style: textStyleRegular12px,

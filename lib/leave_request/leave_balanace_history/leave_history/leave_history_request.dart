@@ -41,7 +41,7 @@ class _LeaveHistoryRequestState extends State<LeaveHistoryRequest>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.background,
+      backgroundColor: AppColors.background,
         body: SafeArea(
             child: Column(children: [
           Expanded(
@@ -53,7 +53,7 @@ class _LeaveHistoryRequestState extends State<LeaveHistoryRequest>
                   child: Card(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: Column(
                         children: [
                         /*  DropdownButtonFormField<int>(

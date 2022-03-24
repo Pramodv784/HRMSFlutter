@@ -149,7 +149,7 @@ class _EmployeePageState extends State<EmployeePage> implements EmpView {
                                 Align(
                                   alignment: Alignment.center,
                                   child: Text(dummyUserList[index]?.fullName!=null&& dummyUserList[index]?.fullName!=''?
-                                  '${dummyUserList[index]?.fullName.substring(0, 1) + dummyUserList[index]?.fullName.split(" ").last.substring(0, 1)}'.toUpperCase():'',
+                                  '${firstLetterWord(dummyUserList[index].fullName)}':'',
                                       style: TextStyle(color: AppColors.white)),
                                 ),
                               ]),
@@ -170,6 +170,24 @@ class _EmployeePageState extends State<EmployeePage> implements EmpView {
       
       
 
+  }
+  String firstLetterWord(String str)
+  {
+    String result = "";
+    bool v = true;
+    for (int i = 0; i < str.length; i++)
+    {
+      if (str[i] == ' ')
+      {
+        v = true;
+      }
+      else if (str[i] != ' ' && v == true)
+      {
+        result += (str[i]);
+        v = false;
+      }
+    }
+    return result;
   }
   void filterSearchResults(String query) {
     List<EmployeeDataList> dummySearchList = [];

@@ -12,19 +12,16 @@ import 'package:hrms/res/Screens.dart';
 import 'package:hrms/utility/Utility.dart';
 
 import '../model/today_leave_response.dart';
-
 class CardLeaveToday extends StatelessWidget {
   EmpList _data;
   Color color;
-
 
   CardLeaveToday(this._data,this.color, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String tag=_data.fullName.substring(0,1);
-    String d=_data.fullName.split(" ").last.substring(0,1);
-    
+    /*String tag=_data.fullName.substring(0,1);
+    String d=_data.fullName.split(" ").last.substring(0,1);*/
     return Container(
       color: AppColors.white,
       padding: EdgeInsets.all(10.0),
@@ -42,7 +39,7 @@ class CardLeaveToday extends StatelessWidget {
             child: Stack(children: [
               Align(
                 alignment: Alignment.center,
-                child: Text('${tag+d}'.toUpperCase(),
+                child: Text('${firstLetterWord(_data.fullName)}'.toUpperCase(),
                     style: TextStyle(color: AppColors.white)),
               ),
               Align(
@@ -70,5 +67,23 @@ class CardLeaveToday extends StatelessWidget {
         ],
       ),
     );
+  }
+  String firstLetterWord(String str)
+  {
+    String result = "";
+    bool v = true;
+    for (int i = 0; i < str.length; i++)
+    {
+      if (str[i] == ' ')
+      {
+        v = true;
+      }
+      else if (str[i] != ' ' && v == true)
+      {
+        result += (str[i]);
+        v = false;
+      }
+    }
+    return result;
   }
 }

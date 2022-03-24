@@ -193,7 +193,7 @@ class _ProfilePageState extends State<ProfilePage>
                                     RichText(
                                         text: TextSpan(children: [
                                       const TextSpan(
-                                          text: 'Department:',
+                                          text: 'Department: ',
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
@@ -207,7 +207,7 @@ class _ProfilePageState extends State<ProfilePage>
                                     const SizedBox(
                                       height: 10.0,
                                     ),
-                                    RichText(
+                                  /*  RichText(
                                         text: const TextSpan(children: [
                                       TextSpan(
                                           text: 'Reporting to:',
@@ -220,7 +220,7 @@ class _ProfilePageState extends State<ProfilePage>
                                           style: const TextStyle(
                                               fontSize: 15,
                                               color: AppColors.SubText))
-                                    ])),
+                                    ])),*/
                                   ],
                                 ),
                                 Column(
@@ -243,7 +243,7 @@ class _ProfilePageState extends State<ProfilePage>
                                     const SizedBox(
                                       height: 10.0,
                                     ),
-                                    RichText(
+                                   /* RichText(
                                         text: const TextSpan(children: [
                                       TextSpan(
                                           text: 'Emp no.:',
@@ -256,7 +256,7 @@ class _ProfilePageState extends State<ProfilePage>
                                           style: const TextStyle(
                                               fontSize: 15,
                                               color: AppColors.SubText))
-                                    ])),
+                                    ])),*/
                                   ],
                                 )
                               ],

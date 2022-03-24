@@ -53,6 +53,7 @@ class Base extends StatelessWidget {
              // if(!baseProvider.isOpen){
                 else SystemNavigator.pop();
               //}
+
               return;
             },
             child: ClipRRect(

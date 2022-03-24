@@ -4,6 +4,8 @@ import 'package:hrms/leave_request/card_leave.dart';
 import 'package:hrms/leave_request/model/data_model.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/ticket/model/GetAllUser.dart';
+import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
 import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/my_ticket_response.dart';
 import 'package:hrms/ticket/model/ticket_type_response.dart';
@@ -11,6 +13,8 @@ import 'package:hrms/ticket/ticket_list_item.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
+
+import '../user/AuthUser.dart';
 
 class MyTicketDashBoard extends StatefulWidget {
   const MyTicketDashBoard({Key key}) : super(key: key);
@@ -31,11 +35,16 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     _presenter=TicketPresenter(this);
-    getTicketList();
 
+    getuserId();
 
     setState(() {});
     super.initState();
+  }
+
+  void getuserId() async {
+    var userData = await (AuthUser.getInstance()).getCurrentUser();
+    _presenter.getMyCase(context, userData.userId);
   }
 
   @override
@@ -44,7 +53,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
     super.dispose();
     _tabController.dispose();
   }
-  void getTicketList() async{
+/*  void getTicketList() async{
     ticketList= await _presenter.getMyTicketData(354);
     print('ticket listResponse ${ticketList.length}');
     for (MyTicketResponse t in ticketList) {
@@ -54,14 +63,14 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
          }
        else
          {
-           widgetClosedSettlement.add(TicketListItem(t));
+           //widgetClosedSettlement.add(TicketListItem(t));
          }
     }
     setState(() {
 
     });
 
-  }
+  }*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +155,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
                                   SizedBox(
                                     height: 30,
                                   ),
-                                  ...widgetClosedSettlement
+                                 // ...widgetClosedSettlement
                                 ],
                               ):
                               Image.asset(Images.IconNoDataFound)
@@ -177,6 +186,23 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
   @override
   void onTicketTypeFecthed(TicketTypeResponse response) {
     // TODO: implement onTicketTypeFecthed
+  }
+
+  @override
+  void onUserByDepartmentFecthed(GetAllUser response) {
+
+  }
+
+  @override
+  void onGetMyCaseFecthed(GetMyCaseResponse response) {
+     for(CaseDataList data in response.caseDataList)
+       {
+         widgetOpenList.add(TicketListItem(data,_presenter));
+       }
+
+     setState(() {
+
+     });
   }
 }
 

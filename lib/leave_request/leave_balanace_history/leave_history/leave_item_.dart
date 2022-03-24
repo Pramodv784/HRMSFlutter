@@ -45,7 +45,7 @@ class LeaveItem extends StatelessWidget {
                         height: 6.0,
                       ),
                        Text(
-                        'Work From home',
+                        '${_data.leaveType} (${_data.numberOfDays})',
                         style: textStyleRegular12pxGrey,
                       ),
                     ],

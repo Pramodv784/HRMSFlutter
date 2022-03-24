@@ -23,10 +23,10 @@ class AttendanceLogsList extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+             /* const Text(
                 'This Week',
                 style: textStyleDarkRegular14px700w,
-              ),
+              ),*/
               const SizedBox(
                 height: 15.0,
               ),

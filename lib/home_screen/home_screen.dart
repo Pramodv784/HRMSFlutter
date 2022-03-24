@@ -36,7 +36,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> implements HomeView {
+class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateMixin implements HomeView   {
   HomePresenter _presenter;
   List<MenuList> homelist = [];
 
@@ -51,12 +51,19 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   bool checkStatus = false;
   GetClockInTimeResponse getClockInTimeResponse;
   RandomColor _randomColor = RandomColor();
+   AnimationController controller;
+
 
   @override
   void initState() {
     _presenter = HomePresenter(this);
     _presenter.getHomeData(context);
     getuserId();
+    controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+      reverseDuration: Duration(milliseconds: 400),
+    );
 
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
@@ -309,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Container(
-                                      child: wfhUserList.length > 0
+                                      child: wfhUserList?.length > 0
                                           ? Row(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
@@ -381,6 +388,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   }
 
   Container header(BaseProvider baseProvider) {
+
     return Container(
       color: AppColors.colorPrimary,
       child: Padding(
@@ -400,14 +408,29 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
                   color: AppColors.black,
                   borderColor: AppColors.black,
                   child: Center(
-                    child: SvgPicture.asset(Images.DrawerIcon,
-                        width: 32, height: 32, color: AppColors.white),
+                    child:
+                   /* SvgPicture.asset(Images.DrawerIcon,
+                        width: 32, height: 32, color: AppColors.white),*/
+                    AnimatedIcon(
+                      icon: AnimatedIcons.menu_close,
+                      progress: controller,
+                      color: AppColors.white,
+                    )
                   ),
                   onTap: () {
                     if (baseProvider.isOpen)
-                      baseProvider.close();
+                      {
+                        controller.reverse();
+                        baseProvider.close();
+                      }
+
                     else
-                      baseProvider.open();
+                      {
+
+                        controller.forward();
+                        baseProvider.open();
+                      }
+
                   },
                 ),
                 const SizedBox(
@@ -519,9 +542,9 @@ class _HomeScreenState extends State<HomeScreen> implements HomeView {
   @override
   void onWfhListFetched(WFHListResponse response) {
     print('leave WFH list *** ${response.workFromHomeList.length}');
-    for (int i = 0; i < response.workFromHomeList.length; i++) {
+    for (int i = 0; i < response?.workFromHomeList?.length; i++) {
 
-      wfhUserList.add(CardWFHList(response.workFromHomeList[i],_randomColor.randomColor(colorHue: ColorHue.red)));
+      wfhUserList.add(CardWFHList(response?.workFromHomeList[i]));
     }
 
     setState(() {});

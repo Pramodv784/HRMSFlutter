@@ -81,7 +81,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response?.leaveBalanceList[0]?.paidLeave ?? ""}',
@@ -106,7 +106,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -188,7 +188,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response?.leaveBalanceList[0]?.unpaidLeave ?? ""}',
@@ -213,7 +213,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -295,7 +295,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response?.leaveBalanceList[0]?.sickLeave ?? ""}',
@@ -320,7 +320,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -402,7 +402,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response.leaveBalanceList[0].floaterLeave}',
@@ -427,7 +427,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -508,7 +508,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response?.leaveBalanceList[0]?.specialLeave ?? ""}',
@@ -533,7 +533,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -615,7 +615,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response?.leaveBalanceList[0]?.maternityLeave ?? ""}',
@@ -640,7 +640,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -721,7 +721,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response.leaveBalanceList[0].paternityLeave}',
@@ -746,7 +746,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -827,7 +827,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response?.leaveBalanceList[0]?.bereavementLeave ?? ""}',
@@ -852,7 +852,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',
@@ -934,7 +934,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Consumed',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '${_response?.leaveBalanceList[0]?.casualLeave ?? ""}',
@@ -959,7 +959,7 @@ class _LeaveBalancePage extends State<LeaveBalancePage>
                                                 Text(
                                                   'Annual  \n Quota',
                                                   style:
-                                                      TextStyle(fontSize: 20.0),
+                                                      TextStyle(fontSize: 15.0),
                                                 ),
                                                 Text(
                                                   '10',

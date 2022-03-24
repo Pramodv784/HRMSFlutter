@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/ticket/model/GetAllUser.dart';
+import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
 import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/ticket_type_response.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
@@ -10,15 +12,14 @@ import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/InputField.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
-
 import '../res/Screens.dart';
 import '../user/AuthUser.dart';
 import '../utility/Dialogs.dart';
 import 'model/add_ticket_request.dart';
-import 'model/get_all_emp_response.dart';
 
 class RaiseTicket extends StatefulWidget {
-  const RaiseTicket({Key key}) : super(key: key);
+  CaseDataList _data;
+   RaiseTicket(this._data,{Key key}) : super(key: key);
 
   @override
   _RaiseTicketState createState() => _RaiseTicketState();
@@ -31,22 +32,17 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
   List<CaseTypesData> ticketTypeList = [];
   AddTicketRequest _request = AddTicketRequest();
   int userId = 0, orgId, cmpId = 0;
-  List<GetAllEmpResponse> empList = [];
-
+  List<EmployeeData> empList = [];
   @override
   void initState() {
     _presenter = TicketPresenter(this);
     _presenter.getTicketType(context);
+
     getuserId();
-    getTicketList();
     super.initState();
   }
 
-  void getTicketList() async {
-    empList = await _presenter.getAllEmp();
-    print('Emp listResponse ${empList.length}');
-    setState(() {});
-  }
+
 
   void getuserId() async {
     var userData = await (AuthUser.getInstance()).getCurrentUser();
@@ -122,12 +118,9 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                             onChanged: (CaseTypesData value) {
                               setState(() {
                                 _request.caseTypeId = value.caseTypeId.toString();
+                                _presenter.getUser(context,value.caseTypeId);
                                 print('Valuse....${value}');
-                                if (value == 'EMPLOYEE') {
-                                  // empstatus = true;
-                                } else {
-                                  //   empstatus = false;
-                                }
+
                               });
                             },
                             hint: Text('Select Category'),
@@ -160,7 +153,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                           SizedBox(
                             height: 5.0,
                           ),
-                          DropdownButtonFormField<GetAllEmpResponse>(
+                          DropdownButtonFormField<EmployeeData>(
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20.0),
@@ -178,7 +171,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                               fillColor: AppColors.dropbg,
                             ),
                             dropdownColor: Colors.white,
-                            onChanged: (GetAllEmpResponse value) {
+                            onChanged: (EmployeeData value) {
                               setState(() {
                                 // _request.caseTypeId=value.caseTypeId.toString();
                                 print('Valuse....${value}');
@@ -191,9 +184,9 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                             items:
                                 //["feed back type"]
                                 empList
-                                    .map((GetAllEmpResponse label) =>
+                                    .map((EmployeeData label) =>
                                         DropdownMenuItem(
-                                          child: Text(label.fullName),
+                                          child: Text('${label.firstName} ${label.lastName}'),
                                           value: label,
                                         ))
                                     .toList(),
@@ -224,7 +217,9 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                               inputType: InputType.EMAIL,
                               onTextChange: (value) {
                                 _request.caseTitle = value;
+
                               },
+                              text: widget?._data?.caseTitle??"",
                             ),
                           ),
                           SizedBox(
@@ -261,6 +256,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                               maxLines: null,
                               expands: true,
                               maxLength: 200,
+                              initialValue: '${widget?._data?.caseDescription??''}',
                               textAlignVertical: TextAlignVertical.top,
                               textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
@@ -269,6 +265,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                                 description = vale;
                                 setState(() {});
                               },
+
                               decoration: InputDecoration(
                                   hintText: 'Enter Description',
                                   hintStyle: TextStyle(color: AppColors.greyNew),
@@ -372,7 +369,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
           Expanded(
             child: RevButton(
               width: 55.0,
-              text: 'Save',
+              text: widget?._data!=null?'Update':'Save',
               radius: 50.0,
               borderColor: AppColors.colorPrimary,
               textStyle: textStyleWhite14px600w,
@@ -415,6 +412,11 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
     } else if (description.isEmpty) {
       Utility.showErrorToast(context, 'please enter description');
     } else {
+
+      /*widget?._data!=null?
+      //update
+      _presenter.update(context, _request):
+      _presenter.AddTicket(context,_request);*/
       _presenter.AddTicket(context, _request);
     }
   }
@@ -427,5 +429,19 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
       Navigator.of(context).pushNamedAndRemoveUntil(
           Screens.kBaseScreen, ModalRoute.withName('/'));
     }, message: '', title: response.message);
+  }
+
+  @override
+  void onUserByDepartmentFecthed(GetAllUser response) {
+       empList.clear();
+       empList.addAll(response.employeeData);
+       setState(() {
+
+       });
+  }
+
+  @override
+  void onGetMyCaseFecthed(GetMyCaseResponse response) {
+
   }
 }

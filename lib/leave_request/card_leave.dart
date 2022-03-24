@@ -65,7 +65,7 @@ class CardLeave extends StatelessWidget {
             Navigator.pushNamed(context, Screens.LeaveBalancePage);
             break;
           case 'Raise Ticket':
-            Navigator.pushNamed(context, Screens.RaiseTicket);
+            Navigator.pushNamed(context, Screens.RaiseTicket,arguments: null);
             break;
           case 'My Tickets':
             Navigator.pushNamed(context, Screens.TicketDashBoard);

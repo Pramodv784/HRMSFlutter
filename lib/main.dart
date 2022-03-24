@@ -43,7 +43,7 @@ import 'leave_request/leave_request_dashboard.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool authResult = await (AuthUser.getInstance()).isLoggedIn();
-  Future.delayed(Duration(seconds: 2)).whenComplete(() => {
+  Future.delayed(Duration(milliseconds: 100)).whenComplete(() => {
         SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           statusBarColor: AppColors.colorPrimary,
         )),
@@ -162,7 +162,7 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget: EmployeeAdvances());
               break;
             case Screens.RaiseTicket:
-              return RouteTransition(widget: RaiseTicket());
+              return RouteTransition(widget: RaiseTicket(settings.arguments));
               break;
             case Screens.TicketDashBoard:
               return RouteTransition(widget: MyTicketDashBoard());
