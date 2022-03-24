@@ -17,6 +17,7 @@ import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
+import 'package:hrms/ticket/ticket_detail/ticket_detail.dart';
 import 'package:hrms/ticket/my_tickets_dashboard.dart';
 import 'package:hrms/ticket/raise_ticket.dart';
 import 'package:hrms/user/AuthUser.dart';
@@ -78,8 +79,7 @@ class _ScreenState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme:
-        ThemeData(
+        theme: ThemeData(
             scaffoldBackgroundColor: AppColors.white,
             primarySwatch: Colors.grey),
         // ignore: missing_return
@@ -108,24 +108,26 @@ class _ScreenState extends State<MyApp> {
             case Screens.GoalScreen:
               return RouteTransition(widget: GoalPage());
               break;
-               case Screens.EmpPage:
+            case Screens.EmpPage:
               return RouteTransition(widget: EmployeePage());
               break;
-                case Screens.EmpDetail:
-              return RouteTransition(widget: EmployeeDetail(settings.arguments));
+            case Screens.EmpDetail:
+              return RouteTransition(
+                  widget: EmployeeDetail(settings.arguments));
               break;
             case Screens.WorkFromHomePageDetail:
               return RouteTransition(
                   widget: AttendanceLeaveRequestDetail(settings.arguments));
               break;
-               case Screens.MyTeam:
-              return RouteTransition(
-                  widget: MyTeamPage());
+            case Screens.MyTeam:
+              return RouteTransition(widget: MyTeamPage());
               break;
-
 
             case Screens.LeaveHistory:
               return RouteTransition(widget: LeaveHistoryRequest());
+              break;
+            case Screens.MyChat:
+              return RouteTransition(widget: TicketDetail());
               break;
 
             case Screens.FeedbcakHistory:
@@ -170,7 +172,7 @@ class _ScreenState extends State<MyApp> {
             case Screens.WorkFromHomePage:
               return RouteTransition(widget: WorkFromHomePage());
               break;
-                case Screens.HolidayPage:
+            case Screens.HolidayPage:
               return RouteTransition(widget: HolidayPage());
               break;
 
@@ -181,7 +183,8 @@ class _ScreenState extends State<MyApp> {
 
             case Screens.AddEmpFeedBack:
               List<dynamic> args = settings.arguments;
-              return RouteTransition(widget: AddFeedback(args[0], args[1],args[2]));
+              return RouteTransition(
+                  widget: AddFeedback(args[0], args[1], args[2]));
               break;
 
             case Screens.kBaseScreen:
@@ -197,8 +200,7 @@ class _ScreenState extends State<MyApp> {
               break;
           }
         },
-        home:
-        checkAuthUser(widget?.isLoggedIn)
+        home: checkAuthUser(widget?.isLoggedIn)
         //HolidayPage()
 
         );

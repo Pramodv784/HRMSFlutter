@@ -1,6 +1,6 @@
 class EndPoints {
   //ngroke
-  static const String baseUrl = "https://uatportalapi.moreyeahs.in";
+  static const String baseUrl = "http://609e-103-15-67-125.ngrok.io";
  // static const String baseUrl = "http://981f-103-15-67-125.ngrok.io";
   static const String Login = baseUrl + "/api/userlogin/login";
   static const String GetTotalAvgScore =
@@ -32,8 +32,10 @@ class EndPoints {
       baseUrl + "/api/WorkFromHome/CreateWFHRequest";
   static const String GetWorkFromHomeList =
       baseUrl + "/api/WorkFromHome/GetAllWFHRequestsByEmployeeId";
-  static const String TicketType = baseUrl + "/api/Case/GetCaseTypes";
-  static const String AddTicket = baseUrl + "/api/Case/CreateCase";
+  static const String TicketCategory = baseUrl + "/api/ticketmaster/ticketcategorylist";
+  static const String TicketPriority = baseUrl + "/api/ticketmaster/gettprioritybytCategory";
+
+  static const String AddTicket = baseUrl + "/api/ticketmaster/adduserticket";
   static const String MyTicketList = baseUrl + "/api/Case/GetAllTicket";
   static const String ExpenseHistory =
       baseUrl + "/api/expense/GetAllExpenseRequestsByStatus";
@@ -79,5 +81,7 @@ static const String UpdateTicket =
       baseUrl + "/api/Case/UpdateCase";
 static const String UpdateTicketStatus =
       baseUrl + "/api/Case/UpdateCaseStatus";
+static const String TicketDetail =
+      baseUrl + "/api/ticketmaster/ticketdetails";
 
 }

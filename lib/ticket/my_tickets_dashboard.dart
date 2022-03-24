@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:hrms/expense/total_expenses_list.dart';
 import 'package:hrms/leave_request/card_leave.dart';
 import 'package:hrms/leave_request/model/data_model.dart';
+import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Images.dart';
 import 'package:hrms/ticket/model/GetAllUser.dart';
 import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
-import 'package:hrms/ticket/model/add_ticket_response.dart';
+import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
+import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
 import 'package:hrms/ticket/model/my_ticket_response.dart';
-import 'package:hrms/ticket/model/ticket_type_response.dart';
 import 'package:hrms/ticket/ticket_list_item.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
 
 import '../user/AuthUser.dart';
+import 'model/AddTicketResponse.dart';
 
 class MyTicketDashBoard extends StatefulWidget {
   const MyTicketDashBoard({Key key}) : super(key: key);
@@ -36,16 +38,13 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
     _tabController = TabController(length: 2, vsync: this);
     _presenter=TicketPresenter(this);
 
-    getuserId();
+
 
     setState(() {});
     super.initState();
   }
 
-  void getuserId() async {
-    var userData = await (AuthUser.getInstance()).getCurrentUser();
-    _presenter.getMyCase(context, userData.userId);
-  }
+
 
   @override
   void dispose() {
@@ -183,10 +182,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
     // TODO: implement onTicketAddedFecthed
   }
 
-  @override
-  void onTicketTypeFecthed(TicketTypeResponse response) {
-    // TODO: implement onTicketTypeFecthed
-  }
+
 
   @override
   void onUserByDepartmentFecthed(GetAllUser response) {
@@ -203,6 +199,21 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
      setState(() {
 
      });
+  }
+
+  @override
+  void onImageFecthed(UploadImageResponse response) {
+    // TODO: implement onImageFecthed
+  }
+
+  @override
+  void onTicketPriorityFecthed(TicketPriorityResponse response) {
+    // TODO: implement onTicketPriorityFecthed
+  }
+
+  @override
+  void onTicketcateFecthed(TicketCategoryResponse response) {
+    // TODO: implement onTicketcateFecthed
   }
 }
 

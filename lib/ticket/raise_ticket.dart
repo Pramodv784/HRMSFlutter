@@ -1,25 +1,34 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:hrms/profile/model/upload_image_response.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/Fonts.dart';
 import 'package:hrms/res/Images.dart';
+import 'package:hrms/ticket/model/AddTicketRequest.dart';
+import 'package:hrms/ticket/model/AddTicketResponse.dart';
 import 'package:hrms/ticket/model/GetAllUser.dart';
 import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
-import 'package:hrms/ticket/model/add_ticket_response.dart';
-import 'package:hrms/ticket/model/ticket_type_response.dart';
+import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
+import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
+
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/InputField.dart';
 import 'package:hrms/utility/RevButton.dart';
 import 'package:hrms/utility/Utility.dart';
+import 'package:image_picker/image_picker.dart';
 import '../res/Screens.dart';
 import '../user/AuthUser.dart';
 import '../utility/Dialogs.dart';
-import 'model/add_ticket_request.dart';
+import 'model/image_model.dart';
 
 class RaiseTicket extends StatefulWidget {
   CaseDataList _data;
-   RaiseTicket(this._data,{Key key}) : super(key: key);
+
+  RaiseTicket(this._data, {Key key}) : super(key: key);
 
   @override
   _RaiseTicketState createState() => _RaiseTicketState();
@@ -29,37 +38,34 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
   String description = '';
   var text = 0;
   TicketPresenter _presenter;
-  List<CaseTypesData> ticketTypeList = [];
+
   AddTicketRequest _request = AddTicketRequest();
   int userId = 0, orgId, cmpId = 0;
   List<EmployeeData> empList = [];
+  final picker = ImagePicker();
+  File _FileImage;
+  List<TicketCatData> _ticketCategoryList = [];
+  List<PriorityData> _priorityList = [];
+  List<ImageModel> imageList = [];
+  int imagecount=0;
+
   @override
   void initState() {
     _presenter = TicketPresenter(this);
-    _presenter.getTicketType(context);
+      _presenter.getTicketCategory(context);
 
-    getuserId();
     super.initState();
   }
 
 
-
-  void getuserId() async {
-    var userData = await (AuthUser.getInstance()).getCurrentUser();
-    userId = userData.userId;
-    orgId = userData.userCredentials.orgId;
-    cmpId = userData.userCredentials.companyId;
-    print(
-        'login Data****${AuthUser.getInstance().getCurrentUser().toString()}');
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: GestureDetector(
-        onTap: (){
-          FocusScope.of(context).requestFocus(new FocusNode());
+        onTap: () {
+           FocusScope.of(context).requestFocus(new FocusNode());
         },
         child: SafeArea(
           child: Column(
@@ -90,14 +96,14 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                             ),
                             TextSpan(
                               text: '*',
-                              style:
-                                  TextStyle(color: AppColors.red, fontSize: 16.0),
+                              style: TextStyle(
+                                  color: AppColors.red, fontSize: 16.0),
                             ),
                           ])),
                           SizedBox(
                             height: 5.0,
                           ),
-                          DropdownButtonFormField<CaseTypesData>(
+                          DropdownButtonFormField<TicketCatData>(
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20.0),
@@ -115,24 +121,25 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                               fillColor: AppColors.dropbg,
                             ),
                             dropdownColor: Colors.white,
-                            onChanged: (CaseTypesData value) {
+                            onChanged: (TicketCatData value) {
                               setState(() {
-                                _request.caseTypeId = value.caseTypeId.toString();
-                                _presenter.getUser(context,value.caseTypeId);
+                                _request.ticketCategoryId =
+                                    value.ticketCategoryId;
+                                _presenter.getPriority(
+                                    context, value.ticketCategoryId);
                                 print('Valuse....${value}');
-
                               });
                             },
                             hint: Text('Select Category'),
                             icon: new Image.asset(Images.DropIcon),
                             items:
                                 //["feed back type"]
-                                ticketTypeList
-                                    .map(
-                                        (CaseTypesData label) => DropdownMenuItem(
-                                              child: Text(label.caseType),
-                                              value: label,
-                                            ))
+                                _ticketCategoryList
+                                    .map((TicketCatData label) =>
+                                        DropdownMenuItem(
+                                          child: Text(label.categoryName),
+                                          value: label,
+                                        ))
                                     .toList(),
                           ),
                           SizedBox(
@@ -141,19 +148,19 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                           RichText(
                               text: TextSpan(children: [
                             TextSpan(
-                              text: 'AssignTo ',
+                              text: 'Priority ',
                               style: textStyleWhite12px400w,
                             ),
                             TextSpan(
                               text: '*',
-                              style:
-                                  TextStyle(color: AppColors.red, fontSize: 16.0),
+                              style: TextStyle(
+                                  color: AppColors.red, fontSize: 16.0),
                             ),
                           ])),
                           SizedBox(
                             height: 5.0,
                           ),
-                          DropdownButtonFormField<EmployeeData>(
+                          DropdownButtonFormField<PriorityData>(
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20.0),
@@ -171,22 +178,21 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                               fillColor: AppColors.dropbg,
                             ),
                             dropdownColor: Colors.white,
-                            onChanged: (EmployeeData value) {
+                            onChanged: (PriorityData value) {
                               setState(() {
                                 // _request.caseTypeId=value.caseTypeId.toString();
                                 print('Valuse....${value}');
-                                _request.assignedToId =
-                                    value.employeeId.toString();
+                                _request.ticketPriorityId = value.ticPriorityId;
                               });
                             },
-                            hint: Text('Select Category'),
+                            hint: Text('Select Priority'),
                             icon: new Image.asset(Images.DropIcon),
                             items:
                                 //["feed back type"]
-                                empList
-                                    .map((EmployeeData label) =>
+                                _priorityList
+                                    .map((PriorityData label) =>
                                         DropdownMenuItem(
-                                          child: Text('${label.firstName} ${label.lastName}'),
+                                          child: Text('${label.priorityName}'),
                                           value: label,
                                         ))
                                     .toList(),
@@ -202,8 +208,8 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                             ),
                             TextSpan(
                               text: '*',
-                              style:
-                                  TextStyle(color: AppColors.red, fontSize: 16.0),
+                              style: TextStyle(
+                                  color: AppColors.red, fontSize: 16.0),
                             ),
                           ])),
                           SizedBox(
@@ -216,10 +222,9 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                               errorMessage: 'Please Enter Title**',
                               inputType: InputType.EMAIL,
                               onTextChange: (value) {
-                                _request.caseTitle = value;
-
+                                _request.title = value;
                               },
-                              text: widget?._data?.caseTitle??"",
+                              text: widget?._data?.caseTitle ?? "",
                             ),
                           ),
                           SizedBox(
@@ -256,7 +261,8 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                               maxLines: null,
                               expands: true,
                               maxLength: 200,
-                              initialValue: '${widget?._data?.caseDescription??''}',
+                              initialValue:
+                                  '${widget?._data?.caseDescription ?? ''}',
                               textAlignVertical: TextAlignVertical.top,
                               textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
@@ -265,10 +271,10 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                                 description = vale;
                                 setState(() {});
                               },
-
                               decoration: InputDecoration(
                                   hintText: 'Enter Description',
-                                  hintStyle: TextStyle(color: AppColors.greyNew),
+                                  hintStyle:
+                                      TextStyle(color: AppColors.greyNew),
                                   border: InputBorder.none,
                                   counterStyle: TextStyle(
                                     height: double.minPositive,
@@ -286,37 +292,58 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
                           SizedBox(
                             height: 20.0,
                           ),
-                          /*   Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    Images.AddDocumentIcon,
-                                    width: 20,
-                                    height: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-
-                                  ),
-                                  RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                          text: 'Add Attachment',
-                                          style: textStyleWhite12px400wRed,
-
-                                        ),
-
-                                        */ /* TextSpan(
-                                          text: '*',
-                                          style: TextStyle(color: AppColors.red, fontSize: 16.0),
-                                        ),*/ /*
-                                      ])),
-                                  */ /* Text('${text}/200 words',
-                                    style: textStyleWhite12px400w,
-                                  ),*/ /**/ /* Text('${text}/200 words',
-                                    style: textStyleWhite12px400w,
-                                  ),*/ /*
-                                ],
-                              ),*/
+                          InkWell(
+                            child: Row(
+                              children: [
+                                SvgPicture.asset(
+                                  Images.AddDocumentIcon,
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text('Attach File'),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                Icon(Icons.error)
+                              ],
+                            ),
+                            onTap: () {
+                              imageList.length<=5?
+                              _modalBottomSheetMenu():
+                              Utility.showErrorToast(context, 'Only 5 image can upload');
+                            },
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          if (imageList.isNotEmpty)
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: imageList.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 8.0, horizontal: 5.0),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                          color: AppColors.grey),
+                                      child: FittedBox(
+                                          child: Text('${imageList[index].imageName}')),
+                                    ),
+                                    trailing: InkWell(
+                                      child: Icon(Icons.cancel),
+                                      onTap: () {
+                                        imageList.remove(imageList[index]);
+                                        setState(() {});
+                                      },
+                                    ),
+                                  );
+                                }),
                           SizedBox(
                             height: 40,
                           ),
@@ -361,7 +388,8 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
               radius: 50.0,
               borderColor: AppColors.grey,
               onTap: () async {
-                Navigator.pop(context);
+               // Navigator.pop(context);
+                Navigator.pushNamed(context, Screens.MyChat);
               },
             ),
           ),
@@ -369,7 +397,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
           Expanded(
             child: RevButton(
               width: 55.0,
-              text: widget?._data!=null?'Update':'Save',
+              text: widget?._data != null ? 'Update' : 'Save',
               radius: 50.0,
               borderColor: AppColors.colorPrimary,
               textStyle: textStyleWhite14px600w,
@@ -383,36 +411,148 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
     );
   }
 
+  void _modalBottomSheetMenu() {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        builder: (builder) {
+          return Wrap(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(12.0),
+                      topLeft: Radius.circular(12.0),
+                    )),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 60.0,
+                      height: 8.0,
+                      decoration: BoxDecoration(
+                        color: AppColors.lineColorGrey,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                    verticalSpace(20.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                                pickImage(ImageSource.camera,imageList.length);
+                              },
+                              child: Container(
+                                  width: 90,
+                                  height: 90,
+                                  padding: const EdgeInsets.all(20.0),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.colorPrimaryLight,
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  child: Image.asset(Images.CameraIcon)),
+                            ),
+                            verticalSpace(4.0),
+                            Text(
+                              'Camera',
+                              style: textStyle12px600w,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                                pickImage(ImageSource.gallery,imageList.length);
+                              },
+                              child: Container(
+                                  width: 90,
+                                  height: 90,
+                                  padding: const EdgeInsets.all(20.0),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.colorPrimaryLight,
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  child: Image.asset(Images.GalleryIcon)),
+                            ),
+                            verticalSpace(4.0),
+                            Text(
+                              'Gallery',
+                              style: textStyle12px600w,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  Future pickImage(ImageSource source,int count) async {
+    final pickedFile = await picker.getImage(source: source, imageQuality: 80);
+    imagecount=count;
+    if (pickedFile != null) {
+      _FileImage = File(pickedFile.path);
+
+      String fileName1 = _FileImage.uri.pathSegments.last;
+      imageList.add(ImageModel(fileName1, ''));
+      _presenter.uploadImage(context, _FileImage);
+      setState(() {});
+      print('file path****${_FileImage}');
+    }
+  }
+
   @override
   onError(String message) {
     Utility.showErrorToast(context, message);
   }
 
-  @override
-  void onTicketTypeFecthed(TicketTypeResponse response) {
-    ticketTypeList.clear();
-    ticketTypeList.addAll(response.caseTypesData);
-    setState(() {});
-  }
-
   void addTicket() {
-    _request.comment = description;
-    _request.caseCreatedById = userId.toString();
-    _request.orgId = orgId.toString();
-    _request.companyId = cmpId.toString();
-    _request.assignedToId = '210';
+    _request.message = description;
     print('Request *** ${_request.toString()}');
+  /*  if (imageList.length==1) {
+      _request.image1 = imageList[0].imageUrl;
+    } else if (imageList.length==2) {
+      _request.image1 = imageList[0].imageUrl;
+      _request.image2 = imageList[1].imageUrl;
+    } else if (imageList.length==3) {
+      _request.image1 = imageList[0].imageUrl;
+      _request.image2 = imageList[1].imageUrl;
+      _request.image3 = imageList[2].imageUrl;
+    }else if (imageList.length==4) {
+      _request.image1 = imageList[0].imageUrl;
+      _request.image2 = imageList[1].imageUrl;
+      _request.image3 = imageList[2].imageUrl;
+      _request.image4 = imageList[3].imageUrl;
+    } else if (imageList.length==5) {
+      _request.image1 = imageList[0].imageUrl;
+      _request.image2 = imageList[1].imageUrl;
+      _request.image3 = imageList[2].imageUrl;
+      _request.image4 = imageList[3].imageUrl;
+      _request.image5 = imageList[4].imageUrl;
+    }*/
 
-    if (_request.caseTypeId == null) {
-      Utility.showErrorToast(context, 'please select category type');
-    } else if (_request.assignedToId == null) {
-      Utility.showErrorToast(context, 'please select assign to');
-    } else if (_request.caseTitle == null) {
+
+    if (_request.ticketCategoryId == null) {
+      Utility.showErrorToast(context, 'please select Ticket category ');
+    } else if (_request.ticketPriorityId == null) {
+      Utility.showErrorToast(context, 'please select priority');
+    } else if (_request.title == null) {
       Utility.showErrorToast(context, 'please enter title');
     } else if (description.isEmpty) {
       Utility.showErrorToast(context, 'please enter description');
     } else {
-
       /*widget?._data!=null?
       //update
       _presenter.update(context, _request):
@@ -433,15 +573,53 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
 
   @override
   void onUserByDepartmentFecthed(GetAllUser response) {
-       empList.clear();
-       empList.addAll(response.employeeData);
-       setState(() {
-
-       });
+    empList.clear();
+    empList.addAll(response.employeeData);
+    setState(() {});
   }
 
   @override
-  void onGetMyCaseFecthed(GetMyCaseResponse response) {
+  void onGetMyCaseFecthed(GetMyCaseResponse response) {}
 
+  @override
+  void onImageFecthed(UploadImageResponse response) {
+      switch(imagecount)
+      {
+        case 0:
+          _request.image1=response.data.fileurl;
+          break;
+        case 1:
+          _request.image2=response.data.fileurl;
+          break;
+           case 2:
+          _request.image3=response.data.fileurl;
+          break;
+           case 3:
+          _request.image4=response.data.fileurl;
+          break;
+           case 4:
+          _request.image5=response.data.fileurl;
+          break;
+
+      }
+    setState(() {});
+  }
+
+  @override
+  void onTicketPriorityFecthed(TicketPriorityResponse response) {
+    _priorityList.clear();
+    _priorityList.addAll(response.data);
+    setState(() {
+
+    });
+  }
+
+  @override
+  void onTicketcateFecthed(TicketCategoryResponse response) {
+    _ticketCategoryList.clear();
+    _ticketCategoryList.addAll(response.data);
+    setState(() {
+
+    });
   }
 }

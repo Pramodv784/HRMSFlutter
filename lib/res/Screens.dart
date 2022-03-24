@@ -33,6 +33,7 @@ class Screens {
   static const EmpDetail = "empdetail";
   static const HolidayPage = "holidaypage";
   static const MyTeam= "myteam";
+  static const MyChat= "mychat";
 
 
 }
