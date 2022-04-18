@@ -8,16 +8,17 @@ import 'package:hrms/res/Images.dart';
 import 'package:hrms/ticket/model/GetAllUser.dart';
 import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
 import 'package:hrms/ticket/model/TicketResponse.dart';
-import 'package:hrms/ticket/model/add_ticket_response.dart';
+
 import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
 import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
 import 'package:hrms/ticket/model/my_ticket_response.dart';
-import 'package:hrms/ticket/model/ticket_type_response.dart';
+
 import 'package:hrms/ticket/ticket_closed_list_item.dart';
 import 'package:hrms/ticket/ticket_list_item.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
+import 'package:hrms/utility/Utility.dart';
 
 import '../user/AuthUser.dart';
 import 'model/AddTicketResponse.dart';
@@ -41,6 +42,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     _presenter=TicketPresenter(this);
+    _presenter.getMyTicket(context);
 
 
 
@@ -177,8 +179,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
 
   @override
   onError(String message) {
-    // TODO: implement onError
-    throw UnimplementedError();
+   Utility.showErrorToast(context, message);
   }
 
   @override
@@ -202,7 +203,7 @@ class _MyTicketDashBoardState extends State<MyTicketDashBoard>
   void onGetMyTicketFecthed(TicketResponse response) {
     for(OpenTicket data in response.data.openTicket)
     {
-      widgetOpenList.add(TicketListItem(data,_presenter));
+      widgetOpenList.add(TicketListItem(data));
     }
     for(CloseTicket data in response.data.closeTicket)
     {

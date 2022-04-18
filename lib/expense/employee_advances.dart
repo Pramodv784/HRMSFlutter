@@ -362,26 +362,28 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
                             SizedBox(
                               height: 20.0,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                RichText(
-                                    text: TextSpan(children: [
-                                  TextSpan(
-                                    text: 'Note for approvers',
+                            Flexible(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  RichText(
+                                      text: TextSpan(children: [
+                                    TextSpan(
+                                      text: 'Note for approvers',
+                                      style: textStyleWhite12px400w,
+                                    ),
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(
+                                          color: AppColors.red, fontSize: 16.0),
+                                    ),
+                                  ])),
+                                  Text(
+                                    '${text}/200 words',
                                     style: textStyleWhite12px400w,
                                   ),
-                                  TextSpan(
-                                    text: '*',
-                                    style: TextStyle(
-                                        color: AppColors.red, fontSize: 16.0),
-                                  ),
-                                ])),
-                                Text(
-                                  '${text}/200 words',
-                                  style: textStyleWhite12px400w,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             SizedBox(
                               height: 5.0,
@@ -573,6 +575,8 @@ class _EmployeeAdvancesState extends State<EmployeeAdvances>
           return Wrap(
             children: [
               Container(
+                height: 200.0,
+
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 decoration: BoxDecoration(
                     color: AppColors.white,

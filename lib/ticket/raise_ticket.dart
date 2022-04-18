@@ -14,8 +14,6 @@ import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
 import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
 
 import 'package:hrms/ticket/model/TicketResponse.dart';
-import 'package:hrms/ticket/model/add_ticket_response.dart';
-import 'package:hrms/ticket/model/ticket_type_response.dart';
 import 'package:hrms/ticket/ticket_presenter.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 import 'package:hrms/utility/Header.dart';
@@ -423,6 +421,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
           return Wrap(
             children: [
               Container(
+                height: 200.0,
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 decoration: BoxDecoration(
                     color: AppColors.white,
@@ -524,27 +523,7 @@ class _RaiseTicketState extends State<RaiseTicket> implements TicketView {
   void addTicket() {
     _request.message = description;
     print('Request *** ${_request.toString()}');
-  /*  if (imageList.length==1) {
-      _request.image1 = imageList[0].imageUrl;
-    } else if (imageList.length==2) {
-      _request.image1 = imageList[0].imageUrl;
-      _request.image2 = imageList[1].imageUrl;
-    } else if (imageList.length==3) {
-      _request.image1 = imageList[0].imageUrl;
-      _request.image2 = imageList[1].imageUrl;
-      _request.image3 = imageList[2].imageUrl;
-    }else if (imageList.length==4) {
-      _request.image1 = imageList[0].imageUrl;
-      _request.image2 = imageList[1].imageUrl;
-      _request.image3 = imageList[2].imageUrl;
-      _request.image4 = imageList[3].imageUrl;
-    } else if (imageList.length==5) {
-      _request.image1 = imageList[0].imageUrl;
-      _request.image2 = imageList[1].imageUrl;
-      _request.image3 = imageList[2].imageUrl;
-      _request.image4 = imageList[3].imageUrl;
-      _request.image5 = imageList[4].imageUrl;
-    }*/
+
 
 
     if (_request.ticketCategoryId == null) {

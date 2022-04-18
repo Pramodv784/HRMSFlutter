@@ -34,6 +34,8 @@ class Screens {
   static const HolidayPage = "holidaypage";
   static const MyTeam= "myteam";
   static const MyChat= "mychat";
+  static const ReceivedTicket= "receivedticket";
+  static const ReceivedTicketDetail= "receivedticketdetail";
 
 
 }

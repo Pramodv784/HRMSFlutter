@@ -17,6 +17,7 @@ List<TimeModel> timeList=[
 List<TimeModel> helpList=[
   TimeModel('Raise Ticket', Images.RaiseTicktIcon, 'You can raise a ticket from here'),
   TimeModel('My Tickets', Images.MyTicketIcon, 'List of tickets you have raised'),
+  TimeModel('Recieved Ticket', Images.MyTicketIcon, 'List of tickets you have recieved'),
 ];
 List<TimeModel> expenseList=[
   TimeModel('Add Expenses', Images.ExpenseIcon, 'Save and Claim your expenses here.'),

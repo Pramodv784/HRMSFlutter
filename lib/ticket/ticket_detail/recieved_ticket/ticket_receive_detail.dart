@@ -1,40 +1,44 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hrms/res/AppColors.dart';
+import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
 import 'package:hrms/ticket/ticket_detail/model/AddCommentResponse.dart';
-import 'package:hrms/ticket/ticket_detail/model/AddTicketCommentRequest.dart';
 import 'package:hrms/ticket/ticket_detail/model/TicketDetailResposne.dart';
-import 'package:hrms/ticket/ticket_detail/ticket_detail_presenter.dart';
-import 'package:hrms/ticket/ticket_detail/ticket_detail_view.dart';
+import 'package:hrms/ticket/ticket_detail/recieved_ticket/model/RecievedTicketResponse.dart';
+import 'package:hrms/ticket/ticket_detail/recieved_ticket/model/ticket_receive_detail_resposne.dart';
+import 'package:hrms/ticket/ticket_detail/recieved_ticket/ticket_recieve_view.dart';
+import 'package:hrms/ticket/ticket_detail/recieved_ticket/ticket_recieved_presenter.dart';
 import 'package:hrms/utility/Header.dart';
 import 'package:hrms/utility/Utility.dart';
 
-import '../model/GetMyCaseResponse.dart';
-import '../model/TicketResponse.dart';
-
-class TicketDetail extends StatefulWidget {
+import '../../../employee/emp_block.dart';
+import '../../../res/Fonts.dart';
+import '../../../res/Images.dart';
+import '../model/AddTicketCommentRequest.dart';
+class TicketReceiveDetail extends StatefulWidget {
   OpenTicket _data;
-   TicketDetail(this._data,{Key key}) : super(key: key);
+  TicketReceiveDetail(this._data,{Key key}) : super(key: key);
 
   @override
-  _TicketDetailState createState() => _TicketDetailState();
+  _TicketRecieveDetailState createState() => _TicketRecieveDetailState();
 }
 
-class _TicketDetailState extends State<TicketDetail> implements TicketDetailView {
-
+class _TicketRecieveDetailState extends State<TicketReceiveDetail> implements TicketRecivedView {
+  EmpBlock empBlock=EmpBlock();
   AddTicketCommentRequest _request=AddTicketCommentRequest();
-  List<CommentList> commentList=[];
+  List<CommentDetailList> commentList=[];
   String msg='';
   final myController = TextEditingController();
   final _controller = ScrollController();
-  TicketDetailPresenter _presenter;
+  TicketRecievedPresenter _presenter;
+  TicketReceiveDetailResposne ticketReceiveDetailResposne;
 
   @override
   void initState() {
-    _presenter=TicketDetailPresenter(this);
-    _presenter.getTicketDetail( widget._data.ticketId);
+    _presenter=TicketRecievedPresenter(this);
+    _presenter.getReceivedTicketDetail( context,widget._data.ticketId);
     super.initState();
   }
   @override
@@ -43,7 +47,7 @@ class _TicketDetailState extends State<TicketDetail> implements TicketDetailView
       body: SafeArea(
         child: Column(
           children: [
-            Header(headerText: 'Ticket Detail',),
+            Header(headerText: '${ticketReceiveDetailResposne!=null?ticketReceiveDetailResposne.data.employeeBlock.employeeName:""}',),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: _pullRefresh,
@@ -177,7 +181,7 @@ class _TicketDetailState extends State<TicketDetail> implements TicketDetailView
 
   }
   Future<void> _pullRefresh() async {
-    _presenter.getTicketDetail(widget._data.ticketId);
+    _presenter.getReceivedTicketDetail(context,widget._data.ticketId);
     setState(() {});
   }
 
@@ -192,22 +196,35 @@ class _TicketDetailState extends State<TicketDetail> implements TicketDetailView
 
   }
 
-  @override
-  void onTicketDetailFecthed(TicketDetailResposne response) {
-     commentList.clear();
-     commentList.addAll(response.data.commentList);
-     setState(() {
 
-     });
+
+
+
+  @override
+  onRecievedDetailFetch(TicketReceiveDetailResposne response) {
+    commentList.clear();
+    commentList.addAll(response.data.commentList);
+    ticketReceiveDetailResposne=response;
+    setState(() {
+
+    });
   }
 
   @override
-  void onTicketDetailCommentPost(AddCommentResponse response) {
-   _presenter.getTicketDetail(widget._data.ticketId);
-   setState(() {
+  onRecievedFetch(RecievedTicketResponse response) {
 
-   });
   }
+
+  @override
+  onRecievedDetailCommentFetch(AddCommentResponse response) {
+    _presenter.getReceivedTicketDetail(context,widget._data.ticketId);
+    setState(() {
+
+    });
+  }
+
+
+
 }
 
 

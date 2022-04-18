@@ -5,6 +5,7 @@ import 'package:hrms/employee/model/employee_list_response.dart';
 import 'package:hrms/employee/model/get_company_type.dart';
 import 'package:hrms/employee/model/get_emp_type_response.dart';
 import 'package:hrms/employee/model/get_roll_type_response.dart';
+import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
 
 class EmpRepo{
 ApiRepository apiRepository=ApiRepository();
@@ -22,6 +23,10 @@ Future<GetCompanyType> getCompany(){
 Future<GetEmpTypeResponse> getEmpType(){
  return apiRepository.fetchEmpType();
 }
+Future<TicketCategoryResponse> getCategory(){
+ return apiRepository.getCatogry();
+}
+
 
 
 

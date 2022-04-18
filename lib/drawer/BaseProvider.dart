@@ -15,6 +15,7 @@ class BaseProvider extends ChangeNotifier {
   bool isOpen = false;
   bool isPlaying = false;
 
+
   String get currentScreen =>   _currentScreen ?? Screens.kHomeScreen;
 
   set currentScreen(String value) {
@@ -32,6 +33,7 @@ class BaseProvider extends ChangeNotifier {
     sxoffSet = 122;
     syoffSet = 110;
     sAngle = -0.275;
+
     notifyListeners();
 
   }
@@ -42,6 +44,7 @@ class BaseProvider extends ChangeNotifier {
     angle = 0;
     scaleFactor = 1;
     isOpen = false;
+
 
     sxoffSet = 0;
     syoffSet = 0;

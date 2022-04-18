@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hrms/drawer/Base.dart';
 import 'package:hrms/drawer/BaseProvider.dart';
 import 'package:hrms/home_screen/card/card_wfh_list.dart';
 import 'package:hrms/home_screen/home_presenter.dart';
@@ -36,7 +37,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateMixin implements HomeView   {
+class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderStateMixin implements HomeView,naviclick   {
   HomePresenter _presenter;
   List<MenuList> homelist = [];
 
@@ -389,6 +390,7 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
 
   Container header(BaseProvider baseProvider) {
 
+
     return Container(
       color: AppColors.colorPrimary,
       child: Padding(
@@ -422,13 +424,18 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
                       {
                         controller.reverse();
                         baseProvider.close();
+                        setState(() {
+
+                        });
                       }
 
                     else
                       {
-
                         controller.forward();
                         baseProvider.open();
+                        setState(() {
+
+                        });
                       }
 
                   },
@@ -561,5 +568,10 @@ class _HomeScreenState extends State<HomeScreen>  with SingleTickerProviderState
     getClockInTimeResponse = response;
     checkStatus = response.data.isClockIn;
     setState(() {});
+  }
+
+  @override
+  void iconClick(bool status) {
+    status?controller.reverse():controller.forward();
   }
 }

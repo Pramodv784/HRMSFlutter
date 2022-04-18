@@ -96,14 +96,14 @@ class _ProfilePageState extends State<ProfilePage>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _FileImage == null
-                                    ? _response?.profile.isEmpty
+                                    ? _response?.profile==null
                                         ? Image.asset(Images.ProfileUserIcon)
                                         : InkWell(
                                             onTap: () {
                                               Navigator.pushNamed(
                                                   context, Screens.ImageView,
                                                   arguments: [
-                                                    _response.profile
+                                                    _response?.profile
                                                   ]);
                                             },
                                             child: Hero(
@@ -662,6 +662,7 @@ class _ProfilePageState extends State<ProfilePage>
   @override
   void onProfileFetch(ProfileResponse response) {
     _response = response;
+    print("Profile Response ****${response.toString()}");
     setState(() {});
 
   }

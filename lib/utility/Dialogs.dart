@@ -335,6 +335,7 @@ class Dialogs {
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 40.0),
           height: Utility.screenHeight(context) * .23,
+          width: Utility.screenWidth(context)* .60,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             color: AppColors.white,

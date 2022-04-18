@@ -1,38 +1,21 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hrms/leave_request/model/data_model.dart';
-import 'package:hrms/res/AppColors.dart';
-import 'package:hrms/res/Fonts.dart';
-import 'package:hrms/res/Images.dart';
-import 'package:hrms/res/Screens.dart';
-import 'package:hrms/ticket/model/TicketResponse.dart';
-import 'package:hrms/ticket/ticket_presenter.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../ticket/model/my_ticket_response.dart';
-import 'model/GetMyCaseResponse.dart';
+import '../../../res/AppColors.dart';
+import '../../../res/Fonts.dart';
+import '../../../res/Images.dart';
+import '../../../res/Screens.dart';
+import 'model/RecievedTicketResponse.dart';
 
-class TicketListItem extends StatefulWidget {
+class ReceivedItem extends StatelessWidget {
   OpenTicket _data;
-
-
-  TicketListItem(this._data, {Key key}) : super(key: key);
-
-  @override
-  State<TicketListItem> createState() => _TicketListItemState();
-}
-
-class _TicketListItemState extends State<TicketListItem> {
-
+   ReceivedItem(this._data,{Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return InkWell(
       onTap: (){
-        Navigator.pushNamed(context, Screens.MyChat,arguments: widget._data);
+        Navigator.pushNamed(context, Screens.ReceivedTicketDetail,arguments:_data);
       },
       child: Container(
         decoration: BoxDecoration(color: Color(0xFFEEF4FB)),
@@ -46,10 +29,10 @@ class _TicketListItemState extends State<TicketListItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${widget._data.title}',
+                    '${_data.title}',
                     style: textStyleWhite12px400w,
                   ),
-                 /* Flexible(
+                  /* Flexible(
                     child: Container(
                       width: 150.0,
                       height: 50,
@@ -64,7 +47,7 @@ class _TicketListItemState extends State<TicketListItem> {
                             value: itemselected,
                             borderRadius: BorderRadius.circular(20.0),
                             icon: new Image.asset(Images.DropIcon),
-                            items:widget._data.statuses
+                            items:_data.statuses
                                 .map(
                                     (Statuses label) => DropdownMenuItem(
                                   child: Text(label.statusVal),
@@ -78,7 +61,7 @@ class _TicketListItemState extends State<TicketListItem> {
                             }),
 
                             hint: Container(
-                              child: Text('${widget._data.caseStatus}'),
+                              child: Text('${_data.caseStatus}'),
                             ),
                           ),
                     ),
@@ -90,7 +73,7 @@ class _TicketListItemState extends State<TicketListItem> {
                 height: 8.0,
               ),
               Text(
-                '${widget._data.ticketStatus}',
+                '${_data.ticketStatus}',
                 style: textStyleSubText14px600w,
               ),
               SizedBox(
@@ -108,7 +91,7 @@ class _TicketListItemState extends State<TicketListItem> {
                       child: Container(
                         child: Column(
                           children: [
-                            Text('${widget._data.categoryName}',
+                            Text('${_data.categoryName}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14.0,
@@ -142,14 +125,14 @@ class _TicketListItemState extends State<TicketListItem> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Assigned To',
+                        'Ticket from',
                         style: textStyleWhite12px400w,
                       ),
                       SizedBox(
                         height: 8.0,
                       ),
                       Text(
-                        '${widget._data.assignedTo}',
+                        '${_data.assignedTo}',
                         style: textStyleSubText14px600w,
                       ),
                     ],

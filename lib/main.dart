@@ -17,6 +17,8 @@ import 'package:hrms/profile/profile_page.dart';
 import 'package:hrms/res/AppColors.dart';
 import 'package:hrms/res/RouteTransition.dart';
 import 'package:hrms/res/Screens.dart';
+import 'package:hrms/ticket/ticket_detail/recieved_ticket/recieved_ticket.dart';
+import 'package:hrms/ticket/ticket_detail/recieved_ticket/ticket_receive_detail.dart';
 import 'package:hrms/ticket/ticket_detail/ticket_detail.dart';
 import 'package:hrms/ticket/my_tickets_dashboard.dart';
 import 'package:hrms/ticket/raise_ticket.dart';
@@ -127,7 +129,7 @@ class _ScreenState extends State<MyApp> {
               return RouteTransition(widget: LeaveHistoryRequest());
               break;
             case Screens.MyChat:
-              return RouteTransition(widget: TicketDetail());
+              return RouteTransition(widget: TicketDetail(settings.arguments));
               break;
 
             case Screens.FeedbcakHistory:
@@ -174,6 +176,13 @@ class _ScreenState extends State<MyApp> {
               break;
             case Screens.HolidayPage:
               return RouteTransition(widget: HolidayPage());
+              break;
+            case Screens.ReceivedTicket:
+              return RouteTransition(widget: RecievedTicket());
+              break;
+            case Screens.ReceivedTicketDetail:
+              return RouteTransition(
+                  widget: TicketReceiveDetail(settings.arguments));
               break;
 
             case Screens.CommonPage:

@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
-
 import 'package:hrms/api_provider/ApiController.dart';
 import 'package:hrms/api_provider/endpoints.dart';
 import 'package:hrms/expense/expense_view.dart';
@@ -20,7 +19,6 @@ import 'package:hrms/ticket/model/GetMyCaseResponse.dart';
 import 'package:hrms/ticket/model/TicketCategoryResponse.dart';
 import 'package:hrms/ticket/model/TicketPriorityResponse.dart';
 import 'package:hrms/ticket/model/TicketResponse.dart';
-import 'package:hrms/ticket/model/add_ticket_response.dart';
 import 'package:hrms/ticket/model/my_ticket_response.dart';
 import 'package:hrms/ticket/ticket_view.dart';
 
@@ -30,35 +28,33 @@ import 'package:hrms/utility/Utility.dart';
 
 import '../main.dart';
 
-
 class TicketPresenter {
   var tag = 'TicketPresenter ';
   static const encryptionChannel = const MethodChannel('enc/dec');
-
 
   TicketView _view;
   ApiController _repository = ApiController.getInstance();
 
   TicketPresenter(this._view);
 
-
   getTicketCategory(BuildContext context) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.TicketCategory}',headers: await Utility.header())
+      _repository.get2('${EndPoints.TicketCategory}',
+          headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
           Dialogs.hideLoader(context);
-          TicketCategoryResponse data = TicketCategoryResponse.fromJson(res.data);
+          TicketCategoryResponse data =
+              TicketCategoryResponse.fromJson(res.data);
           if (data?.status ?? false)
             _view.onTicketcateFecthed(data);
           else {
             _view.onError(data.message);
           }
-        }
-        ).catchError((e) async {
+        }).catchError((e) async {
           Utility.log(tag, e);
           Dialogs.hideLoader(context);
           //  _view.onError(e);
@@ -66,23 +62,25 @@ class TicketPresenter {
         });
     }
   }
-  getPriority(BuildContext context,int id) async {
+
+  getPriority(BuildContext context, int id) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.TicketPriority}?ticketCategoryId=$id',headers: await Utility.header())
+      _repository.get2('${EndPoints.TicketPriority}?ticketCategoryId=$id',
+          headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
           Dialogs.hideLoader(context);
-          TicketPriorityResponse data = TicketPriorityResponse.fromJson(res.data);
+          TicketPriorityResponse data =
+              TicketPriorityResponse.fromJson(res.data);
           if (data?.status ?? false)
             _view.onTicketPriorityFecthed(data);
           else {
             _view.onError(data.message);
           }
-        }
-        ).catchError((e) async {
+        }).catchError((e) async {
           Utility.log(tag, e);
           Dialogs.hideLoader(context);
           //  _view.onError(e);
@@ -91,17 +89,12 @@ class TicketPresenter {
     }
   }
 
-
-
-
-
-
-
-  getMyCase(BuildContext context,int id) async {
+  getMyCase(BuildContext context, int id) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetMyCase}?Id=$id',headers: await Utility.header())
+      _repository.get2('${EndPoints.GetMyCase}?Id=$id',
+          headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
@@ -112,8 +105,7 @@ class TicketPresenter {
           else {
             _view.onError(data.message);
           }
-        }
-        ).catchError((e) async {
+        }).catchError((e) async {
           Utility.log(tag, e);
           Dialogs.hideLoader(context);
           //  _view.onError(e);
@@ -121,11 +113,13 @@ class TicketPresenter {
         });
     }
   }
+
   AddTicket(BuildContext context, AddTicketRequest addTicketRequest) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.post(EndPoints.AddTicket, body: addTicketRequest.toJson(),headers: await Utility.header())
+      _repository.post(EndPoints.AddTicket,
+          body: addTicketRequest.toJson(), headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
@@ -137,8 +131,7 @@ class TicketPresenter {
           else {
             _view.onError(data.message);
           }
-        }
-        ).catchError((e) async {
+        }).catchError((e) async {
           Utility.log(tag, e);
           Dialogs.hideLoader(context);
           //  _view.onError(e);
@@ -146,7 +139,8 @@ class TicketPresenter {
         });
     }
   }
- /* updateTicketStatus(BuildContext context, AddTicketRequest addTicketRequest) async {
+
+  /* updateTicketStatus(BuildContext context, AddTicketRequest addTicketRequest) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
@@ -205,16 +199,17 @@ class TicketPresenter {
         "": await MultipartFile.fromFile(imageToUpload.path,
             filename: fileName),
       });
-      Dialogs.showLoader(context, 'Please wait while uploading image',
-          '');
+      Dialogs.showLoader(context, 'Please wait while uploading image', '');
 
-      _repository.post('${EndPoints.ImageUpload}?FolderName=uploadimage'
+      _repository.post(
+          '${EndPoints.ImageUpload}?FolderName=uploadimage'
           '&BaseUrl=${EndPoints.baseUrl}',
-          body: formData,headers: await Utility.header())
+          body: formData,
+          headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           UploadImageResponse uploadImageResponse =
-          UploadImageResponse.fromJson(res.data);
+              UploadImageResponse.fromJson(res.data);
           Dialogs.hideLoader(context);
           // if (uploadImageResponse?.data?.flag??false) {
           _view.onImageFecthed(uploadImageResponse);
@@ -233,13 +228,12 @@ class TicketPresenter {
     }
   }
 
-
-
   getMyTicket(BuildContext context) async {
     if (await NetworkCheck.check()) {
       Dialogs.showLoader(context, 'Loading ...', '');
       // Dialogs.showLoader(context, 'Please wait getting chapters', '');
-      _repository.get2('${EndPoints.GetMyCase}',headers: await Utility.header())
+      _repository.get2('${EndPoints.GetMyCase}',
+          headers: await Utility.header())
         ..then((Response res) async {
           Utility.log(tag, res);
           Utility.log('${tag}>>>', jsonDecode(res.toString()));
@@ -250,8 +244,7 @@ class TicketPresenter {
           else {
             _view.onError(data.message);
           }
-        }
-        ).catchError((e) async {
+        }).catchError((e) async {
           Utility.log(tag, e);
           Dialogs.hideLoader(context);
           //  _view.onError(e);
@@ -259,9 +252,10 @@ class TicketPresenter {
         });
     }
   }
+
   Future<List<MyTicketResponse>> getMyTicketData(int id) async {
     try {
-      Map headers= await Utility.header();
+      Map headers = await Utility.header();
       Map<String, String> headerMap = headers ?? {};
       Response response = await dio.get('${EndPoints.MyTicketList}?Id=$id',
           options: Options(
@@ -281,6 +275,4 @@ class TicketPresenter {
       throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
-
-
 }

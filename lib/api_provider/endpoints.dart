@@ -1,7 +1,7 @@
 class EndPoints {
   //ngroke
- // static const String baseUrl = "https://uatportalapi.moreyeahs.in";
- static const String baseUrl = "http://609e-103-15-67-125.ngrok.io";
+  //static const String baseUrl = "https://uatportalapi.moreyeahs.in";
+ static const String baseUrl = "http://192.168.1.50:8086";
 
  // static const String baseUrl = "http://981f-103-15-67-125.ngrok.io";
   static const String Login = baseUrl + "/api/userlogin/login";
@@ -51,8 +51,6 @@ class EndPoints {
       baseUrl + "/api/Case/GetEmployeeByRoleId";
   static const String GetMyCase =
       baseUrl + "/api/ticketmaster/mytickets";
-
-
   static const String GetProjectList = baseUrl + "/api/project/GetAllProject";
   static const String LeaveToday = baseUrl + "/api/leave/EmployeesTodayOnLeave";
   static const String GetWFHAllRequestList =
@@ -85,5 +83,11 @@ static const String UpdateTicketStatus =
       baseUrl + "/api/Case/UpdateCaseStatus";
 static const String TicketDetail =
       baseUrl + "/api/ticketmaster/ticketdetails";
+static const String AddTicketComment =
+      baseUrl + "/api/ticketmaster/addcommentonticket";
+ static const String TicketReceived =
+     baseUrl + "/api/ticketmaster/followingticket";
+ static const String TicketReceivedDetail =
+     baseUrl + "/api/ticketmaster/ticketdetails";
 
 }

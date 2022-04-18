@@ -148,7 +148,7 @@ class _TicketCloseedListItemState extends State<TicketCloseedListItem> {
                       height: 8.0,
                     ),
                     Text(
-                      'Ticket Closed On ${Utility.getDateFormate(widget?._data?.closedOn ?? '')}',
+                      'Ticket Closed On ${Utility.formatDate(widget?._data?.closedOn ?? '')}',
                       style: textStyleSubText12px600w,
                     maxLines: 2,
                       overflow: TextOverflow.ellipsis,
